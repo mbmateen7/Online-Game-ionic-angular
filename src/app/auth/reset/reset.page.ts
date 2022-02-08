@@ -1,0 +1,46 @@
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { RestService } from 'src/app/service/rest.service';
+import { AlertController } from '@ionic/angular';
+
+@Component({
+  selector: 'app-reset',
+  templateUrl: './reset.page.html',
+  styleUrls: ['./reset.page.scss'],
+})
+export class ResetPage implements OnInit {
+  email: string;
+
+  constructor(
+    private route: ActivatedRoute,
+    private restService: RestService,
+    private alertController: AlertController,
+    private router: Router
+  ) {}
+
+  ngOnInit() {
+    this.email = this.route.snapshot.paramMap.get('email');
+  }
+
+  onSendCode() {
+    this.restService.postRequest('users/reset', {email: this.email}).subscribe((res) => {
+     this.presentAlert();
+    });
+  }
+
+  async presentAlert() {
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: 'PicPlayce',
+      message: 'Code is sent Succefully! Please check Your mail',
+      buttons: [{text: 'OK', handler: ()=> {
+        this.router.navigate(['send-code']);
+      } }]
+    });
+
+    await alert.present();
+
+    const { role } = await alert.onDidDismiss();
+    console.log('onDidDismiss resolved with role', role);
+  }
+}

@@ -1,0 +1,310 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cssgram/0.1.10/cssgram.min.css" />
+
+<ion-content class="mt-0" *ngIf="!sendGameLoader">
+  <div id="containertop" style="width: 100%">
+
+    <div class="top-buttons-head">
+      <div class="in-left" (click)="onNavigateEvent()">
+        <img src="assets/icon/back-icon.svg" />
+      </div>
+      <div class="in-right">
+        <ion-button class="cus-btn" *ngIf="gameType=='easy'" ion-button (click)="onSendGame()">Next
+        </ion-button>
+
+        <ion-button class="cus-btn" *ngIf="gameType=='medium'" ion-button (click)="onSendGame1()">Next
+        </ion-button>
+        <!-- <ion-button [disabled]="hintWord.invalid" class="cus-btn" *ngIf="type=='easy' && showWordSection" ion-button
+          (click)="onSendGame1()">Send Game</ion-button> -->
+
+        <!-- <button *ngIf="type=='medium'" ion-button (click)="nextPage1()">Next</button> -->
+
+      </div>
+    </div>
+  </div>
+
+  <img [ngStyle]="{'display': hideImage ? 'none' : ''}" width="360" height="360" id="originalImage"
+    *ngIf="cameraImage && gameType =='easy'" src="{{cameraImage}}" (load)="Crop()" />
+
+  <img [ngStyle]="{'display': hideImage ? 'none' : ''}" width="360" height="360" id="originalImage1"
+    *ngIf="cameraImage && gameType =='medium'" src="{{cameraImage}}" (load)="Crop1()" />
+
+
+
+  <!-- <div>
+    <div *ngIf="!filterList.length" class="loader1"></div>
+  </div> -->
+
+
+  <ion-grid *ngIf="gameType == 'medium' " class="ion-justify-content-center" id="container"
+    style="padding: 2px 5vh 0; height: 360px;">
+    <ion-row class="spaceinrow" [ngClass]="primaryFilter">
+
+      <ion-col class="toHide" col-4="4" dragula="totalPiece" style="padding: 2px">
+        <canvas id="canvas1" height="200" width="200" style="display: inline-block" [ngStyle]="{
+   'filter': 'grayscale(' + this.secondaryValues.numbers.grayscale + '%) ' +
+   'hue-rotate(' + this.secondaryValues.numbers.hue_rotate + 'deg) ' +
+   'invert(' + this.secondaryValues.numbers.invert + '%) ' +
+   'sepia(' + this.secondaryValues.numbers.sepia + '%) ' +
+   'saturate(' + this.secondaryValues.numbers.saturate + '%) ' +
+   'opacity(' + this.secondaryValues.numbers.opacity + '%) ' +
+   'brightness(' + this.secondaryValues.numbers.brightness + '%) ' +
+   'contrast(' + this.secondaryValues.numbers.contrast + '%) ' +
+   'blur(' + this.secondaryValues.numbers.blur + 'px)'
+}" (click)="Rotate1(1,'toHide')">
+        </canvas>
+      </ion-col>
+
+      <ion-col class="toHide1" col-4="4" dragula="totalPiece" style="padding: 2px">
+        <canvas id="canvas2" height="200" width="200" style="display: inline-block" [ngStyle]="{
+   'filter': 'grayscale(' + this.secondaryValues.numbers.grayscale + '%) ' +
+   'hue-rotate(' + this.secondaryValues.numbers.hue_rotate + 'deg) ' +
+   'invert(' + this.secondaryValues.numbers.invert + '%) ' +
+   'sepia(' + this.secondaryValues.numbers.sepia + '%) ' +
+   'saturate(' + this.secondaryValues.numbers.saturate + '%) ' +
+   'opacity(' + this.secondaryValues.numbers.opacity + '%) ' +
+   'brightness(' + this.secondaryValues.numbers.brightness + '%) ' +
+   'contrast(' + this.secondaryValues.numbers.contrast + '%) ' +
+   'blur(' + this.secondaryValues.numbers.blur + 'px)'
+}" (click)="Rotate1(2,'toHide1')">
+        </canvas>
+      </ion-col>
+
+      <ion-col class="toHide2" col-4="4" dragula="totalPiece" style="padding: 2px">
+        <canvas id="canvas3" height="200" width="200" style="display: inline-block" [ngStyle]="{
+   'filter': 'grayscale(' + this.secondaryValues.numbers.grayscale + '%) ' +
+   'hue-rotate(' + this.secondaryValues.numbers.hue_rotate + 'deg) ' +
+   'invert(' + this.secondaryValues.numbers.invert + '%) ' +
+   'sepia(' + this.secondaryValues.numbers.sepia + '%) ' +
+   'saturate(' + this.secondaryValues.numbers.saturate + '%) ' +
+   'opacity(' + this.secondaryValues.numbers.opacity + '%) ' +
+   'brightness(' + this.secondaryValues.numbers.brightness + '%) ' +
+   'contrast(' + this.secondaryValues.numbers.contrast + '%) ' +
+   'blur(' + this.secondaryValues.numbers.blur + 'px)'
+}" (click)="Rotate1(3,'toHide2')">
+        </canvas>
+      </ion-col>
+
+    </ion-row>
+    <ion-row class="spaceinrow" [ngClass]="primaryFilter">
+
+      <ion-col class="toHide3" col-4="4" dragula="totalPiece" style="padding: 2px">
+        <canvas id="canvas4" height="200" width="200" style="display: inline-block" [ngStyle]="{
+   'filter': 'grayscale(' + this.secondaryValues.numbers.grayscale + '%) ' +
+   'hue-rotate(' + this.secondaryValues.numbers.hue_rotate + 'deg) ' +
+   'invert(' + this.secondaryValues.numbers.invert + '%) ' +
+   'sepia(' + this.secondaryValues.numbers.sepia + '%) ' +
+   'saturate(' + this.secondaryValues.numbers.saturate + '%) ' +
+   'opacity(' + this.secondaryValues.numbers.opacity + '%) ' +
+   'brightness(' + this.secondaryValues.numbers.brightness + '%) ' +
+   'contrast(' + this.secondaryValues.numbers.contrast + '%) ' +
+   'blur(' + this.secondaryValues.numbers.blur + 'px)'
+}" (click)="Rotate1(4,'toHide3')">
+        </canvas>
+      </ion-col>
+
+      <ion-col class="toHide4" col-4="4" dragula="totalPiece" style="padding: 2px">
+        <canvas id="canvas5" height="200" width="200" style="display: inline-block" [ngStyle]="{
+   'filter': 'grayscale(' + this.secondaryValues.numbers.grayscale + '%) ' +
+   'hue-rotate(' + this.secondaryValues.numbers.hue_rotate + 'deg) ' +
+   'invert(' + this.secondaryValues.numbers.invert + '%) ' +
+   'sepia(' + this.secondaryValues.numbers.sepia + '%) ' +
+   'saturate(' + this.secondaryValues.numbers.saturate + '%) ' +
+   'opacity(' + this.secondaryValues.numbers.opacity + '%) ' +
+   'brightness(' + this.secondaryValues.numbers.brightness + '%) ' +
+   'contrast(' + this.secondaryValues.numbers.contrast + '%) ' +
+   'blur(' + this.secondaryValues.numbers.blur + 'px)'}" (click)="Rotate1(5,'toHide4')">
+        </canvas>
+      </ion-col>
+
+      <ion-col class="toHide5" col-4="4" dragula="totalPiece" style="padding: 2px">
+        <canvas id="canvas6" height="200" width="200" style="display: inline-block" [ngStyle]="{
+   'filter': 'grayscale(' + this.secondaryValues.numbers.grayscale + '%) ' +
+   'hue-rotate(' + this.secondaryValues.numbers.hue_rotate + 'deg) ' +
+   'invert(' + this.secondaryValues.numbers.invert + '%) ' +
+   'sepia(' + this.secondaryValues.numbers.sepia + '%) ' +
+   'saturate(' + this.secondaryValues.numbers.saturate + '%) ' +
+   'opacity(' + this.secondaryValues.numbers.opacity + '%) ' +
+   'brightness(' + this.secondaryValues.numbers.brightness + '%) ' +
+   'contrast(' + this.secondaryValues.numbers.contrast + '%) ' +
+   'blur(' + this.secondaryValues.numbers.blur + 'px)'}" (click)="Rotate1(6,'toHide5')">
+        </canvas>
+      </ion-col>
+    </ion-row>
+
+    <ion-row class="spaceinrow" [ngClass]="primaryFilter">
+      <ion-col class="toHide6" col-4="4" dragula="totalPiece" style="padding: 2px">
+        <canvas id="canvas7" height="200" width="200" style="display: inline-block" [ngStyle]="{
+   'filter': 'grayscale(' + this.secondaryValues.numbers.grayscale + '%) ' +
+   'hue-rotate(' + this.secondaryValues.numbers.hue_rotate + 'deg) ' +
+   'invert(' + this.secondaryValues.numbers.invert + '%) ' +
+   'sepia(' + this.secondaryValues.numbers.sepia + '%) ' +
+   'saturate(' + this.secondaryValues.numbers.saturate + '%) ' +
+   'opacity(' + this.secondaryValues.numbers.opacity + '%) ' +
+   'brightness(' + this.secondaryValues.numbers.brightness + '%) ' +
+   'contrast(' + this.secondaryValues.numbers.contrast + '%) ' +
+   'blur(' + this.secondaryValues.numbers.blur + 'px)'
+}" (click)="Rotate1(7,'toHide6')">
+        </canvas>
+      </ion-col>
+
+      <ion-col class="toHide7" col-4="4" dragula="totalPiece" style="padding: 2px">
+        <canvas id="canvas8" height="200" width="200" style="display: inline-block" [ngStyle]="{
+   'filter': 'grayscale(' + this.secondaryValues.numbers.grayscale + '%) ' +
+   'hue-rotate(' + this.secondaryValues.numbers.hue_rotate + 'deg) ' +
+   'invert(' + this.secondaryValues.numbers.invert + '%) ' +
+   'sepia(' + this.secondaryValues.numbers.sepia + '%) ' +
+   'saturate(' + this.secondaryValues.numbers.saturate + '%) ' +
+   'opacity(' + this.secondaryValues.numbers.opacity + '%) ' +
+   'brightness(' + this.secondaryValues.numbers.brightness + '%) ' +
+   'contrast(' + this.secondaryValues.numbers.contrast + '%) ' +
+   'blur(' + this.secondaryValues.numbers.blur + 'px)'}" (click)="Rotate1(8,'toHide7')">
+        </canvas>
+      </ion-col>
+
+      <ion-col class="toHide8" col-4="4" dragula="totalPiece" style="padding: 2px">
+        <canvas id="canvas9" height="200" width="200" style="display: inline-block" [ngStyle]="{
+   'filter': 'grayscale(' + this.secondaryValues.numbers.grayscale + '%) ' +
+   'hue-rotate(' + this.secondaryValues.numbers.hue_rotate + 'deg) ' +
+   'invert(' + this.secondaryValues.numbers.invert + '%) ' +
+   'sepia(' + this.secondaryValues.numbers.sepia + '%) ' +
+   'saturate(' + this.secondaryValues.numbers.saturate + '%) ' +
+   'opacity(' + this.secondaryValues.numbers.opacity + '%) ' +
+   'brightness(' + this.secondaryValues.numbers.brightness + '%) ' +
+   'contrast(' + this.secondaryValues.numbers.contrast + '%) ' +
+   'blur(' + this.secondaryValues.numbers.blur + 'px)'}" (click)="Rotate1(9,'toHide8')">
+        </canvas>
+      </ion-col>
+    </ion-row>
+
+  </ion-grid>
+
+
+
+
+  <ion-grid *ngIf="gameType == 'easy' " class="ion-justify-content-center" id="container" style="padding: 2px 5vh 0">
+    <ion-row class="spaceinrow" [ngClass]="primaryFilter">
+      <ion-col class="toHide" col-6="6" dragula="totalPiece" style="padding: 2px">
+        <canvas id="canvas1" style="display: inline-block " [ngStyle]="{
+'filter': 'grayscale(' + this.secondaryValues.numbers.grayscale + '%) ' +
+'hue-rotate(' + this.secondaryValues.numbers.hue_rotate + 'deg) ' +
+'invert(' + this.secondaryValues.numbers.invert + '%) ' +
+'sepia(' + this.secondaryValues.numbers.sepia + '%) ' +
+'saturate(' + this.secondaryValues.numbers.saturate + '%) ' +
+'opacity(' + this.secondaryValues.numbers.opacity + '%) ' +
+'brightness(' + this.secondaryValues.numbers.brightness + '%) ' +
+'contrast(' + this.secondaryValues.numbers.contrast + '%) ' +
+'blur(' + this.secondaryValues.numbers.blur + 'px)'
+}" (click)="Rotate(1,'toHide')">
+        </canvas>
+      </ion-col>
+      <ion-col class="toHide1" col-6="6" dragula="totalPiece" style="padding: 2px">
+        <canvas id="canvas2" style="display: inline-block " [ngStyle]="{
+'filter': 'grayscale(' + this.secondaryValues.numbers.grayscale + '%) ' +
+'hue-rotate(' + this.secondaryValues.numbers.hue_rotate + 'deg) ' +
+'invert(' + this.secondaryValues.numbers.invert + '%) ' +
+'sepia(' + this.secondaryValues.numbers.sepia + '%) ' +
+'saturate(' + this.secondaryValues.numbers.saturate + '%) ' +
+'opacity(' + this.secondaryValues.numbers.opacity + '%) ' +
+'brightness(' + this.secondaryValues.numbers.brightness + '%) ' +
+'contrast(' + this.secondaryValues.numbers.contrast + '%) ' +
+'blur(' + this.secondaryValues.numbers.blur + 'px)'
+}" (click)="Rotate(2,'toHide1')">
+        </canvas>
+      </ion-col>
+    </ion-row>
+    <ion-row class="spaceinrow" [ngClass]="primaryFilter">
+      <ion-col class="toHide2" col-6="6" dragula="totalPiece" style="padding: 2px">
+        <canvas id="canvas3" style="display: inline-block  " [ngStyle]="{
+'filter': 'grayscale(' + this.secondaryValues.numbers.grayscale + '%) ' +
+'hue-rotate(' + this.secondaryValues.numbers.hue_rotate + 'deg) ' +
+'invert(' + this.secondaryValues.numbers.invert + '%) ' +
+'sepia(' + this.secondaryValues.numbers.sepia + '%) ' +
+'saturate(' + this.secondaryValues.numbers.saturate + '%) ' +
+'opacity(' + this.secondaryValues.numbers.opacity + '%) ' +
+'brightness(' + this.secondaryValues.numbers.brightness + '%) ' +
+'contrast(' + this.secondaryValues.numbers.contrast + '%) ' +
+'blur(' + this.secondaryValues.numbers.blur + 'px)'
+}" (click)="Rotate(3,'toHide2')">
+        </canvas>
+      </ion-col>
+      <ion-col class="toHide3" col-6="6" dragula="totalPiece" style="padding: 2px">
+        <canvas id="canvas4" style="display: inline-block " [ngStyle]="{
+'filter': 'grayscale(' + this.secondaryValues.numbers.grayscale + '%) ' +
+'hue-rotate(' + this.secondaryValues.numbers.hue_rotate + 'deg) ' +
+'invert(' + this.secondaryValues.numbers.invert + '%) ' +
+'sepia(' + this.secondaryValues.numbers.sepia + '%) ' +
+'saturate(' + this.secondaryValues.numbers.saturate + '%) ' +
+'opacity(' + this.secondaryValues.numbers.opacity + '%) ' +
+'brightness(' + this.secondaryValues.numbers.brightness + '%) ' +
+'contrast(' + this.secondaryValues.numbers.contrast + '%) ' +
+'blur(' + this.secondaryValues.numbers.blur + 'px)'}" (click)="Rotate(4,'toHide3')">
+        </canvas>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-slides loop="false" [options]="{slidesPerView: 3}" pager="false"
+    *ngIf="selection == 'primary'  && !showWordSection">
+    <ion-slide *ngFor="let filter of filterList" style="display: flex; flex-direction: column;">
+      <p>{{filter.name}}
+        <!-- <ion-icon name="lock-closed-outline"></ion-icon> -->
+        <ion-icon name="lock-closed-outline" *ngIf="!checkOwnedFilter(filter)" style="margin-left: 2px"></ion-icon>
+      </p>
+      <div [ngClass]="filter.name">
+        <img *ngIf="cameraImageThumbnail" src="{{cameraImageThumbnail}}" (click)="changePrimary(filter)"
+          style="width: auto" />
+      </div>
+    </ion-slide>
+  </ion-slides>
+
+  <ion-slides loop="false" [options]="{slidesPerView: 3}"
+    *ngIf="selection == 'secondary' && buttons == 'default' && !showWordSection">
+    <ion-slide *ngFor="let filter of secondaryFilterList; let indexElement=index;"
+      style="display: flex; flex-direction: column;">
+      {{filter.name}}
+      <ion-icon name="lock-closed-outline" *ngIf="!checkOwnedFilter(filter) && checkOwnedFilter.length"
+        style="margin-left: 2px">
+      </ion-icon>
+      <div [ngStyle]="{'filter': this.secondaryFilterValues[indexElement]}">
+        <img *ngIf="cameraImageThumbnail" src="{{cameraImageThumbnail}}" (click)="changeButtons(filter)"
+          style="width: auto" />
+      </div>
+    </ion-slide>
+  </ion-slides>
+
+  <div *ngIf="showWordSection" class="bottom" style="text-align: center;">
+    <ion-input [formControl]="hintWord" placeholder="Please Enter a word"></ion-input>
+    <!-- <ion-button [disabled]="hintWord.invalid" (click)="sendGame()">Send Game</ion-button> -->
+  </div>
+
+  <div *ngIf="buttons == 'secondary'">
+    <p style="text-align: center; font-weight: bold; color: white">
+      {{secondaryFilterSelected}}
+    </p>
+    <ion-range pin="true" [step]="secondaryValues.ranges[secondaryFilterSelected].step"
+      [min]="secondaryValues.ranges[secondaryFilterSelected].min"
+      [max]="secondaryValues.ranges[secondaryFilterSelected].max"
+      [(ngModel)]="secondaryValues.ranges[secondaryFilterSelected].sliderValue" (ionChange)="sliderChanged($event)">
+    </ion-range>
+  </div>
+</ion-content>
+
+<div *ngIf="sendGameLoader" class="loaderContainer">
+  <div class="loader1"></div>
+</div>
+
+
+<ion-footer no-border class="main-footer" style="height: 55px" *ngIf="!showWordSection || !sendGameLoader">
+  <ul *ngIf="buttons == 'default'">
+    <li (click)="segmentChanged('primary')">
+      <a [ngClass]="selection == 'primary'?'selectedSegment':'notSelected'">PRIMARY</a>
+    </li>
+    <li (click)="segmentChanged('secondary')">
+      <a [ngClass]="selection == 'secondary'?'selectedSegment':'notSelected'">SECONDARY</a>
+    </li>
+  </ul>
+  <ul *ngIf="buttons == 'secondary'">
+    <li><a (click)="revertButtons('cancel')">CANCEL</a></li>
+    <li><a (click)="revertButtons()">DONE</a></li>
+  </ul>
+</ion-footer>

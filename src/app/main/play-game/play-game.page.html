@@ -1,0 +1,429 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cssgram/0.1.10/cssgram.min.css" />
+
+<ion-content class="mt-0" no-bounce has-bouncing="false" forceOverscroll="false">
+
+  <div id="containertop" style="width: 100%">
+
+    <div class="top-buttons-head">
+      <div class="in-left" [replaceUrl]="true" [routerLink]="['/main']">
+        <img src="assets/icon/back-icon.svg" />
+      </div>
+      <div class="in-right">
+        <ion-button class="cus-btn" *ngIf="gameObj.type=='easy' " ion-button>Next
+        </ion-button>
+      </div>
+    </div>
+  </div>
+  <div id="page-container">
+
+    <img width="360" height="360" id="originalImage" *ngIf="cameraImage && gameObj.type =='easy'" src="{{cameraImage}}"
+      (load)="Crop()" />
+
+    <img width="360" height="360" id="originalImage" *ngIf="cameraImage && gameObj.type == 'medium'"
+      src="{{cameraImage}}" (load)="Crop1()" />
+
+    <ion-grid *ngIf="gameObj.type == 'easy' && gameObj.status == 0" class="ion-justify-content-center" id="container"
+      style="padding: 2px 5vh 0">
+      <ion-row class="spaceinrow" [ngClass]="primaryFilter">
+        <ion-col class="toHide" col-6="6" dragula="totalPiece" style="padding: 2px">
+          <canvas id="canvas1" style="display: inline-block " [ngStyle]="{
+    'filter': 'grayscale(' + this.secondaryValues.numbers.grayscale + '%) ' +
+    'hue-rotate(' + this.secondaryValues.numbers.hue_rotate + 'deg) ' +
+    'invert(' + this.secondaryValues.numbers.invert + '%) ' +
+    'sepia(' + this.secondaryValues.numbers.sepia + '%) ' +
+    'saturate(' + this.secondaryValues.numbers.saturate + '%) ' +
+    'opacity(' + this.secondaryValues.numbers.opacity + '%) ' +
+    'brightness(' + this.secondaryValues.numbers.brightness + '%) ' +
+    'contrast(' + this.secondaryValues.numbers.contrast + '%) ' +
+    'blur(' + this.secondaryValues.numbers.blur + 'px)'
+    }" (click)="Rotate(1,'toHide')">
+          </canvas>
+        </ion-col>
+        <ion-col class="toHide1" col-6="6" dragula="totalPiece" style="padding: 2px">
+          <canvas id="canvas2" style="display: inline-block " [ngStyle]="{
+    'filter': 'grayscale(' + this.secondaryValues.numbers.grayscale + '%) ' +
+    'hue-rotate(' + this.secondaryValues.numbers.hue_rotate + 'deg) ' +
+    'invert(' + this.secondaryValues.numbers.invert + '%) ' +
+    'sepia(' + this.secondaryValues.numbers.sepia + '%) ' +
+    'saturate(' + this.secondaryValues.numbers.saturate + '%) ' +
+    'opacity(' + this.secondaryValues.numbers.opacity + '%) ' +
+    'brightness(' + this.secondaryValues.numbers.brightness + '%) ' +
+    'contrast(' + this.secondaryValues.numbers.contrast + '%) ' +
+    'blur(' + this.secondaryValues.numbers.blur + 'px)'
+    }" (click)="Rotate(2,'toHide1')">
+          </canvas>
+        </ion-col>
+      </ion-row>
+      <ion-row class="spaceinrow" [ngClass]="primaryFilter">
+        <ion-col class="toHide2" col-6="6" dragula="totalPiece" style="padding: 2px">
+          <canvas id="canvas3" style="display: inline-block  " [ngStyle]="{
+    'filter': 'grayscale(' + this.secondaryValues.numbers.grayscale + '%) ' +
+    'hue-rotate(' + this.secondaryValues.numbers.hue_rotate + 'deg) ' +
+    'invert(' + this.secondaryValues.numbers.invert + '%) ' +
+    'sepia(' + this.secondaryValues.numbers.sepia + '%) ' +
+    'saturate(' + this.secondaryValues.numbers.saturate + '%) ' +
+    'opacity(' + this.secondaryValues.numbers.opacity + '%) ' +
+    'brightness(' + this.secondaryValues.numbers.brightness + '%) ' +
+    'contrast(' + this.secondaryValues.numbers.contrast + '%) ' +
+    'blur(' + this.secondaryValues.numbers.blur + 'px)'
+    }" (click)="Rotate(3,'toHide2')">
+          </canvas>
+        </ion-col>
+        <ion-col class="toHide3" col-6="6" dragula="totalPiece" style="padding: 2px">
+          <canvas id="canvas4" style="display: inline-block " [ngStyle]="{
+    'filter': 'grayscale(' + this.secondaryValues.numbers.grayscale + '%) ' +
+    'hue-rotate(' + this.secondaryValues.numbers.hue_rotate + 'deg) ' +
+    'invert(' + this.secondaryValues.numbers.invert + '%) ' +
+    'sepia(' + this.secondaryValues.numbers.sepia + '%) ' +
+    'saturate(' + this.secondaryValues.numbers.saturate + '%) ' +
+    'opacity(' + this.secondaryValues.numbers.opacity + '%) ' +
+    'brightness(' + this.secondaryValues.numbers.brightness + '%) ' +
+    'contrast(' + this.secondaryValues.numbers.contrast + '%) ' +
+    'blur(' + this.secondaryValues.numbers.blur + 'px)'}" (click)="Rotate(4,'toHide3')">
+          </canvas>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <ion-grid *ngIf="gameObj.type == 'medium' && gameObj.status == 0" class="ion-justify-content-center" id="container"
+      style="padding: 0px 13% 0">
+      <ion-row class="spaceinrow" [ngClass]="primaryFilter">
+        <ion-col class="{{sequence[0]}}" col-4="4" dragula="totalPiece" style="padding: 2px">
+          <canvas height="200" width="200" id="canvas1" style="display: inline-block" [ngStyle]="{
+   'filter': 'grayscale(' + this.secondaryValues.numbers.grayscale + '%) ' +
+   'hue-rotate(' + this.secondaryValues.numbers.hue_rotate + 'deg) ' +
+   'invert(' + this.secondaryValues.numbers.invert + '%) ' +
+   'sepia(' + this.secondaryValues.numbers.sepia + '%) ' +
+   'saturate(' + this.secondaryValues.numbers.saturate + '%) ' +
+   'opacity(' + this.secondaryValues.numbers.opacity + '%) ' +
+   'brightness(' + this.secondaryValues.numbers.brightness + '%) ' +
+   'contrast(' + this.secondaryValues.numbers.contrast + '%) ' +
+   'blur(' + this.secondaryValues.numbers.blur + 'px)'
+}" (click)="Rotate(1,sequence[0])">
+          </canvas>
+        </ion-col>
+
+        <ion-col class="{{sequence[1]}}" col-4="4" dragula="totalPiece" style="padding: 2px">
+          <canvas height="200" width="200" id="canvas2" style="display: inline-block" [ngStyle]="{
+   'filter': 'grayscale(' + this.secondaryValues.numbers.grayscale + '%) ' +
+   'hue-rotate(' + this.secondaryValues.numbers.hue_rotate + 'deg) ' +
+   'invert(' + this.secondaryValues.numbers.invert + '%) ' +
+   'sepia(' + this.secondaryValues.numbers.sepia + '%) ' +
+   'saturate(' + this.secondaryValues.numbers.saturate + '%) ' +
+   'opacity(' + this.secondaryValues.numbers.opacity + '%) ' +
+   'brightness(' + this.secondaryValues.numbers.brightness + '%) ' +
+   'contrast(' + this.secondaryValues.numbers.contrast + '%) ' +
+   'blur(' + this.secondaryValues.numbers.blur + 'px)'
+}" (click)="Rotate(2,sequence[1])">
+          </canvas>
+        </ion-col>
+
+        <ion-col class="{{sequence[2]}}" col-4="4" dragula="totalPiece" style="padding: 2px">
+          <canvas height="200" width="200" id="canvas3" style="display: inline-block" [ngStyle]="{
+ 'filter': 'grayscale(' + this.secondaryValues.numbers.grayscale + '%) ' +
+ 'hue-rotate(' + this.secondaryValues.numbers.hue_rotate + 'deg) ' +
+ 'invert(' + this.secondaryValues.numbers.invert + '%) ' +
+ 'sepia(' + this.secondaryValues.numbers.sepia + '%) ' +
+ 'saturate(' + this.secondaryValues.numbers.saturate + '%) ' +
+ 'opacity(' + this.secondaryValues.numbers.opacity + '%) ' +
+ 'brightness(' + this.secondaryValues.numbers.brightness + '%) ' +
+ 'contrast(' + this.secondaryValues.numbers.contrast + '%) ' +
+ 'blur(' + this.secondaryValues.numbers.blur + 'px)'
+}" (click)="Rotate(3,sequence[2])">
+          </canvas>
+        </ion-col>
+      </ion-row>
+
+      <ion-row class="spaceinrow" [ngClass]="primaryFilter">
+
+        <ion-col class="{{sequence[3]}}" col-4="4" dragula="totalPiece" style="padding: 2px">
+          <canvas height="200" width="200" id="canvas4" style="display: inline-block" [ngStyle]="{
+ 'filter': 'grayscale(' + this.secondaryValues.numbers.grayscale + '%) ' +
+ 'hue-rotate(' + this.secondaryValues.numbers.hue_rotate + 'deg) ' +
+ 'invert(' + this.secondaryValues.numbers.invert + '%) ' +
+ 'sepia(' + this.secondaryValues.numbers.sepia + '%) ' +
+ 'saturate(' + this.secondaryValues.numbers.saturate + '%) ' +
+ 'opacity(' + this.secondaryValues.numbers.opacity + '%) ' +
+ 'brightness(' + this.secondaryValues.numbers.brightness + '%) ' +
+ 'contrast(' + this.secondaryValues.numbers.contrast + '%) ' +
+ 'blur(' + this.secondaryValues.numbers.blur + 'px)'
+}" (click)="Rotate(4,sequence[3])">
+          </canvas>
+        </ion-col>
+
+        <ion-col class="{{sequence[4]}}" col-4="4" dragula="totalPiece" style="padding: 2px">
+          <canvas height="200" width="200" id="canvas5" style="display: inline-block" [ngStyle]="{
+   'filter': 'grayscale(' + this.secondaryValues.numbers.grayscale + '%) ' +
+   'hue-rotate(' + this.secondaryValues.numbers.hue_rotate + 'deg) ' +
+   'invert(' + this.secondaryValues.numbers.invert + '%) ' +
+   'sepia(' + this.secondaryValues.numbers.sepia + '%) ' +
+   'saturate(' + this.secondaryValues.numbers.saturate + '%) ' +
+   'opacity(' + this.secondaryValues.numbers.opacity + '%) ' +
+   'brightness(' + this.secondaryValues.numbers.brightness + '%) ' +
+   'contrast(' + this.secondaryValues.numbers.contrast + '%) ' +
+   'blur(' + this.secondaryValues.numbers.blur + 'px)'}" (click)="Rotate(5,sequence[4])">
+          </canvas>
+        </ion-col>
+
+        <ion-col class="{{sequence[5]}}" col-4="4" dragula="totalPiece" style="padding: 2px">
+          <canvas height="200" width="200" id="canvas6" style="display: inline-block" [ngStyle]="{
+   'filter': 'grayscale(' + this.secondaryValues.numbers.grayscale + '%) ' +
+   'hue-rotate(' + this.secondaryValues.numbers.hue_rotate + 'deg) ' +
+   'invert(' + this.secondaryValues.numbers.invert + '%) ' +
+   'sepia(' + this.secondaryValues.numbers.sepia + '%) ' +
+   'saturate(' + this.secondaryValues.numbers.saturate + '%) ' +
+   'opacity(' + this.secondaryValues.numbers.opacity + '%) ' +
+   'brightness(' + this.secondaryValues.numbers.brightness + '%) ' +
+   'contrast(' + this.secondaryValues.numbers.contrast + '%) ' +
+   'blur(' + this.secondaryValues.numbers.blur + 'px)'}" (click)="Rotate(6,sequence[5])">
+          </canvas>
+        </ion-col>
+
+      </ion-row>
+
+      <ion-row class="spaceinrow" [ngClass]="primaryFilter">
+        <ion-col class="{{sequence[6]}}" col-4="4" dragula="totalPiece" style="padding: 2px">
+          <canvas height="200" width="200" id="canvas7" style="display: inline-block" [ngStyle]="{
+   'filter': 'grayscale(' + this.secondaryValues.numbers.grayscale + '%) ' +
+   'hue-rotate(' + this.secondaryValues.numbers.hue_rotate + 'deg) ' +
+   'invert(' + this.secondaryValues.numbers.invert + '%) ' +
+   'sepia(' + this.secondaryValues.numbers.sepia + '%) ' +
+   'saturate(' + this.secondaryValues.numbers.saturate + '%) ' +
+   'opacity(' + this.secondaryValues.numbers.opacity + '%) ' +
+   'brightness(' + this.secondaryValues.numbers.brightness + '%) ' +
+   'contrast(' + this.secondaryValues.numbers.contrast + '%) ' +
+   'blur(' + this.secondaryValues.numbers.blur + 'px)'
+}" (click)="Rotate(7,sequence[6])">
+          </canvas>
+        </ion-col>
+
+        <ion-col class="{{sequence[7]}}" col-4="4" dragula="totalPiece" style="padding: 2px">
+          <canvas height="200" width="200" id="canvas8" style="display: inline-block" [ngStyle]="{
+   'filter': 'grayscale(' + this.secondaryValues.numbers.grayscale + '%) ' +
+   'hue-rotate(' + this.secondaryValues.numbers.hue_rotate + 'deg) ' +
+   'invert(' + this.secondaryValues.numbers.invert + '%) ' +
+   'sepia(' + this.secondaryValues.numbers.sepia + '%) ' +
+   'saturate(' + this.secondaryValues.numbers.saturate + '%) ' +
+   'opacity(' + this.secondaryValues.numbers.opacity + '%) ' +
+   'brightness(' + this.secondaryValues.numbers.brightness + '%) ' +
+   'contrast(' + this.secondaryValues.numbers.contrast + '%) ' +
+   'blur(' + this.secondaryValues.numbers.blur + 'px)'}" (click)="Rotate(8,sequence[7])">
+          </canvas>
+        </ion-col>
+
+        <ion-col class="{{sequence[8]}}" col-4="4" dragula="totalPiece" style="padding: 2px">
+          <canvas height="200" width="200" id="canvas9" style="display: inline-block" [ngStyle]="{
+   'filter': 'grayscale(' + this.secondaryValues.numbers.grayscale + '%) ' +
+   'hue-rotate(' + this.secondaryValues.numbers.hue_rotate + 'deg) ' +
+   'invert(' + this.secondaryValues.numbers.invert + '%) ' +
+   'sepia(' + this.secondaryValues.numbers.sepia + '%) ' +
+   'saturate(' + this.secondaryValues.numbers.saturate + '%) ' +
+   'opacity(' + this.secondaryValues.numbers.opacity + '%) ' +
+   'brightness(' + this.secondaryValues.numbers.brightness + '%) ' +
+   'contrast(' + this.secondaryValues.numbers.contrast + '%) ' +
+   'blur(' + this.secondaryValues.numbers.blur + 'px)'}" (click)="Rotate(9,sequence[8])">
+          </canvas>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+
+
+
+
+
+    <div *ngIf="gameObj" class="input-number">
+      <input type="text" readonly minlength="1" *ngFor="let control of lettersArr.controls;index as i"
+        [formControl]="lettersArr.controls[i]" id="puzzle-word-{{i}}" />
+    </div>
+
+
+    <div id="hold"></div>
+
+    <div class="iconsdiv">
+      <div class="in-left">
+        <ul>
+          <li (click)="onremovalPrimaryFilter()">
+            <img id="removePrimary" class="useItem" src="assets/icon/primary.png" />
+            <h6>{{primayFilterRemovalList.length ? primayFilterRemovalList.length : 0 }}</h6>
+          </li>
+
+          <li (click)="onremovalSecondaryFilter()">
+            <img id="removeSecondary" class="useItem" src="assets/icon/secondary.png" />
+            <h6>{{secondaryFilterRemovalList.length ? secondaryFilterRemovalList.length : 0}}</h6>
+          </li>
+
+          <li (click)="onApplyingAddTurn()">
+            <img id="addTurn" class="useItem" src="assets/icon/addturn.png" />
+            <h6>{{addTurn.length ? addTurn.length : '0'}}</h6>
+          </li>
+          <li (click)="onApplyingReveal()">
+            <img id="reveal" class="useItem" src="assets/icon/reveal.png" />
+            <h6>{{revealList.length ? revealList.length : '0'}}</h6>
+          </li>
+        </ul>
+      </div>
+
+      <div class="in-right">
+        <!-- <img id="reveal" class="useItem" src="assets/icon/reveal.png" /> -->
+        <p>Remaining: {{countWord ? countWord : '0'}}</p>
+      </div>
+
+    </div>
+
+
+  </div>
+  <div class="buttons-wrapper">
+    <div id="buttons"></div>
+  </div>
+
+
+  <!-- <div id="page-container">
+    <div class="app-history-back">
+      <h3>Your Turn</h3>
+    </div>
+    <img *ngIf="cameraImage && (gameObj.type=='easy' )" id="originalImage" src="{{cameraImage}}" (load)="Crop()" />
+
+      <div id="hold"></div>
+
+      <div class="iconsdiv">
+        <div class="in-left">
+          <ul>
+            <li>
+              <img id="removePrimary" class="useItem" src="assets/icon/primary.png" />
+              <h6>{{removePrimaryItem}}</h6>
+            </li>
+            <li>
+
+              <img id="removeSecondary" class="useItem" src="assets/icon/secondary.png" />
+              <h6>{{removeSecondaryItem}}</h6>
+            </li>
+
+            <li>
+              <img id="addTurn" class="useItem" src="assets/icon/addturn.png" />
+              <h6>{{addTurnItem ? addTurnItem : '0'}}</h6>
+            </li>
+            <li>
+              <img id="reveal" class="useItem" src="assets/icon/reveal.png" />
+              <h6>{{revealItem ? revealItem : '0'}}</h6>
+            </li>
+          </ul>
+        </div>
+        <div class="in-right">
+          <p id="mylives"></p>
+        </div>
+      </div>
+
+      <div class="buttons-wrapper">
+        <div id="buttons"></div>
+      </div>
+    </div>
+
+
+  </div> -->
+</ion-content>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cssgram/0.1.10/cssgram.min.css" />
+
+<ion-content>
+
+  <div id="containertop" style="width: 100%">
+
+    <div class="top-buttons-head">
+      <div class="in-left">
+        <ion-icon [routerLink]="['/main']" name="arrow-back-outline"></ion-icon>
+      </div>
+      <div class="in-right" *ngIf="!gameObj">
+        <button (click)="sendGame()" ion-button>sendGame</button>
+
+      </div>
+    </div>
+  </div>
+  
+
+  <img id="originalImage" [src]="cameraImage" (load)="onCrop()" />
+
+
+  <div class="canvas-grid">
+
+    <div class="space-between">
+      <div class="toHide" dragula="totalPiece">
+        <canvas height="200" width="200" (click)="onRotate(1,'toHide')" id="canvas1">
+        </canvas>
+      </div>
+
+      <div class="toHide1" dragula="totalPiece">
+        <canvas height="200" width="200" (click)="onRotate(2,'toHide1')" id="canvas2">
+        </canvas>
+      </div>
+    </div>
+
+    <div class="space-between">
+      <div class="toHide2" dragula="totalPiece">
+        <canvas height="200" width="200" (click)="onRotate(3,'toHide2')" id="canvas3">
+        </canvas>
+      </div>
+      <div class="toHide3" dragula="totalPiece">
+        <canvas height="200" width="200" (click)="onRotate(4,'toHide3')" id="canvas4">
+        </canvas>
+      </div>
+    </div>
+
+  </div>
+
+  <div *ngIf="gameObj" class="input-number">
+    <input type="text" (keyup)="nextInputFocus(i,$event)" minlength="1"
+      *ngFor="let control of lettersArr.controls;index as i" [formControl]="lettersArr.controls[i]"
+      id="puzzle-word-{{i}}" />
+  </div>
+
+  <div *ngIf="gameObj">
+    <div>
+      Remaining : {{puzzleWordCount}}
+    </div>
+  </div>
+</ion-content> -->

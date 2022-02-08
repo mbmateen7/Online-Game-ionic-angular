@@ -1,0 +1,145 @@
+h2 {
+  font-family: Poppins;
+  letter-spacing: 0.03em;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 15px;
+}
+
+.top {
+  width: 100vw;
+  height: 107px;
+  background: linear-gradient(180deg,
+      #6976b9 0%,
+      rgba(105, 118, 185, 0.76) 100%);
+  box-shadow: 0px 5px 10px rgba(73, 73, 73, 0.25);
+}
+
+ion-button {
+  font-family: Poppins;
+}
+
+.v-cntr {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.ml-50 {
+  margin-left: 50px;
+}
+
+.header-text {
+  letter-spacing: 0.03em;
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 20px;
+  line-height: 30px;
+  color: #ffffff;
+}
+
+.cus-btn {
+  --background: #99c43c;
+  --border-radius: 30px;
+  width: 87px;
+  height: 28px;
+  font-size: 14px;
+  letter-spacing: 0.03em;
+}
+
+ion-item {
+  --inner-padding-bottom: 10px;
+  --inner-padding-top: 10px;
+}
+
+.card {
+  width: 95%;
+  margin: auto;
+  background: #ffffff;
+  box-shadow: 0px 4px 20px rgba(130, 130, 130, 0.25);
+  border-radius: 20px;
+  padding: 15px;
+}
+
+.mt-2 {
+  margin-top: 2px;
+}
+
+.mt-20 {
+  margin-top: 20px;
+}
+
+.mt-45 {
+  margin-top: 45px;
+}
+
+.align-end {
+  display: flex;
+  justify-content: end;
+}
+
+.cus-btn-lg {
+  --color: black;
+  width: 218px;
+  height: 53px;
+  --background: #ffffff;
+  --box-shadow: 4px 7px 20px rgba(109, 109, 109, 0.27);
+  --border-radius: 90px;
+  letter-spacing: 0.03em;
+}
+
+.fw-500 {
+  font-weight: 500;
+}
+
+ion-grid {
+  padding: 0px;
+  margin: 0px;
+}
+
+.body-container {
+  border-color: #E5E5E5;
+  min-height: auto;
+}
+
+.top-container {
+  display: flex;
+  width: 100%;
+  min-height: 107px;
+  background: linear-gradient(180deg, #6976B9 0%, rgba(105, 118, 185, 0.76) 100%);
+  box-shadow: 0px 5px 10px rgba(73, 73, 73, 0.25);
+
+  .top-body {
+    width: 90%;
+    margin: auto;
+    display: flex;
+
+    .text {
+      margin: auto;
+      letter-spacing: 0.03em;
+      font-family: Poppins;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 20px;
+      color: #ffffff;
+    }
+  }
+}
+
+.cus-search-bar {
+  --border-radius: 30px;
+  --background: #FFFFFF;
+  --box-shadow: inset 0px 3px 7px rgba(166, 166, 166, 0.25);
+
+}
+
+.scrollDiv {
+  position: fixed;
+  top: 180px;
+  left: 2px;
+  bottom: 2px;
+  width: 100%;
+  background-color: #eee;
+  overflow-y: scroll;
+}

@@ -1,0 +1,71 @@
+
+  :host{
+    ion-content{
+      background-image: url('../../assets/landingBg.png') !important;
+      --background: null !important;
+    }
+  }
+
+
+.text-center{
+  text-align: center;
+}
+.land-text{
+  color: #FFF;
+  font-family: Poppins;
+  letter-spacing:  0.03em;
+  margin-top: 10px;
+}
+.mt-190{
+  margin-top: 190px;
+}
+
+.mt-165{
+  margin-top: 165px;
+}
+.cus-chip{
+    background: #FFFFFF;
+    border-radius: 30px;
+    width: 330px;
+    height: 53px;
+
+}
+
+.cus-label{
+   color:  #697DBD;
+   font-family: Poppins;
+   letter-spacing: 0.03em;
+   font-weight: 700;
+   font-size: 16px;
+   width: 100%;
+}
+
+.separator{
+  display: flex;
+  align-items: center;
+}
+
+.separator .line{
+  height: 2px;
+  flex: 1;
+  background-color: #fff;
+}
+
+.separator p{
+  padding: 0 2rem;
+  color: #FFF;
+  font-family: Poppins;
+}
+.text-center{
+  text-align: center;
+}
+.cus-login{
+  font-family: Poppins;
+  letter-spacing: 0.03em;
+  color: #FFFFFF;
+  font-weight: 600;
+}
+
+.w-100{
+  width:100% ;
+}

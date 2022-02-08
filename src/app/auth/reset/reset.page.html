@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>reset</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+<div class="reset-container">
+  <div>
+    <p>Reset Password</p>
+  </div>
+  <div>
+    <ion-item>
+      <ion-label>Email: </ion-label>
+      <ion-input name='email' [(ngModel)]="email"></ion-input>
+    </ion-item>
+  </div>
+
+  <div>
+    <ion-button (click)="onSendCode()">Send Code </ion-button>
+  </div>
+</div>
+</ion-content>

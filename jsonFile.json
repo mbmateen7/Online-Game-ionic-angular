@@ -1,0 +1,39 @@
+{
+    "project_info": {
+        "project_number": "93843727666",
+        "project_id": "picplayce-node",
+        "storage_bucket": "picplayce-node.appspot.com"
+    },
+    "client": [
+        {
+            "client_info": {
+                "mobilesdk_app_id": "1:93843727666:android:103358a45758e138f7632b",
+                "android_client_info": {
+                    "package_name": "com.picplayce.app"
+                }
+            },
+            "oauth_client": [
+                {
+                    "client_id": "93843727666-crghm1q1bbt73n68igplu6u8gjsr8hgk.apps.googleusercontent.com",
+                    "client_type": 3
+                }
+            ],
+            "api_key": [
+                {
+                    "current_key": "AIzaSyC-54MJodvTprZm_iULzw3MwqskEBzL2Jo"
+                }
+            ],
+            "services": {
+                "appinvite_service": {
+                    "other_platform_oauth_client": [
+                        {
+                            "client_id": "93843727666-crghm1q1bbt73n68igplu6u8gjsr8hgk.apps.googleusercontent.com",
+                            "client_type": 3
+                        }
+                    ]
+                }
+            }
+        }
+    ],
+    "configuration_version": "1"
+}

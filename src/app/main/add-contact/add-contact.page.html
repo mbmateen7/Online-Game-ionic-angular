@@ -1,0 +1,69 @@
+<ion-grid>
+
+  <div class="top-container">
+    <div class="top-body">
+      <div [routerLink]="['/main']" class="icon">
+        <ion-icon src="assets/icon/back-icon.svg"></ion-icon>
+      </div>
+      <div class="text">Add Contact</div>
+    </div>
+  </div>
+  <!-- <ion-row class="top">
+    <ion-col offset="1" size="2" [routerLink]="['/main']">
+      <div class="v-cntr">
+        <ion-icon src="assets/icon/back-icon.svg"></ion-icon>
+      </div>
+    </ion-col>
+    <ion-col size="9">
+      <div class="v-cntr ml-50 header-text">ADD CONTACTS</div>
+    </ion-col>
+  </ion-row> -->
+
+  <ion-row>
+    <div>
+      <div>
+        <ion-searchbar show-cancel-button="focus" class="cus-search-bar" placeholder="Search by Name or User Name"
+          (ionChange)="onSearchByUsername($event)" (ionCancel)="onCancelSearch()"></ion-searchbar>
+      </div>
+    </div>
+    <!-- <ion-col offset="1" size="10">
+      <ion-searchbar
+      show-cancel-button= "focus"
+        class="cus"
+        placeholder="Search by Name or User Name"
+        (ionChange)="onSearchByUsername($event.target.value)" 
+        (ionCancel)="onCancelSearch()"
+      ></ion-searchbar>
+    </ion-col> -->
+  </ion-row>
+
+  <ion-row *ngIf="!showUserList">
+    <ion-col size="12">
+      <ion-item (click)="onImportContacts()" lines="none">
+        <ion-icon src="assets/icon/phone.svg" slot="start"> </ion-icon>
+        <ion-label>
+          <h2>Import Contacts</h2>
+          <p>Add from mobile address book</p>
+        </ion-label>
+        <ion-icon src="assets/icon/fwd.svg" slot="end"> </ion-icon>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row *ngIf="showUserList">
+    <div class="scrollDiv">
+      <ion-col size="12" *ngIf="usernameSearchRes.length">
+        <ion-item (click)="openDialogBox(name)" *ngFor="let name of usernameSearchRes">
+          <ion-label>
+            <h2>{{name.user_name}}</h2>
+          </ion-label>
+        </ion-item>
+      </ion-col>
+      <ion-col *ngIf="!usernameSearchRes.length">
+        <p>No user Found</p>
+      </ion-col>
+    </div>
+  </ion-row>
+
+
+</ion-grid>

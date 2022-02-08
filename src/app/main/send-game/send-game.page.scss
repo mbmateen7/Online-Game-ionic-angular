@@ -1,0 +1,20 @@
+.top-buttons-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+  background: linear-gradient(180deg, #6976B9 0%, rgba(105, 118, 185, 0.76) 100%);
+
+  .in-left {
+    img {}
+  }
+
+  .in-right {
+    button {
+      background: #0f77f0;
+      border-radius: 20px;
+      font-size: 14px;
+      padding: 0px 25px;
+    }
+  }
+}

@@ -1,0 +1,269 @@
+page-filters {
+  .slide-zoom {
+    color: #7d7d7d !important;
+    font-size: 13px !important;
+  }
+
+  .range-bar {
+    top: 27px !important;
+    height: 10px !important;
+  }
+
+  .range-knob {
+    width: 39px !important;
+    height: 39px !important;
+  }
+
+  .range-pin {
+    left: 10px !important;
+  }
+
+  .swiper-slide {
+    .slide-zoom {
+      width: auto !important;
+    }
+  }
+
+  ion-slides {
+    height: 35vh;
+  }
+
+  #back {
+    padding: 15px 15px 35px 15px;
+    position: relative;
+  }
+
+  #back-img {
+    margin: auto;
+    float: left;
+    height: auto;
+    width: 10%;
+  }
+
+  /* in-flight clone */
+  .gu-mirror {
+    position: fixed !important;
+    margin: 0 !important;
+    z-index: 9999 !important;
+    opacity: 0.8;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";
+    filter: alpha(opacity=80);
+    pointer-events: none;
+  }
+
+  /* high-performance display:none; helper */
+  .gu-hide {
+    left: -9999px !important;
+  }
+
+  /* added to mirrorContainer (default = body) while dragging */
+  .gu-unselectable {
+    -webkit-user-select: none !important;
+    -moz-user-select: none !important;
+    -ms-user-select: none !important;
+    user-select: none !important;
+  }
+
+  /* added to the source element while its mirror is dragged */
+  .gu-transit {
+    opacity: 0.2;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=20)";
+    filter: alpha(opacity=20);
+  }
+
+  ion-content {
+    .scroll-content {
+      background: #000 !important;
+      overflow-y: hidden !important;
+
+    }
+  }
+
+  .selectedSegment {
+    font-weight: bold;
+    color: white;
+  }
+
+  .notSelected {
+    color: white;
+    opacity: 0.5;
+  }
+}
+
+
+.toHide canvas:nth-child(2) {
+  display: none !important;
+}
+
+.toHide1 canvas:nth-child(2) {
+  display: none !important;
+}
+
+.toHide2 canvas:nth-child(2) {
+  display: none !important;
+}
+
+.toHide3 canvas:nth-child(2) {
+  display: none !important;
+}
+
+.spaceinrow {
+  display: flex;
+  justify-content: space-between;
+}
+
+#container canvas {
+  width: 100% !important;
+}
+
+.main-footer {
+  background: #000 !important;
+
+  ul {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+
+    li {
+      a {
+        color: #fff;
+        text-decoration: none;
+        font-size: 16px;
+        font-weight: 500;
+      }
+    }
+  }
+}
+
+.top-buttons-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+  background: linear-gradient(180deg, #6976B9 0%, rgba(105, 118, 185, 0.76) 100%);
+
+  .in-left {
+    img {}
+  }
+
+  .in-right {
+    button {
+      background: #0f77f0;
+      border-radius: 20px;
+      font-size: 14px;
+      padding: 0px 25px;
+    }
+  }
+}
+
+.cus-btn {
+  --background: #99c43c;
+  --border-radius: 30px;
+  width: auto;
+
+  font-size: 14px;
+  letter-spacing: 0.03em;
+}
+
+
+.iconsdiv {
+  background: rgba(101, 121, 183, 0.41) !important;
+  display: flex;
+  // align-items: flex-end;
+  // justify-content: space-between;
+  // justify-content: center;
+  padding: 15px 20px !important;
+
+  .in-left {
+    ul {
+      display: flex;
+      align-items: center;
+      padding: 0;
+      margin: 0;
+      list-style: none;
+
+      li {
+        display: flex;
+        align-items: flex-end;
+        margin-right: 20px;
+
+        img {
+          width: 24px;
+          height: 22px;
+          object-fit: contain;
+        }
+
+        h6 {
+          font-size: 12px;
+          margin: 0 0 0 8px;
+          color: #000;
+        }
+      }
+    }
+  }
+
+  .in-right {
+    p {
+      margin: 0 !important;
+      padding: 0 !important;
+      font-size: 12px !important;
+      color: #000 !important;
+      position: static !important;
+      //font-weight: 500;
+    }
+  }
+}
+
+
+.input-number {
+  display: flex;
+  justify-content: space-around;
+
+  input {
+    width: 20px;
+    height: 20px;
+    border: none;
+    border-bottom: 1px solid;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  input:focus {
+    outline: none;
+  }
+}
+
+page-play-game {
+  @mixin clear {
+    &:after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+  }
+}
+
+// .active {
+//   @include opacity;
+//   cursor: default;
+
+//   &:hover {
+//     @include fade;
+//     @include opacity;
+//   }
+// }
+
+
+
+// .buttons-wrapper {
+//   ul#alphabet {
+//     padding: 20px 20px !important;
+//     margin: 0 !important;
+//     list-style: none;
+//   }
+// }

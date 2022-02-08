@@ -1,0 +1,71 @@
+<ion-grid>
+  <div class="top-container">
+    <div class="top-body">
+      <div [routerLink]="['/main']" class="icon">
+        <ion-icon src="assets/icon/back-icon.svg"></ion-icon>
+      </div>
+      <div class="text">Add Contact</div>
+    </div>
+  </div>
+
+
+  <ion-row>
+
+    <div>
+      <div>
+        <ion-searchbar show-cancel-button="focus" class="cus-search-bar" placeholder="Search by Name or User Name"
+          (ionChange)="onSearchByUsername($event)" (ionCancel)="onCancelSearch()"></ion-searchbar>
+      </div>
+    </div>
+  </ion-row>
+
+
+  <div *ngIf="showFilterPageLoader" class="loaderContainer">
+    <div class="loader1"></div>
+    <!-- <div *ngIf="!freindList.length">No Record Found</div> -->
+
+  </div>
+
+  <ion-row *ngIf="!showUserList && !showFilterPageLoader">
+    <ion-col size="12">
+      <div class="card">
+        <ion-list>
+          <ion-item-sliding id="item100" class="mt-2" *ngFor="let friend of freindList">
+            <ion-item>
+              <ion-label>
+                <h2>{{friend.user_name}}</h2>
+              </ion-label>
+              <ion-button class="cus-btn" slot="end" (click)="selectDifficultyLevel(friend.id)"> Play </ion-button>
+            </ion-item>
+
+            <ion-item-options side="end">
+              <ion-item-option color="danger" (click)="onDelFriend(friend.id)">
+                <ion-icon slot="icon-only" name="trash"></ion-icon>
+              </ion-item-option>
+            </ion-item-options>
+          </ion-item-sliding>
+
+        </ion-list>
+
+        <div class="mt-45 align-end">
+          <ion-button (click)="onRandomPlay()" class="cus-btn-lg "><b>+ Play Random</b> </ion-button>
+        </div>
+      </div>
+    </ion-col>
+  </ion-row>
+
+  <ion-row *ngIf="showUserList">
+    <ion-col size="12" *ngIf="usernameSearchRes.length">
+      <div class="scrollDiv">
+        <ion-item (click)="openDialogBox(name)" *ngFor="let name of usernameSearchRes">
+          <ion-label>
+            <h2>{{name.user_name}}</h2>
+          </ion-label>
+        </ion-item>
+      </div>
+    </ion-col>
+    <ion-col *ngIf="!usernameSearchRes.length">
+      <p>No user Found</p>
+    </ion-col>
+  </ion-row>
+</ion-grid>

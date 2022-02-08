@@ -1,0 +1,32 @@
+<ion-content>
+  <div class="top-container">
+    <div class="top-body">
+      <div [routerLink]="['/main/setting']" class="icon">
+        <ion-icon src="assets/icon/back-icon.svg"></ion-icon>
+      </div>
+      <div class="text">PURCHASED ITEMS</div>
+    </div>
+  </div>
+
+
+  <div class="body-container">
+
+    <ion-card>
+      <ion-segment (ionChange)="segmentChanged($event)" [value]="segmentValue">
+        <ion-segment-button value="filterList">
+          <ion-label>Filters Unlocked</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="items">
+          <ion-label>Items</ion-label>
+        </ion-segment-button>
+      </ion-segment>
+
+      <app-filter-unlocked *ngIf="segmentValue == 'filterList'"></app-filter-unlocked>
+      <app-items *ngIf="segmentValue == 'items'"></app-items>
+
+    </ion-card>
+
+
+  </div>
+
+</ion-content>

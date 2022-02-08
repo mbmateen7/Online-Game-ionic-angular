@@ -1,0 +1,14 @@
+<div class="main-container">
+  <div class="mt-10" *ngFor="let item of data">
+    <div class="list" (click)="onBuyBundle(item.name)">
+      <div>
+        <img src="assets/icon/filter-icon.svg" />
+        <span class="pl-5 filter-text">{{item.name}}</span>
+      </div>
+      <div class="cus-btn">
+        <img width="15" src="assets/currency-log-w.svg" alt="">
+        <span class="wh-text">{{item.price}}</span>
+      </div>
+    </div>
+  </div>
+</div>

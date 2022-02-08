@@ -1,0 +1,17 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>send-code</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div>
+    <ion-item>
+      <ion-label></ion-label>
+      <ion-input [(ngModel)]="verficationCode" placeholder="Enter Code"  minlength="4"></ion-input>
+    </ion-item>
+
+    <ion-button (click)="onSendCode()">Send Code</ion-button>
+  </div>
+</ion-content>

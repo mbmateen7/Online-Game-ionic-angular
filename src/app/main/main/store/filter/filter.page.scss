@@ -1,0 +1,50 @@
+.main-container {
+  width: 95%;
+  margin: auto;
+  .list {
+    display: flex;
+    justify-content: space-between;
+    img {
+      vertical-align: middle;
+    }
+  }
+}
+
+span {
+  font-family: Poppins;
+}
+
+.filter-text {
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 22px;
+  letter-spacing: 0.03em;
+
+  color: #000000;
+}
+
+.cus-btn {
+  width: 90px;
+  height: 28px;
+  background: #9dcaec;
+  border-radius: 30px;
+   text-align: center;
+
+  .wh-text {
+    font-family: Poppins;
+    font-size: 12px;
+    line-height: 25px;
+    letter-spacing: 0.03em;
+    color: #ffffff;
+    padding-left: 5px;
+  }
+}
+
+.pl-5 {
+  padding-left: 5px;
+}
+.mt-10 {
+  margin-top: 10px;
+}

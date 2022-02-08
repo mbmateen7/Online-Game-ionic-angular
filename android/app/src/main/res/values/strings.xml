@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">pic-playce</string>
+    <string name="title_activity_main">pic-playce</string>
+    <!-- <string name="package_name">com.picplayce.app</string>
+    <string name="custom_url_scheme">com.picplayce.app</string> -->
+     <string name="package_name">com.picplayce.game</string>
+    <string name="custom_url_scheme">com.picplayce.game</string>
+</resources>

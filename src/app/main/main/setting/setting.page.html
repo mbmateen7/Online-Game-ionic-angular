@@ -1,0 +1,77 @@
+<ion-content>
+  <div class="top-container">
+    <div class="top-body">
+      <div [routerLink]="['/main']" class="icon">
+        <ion-icon src="assets/icon/back-icon.svg"></ion-icon>
+      </div>
+      <div class="text">Setting</div>
+    </div>
+  </div>
+
+  <div class="body-container">
+
+    <div class="mt-30">
+      <ion-item (click)="onUpdateProfile()" detail>
+        <ion-label>
+          Update Profile
+        </ion-label>
+      </ion-item>
+    </div>
+
+
+    <div class="mt-30">
+      <ion-item lines="none">
+        <ion-label>MUSIC & SOUNDS</ion-label>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>
+          Toggle Background Music
+        </ion-label>
+
+        <ion-toggle checked="true" (ionChange)="changeSound($event)" color="primary"></ion-toggle>
+
+      </ion-item>
+
+      <ion-item>
+        <ion-label>
+          Toggle Sfx.Music
+        </ion-label>
+        <ion-toggle (ionChange)="changeSound($event)" color="primary"></ion-toggle>
+      </ion-item>
+    </div>
+
+
+    <div class="mt-30">
+      <ion-item lines="none">
+        <ion-label>LEGAL </ion-label>
+      </ion-item>
+      <ion-item detail>
+        <ion-label>
+          Terms Of Service
+        </ion-label>
+      </ion-item>
+      <ion-item detail>
+        <ion-label>
+          Report A Technical Issue
+        </ion-label>
+      </ion-item>
+    </div>
+
+    <div class="mt-30">
+      <ion-item (click)="goToPurchaseDetails()" detail>
+        <ion-label>
+          Purchased Items
+        </ion-label>
+      </ion-item>
+    </div>
+
+
+
+
+  </div>
+
+  <div class="mt-30 logout-btn">
+    <button (click)="onLogout()"> LOG OUT</button>
+  </div>
+</ion-content>

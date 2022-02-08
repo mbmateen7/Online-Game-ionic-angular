@@ -1,0 +1,281 @@
+p {
+  font-family: Poppins;
+}
+
+ion-grid {
+  padding: 0px !important;
+  overflow-y: auto;
+}
+
+.top {
+  width: 100vw;
+  height: 107px;
+  background: linear-gradient(180deg,
+      #6976b9 0%,
+      rgba(105, 118, 185, 0.76) 100%);
+  box-shadow: 0px 5px 10px rgba(73, 73, 73, 0.25);
+}
+
+.top-box {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.currency-bg {
+  width: 89px;
+  height: 26px;
+  background: #ffffff;
+  box-shadow: inset 0px 0px 6px #a7a7a7;
+  z-index: 0;
+  margin-left: -15px;
+}
+
+.box {
+  display: flex;
+  align-items: center;
+}
+
+.pl-10 {
+  padding-left: 10px;
+}
+
+.pl-5 {
+  padding-left: 5px;
+}
+
+.username-css {
+  letter-spacing: 0.03em;
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 15px;
+  line-height: 22px;
+  font-family: Poppins;
+}
+
+.home-currency {
+  display: flex;
+  align-content: center;
+}
+
+.content-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100%;
+}
+
+span {
+  font-family: Poppins;
+}
+
+.font-700 {
+  font-weight: 700;
+}
+
+.f-12 {
+  font-size: 12px;
+}
+
+.plus-bg {
+  width: 30px;
+  height: 30px;
+  background: #99c43c;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.ml--10 {
+  margin-left: -10px;
+}
+
+.mt-15 {
+  margin-top: 15px;
+}
+
+.mt-25 {
+  margin-top: 25px;
+}
+
+.lvl-circle {
+  background: #373b63;
+  width: 70px;
+  height: 70px;
+  border-radius: 50px;
+  border: 5px solid #c8cbe7;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.lvl-circle-y {
+  background: #f7d049;
+  width: 70px;
+  height: 70px;
+  border-radius: 50px;
+  border: 5px solid #feefb9;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.lvl-circle-y>span {
+  font-family: Poppins;
+  color: #ffffff;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 27px;
+}
+
+.lvl-circle>span {
+  font-family: Poppins;
+  color: #ffffff;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 27px;
+}
+
+.ml-8 {
+  margin-left: 8px;
+}
+
+
+.mt-2 {
+  margin-top: 2px;
+}
+
+.ml-2 {
+  margin-left: 2px;
+}
+
+.mt-10 {
+  margin-top: 10px;
+}
+
+.ml-10 {
+  margin-left: 10px;
+}
+
+.ml-8 {
+  margin-left: 8px;
+}
+
+.btn-end {
+  display: flex;
+  width: 100%;
+  justify-content: end;
+  margin-right: 10px;
+}
+
+.cus-btn {
+  --background: #99c43c;
+  border-radius: 30px;
+  width: 87px;
+  height: 28px;
+  font-size: 14px;
+  letter-spacing: 0.03em;
+}
+
+.play-cus-btn {
+  display: flex;
+  justify-content: center;
+}
+
+.play-cus-btn>ion-button {
+  margin-top: -35px;
+  --background: linear-gradient(85.81deg, #99c43c 13.89%, #c5e67e 95.94%);
+  // border: 3px solid #b7dd65;
+  box-sizing: border-box;
+  --border-radius: 90px;
+  width: 218px;
+  height: 53px;
+  font-family: Poppins;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.store-bg {
+  background-image: url("../../../../assets/store-bg.svg");
+
+  background-repeat: no-repeat;
+  height: 155px;
+  background-size: cover;
+  background-position: center;
+
+  .store-body {
+    display: flex;
+    flex-direction: column;
+    margin-left: 20px;
+    min-height: 100%;
+    justify-content: space-around;
+    margin: auto;
+    width: calc(100% - 50px);
+
+    p {
+      font-family: Poppins;
+      font-style: normal;
+      font-weight: 500;
+      font-size: 18px;
+      line-height: 27px;
+      margin: 0px;
+      letter-spacing: 0.03em;
+
+      color: #ffffff;
+    }
+
+    .logo-bg {
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+}
+
+.card {
+  width: calc(100% - 50px);
+  margin: auto;
+  min-height: 491px;
+  background: #ffffff;
+  box-shadow: 0px 4px 10px rgba(130, 130, 130, 0.25);
+  border-radius: 20px;
+
+  .card-header {
+    padding-top: 25px;
+    display: flex;
+    justify-content: space-around;
+    font-weight: bold;
+    font-size: 18px;
+  }
+
+  .card-header>span:nth-child(1) {
+    color: #f29d93;
+  }
+
+  .card-header>span:nth-child(2) {
+    color: #f5aa40;
+  }
+
+  .card-header>span:nth-child(2) {
+    color: #876baf;
+  }
+}
+
+
+ion-back-button {
+  position: fixed;
+  left: -12px;
+  color: white;
+  --icon-font-size: 35px;
+}
+
+// font-family: Poppins;
+// font-style: normal;
+// font-weight: bold;
+// font-size: 18px;
+// line-height: 27px;
+// display: flex;
+// align-items: center;
+// text-align: center;
+// letter-spacing: 0.03em;
+
+// color: #F29D93;

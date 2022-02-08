@@ -1,0 +1,38 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cssgram/0.1.10/cssgram.min.css" />
+
+<ion-content class="mt-0" no-bounce has-bouncing="false" forceOverscroll="false">
+
+  <div id="containertop" style="width: 100%">
+
+    <div class="top-buttons-head">
+      <div class="in-left" [replaceUrl]="true" [routerLink]="['/filter']">
+        <img src="assets/icon/back-icon.svg" />
+      </div>
+      <!-- <div class="in-right">
+        <ion-button class="cus-btn" ion-button (click)="onSendGame()">SendGame
+        </ion-button>
+      </div> -->
+    </div>
+  </div>
+  <div id="page-container">
+    <img width="360" height="360" id="originalImage" *ngIf="puzzleImage" src="{{puzzleImage}}" />
+  </div>
+  <!-- <div>
+    <div>
+      <ion-item>
+        <ion-label>Please Enter text:</ion-label>
+        <ion-input type="text" (keyup.enter)='sendGameGoBtn($event)' [(ngModel)]="hintWord" maxlength="4" minlength="1"
+          #hword="ngModel"></ion-input>
+      </ion-item>
+      <ion-item *ngIf="hword.errors?.minlength">
+        <ion-label class="alert alert-danger">Max Length is 4</ion-label>
+      </ion-item>
+    </div>
+  </div> -->
+  <!-- <div class="buttons-wrapper">
+    <div id="buttons"></div>
+  </div> -->
+
+
+
+</ion-content>

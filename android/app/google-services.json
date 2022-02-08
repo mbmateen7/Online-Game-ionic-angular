@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "997921265945",
+    "firebase_url": "https://picplayceprod.firebaseio.com",
+    "project_id": "picplayceprod",
+    "storage_bucket": "picplayceprod.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:997921265945:android:5e774ac43a2d18778b4d88",
+        "android_client_info": {
+          "package_name": "com.picplayce.game"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "997921265945-4ie6u1a9rrunjfdqkm610qq2mthuts2q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBwlTV_24y2ysGEN6ILh1ttuZxb1of6tCU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "997921265945-4ie6u1a9rrunjfdqkm610qq2mthuts2q.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

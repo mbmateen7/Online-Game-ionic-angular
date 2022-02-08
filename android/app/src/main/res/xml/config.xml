@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='utf-8'?>
+<widget version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+  <access origin="*" />
+  
+  <feature name="Contacts">
+    <param name="android-package" value="org.apache.cordova.contacts.ContactManager"/>
+  </feature>
+
+  <feature name="File">
+    <param name="android-package" value="org.apache.cordova.file.FileUtils"/>
+    <param name="onload" value="true"/>
+  </feature>
+
+  <feature name="InAppBillingV3">
+    <param name="android-package" value="com.alexdisler.inapppurchases.InAppBillingV3"/>
+  </feature>
+
+  <feature name="Media">
+    <param name="android-package" value="org.apache.cordova.media.AudioHandler"/>
+  </feature>
+
+  <feature name="SpinnerDialog">
+    <param name="android-package" value="com.greybax.spinnerdialog.SpinnerDialog"/>
+  </feature>
+
+  <feature name="NativeAudio">
+    <param name="android-package" value="com.rjfun.cordova.plugin.nativeaudio.NativeAudio"/>
+  </feature>
+
+  <feature name="InAppBillingPlugin">
+    <param name="android-package" value="cc.fovea.PurchasePlugin"/>
+  </feature>
+
+  
+</widget>

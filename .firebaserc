@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "picplayce-node": {
+      "hosting": {
+        "app": [
+          "picplayce-node"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "picplayce-node"
+  }
+}

@@ -1,0 +1,64 @@
+<ion-grid>
+  <ion-row class="top">
+    <div class="top-box">
+      <ion-col offset="1" size="3">
+        <div class="box">
+          <ion-back-button defaultHref="filter" *ngIf="filterPage" icon="chevron-back-outline"></ion-back-button>
+          <img src="assets/dummy-user.jpg" alt="" width="55" style="border-radius: 50%; margin-left: 5px" />
+        </div>
+      </ion-col>
+
+      <ion-col size="8">
+        <div class="box">
+          <span class="username-css">STORE</span>
+          <img class="pl-5" style="z-index: 1" src="assets/currency-logo.svg" alt="" />
+          <div class="currency-bg">
+            <div class="content-center font-700 f-12">
+              <span>{{user.puzzle_pieces}}</span>
+            </div>
+          </div>
+          <div class="plus-bg ml--10">
+            <img width="15" src="assets/plus.svg" alt="" />
+          </div>
+        </div>
+      </ion-col>
+    </div>
+  </ion-row>
+
+  <ion-row>
+    <ion-col class="store-bg" size="12">
+      <div class="store-body">
+        <p>Claim daily puzzle pieces!</p>
+        <div class="logo-bg">
+          <img width="38" src="assets/currency-logo-b.svg" alt="">
+          <img width="38" src="assets/currency-logo-b.svg" alt="">
+          <img width="38" src="assets/currency-logo-b.svg" alt="">
+          <img width="38" src="assets/currency-logo-b.svg" alt="">
+          <img width="38" src="assets/currency-logo-b.svg" alt="">
+        </div>
+        <ion-button class="cus-btn">CLAIM</ion-button>
+      </div>
+
+    </ion-col>
+  </ion-row>
+
+  <ion-row class="mt-25">
+    <div class="card ">
+      <div class="card-header">
+        <span (click)="changeTab('f')">Filters</span>
+        <span (click)="changeTab('b')">Bundles</span>
+        <span (click)="changeTab('i')">item</span>
+      </div>
+
+      <div class="card-body mt-2">
+
+        <app-filter [getFilterData]="filterData" (messageEvent)="receiveMessage($event)" *ngIf="isFilterOpened">
+        </app-filter>
+        <app-item *ngIf="isItemOpened"></app-item>
+        <app-bundle *ngIf="isBundleOpened"></app-bundle>
+      </div>
+    </div>
+  </ion-row>
+
+
+</ion-grid>

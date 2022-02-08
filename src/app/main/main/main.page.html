@@ -1,0 +1,35 @@
+<ion-app>
+  <ion-tabs (ionTabsDidChange)="setCurrentTab($event)">
+    <ion-tab-bar slot="bottom">
+      <!-- <ion-tab-button tab="main">
+        <ion-icon name="calendar"></ion-icon>
+        <ion-label>Schedule</ion-label>
+        <ion-badge>6</ion-badge>
+      </ion-tab-button> -->
+
+      <ion-tab-button tab="game">
+        <ion-icon [src]="activeTab == 'game'  ? 'assets/icon/picplayce_dark.svg' : 'assets/icon/c-dull-logo.svg' ">
+        </ion-icon>
+
+        <ion-label [ngClass]="{'activeText': activeTab == 'game'}">Game</ion-label>
+      </ion-tab-button>
+
+      <ion-tab-button tab="freind">
+        <ion-icon [src]="activeTab == 'freind' ? 'assets/icon/friend_dark.svg' : 'assets/icon/friend.svg'">
+        </ion-icon>
+        <ion-label [ngClass]="{'activeText': activeTab == 'freind'}">Friends</ion-label>
+      </ion-tab-button>
+
+      <ion-tab-button tab="store">
+        <ion-icon [src]="activeTab == 'store' ? 'assets/icon/store_dark.svg' : 'assets/icon/store.svg'"></ion-icon>
+        <ion-label [ngClass]="{'activeText': activeTab == 'store'}">Store</ion-label>
+      </ion-tab-button>
+
+      <ion-tab-button tab="setting">
+        <ion-icon [src]="activeTab == 'setting' ? 'assets/icon/setting_dark.svg' : 'assets/icon/setting.svg'">
+        </ion-icon>
+        <ion-label [ngClass]="{'activeText': activeTab == 'setting'}">Setting</ion-label>
+      </ion-tab-button>
+    </ion-tab-bar>
+  </ion-tabs>
+</ion-app>
