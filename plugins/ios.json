@@ -1,0 +1,31 @@
+{
+  "prepare_queue": {
+    "installed": [],
+    "uninstalled": []
+  },
+  "config_munge": {
+    "files": {}
+  },
+  "installed_plugins": {
+    "cordova-plugin-device": {
+      "PACKAGE_NAME": "com.picplayce.app"
+    },
+    "cordova-plugin-googleplus": {
+      "REVERSED_CLIENT_ID": "com.googleusercontent.apps.615811550902-uo5tp02r7ahhne694u84m87urq1ao32i",
+      "PACKAGE_NAME": "com.picplayce.app"
+    },
+    "cordova-plugin-ionic-keyboard": {
+      "PACKAGE_NAME": "com.picplayce.app"
+    },
+    "cordova-plugin-ionic-webview": {
+      "PACKAGE_NAME": "com.picplayce.app"
+    },
+    "cordova-plugin-splashscreen": {
+      "PACKAGE_NAME": "com.picplayce.app"
+    },
+    "cordova-plugin-statusbar": {
+      "PACKAGE_NAME": "com.picplayce.app"
+    }
+  },
+  "dependent_plugins": {}
+}

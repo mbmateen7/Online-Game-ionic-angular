@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DragulaService } from 'ng2-dragula';
 import { FormGroup, FormBuilder, FormArray, FormControl } from "@angular/forms";
@@ -17,6 +17,7 @@ import { SpinnerDialog } from '@ionic-native/spinner-dialog/ngx';
   styleUrls: ['./play-game.page.scss'],
 })
 export class PlayGamePage implements OnInit {
+
   currentInput: number = 0;
   cameraImage: string;
   originalImage: string;
@@ -292,7 +293,6 @@ export class PlayGamePage implements OnInit {
   }
 
   ngOnInit() {
-
     let THIS = this;
 
     this.getOwnedItemList();

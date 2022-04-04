@@ -132,8 +132,8 @@
 
     <ion-row>
       <ion-col class="text-center">
-        <ion-chip class="cus-chip-social">
-          <ion-label class="text-center cus-label-social social-chip-space">
+        <ion-chip class="cus-chip-social" (click)="googleSignIn()">
+          <ion-label class=" text-center cus-label-social social-chip-space">
             <ion-icon name="logo-google"></ion-icon>
             CONTINUE WITH GOOGLE
           </ion-label>
@@ -141,7 +141,7 @@
       </ion-col>
     </ion-row>
 
-    <ion-row>
+    <!-- <ion-row>
       <ion-col class="text-center">
         <ion-chip class="cus-chip-social">
           <ion-label class="text-center cus-label-social social-chip-space">
@@ -161,7 +161,7 @@
           </ion-label>
         </ion-chip>
       </ion-col>
-    </ion-row>
+    </ion-row> -->
 
   </ion-grid>
 </ion-content>

@@ -10,12 +10,17 @@ const routes: Routes = [
   },
   {
     path: 'purchase-container',
-    loadChildren: () => import('./purchase-container/purchase-container.module').then( m => m.PurchaseContainerPageModule)
+    loadChildren: () => import('./purchase-container/purchase-container.module').then(m => m.PurchaseContainerPageModule)
+  },
+  {
+    path: 'referrel/:code',
+    loadChildren: () => import('./referrel/referrel.module').then(m => m.ReferrelPageModule)
   }
+
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class SettingPageRoutingModule {}
+export class SettingPageRoutingModule { }

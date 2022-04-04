@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 import { RestService } from 'src/app/service/rest.service';
 import { PushNotifications } from "@capacitor/push-notifications";
 import Swal from 'sweetalert2';
-
+import { GooglePlus } from '@ionic-native/google-plus/ngx';
 @Component({
   selector: 'app-sign-up',
   templateUrl: './sign-up.page.html',
@@ -21,7 +21,8 @@ export class SignUpPage implements OnInit {
   showSignUpLoader = false;
   isSeen = false;
   passwordType = 'password';
-  constructor(private restService: RestService, private router: Router) { }
+  user: any;
+  constructor(private restService: RestService, private router: Router, private googlePlus: GooglePlus) { }
 
   ngOnInit() {
     this.pfCheckBox = false;
@@ -34,6 +35,59 @@ export class SignUpPage implements OnInit {
       ]),
       referal_code: new FormControl('')
     });
+  }
+
+  googleSignIn() {
+    this.googlePlus.login({})
+      .then(result => {
+        this.user = result;
+        console.log(this.user);
+        var json = {
+          user_name: this.user.givenName.replace(/\s/g, ''),
+          email: this.user.email,
+          id: this.user.userId
+
+        }
+        this.onSignUp2(JSON.stringify(json));
+      })
+      .catch(err => {
+        console.log(err);
+        this.user = `Error ${JSON.stringify(err)}`
+      });
+  }
+
+  onSignUp2(data) {
+    this.showSignUpLoader = true;
+    this.restService.postRequest('users/register', data).subscribe(
+      (res: any) => {
+        if (res.token) {
+          // console.log('This is res', res.data);
+          localStorage.setItem('token', res.token);
+          localStorage.setItem('user', JSON.stringify(res.data));
+
+
+          this.setDeviceToken();
+
+
+
+
+          this.showSignUpLoader = false;
+          this.router.navigate(['main'])
+        }
+      },
+      err => {
+        this.showSignUpLoader = false;
+        // console.log('This is error', err.error);
+        Swal.fire({
+          title: '<div><h5>Error!</h5></div>',
+          html: err.error,
+          confirmButtonText: 'Ok',
+          confirmButtonColor: '#99C43C',
+
+        })
+
+      })
+
   }
 
   getProfileFormError() {

@@ -6,8 +6,7 @@ import { IonicModule } from '@ionic/angular';
 
 import { LoginPageRoutingModule } from './login-routing.module';
 
-
-
+import { GooglePlus } from '@ionic-native/google-plus/ngx';
 import { LoginPage } from './login.page';
 
 @NgModule({
@@ -18,7 +17,7 @@ import { LoginPage } from './login.page';
     LoginPageRoutingModule,
     ReactiveFormsModule,
   ],
-  providers: [],
+  providers: [GooglePlus],
   declarations: [LoginPage]
 })
-export class LoginPageModule {}
+export class LoginPageModule { }

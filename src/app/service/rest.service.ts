@@ -23,6 +23,12 @@ export class RestService {
       headers: { 'x-access-token': localStorage.getItem('token') }
     });
   }
+  resetPassword(url: string, obj: any) {
+
+    return this.http.post(this.localUrl + url, obj, {
+
+    });
+  }
 
   putRequestToken(url: string, obj) {
     return this.http.put(this.localUrl + url, obj, {

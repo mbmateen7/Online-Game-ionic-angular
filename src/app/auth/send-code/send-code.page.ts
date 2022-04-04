@@ -14,18 +14,18 @@ export class SendCodePage implements OnInit {
     private restService: RestService,
     private alertController: AlertController,
     private router: Router
-  ) {}
+  ) { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   onSendCode() {
     this.restService
       .postRequest('users/verification', { code: this.verficationCode })
       .subscribe((res: any) => {
-        if(!res.user.length){
+        if (!res.user.length) {
           this.presentAlert();
         } else {
-          this.router.navigate(['update-password', {user: JSON.stringify(res.user)} ]);
+          this.router.navigate(['update-password', { user: JSON.stringify(res.user) }]);
         }
 
       });
@@ -34,8 +34,7 @@ export class SendCodePage implements OnInit {
   async presentAlert() {
     const alert = await this.alertController.create({
       cssClass: 'my-custom-class',
-      header: 'PicPlayce',
-      message: 'No User Found',
+      message: 'Incorrect Otp',
       buttons: ['Ok'],
     });
 

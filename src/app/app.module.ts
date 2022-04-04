@@ -17,7 +17,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { provideFirebaseApp, getApp, initializeApp } from '@angular/fire/app';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { DialogComponent } from './dialog/dialog.component';
-
+import { GooglePlus } from '@ionic-native/google-plus/ngx';
 
 
 @NgModule({
@@ -34,6 +34,7 @@ import { DialogComponent } from './dialog/dialog.component';
   ],
   providers: [
     SpinnerDialog,
+    GooglePlus,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     InAppPurchase2,
   ],

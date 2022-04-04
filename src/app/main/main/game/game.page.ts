@@ -7,7 +7,7 @@ import Swal from 'sweetalert2';
 import { NavController } from '@ionic/angular';
 import { PushNotifications } from "@capacitor/push-notifications";
 
-
+import { GooglePlus } from '@ionic-native/google-plus/ngx';
 @Component({
   selector: 'app-game',
   templateUrl: './game.page.html',
@@ -28,7 +28,7 @@ export class GamePage implements OnInit {
     private restService: RestService,
     private router: Router,
     private navCtrl: NavController,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute, private googlePlus: GooglePlus
   ) {
 
 
@@ -66,7 +66,9 @@ export class GamePage implements OnInit {
 
   }
 
-
+  ionViewDidEnter() {
+    this.getUserDetail();
+  }
   ngOnInit() {
 
 

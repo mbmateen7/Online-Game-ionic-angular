@@ -6,4 +6,6 @@
     <string name="custom_url_scheme">com.picplayce.app</string> -->
      <string name="package_name">com.picplayce.game</string>
     <string name="custom_url_scheme">com.picplayce.game</string>
+    <string name="fb_app_id">1153013562101098</string>
+     <string name="fb_app_name">pic-playce</string>
 </resources>

@@ -1,7 +1,8 @@
 {
   "name": "pic-playce",
   "integrations": {
-    "capacitor": {}
+    "capacitor": {},
+    "cordova": {}
   },
   "type": "angular"
 }

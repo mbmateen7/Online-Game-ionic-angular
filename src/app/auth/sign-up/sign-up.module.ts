@@ -8,7 +8,7 @@ import { IonicModule } from '@ionic/angular';
 import { SignUpPageRoutingModule } from './sign-up-routing.module';
 
 import { SignUpPage } from './sign-up.page';
-
+import { GooglePlus } from '@ionic-native/google-plus/ngx';
 @NgModule({
   imports: [
     CommonModule,
@@ -17,6 +17,8 @@ import { SignUpPage } from './sign-up.page';
     ReactiveFormsModule,
     SignUpPageRoutingModule
   ],
-  declarations: [SignUpPage]
+  declarations: [SignUpPage],
+  providers: [GooglePlus]
+
 })
-export class SignUpPageModule {}
+export class SignUpPageModule { }

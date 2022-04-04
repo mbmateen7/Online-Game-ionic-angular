@@ -69,6 +69,13 @@
         </ion-chip>
       </ion-col>
     </ion-row>
+    <div class="ion-text-center">
+
+      <div class="form-group form-check text-center ion-text-center">
+        <a [routerLink]="['/reset']">Forgot Password?</a>
+      </div>
+
+    </div>
 
     <ion-row>
       <ion-col>
@@ -82,7 +89,7 @@
 
     <ion-row>
       <ion-col class="text-center">
-        <ion-chip (click)="loginWithGoogle()" class="cus-chip-social">
+        <ion-chip class="cus-chip-social" (click)="googleSignIn()">
           <ion-label class="text-center cus-label-social social-chip-space">
             <ion-icon name="logo-google"></ion-icon>
             CONTINUE WITH GOOGLE
@@ -91,9 +98,9 @@
       </ion-col>
     </ion-row>
 
-    <ion-row>
+    <!-- <ion-row>
       <ion-col class="text-center">
-        <ion-chip (click)="loginWithfb()" class="cus-chip-social">
+        <ion-chip class="cus-chip-social">
           <ion-label class="text-center cus-label-social social-chip-space">
             <ion-icon src="assets/fb-logo.svg"></ion-icon>
             CONTINUE WITH FACEBOOK
@@ -111,21 +118,6 @@
           </ion-label>
         </ion-chip>
       </ion-col>
-    </ion-row>
+    </ion-row> -->
   </ion-grid>
 </ion-content>
-
-<!--
-  <div>
-    <div class="upper">
-      <img class="mt-50 mb-10" width="277" height="78" src="assets/logo.png" alt="">
-    </div>
-
-    <div class="lower">
-    <ion-label>asa</ion-label><br>
-    <ion-label>asa</ion-label><br>
-    <ion-label>asa</ion-label><br>
-    <ion-label>asa</ion-label><br>
-    <ion-label>asa</ion-label>
-    </div>
-  </div> -->

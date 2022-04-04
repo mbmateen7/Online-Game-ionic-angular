@@ -41,7 +41,7 @@ const routes: Routes = [
   {
     path: 'reset',
     loadChildren: () => import('./auth/reset/reset.module').then(m => m.ResetPageModule),
-    canActivate: [AuthGuardService]
+
   },
   {
     path: 'play-game',
@@ -72,10 +72,16 @@ const routes: Routes = [
     path: 'main/store/filter/filter-list',
     loadChildren: () => import('./main/main/store/filter/filter-list/filter-list.module').then(m => m.FilterListPageModule)
   },
+  // {
+  //   path: 'referrel/:code',
+  //   loadChildren: () => import('./main/main/setting/referrel/referrel.module').then(m => m.ReferrelPageModule)
+  // },
   {
     path: '**',
     component: NotFoundComponent
   },
+
+
 
 
 

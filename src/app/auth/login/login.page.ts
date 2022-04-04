@@ -8,7 +8,10 @@ import { PushNotifications } from "@capacitor/push-notifications";
 import Swal from 'sweetalert2';
 import { UserService } from 'src/app/service/user.service';
 import { DialogComponent } from 'src/app/dialog/dialog.component';
-
+import { GooglePlus } from '@ionic-native/google-plus/ngx';
+import { HttpClient } from '@angular/common/http';
+// import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook/ngx';
+// import { Facebook, FacebookLoginResponse } from '@awesome-cordova-plugins/facebook/ngx';
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
@@ -22,14 +25,17 @@ export class LoginPage implements OnInit {
   passwordType = 'password';
   isSeen = false;
   showSignUpLoader = false;
+  forgetPassword = false;
   user;
-  constructor(
+  constructor(private http: HttpClient,
     private fb: FormBuilder,
     private restService: RestService,
     private router: Router,
     public loadingController: LoadingController,
     public alertController: AlertController,
-    private userService: UserService
+    private userService: UserService,
+    private googlePlus: GooglePlus,
+
   ) { }
 
   ngOnInit() {
@@ -45,7 +51,9 @@ export class LoginPage implements OnInit {
       password: ['', [Validators.required, Validators.minLength(6)]],
     });
   }
-
+  ionViewDidEnter() {
+    this.forgetPassword = false;
+  }
   async submitLoginForm() {
     this.showSignUpLoader = true;
     const res = await this.userService.onUserLogin(this.profileForm.value);
@@ -73,43 +81,7 @@ export class LoginPage implements OnInit {
 
 
 
-    // // this.spinnerDialog.show();
-    // this.restService
-    //   .postRequest('users/login', this.profileForm.value)
-    //   .subscribe(
 
-
-    //     (res: any) => {
-    //       if (res.error === 'Password not exist') {
-    //         this.showSignUpLoader = false;
-    //         // this.spinnerDialog.hide();
-    //         this.router.navigate([
-    //           '/reset',
-    //           { email: this.profileForm.value.email },
-    //         ]);
-    //       }
-    //       if (res.token) {
-    //         localStorage.setItem('token', res.token);
-    //         localStorage.setItem('user', JSON.stringify(res.data[0]));
-    //         this.setDeviceToken()
-    //         this.setLastLogin();
-    //         this.showSignUpLoader = false;
-    //         this.router.navigate(['/main']);
-    //       }
-    //     },
-    //     error => {
-    //       this.showSignUpLoader = false;
-    //       Swal.fire({
-    //         title: '<div><img src="assets/icon/lost.png" style="width: 20vw; height:20vw;"><br><h5>Error!</h5></div>',
-    //         text: 'User name or Password is wrong',
-    //         confirmButtonText: 'OK',
-    //         confirmButtonColor: '#99C43C',
-    //         allowOutsideClick: true,
-    //         // backdrop: true,
-    //       })
-
-    //     }
-    //   );
   }
 
   get errorControl() {
@@ -125,16 +97,8 @@ export class LoginPage implements OnInit {
     }
   }
 
-  loginWithGoogle(): void { }
 
-  loginWithfb(): void {
-    //   this.facebook
-    //     .login(['public_profile','email'])
-    //     .then((res: FacebookLoginResponse) =>
-    //       console.log('Logged into Facebook!', res)
-    //     )
-    //     .catch((e) => console.log('Error logging into Facebook', e));
-  }
+
 
   async presentLoading() {
 
@@ -198,4 +162,63 @@ export class LoginPage implements OnInit {
     this.profileForm.get('email').setValue(event.target.value.trim());
     console.log(this.profileForm.value);
   }
+
+  googleSignIn() {
+    this.googlePlus.login({})
+      .then(result => {
+        this.user = result;
+        console.log(this.user);
+        var json = {
+          user_name: this.user.givenName.replace(/\s/g, ''),
+          email: this.user.email,
+          id: this.user.userId
+
+        }
+        this.onSignUp(JSON.stringify(json));
+      })
+      .catch(err => {
+        console.log(err);
+        this.user = `Error ${JSON.stringify(err)}`
+      });
+  }
+
+  onSignUp(data) {
+    // this.showSignUpLoader = true;
+    this.restService.postRequest('users/register', data).subscribe(
+      (res: any) => {
+        if (res.token) {
+          // console.log('This is res', res.data);
+          localStorage.setItem('token', res.token);
+          localStorage.setItem('user', JSON.stringify(res.data));
+
+
+          this.setDeviceToken();
+
+
+
+
+          this.showSignUpLoader = false;
+          this.router.navigate(['main'])
+        }
+      },
+      err => {
+        this.showSignUpLoader = false;
+        // console.log('This is error', err.error);
+        Swal.fire({
+          title: '<div><h5>Error!</h5></div>',
+          html: err.error,
+          confirmButtonText: 'Ok',
+          confirmButtonColor: '#99C43C',
+
+        })
+
+      })
+
+  }
+
+  // login() {
+  //   this.fbb.login(['public_profile', 'user_friends', 'email'])
+  //     .then((res: FacebookLoginResponse) => console.log('Logged into Facebook!', res))
+  //     .catch(e => console.log('Error logging into Facebook', e));
+  // }
 }
