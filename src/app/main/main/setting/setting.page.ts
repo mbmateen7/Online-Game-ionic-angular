@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { GooglePlus } from '@ionic-native/google-plus/ngx';
 import { AudioService } from 'src/app/service/audio.service';
 import { RestService } from 'src/app/service/rest.service';
-
+import { AlertController } from '@ionic/angular';
 @Component({
   selector: 'app-setting',
   templateUrl: './setting.page.html',
@@ -13,7 +13,7 @@ export class SettingPage implements OnInit {
 
   user;
   ref_code: any = "";
-  constructor(private googlePlus: GooglePlus, private router: Router, private restService: RestService, private audio: AudioService) { }
+  constructor(private alertController: AlertController, private googlePlus: GooglePlus, private router: Router, private restService: RestService, private audio: AudioService) { }
 
   ngOnInit() {
     this.user = JSON.parse(localStorage.getItem('user'));
@@ -38,19 +38,29 @@ export class SettingPage implements OnInit {
     })
   }
 
-  share() {
+  // async share() {
+  //   const alert = await this.alertController.create({
+  //     cssClass: 'my-custom-class',
+  //     message: 'Email Required',
+  //     buttons: [{
+  //       text: 'OK', handler: () => {
+  //         alert.onDidDismiss()
+  //       }
+  //     }]
+  //   });
 
-    const obj = {
-      ref_code: this.ref_code,
-      email: "aqibnwl@gmail.com"
-    }
-    this.restService.postRequestToken('users/set-last-login', obj).subscribe((res: any) => {
-      if (res.status) {
-        console.log('Last login is set successfully');
+  //   await alert.present();
+  //   const obj = {
+  //     ref_code: this.ref_code,
+  //     email: "aqibnwl@gmail.com"
+  //   }
+  //   this.restService.postRequestToken('users/set-last-login', obj).subscribe((res: any) => {
+  //     if (res.status) {
+  //       console.log('Last login is set successfully');
 
-      }
-    })
-  }
+  //     }
+  //   })
+  // }
 
   logout() {
     this.googlePlus.logout()
