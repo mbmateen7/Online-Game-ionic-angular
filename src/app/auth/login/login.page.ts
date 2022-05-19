@@ -10,6 +10,7 @@ import { UserService } from 'src/app/service/user.service';
 import { DialogComponent } from 'src/app/dialog/dialog.component';
 import { GooglePlus } from '@ionic-native/google-plus/ngx';
 import { HttpClient } from '@angular/common/http';
+import { Facebook, FacebookLoginResponse } from '@awesome-cordova-plugins/facebook/ngx';
 // import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook/ngx';
 // import { Facebook, FacebookLoginResponse } from '@awesome-cordova-plugins/facebook/ngx';
 @Component({
@@ -34,7 +35,7 @@ export class LoginPage implements OnInit {
     public loadingController: LoadingController,
     public alertController: AlertController,
     private userService: UserService,
-    private googlePlus: GooglePlus,
+    private googlePlus: GooglePlus, private fbb: Facebook
 
   ) { }
 
@@ -51,6 +52,16 @@ export class LoginPage implements OnInit {
       password: ['', [Validators.required, Validators.minLength(6)]],
     });
   }
+
+  fblogin() {
+    this.fbb.login(['public_profile', 'user_friends', 'email'])
+      .then((res: FacebookLoginResponse) => console.log('Logged into Facebook!', res))
+      .catch(e => console.log('Error logging into Facebook', e));
+
+
+    this.fbb.logEvent(this.fbb.EVENTS.EVENT_NAME_ADDED_TO_CART);
+  }
+
   ionViewDidEnter() {
     this.forgetPassword = false;
   }

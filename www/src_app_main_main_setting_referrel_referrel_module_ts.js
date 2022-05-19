@@ -115,28 +115,74 @@ let ReferrelPage = class ReferrelPage {
     }
     ngOnInit() {
         this.code = this.route.snapshot.paramMap.get('code');
+        this.shareVia();
+    }
+    shareVia() {
+        return (0,tslib__WEBPACK_IMPORTED_MODULE_3__.__awaiter)(this, void 0, void 0, function* () {
+            const alert = yield this.alertController.create({
+                cssClass: 'my-custom-class',
+                message: 'shared via email or phone',
+                buttons: [{
+                        text: 'Email', handler: () => {
+                            this.emailorphone = "email";
+                            alert.onDidDismiss();
+                        }
+                    },
+                    {
+                        text: 'Phone', handler: () => {
+                            this.emailorphone = "phone";
+                            alert.onDidDismiss();
+                        }
+                    }
+                ]
+            });
+            yield alert.present();
+        });
     }
     onSendCode() {
         return (0,tslib__WEBPACK_IMPORTED_MODULE_3__.__awaiter)(this, void 0, void 0, function* () {
-            if (!this.email) {
-                const alert = yield this.alertController.create({
-                    cssClass: 'my-custom-class',
-                    message: 'Email Required',
-                    buttons: [{
-                            text: 'OK', handler: () => {
-                                alert.onDidDismiss();
-                            }
-                        }]
+            if (this.emailorphone == "email") {
+                if (!this.email) {
+                    const alert = yield this.alertController.create({
+                        cssClass: 'my-custom-class',
+                        message: 'Email Required',
+                        buttons: [{
+                                text: 'OK', handler: () => {
+                                    alert.onDidDismiss();
+                                }
+                            }]
+                    });
+                    yield alert.present();
+                }
+                let json = {
+                    email: this.email.replace(/\s/g, ''),
+                    ref_code: this.code
+                };
+                this.restService.postRequestToken('users/referrel', json).subscribe((res) => {
+                    this.presentAlert();
                 });
-                yield alert.present();
             }
-            var json = {
-                email: this.email.replace(/\s/g, ''),
-                ref_code: this.code
-            };
-            this.restService.postRequestToken('users/referrel', json).subscribe((res) => {
-                this.presentAlert();
-            });
+            else {
+                if (!this.phone) {
+                    const alert = yield this.alertController.create({
+                        cssClass: 'my-custom-class',
+                        message: 'phone Number Required',
+                        buttons: [{
+                                text: 'OK', handler: () => {
+                                    alert.onDidDismiss();
+                                }
+                            }]
+                    });
+                    yield alert.present();
+                }
+                let json = {
+                    number: this.phone,
+                    ref_code: this.code
+                };
+                this.restService.postRequestToken('users/refertoNumber', json).subscribe((res) => {
+                    this.presentAlert();
+                });
+            }
         });
     }
     presentAlert() {
@@ -200,7 +246,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("<ion-content>\n  <ion-grid>\n    <ion-row class=\"blueBg\">\n      <ion-col>\n        <div class=\"text-center mb-50\">\n          <img class=\"mt-50 mb-10\" width=\"277\" height=\"78\" src=\"assets/logo.png\" alt=\"\" />\n        </div>\n      </ion-col>\n    </ion-row>\n\n    <ion-grid class=\"cus-card\">\n\n      <ion-row>\n        <ion-col class=\"pl-20\">\n          <div>\n            <ion-icon [routerLink]=\"['/main/setting']\" size=\"large\" name=\"close-outline\"></ion-icon>\n          </div>\n        </ion-col>\n      </ion-row>\n      <ion-row class=\"mt-5\">\n        <ion-col>\n          <ion-item>\n            <ion-label position=\"floating\">\n              <ion-icon name=\"mail\" slot=\"start\"></ion-icon>\n              Email\n            </ion-label>\n            <ion-input name='email' [(ngModel)]=\"email\"></ion-input>\n          </ion-item>\n\n\n\n\n        </ion-col>\n      </ion-row>\n\n\n\n\n    </ion-grid>\n\n    <ion-row class=\"mt-30\">\n      <ion-col class=\"text-center\">\n\n        <ion-chip class='cus-chip' (click)=\"onSendCode()\">\n          <ion-label class=\"text-center cus-label\">\n            send code\n          </ion-label>\n        </ion-chip>\n      </ion-col>\n    </ion-row>\n\n\n\n  </ion-grid>\n</ion-content>");
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("<ion-content>\n  <ion-grid>\n    <ion-row class=\"blueBg\">\n      <ion-col>\n        <div class=\"text-center mb-50\">\n          <img class=\"mt-50 mb-10\" width=\"277\" height=\"78\" src=\"assets/logo.png\" alt=\"\" />\n        </div>\n      </ion-col>\n    </ion-row>\n\n    <ion-grid class=\"cus-card\">\n\n      <ion-row>\n        <ion-col class=\"pl-20\">\n          <div>\n            <ion-icon [routerLink]=\"['/main/setting']\" size=\"large\" name=\"close-outline\"></ion-icon>\n          </div>\n        </ion-col>\n      </ion-row>\n      <ion-row class=\"mt-5\" *ngIf=\"emailorphone =='email'\">\n        <ion-col>\n          <ion-item>\n            <ion-label position=\"floating\">\n              <ion-icon name=\"mail\" slot=\"start\"></ion-icon>\n              Email\n            </ion-label>\n            <ion-input name='email' [(ngModel)]=\"email\"></ion-input>\n          </ion-item>\n\n\n\n\n        </ion-col>\n      </ion-row>\n      <ion-row class=\"mt-5\" *ngIf=\"emailorphone =='phone'\">\n        <ion-col>\n          <ion-item>\n            <ion-label position=\"floating\">\n              <ion-icon name=\"call-outline\" slot=\"start\"></ion-icon>\n              phone\n            </ion-label>\n            <ion-input name='email' [(ngModel)]=\"phone\" placeholder=\"Enter number with country code\"></ion-input>\n          </ion-item>\n\n\n\n\n        </ion-col>\n      </ion-row>\n\n\n\n    </ion-grid>\n\n    <ion-row class=\"mt-30\">\n      <ion-col class=\"text-center\">\n\n        <ion-chip class='cus-chip' (click)=\"onSendCode()\">\n          <ion-label class=\"text-center cus-label\">\n            send code\n          </ion-label>\n        </ion-chip>\n      </ion-col>\n    </ion-row>\n\n\n\n  </ion-grid>\n</ion-content>");
 
 /***/ })
 

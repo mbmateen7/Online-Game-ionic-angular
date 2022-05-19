@@ -100,14 +100,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "SettingPage": () => (/* binding */ SettingPage)
 /* harmony export */ });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! tslib */ 64762);
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! tslib */ 64762);
 /* harmony import */ var _raw_loader_setting_page_html__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !raw-loader!./setting.page.html */ 37481);
 /* harmony import */ var _setting_page_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./setting.page.scss */ 6017);
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/core */ 37716);
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/router */ 39895);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/core */ 37716);
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/router */ 39895);
 /* harmony import */ var _ionic_native_google_plus_ngx__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ionic-native/google-plus/ngx */ 19342);
 /* harmony import */ var src_app_service_audio_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/service/audio.service */ 87494);
 /* harmony import */ var src_app_service_rest_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/service/rest.service */ 90421);
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ionic/angular */ 80476);
+
 
 
 
@@ -117,7 +119,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let SettingPage = class SettingPage {
-    constructor(googlePlus, router, restService, audio) {
+    constructor(alertController, googlePlus, router, restService, audio) {
+        this.alertController = alertController;
         this.googlePlus = googlePlus;
         this.router = router;
         this.restService = restService;
@@ -144,17 +147,27 @@ let SettingPage = class SettingPage {
             }
         });
     }
-    share() {
-        const obj = {
-            ref_code: this.ref_code,
-            email: "aqibnwl@gmail.com"
-        };
-        this.restService.postRequestToken('users/set-last-login', obj).subscribe((res) => {
-            if (res.status) {
-                console.log('Last login is set successfully');
-            }
-        });
-    }
+    // async share() {
+    //   const alert = await this.alertController.create({
+    //     cssClass: 'my-custom-class',
+    //     message: 'Email Required',
+    //     buttons: [{
+    //       text: 'OK', handler: () => {
+    //         alert.onDidDismiss()
+    //       }
+    //     }]
+    //   });
+    //   await alert.present();
+    //   const obj = {
+    //     ref_code: this.ref_code,
+    //     email: "aqibnwl@gmail.com"
+    //   }
+    //   this.restService.postRequestToken('users/set-last-login', obj).subscribe((res: any) => {
+    //     if (res.status) {
+    //       console.log('Last login is set successfully');
+    //     }
+    //   })
+    // }
     logout() {
         this.googlePlus.logout()
             .then(res => {
@@ -190,13 +203,14 @@ let SettingPage = class SettingPage {
     }
 };
 SettingPage.ctorParameters = () => [
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__.AlertController },
     { type: _ionic_native_google_plus_ngx__WEBPACK_IMPORTED_MODULE_2__.GooglePlus },
-    { type: _angular_router__WEBPACK_IMPORTED_MODULE_5__.Router },
+    { type: _angular_router__WEBPACK_IMPORTED_MODULE_6__.Router },
     { type: src_app_service_rest_service__WEBPACK_IMPORTED_MODULE_4__.RestService },
     { type: src_app_service_audio_service__WEBPACK_IMPORTED_MODULE_3__.AudioService }
 ];
-SettingPage = (0,tslib__WEBPACK_IMPORTED_MODULE_6__.__decorate)([
-    (0,_angular_core__WEBPACK_IMPORTED_MODULE_7__.Component)({
+SettingPage = (0,tslib__WEBPACK_IMPORTED_MODULE_7__.__decorate)([
+    (0,_angular_core__WEBPACK_IMPORTED_MODULE_8__.Component)({
         selector: 'app-setting',
         template: _raw_loader_setting_page_html__WEBPACK_IMPORTED_MODULE_0__.default,
         styles: [_setting_page_scss__WEBPACK_IMPORTED_MODULE_1__.default]

@@ -65,6 +65,14 @@ module.exports = [
         "id": "cordova-plugin-statusbar.StatusBarProxy",
         "pluginId": "cordova-plugin-statusbar",
         "runs": true
+    },
+    {
+        "file": "plugins/cordova-plugin-facebook-connect/www/facebook-browser.js",
+        "id": "cordova-plugin-facebook-connect.FacebookConnectPluginBrowser",
+        "pluginId": "cordova-plugin-facebook-connect",
+        "clobbers": [
+            "facebookConnectPlugin"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -75,7 +83,8 @@ module.exports.metadata =
     "cordova-plugin-ionic-keyboard": "2.2.0",
     "cordova-plugin-ionic-webview": "5.0.0",
     "cordova-plugin-splashscreen": "5.0.2",
-    "cordova-plugin-statusbar": "2.4.2"
+    "cordova-plugin-statusbar": "2.4.2",
+    "cordova-plugin-facebook-connect": "3.2.0"
 }
 // BOTTOM OF METADATA
 });

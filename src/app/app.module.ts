@@ -18,7 +18,7 @@ import { provideFirebaseApp, getApp, initializeApp } from '@angular/fire/app';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { DialogComponent } from './dialog/dialog.component';
 import { GooglePlus } from '@ionic-native/google-plus/ngx';
-
+import { Facebook, FacebookLoginResponse } from '@awesome-cordova-plugins/facebook/ngx';
 
 @NgModule({
   declarations: [AppComponent, DialogComponent],
@@ -37,6 +37,7 @@ import { GooglePlus } from '@ionic-native/google-plus/ngx';
     GooglePlus,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     InAppPurchase2,
+    Facebook
   ],
   bootstrap: [AppComponent],
 

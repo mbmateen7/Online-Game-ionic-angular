@@ -32,6 +32,7 @@
 		BCD41600DF254320A5901636 /* CDVSplashScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 99C23648EF4146ABB3B7F8C4 /* CDVSplashScreen.m */; };
 		515D3146243A4BBB8D3021B0 /* CDVViewController+SplashScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = D71B693B942F4FABA332376D /* CDVViewController+SplashScreen.m */; };
 		B08C46EEBDF343C899BDA68F /* CDVStatusBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C2467649E3349F589EE8BF0 /* CDVStatusBar.m */; };
+		0E6D429D9B1D4CED85B5F9DA /* FacebookConnectPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = B15C94BB361941C7ADA157D3 /* FacebookConnectPlugin.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -107,6 +108,8 @@
 		E8E22B100A974F5D90D2AC0F /* CDVViewController+SplashScreen.h */ = {isa = PBXFileReference; name = "CDVViewController+SplashScreen.h"; path = "cordova-plugin-splashscreen/CDVViewController+SplashScreen.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
 		5C2467649E3349F589EE8BF0 /* CDVStatusBar.m */ = {isa = PBXFileReference; name = "CDVStatusBar.m"; path = "cordova-plugin-statusbar/CDVStatusBar.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
 		872493BFAEB54C579A40EF9F /* CDVStatusBar.h */ = {isa = PBXFileReference; name = "CDVStatusBar.h"; path = "cordova-plugin-statusbar/CDVStatusBar.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
+		B15C94BB361941C7ADA157D3 /* FacebookConnectPlugin.m */ = {isa = PBXFileReference; name = "FacebookConnectPlugin.m"; path = "cordova-plugin-facebook-connect/FacebookConnectPlugin.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
+		A5FAB3D966BE4774ACC3594B /* FacebookConnectPlugin.h */ = {isa = PBXFileReference; name = "FacebookConnectPlugin.h"; path = "cordova-plugin-facebook-connect/FacebookConnectPlugin.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -247,6 +250,8 @@
 				E8E22B100A974F5D90D2AC0F /* CDVViewController+SplashScreen.h */,
 				5C2467649E3349F589EE8BF0 /* CDVStatusBar.m */,
 				872493BFAEB54C579A40EF9F /* CDVStatusBar.h */,
+				B15C94BB361941C7ADA157D3 /* FacebookConnectPlugin.m */,
+				A5FAB3D966BE4774ACC3594B /* FacebookConnectPlugin.h */,
 			);
 			name = Plugins;
 			path = "MyApp/Plugins";
@@ -385,6 +390,7 @@
 				BCD41600DF254320A5901636 /* CDVSplashScreen.m in Sources */,
 				515D3146243A4BBB8D3021B0 /* CDVViewController+SplashScreen.m in Sources */,
 				B08C46EEBDF343C899BDA68F /* CDVStatusBar.m in Sources */,
+				0E6D429D9B1D4CED85B5F9DA /* FacebookConnectPlugin.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

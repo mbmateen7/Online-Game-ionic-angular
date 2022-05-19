@@ -51,6 +51,22 @@
 		<dict>
 			<key>accounts.google.com</key>
 			<dict/>
+			<key>m.facebook.com</key>
+			<dict/>
+			<key>graph.facebook.com</key>
+			<dict/>
+			<key>api.facebook.com</key>
+			<dict/>
+			<key>fbcdn.net</key>
+			<dict>
+				<key>NSIncludesSubdomains</key>
+				<true/>
+			</dict>
+			<key>akamaihd.net</key>
+			<dict>
+				<key>NSIncludesSubdomains</key>
+				<true/>
+			</dict>
 		</dict>
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
@@ -67,6 +83,32 @@
 				<string>com.googleusercontent.apps.615811550902-uo5tp02r7ahhne694u84m87urq1ao32i</string>
 			</array>
 		</dict>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>fb843940766582402FACEBOOK_URL_SCHEME_SUFFIX_PLACEHOLDER</string>
+				<string>OTHER_APP_SCHEMES_PLACEHOLDER</string>
+			</array>
+		</dict>
+	</array>
+	<key>FacebookAppID</key>
+	<string>843940766582402</string>
+	<key>FacebookDisplayName</key>
+	<string>pic-playce</string>
+	<key>FacebookUrlSchemeSuffix</key>
+	<string>FACEBOOK_URL_SCHEME_SUFFIX_PLACEHOLDER</string>
+	<key>FacebookAutoLogAppEventsEnabled_PLACEHOLDER</key>
+	<string>FACEBOOK_AUTO_LOG_APP_EVENTS_PLACEHOLDER</string>
+	<key>FacebookHybridAppEvents</key>
+	<string>false</string>
+	<key>FacebookAdvertiserIDCollectionEnabled_PLACEHOLDER</key>
+	<string>FACEBOOK_ADVERTISER_ID_COLLECTION_PLACEHOLDER</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>fbapi</string>
+		<string>fb-messenger-api</string>
+		<string>fbauth2</string>
+		<string>fbshareextension</string>
 	</array>
 </dict>
 </plist>

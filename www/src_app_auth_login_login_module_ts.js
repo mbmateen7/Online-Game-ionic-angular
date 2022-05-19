@@ -97,21 +97,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "LoginPage": () => (/* binding */ LoginPage)
 /* harmony export */ });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! tslib */ 64762);
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! tslib */ 64762);
 /* harmony import */ var _raw_loader_login_page_html__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !raw-loader!./login.page.html */ 48182);
 /* harmony import */ var _login_page_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./login.page.scss */ 11894);
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @angular/core */ 37716);
-/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/forms */ 3679);
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @angular/router */ 39895);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @angular/core */ 37716);
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @angular/forms */ 3679);
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @angular/router */ 39895);
 /* harmony import */ var src_app_service_rest_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/service/rest.service */ 90421);
-/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @ionic/angular */ 80476);
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @ionic/angular */ 80476);
 /* harmony import */ var _capacitor_push_notifications__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @capacitor/push-notifications */ 98748);
 /* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! sweetalert2 */ 88259);
 /* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var src_app_service_user_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/service/user.service */ 84981);
 /* harmony import */ var src_app_dialog_dialog_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/dialog/dialog.component */ 95029);
 /* harmony import */ var _ionic_native_google_plus_ngx__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @ionic-native/google-plus/ngx */ 19342);
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @angular/common/http */ 91841);
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @angular/common/http */ 91841);
+/* harmony import */ var _awesome_cordova_plugins_facebook_ngx__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @awesome-cordova-plugins/facebook/ngx */ 5901);
+
 
 
 
@@ -130,7 +132,7 @@ __webpack_require__.r(__webpack_exports__);
 // import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook/ngx';
 // import { Facebook, FacebookLoginResponse } from '@awesome-cordova-plugins/facebook/ngx';
 let LoginPage = class LoginPage {
-    constructor(http, fb, restService, router, loadingController, alertController, userService, googlePlus) {
+    constructor(http, fb, restService, router, loadingController, alertController, userService, googlePlus, fbb) {
         this.http = http;
         this.fb = fb;
         this.restService = restService;
@@ -139,6 +141,7 @@ let LoginPage = class LoginPage {
         this.alertController = alertController;
         this.userService = userService;
         this.googlePlus = googlePlus;
+        this.fbb = fbb;
         this.alertMessage = 'please Wait...';
         this.passwordType = 'password';
         this.isSeen = false;
@@ -150,19 +153,25 @@ let LoginPage = class LoginPage {
             email: [
                 '',
                 [
-                    _angular_forms__WEBPACK_IMPORTED_MODULE_8__.Validators.required,
-                    _angular_forms__WEBPACK_IMPORTED_MODULE_8__.Validators.email,
-                    _angular_forms__WEBPACK_IMPORTED_MODULE_8__.Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'),
+                    _angular_forms__WEBPACK_IMPORTED_MODULE_9__.Validators.required,
+                    _angular_forms__WEBPACK_IMPORTED_MODULE_9__.Validators.email,
+                    _angular_forms__WEBPACK_IMPORTED_MODULE_9__.Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'),
                 ],
             ],
-            password: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_8__.Validators.required, _angular_forms__WEBPACK_IMPORTED_MODULE_8__.Validators.minLength(6)]],
+            password: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_9__.Validators.required, _angular_forms__WEBPACK_IMPORTED_MODULE_9__.Validators.minLength(6)]],
         });
+    }
+    fblogin() {
+        this.fbb.login(['public_profile', 'user_friends', 'email'])
+            .then((res) => console.log('Logged into Facebook!', res))
+            .catch(e => console.log('Error logging into Facebook', e));
+        this.fbb.logEvent(this.fbb.EVENTS.EVENT_NAME_ADDED_TO_CART);
     }
     ionViewDidEnter() {
         this.forgetPassword = false;
     }
     submitLoginForm() {
-        return (0,tslib__WEBPACK_IMPORTED_MODULE_9__.__awaiter)(this, void 0, void 0, function* () {
+        return (0,tslib__WEBPACK_IMPORTED_MODULE_10__.__awaiter)(this, void 0, void 0, function* () {
             this.showSignUpLoader = true;
             const res = yield this.userService.onUserLogin(this.profileForm.value);
             this.showSignUpLoader = false;
@@ -199,7 +208,7 @@ let LoginPage = class LoginPage {
         }
     }
     presentLoading() {
-        return (0,tslib__WEBPACK_IMPORTED_MODULE_9__.__awaiter)(this, void 0, void 0, function* () {
+        return (0,tslib__WEBPACK_IMPORTED_MODULE_10__.__awaiter)(this, void 0, void 0, function* () {
             const loading = yield this.loadingController.create({
                 cssClass: 'my-custom-class',
                 message: 'Please wait...',
@@ -209,7 +218,7 @@ let LoginPage = class LoginPage {
         });
     }
     presentAlert() {
-        return (0,tslib__WEBPACK_IMPORTED_MODULE_9__.__awaiter)(this, void 0, void 0, function* () {
+        return (0,tslib__WEBPACK_IMPORTED_MODULE_10__.__awaiter)(this, void 0, void 0, function* () {
             const alert = yield this.alertController.create({
                 cssClass: 'my-custom-class',
                 header: 'Alert',
@@ -292,20 +301,21 @@ let LoginPage = class LoginPage {
     }
 };
 LoginPage.ctorParameters = () => [
-    { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_10__.HttpClient },
-    { type: _angular_forms__WEBPACK_IMPORTED_MODULE_8__.FormBuilder },
+    { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_11__.HttpClient },
+    { type: _angular_forms__WEBPACK_IMPORTED_MODULE_9__.FormBuilder },
     { type: src_app_service_rest_service__WEBPACK_IMPORTED_MODULE_2__.RestService },
-    { type: _angular_router__WEBPACK_IMPORTED_MODULE_11__.Router },
-    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_12__.LoadingController },
-    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_12__.AlertController },
+    { type: _angular_router__WEBPACK_IMPORTED_MODULE_12__.Router },
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_13__.LoadingController },
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_13__.AlertController },
     { type: src_app_service_user_service__WEBPACK_IMPORTED_MODULE_5__.UserService },
-    { type: _ionic_native_google_plus_ngx__WEBPACK_IMPORTED_MODULE_7__.GooglePlus }
+    { type: _ionic_native_google_plus_ngx__WEBPACK_IMPORTED_MODULE_7__.GooglePlus },
+    { type: _awesome_cordova_plugins_facebook_ngx__WEBPACK_IMPORTED_MODULE_8__.Facebook }
 ];
 LoginPage.propDecorators = {
-    child: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_13__.ViewChild, args: [src_app_dialog_dialog_component__WEBPACK_IMPORTED_MODULE_6__.DialogComponent,] }]
+    child: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_14__.ViewChild, args: [src_app_dialog_dialog_component__WEBPACK_IMPORTED_MODULE_6__.DialogComponent,] }]
 };
-LoginPage = (0,tslib__WEBPACK_IMPORTED_MODULE_9__.__decorate)([
-    (0,_angular_core__WEBPACK_IMPORTED_MODULE_13__.Component)({
+LoginPage = (0,tslib__WEBPACK_IMPORTED_MODULE_10__.__decorate)([
+    (0,_angular_core__WEBPACK_IMPORTED_MODULE_14__.Component)({
         selector: 'app-login',
         template: _raw_loader_login_page_html__WEBPACK_IMPORTED_MODULE_0__.default,
         styles: [_login_page_scss__WEBPACK_IMPORTED_MODULE_1__.default]

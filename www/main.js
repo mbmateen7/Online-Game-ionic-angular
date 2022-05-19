@@ -271,22 +271,24 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "AppModule": () => (/* binding */ AppModule)
 /* harmony export */ });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! tslib */ 64762);
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/core */ 37716);
-/* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @angular/platform-browser */ 39075);
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @angular/router */ 39895);
-/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @angular/forms */ 3679);
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @angular/common/http */ 91841);
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! tslib */ 64762);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @angular/core */ 37716);
+/* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @angular/platform-browser */ 39075);
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @angular/router */ 39895);
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @angular/forms */ 3679);
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @angular/common/http */ 91841);
 /* harmony import */ var _firebase_config__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../firebase.config */ 23043);
-/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @ionic/angular */ 80476);
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @ionic/angular */ 80476);
 /* harmony import */ var _ionic_native_spinner_dialog_ngx__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @ionic-native/spinner-dialog/ngx */ 32423);
 /* harmony import */ var _ionic_native_in_app_purchase_2_ngx__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ionic-native/in-app-purchase-2/ngx */ 73532);
 /* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./app.component */ 55041);
 /* harmony import */ var _app_routing_module__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./app-routing.module */ 90158);
-/* harmony import */ var _angular_fire_app__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @angular/fire/app */ 90127);
-/* harmony import */ var _angular_fire_firestore__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @angular/fire/firestore */ 20630);
+/* harmony import */ var _angular_fire_app__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @angular/fire/app */ 90127);
+/* harmony import */ var _angular_fire_firestore__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @angular/fire/firestore */ 20630);
 /* harmony import */ var _dialog_dialog_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./dialog/dialog.component */ 95029);
 /* harmony import */ var _ionic_native_google_plus_ngx__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ionic-native/google-plus/ngx */ 19342);
+/* harmony import */ var _awesome_cordova_plugins_facebook_ngx__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @awesome-cordova-plugins/facebook/ngx */ 5901);
+
 
 
 
@@ -305,24 +307,25 @@ __webpack_require__.r(__webpack_exports__);
 
 let AppModule = class AppModule {
 };
-AppModule = (0,tslib__WEBPACK_IMPORTED_MODULE_7__.__decorate)([
-    (0,_angular_core__WEBPACK_IMPORTED_MODULE_8__.NgModule)({
+AppModule = (0,tslib__WEBPACK_IMPORTED_MODULE_8__.__decorate)([
+    (0,_angular_core__WEBPACK_IMPORTED_MODULE_9__.NgModule)({
         declarations: [_app_component__WEBPACK_IMPORTED_MODULE_3__.AppComponent, _dialog_dialog_component__WEBPACK_IMPORTED_MODULE_5__.DialogComponent],
         entryComponents: [],
         imports: [
-            (0,_angular_fire_app__WEBPACK_IMPORTED_MODULE_9__.provideFirebaseApp)(() => (0,_angular_fire_app__WEBPACK_IMPORTED_MODULE_9__.initializeApp)(_firebase_config__WEBPACK_IMPORTED_MODULE_0__.firebaseConfig)),
-            (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_10__.provideFirestore)(() => (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_10__.getFirestore)()),
-            _angular_platform_browser__WEBPACK_IMPORTED_MODULE_11__.BrowserModule,
-            _angular_common_http__WEBPACK_IMPORTED_MODULE_12__.HttpClientModule,
-            _ionic_angular__WEBPACK_IMPORTED_MODULE_13__.IonicModule.forRoot(),
+            (0,_angular_fire_app__WEBPACK_IMPORTED_MODULE_10__.provideFirebaseApp)(() => (0,_angular_fire_app__WEBPACK_IMPORTED_MODULE_10__.initializeApp)(_firebase_config__WEBPACK_IMPORTED_MODULE_0__.firebaseConfig)),
+            (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_11__.provideFirestore)(() => (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_11__.getFirestore)()),
+            _angular_platform_browser__WEBPACK_IMPORTED_MODULE_12__.BrowserModule,
+            _angular_common_http__WEBPACK_IMPORTED_MODULE_13__.HttpClientModule,
+            _ionic_angular__WEBPACK_IMPORTED_MODULE_14__.IonicModule.forRoot(),
             _app_routing_module__WEBPACK_IMPORTED_MODULE_4__.AppRoutingModule,
-            _angular_forms__WEBPACK_IMPORTED_MODULE_14__.ReactiveFormsModule,
+            _angular_forms__WEBPACK_IMPORTED_MODULE_15__.ReactiveFormsModule,
         ],
         providers: [
             _ionic_native_spinner_dialog_ngx__WEBPACK_IMPORTED_MODULE_1__.SpinnerDialog,
             _ionic_native_google_plus_ngx__WEBPACK_IMPORTED_MODULE_6__.GooglePlus,
-            { provide: _angular_router__WEBPACK_IMPORTED_MODULE_15__.RouteReuseStrategy, useClass: _ionic_angular__WEBPACK_IMPORTED_MODULE_13__.IonicRouteStrategy },
+            { provide: _angular_router__WEBPACK_IMPORTED_MODULE_16__.RouteReuseStrategy, useClass: _ionic_angular__WEBPACK_IMPORTED_MODULE_14__.IonicRouteStrategy },
             _ionic_native_in_app_purchase_2_ngx__WEBPACK_IMPORTED_MODULE_2__.InAppPurchase2,
+            _awesome_cordova_plugins_facebook_ngx__WEBPACK_IMPORTED_MODULE_7__.Facebook
         ],
         bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_3__.AppComponent],
     })
@@ -567,8 +570,7 @@ __webpack_require__.r(__webpack_exports__);
 let RestService = class RestService {
     constructor(http) {
         this.http = http;
-        // localUrl = environment.localUrl;
-        this.localUrl = src_environments_environment__WEBPACK_IMPORTED_MODULE_0__.environment.stagingUrl;
+        this.localUrl = src_environments_environment__WEBPACK_IMPORTED_MODULE_0__.environment.localUrl;
     }
     postRequest(url, obj) {
         return this.http.post(this.localUrl + url, obj);

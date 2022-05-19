@@ -6,4 +6,7 @@ target 'C:\Users\Devstudio\Desktop\Workspace\pic-playce\ionic\platforms\ios\MyAp
 	project 'C:\Users\Devstudio\Desktop\Workspace\pic-playce\ionic\platforms\ios\MyApp.xcodeproj'
 	pod 'GoogleSignIn', '~> 5.0.2'
 	pod 'GoogleUtilities', '~> 7.2.2'
+	pod 'FBSDKCoreKit', '11.1.0'
+	pod 'FBSDKLoginKit', '11.1.0'
+	pod 'FBSDKShareKit', '11.1.0'
 end

@@ -146,6 +146,10 @@ const routes = [
         path: 'main/store/filter/filter-list',
         loadChildren: () => Promise.all(/*! import() */[__webpack_require__.e("common"), __webpack_require__.e("src_app_main_main_store_filter_filter-list_filter-list_module_ts")]).then(__webpack_require__.bind(__webpack_require__, /*! ./main/main/store/filter/filter-list/filter-list.module */ 90371)).then(m => m.FilterListPageModule)
     },
+    // {
+    //   path: 'referrel/:code',
+    //   loadChildren: () => import('./main/main/setting/referrel/referrel.module').then(m => m.ReferrelPageModule)
+    // },
     {
         path: '**',
         component: _not_found_not_found_component__WEBPACK_IMPORTED_MODULE_2__.NotFoundComponent
@@ -563,14 +567,15 @@ __webpack_require__.r(__webpack_exports__);
 let RestService = class RestService {
     constructor(http) {
         this.http = http;
-        this.localUrl = src_environments_environment__WEBPACK_IMPORTED_MODULE_0__.environment.localUrl;
+        // localUrl = environment.localUrl;
+        this.localUrl = src_environments_environment__WEBPACK_IMPORTED_MODULE_0__.environment.stagingUrl;
     }
     postRequest(url, obj) {
         return this.http.post(this.localUrl + url, obj);
     }
     postRequestToken(url, obj) {
         return this.http.post(this.localUrl + url, obj, {
-        // headers: { 'x-access-token': localStorage.getItem('token') }
+            headers: { 'x-access-token': localStorage.getItem('token') }
         });
     }
     resetPassword(url, obj) {

@@ -20,6 +20,8 @@
     "@angular/platform-browser": "~12.1.1",
     "@angular/platform-browser-dynamic": "~12.1.1",
     "@angular/router": "~12.1.1",
+    "@awesome-cordova-plugins/core": "^5.41.0",
+    "@awesome-cordova-plugins/facebook": "^5.41.0",
     "@awesome-cordova-plugins/google-plus": "^5.40.0",
     "@awesome-cordova-plugins/in-app-purchase-2": "^5.37.3",
     "@awesome-cordova-plugins/media": "^5.37.3",
@@ -88,6 +90,7 @@
     "cordova-browser": "^6.0.0",
     "cordova-ios": "^6.2.0",
     "cordova-plugin-device": "2.0.2",
+    "cordova-plugin-facebook-connect": "^3.2.0",
     "cordova-plugin-ionic-webview": "^5.0.0",
     "cordova-plugin-splashscreen": "5.0.2",
     "cordova-plugin-statusbar": "2.4.2",
@@ -118,7 +121,11 @@
       "cordova-plugin-device": {},
       "cordova-plugin-splashscreen": {},
       "cordova-plugin-ionic-webview": {},
-      "cordova-plugin-ionic-keyboard": {}
+      "cordova-plugin-ionic-keyboard": {},
+      "cordova-plugin-facebook-connect": {
+        "APP_ID": "843940766582402",
+        "APP_NAME": "pic-playce"
+      }
     },
     "platforms": [
       "browser",
