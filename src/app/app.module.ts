@@ -18,6 +18,7 @@ import { provideFirebaseApp, getApp, initializeApp } from '@angular/fire/app';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { DialogComponent } from './dialog/dialog.component';
 import { GooglePlus } from '@ionic-native/google-plus/ngx';
+import { SocialSharing } from '@awesome-cordova-plugins/social-sharing/ngx';
 import { Facebook, FacebookLoginResponse } from '@awesome-cordova-plugins/facebook/ngx';
 
 @NgModule({
@@ -35,6 +36,7 @@ import { Facebook, FacebookLoginResponse } from '@awesome-cordova-plugins/facebo
   providers: [
     SpinnerDialog,
     GooglePlus,
+    SocialSharing,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     InAppPurchase2,
     Facebook
