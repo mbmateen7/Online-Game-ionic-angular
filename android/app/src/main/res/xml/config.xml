@@ -36,8 +36,21 @@
     <param name="android-package" value="cc.fovea.PurchasePlugin"/>
   </feature>
 
+  <feature name="SocialSharing">
+    <param name="android-package" value="nl.xservices.plugins.SocialSharing"/>
+  </feature>
+
+  <feature name="Device">
+    <param name="android-package" value="org.apache.cordova.device.Device"/>
+  </feature>
+
   <feature name="FacebookConnectPlugin">
     <param name="android-package" value="org.apache.cordova.facebook.ConnectPlugin"/>
+    <param name="onload" value="true"/>
+  </feature>
+
+  <feature name="StatusBar">
+    <param name="android-package" value="org.apache.cordova.statusbar.StatusBar"/>
     <param name="onload" value="true"/>
   </feature>
 

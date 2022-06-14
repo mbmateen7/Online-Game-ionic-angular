@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { GooglePlus } from '@ionic-native/google-plus/ngx';
+import { SocialSharing } from '@awesome-cordova-plugins/social-sharing/ngx';
 import { AudioService } from 'src/app/service/audio.service';
 import { RestService } from 'src/app/service/rest.service';
 import { AlertController } from '@ionic/angular';
@@ -13,7 +14,7 @@ export class SettingPage implements OnInit {
 
   user;
   ref_code: any = "";
-  constructor(private alertController: AlertController, private googlePlus: GooglePlus, private router: Router, private restService: RestService, private audio: AudioService) { }
+  constructor(private alertController: AlertController, private googlePlus: GooglePlus, private router: Router, private restService: RestService, private audio: AudioService , private socialSharing: SocialSharing) { }
 
   ngOnInit() {
     this.user = JSON.parse(localStorage.getItem('user'));
@@ -98,5 +99,11 @@ export class SettingPage implements OnInit {
   goToPurchaseDetails() {
     this.router.navigate(['/main/setting/purchase-container'])
 
+  }
+  shareSocial() {
+    var options = {
+      message: this.ref_code
+    };
+    this.socialSharing.shareWithOptions(options);
   }
 }
