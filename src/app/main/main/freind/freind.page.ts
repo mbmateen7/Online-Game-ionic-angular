@@ -11,7 +11,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./freind.page.scss'],
 })
 export class FreindPage implements OnInit {
-  friendist = [];
+  friendList = [];
   gameLevel = 4;
   slidesLength = 3;
   gameType = 'easy';
@@ -145,9 +145,30 @@ export class FreindPage implements OnInit {
     let user = localStorage.getItem('user')
     user = JSON.parse(user);
     this.restService.getRequest('contacts/listing').subscribe((res: any) => {
-      this.friendist = res.filter(f => {
+      this.friendList = res.filter(f => {
         return f.id != user['id']
       })
     });
+  }
+
+  deleteFriend(id:any) {
+    const friendInstance = { friend_id: id }
+    Swal.fire({
+      title: 'Remove',
+      text: 'Are you sure to remove this Friend?',
+      showCancelButton: true,
+      showConfirmButton: true,
+
+    }).then(res => {
+      if (res.isConfirmed) {
+        this.restService.delRequest('contacts/delete', friendInstance).subscribe(res => {
+          const friendDetail = this.friendList.filter(x => 
+            { 
+              return x.id != id 
+            });
+          this.friendList = friendDetail;
+        })
+      }
+    })
   }
 }

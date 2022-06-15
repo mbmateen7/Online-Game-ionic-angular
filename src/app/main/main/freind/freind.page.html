@@ -39,12 +39,13 @@
       <div class="card-lg">
         <div class="card-header">My Friends</div>
         <div class="card-body">
-          <div class="top-box mt-10" *ngFor="let friend of friendist">
+          <div class="top-box mt-10" *ngFor="let friend of friendList">
             <img class="ml-10" src="assets/dummy-user.jpg" alt="" width="55" style="border-radius: 50%" />
             <span class="ml-2">{{friend.user_name}}</span>
 
             <div class="btn-end">
               <ion-button (click)="selectDifficultyLevel(friend.id)" class="card-btn">Play</ion-button>
+              <ion-button (click)="deleteFriend(friend.id)" class="card-btn">Delete</ion-button>
             </div>
           </div>
         </div>
