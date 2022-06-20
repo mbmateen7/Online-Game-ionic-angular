@@ -270,6 +270,12 @@ export class GamePage implements OnInit {
     })
   }
 
+  refreshGame(event) {
+    setTimeout(() => {
+      event.target.complete();
+    }, 2000);
+  }
+
   // check(user_reward) {
   //   if (user_reward.reward_id != 4) {
   //     this.showClaimBtn = true;
