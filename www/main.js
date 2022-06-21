@@ -214,23 +214,25 @@ let AppComponent = class AppComponent {
             // alert('Resume event detected');
             this.audio.playSound();
         }));
-        _capacitor_push_notifications__WEBPACK_IMPORTED_MODULE_2__.PushNotifications.requestPermissions().then(result => {
-            if (result.receive === 'granted') {
-                _capacitor_push_notifications__WEBPACK_IMPORTED_MODULE_2__.PushNotifications.register();
-            }
-            else {
-            }
-        });
+        // PushNotifications.requestPermissions().then(result => {
+        //     if (result.receive === 'granted') {
+        //         PushNotifications.register();
+        //     } else {
+        //     }
+        // });
         // PushNotifications.getDeliveredNotifications().then(res => {
         //   console.log('----->', res);
         //   window.location.reload()
         // })
         // PushNotifications.addListener('registration',
-        //   (token) => {
-        //     this.restService.postRequestToken('users/set-device-token', { deviceToken: token }).subscribe(res => {
-        //       console.log('Token --->', token);
-        //     })
-        //   }
+        //     (token) => {
+        //         console.log('Token => ', token.value);
+        //         this.restService.postRequestToken('users/set-device-token', { deviceToken: token.value }).subscribe(res => {
+        //             console.log('Token --->', res);
+        //         }, error => {
+        //             console.log('TOken UPdate Error', error);
+        //         })
+        //     }
         // );
         // Some issue with our setup and push will not work
         _capacitor_push_notifications__WEBPACK_IMPORTED_MODULE_2__.PushNotifications.addListener('registrationError', (error) => {
@@ -271,23 +273,25 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "AppModule": () => (/* binding */ AppModule)
 /* harmony export */ });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! tslib */ 64762);
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @angular/core */ 37716);
-/* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @angular/platform-browser */ 39075);
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @angular/router */ 39895);
-/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @angular/forms */ 3679);
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @angular/common/http */ 91841);
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! tslib */ 64762);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @angular/core */ 37716);
+/* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @angular/platform-browser */ 39075);
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @angular/router */ 39895);
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @angular/forms */ 3679);
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @angular/common/http */ 91841);
 /* harmony import */ var _firebase_config__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../firebase.config */ 23043);
-/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @ionic/angular */ 80476);
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @ionic/angular */ 80476);
 /* harmony import */ var _ionic_native_spinner_dialog_ngx__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @ionic-native/spinner-dialog/ngx */ 32423);
 /* harmony import */ var _ionic_native_in_app_purchase_2_ngx__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ionic-native/in-app-purchase-2/ngx */ 73532);
 /* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./app.component */ 55041);
 /* harmony import */ var _app_routing_module__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./app-routing.module */ 90158);
-/* harmony import */ var _angular_fire_app__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @angular/fire/app */ 90127);
-/* harmony import */ var _angular_fire_firestore__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @angular/fire/firestore */ 20630);
+/* harmony import */ var _angular_fire_app__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @angular/fire/app */ 90127);
+/* harmony import */ var _angular_fire_firestore__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @angular/fire/firestore */ 20630);
 /* harmony import */ var _dialog_dialog_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./dialog/dialog.component */ 95029);
 /* harmony import */ var _ionic_native_google_plus_ngx__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ionic-native/google-plus/ngx */ 19342);
-/* harmony import */ var _awesome_cordova_plugins_facebook_ngx__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @awesome-cordova-plugins/facebook/ngx */ 5901);
+/* harmony import */ var _awesome_cordova_plugins_social_sharing_ngx__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @awesome-cordova-plugins/social-sharing/ngx */ 35221);
+/* harmony import */ var _awesome_cordova_plugins_facebook_ngx__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @awesome-cordova-plugins/facebook/ngx */ 5901);
+
 
 
 
@@ -307,25 +311,26 @@ __webpack_require__.r(__webpack_exports__);
 
 let AppModule = class AppModule {
 };
-AppModule = (0,tslib__WEBPACK_IMPORTED_MODULE_8__.__decorate)([
-    (0,_angular_core__WEBPACK_IMPORTED_MODULE_9__.NgModule)({
+AppModule = (0,tslib__WEBPACK_IMPORTED_MODULE_9__.__decorate)([
+    (0,_angular_core__WEBPACK_IMPORTED_MODULE_10__.NgModule)({
         declarations: [_app_component__WEBPACK_IMPORTED_MODULE_3__.AppComponent, _dialog_dialog_component__WEBPACK_IMPORTED_MODULE_5__.DialogComponent],
         entryComponents: [],
         imports: [
-            (0,_angular_fire_app__WEBPACK_IMPORTED_MODULE_10__.provideFirebaseApp)(() => (0,_angular_fire_app__WEBPACK_IMPORTED_MODULE_10__.initializeApp)(_firebase_config__WEBPACK_IMPORTED_MODULE_0__.firebaseConfig)),
-            (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_11__.provideFirestore)(() => (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_11__.getFirestore)()),
-            _angular_platform_browser__WEBPACK_IMPORTED_MODULE_12__.BrowserModule,
-            _angular_common_http__WEBPACK_IMPORTED_MODULE_13__.HttpClientModule,
-            _ionic_angular__WEBPACK_IMPORTED_MODULE_14__.IonicModule.forRoot(),
+            (0,_angular_fire_app__WEBPACK_IMPORTED_MODULE_11__.provideFirebaseApp)(() => (0,_angular_fire_app__WEBPACK_IMPORTED_MODULE_11__.initializeApp)(_firebase_config__WEBPACK_IMPORTED_MODULE_0__.firebaseConfig)),
+            (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_12__.provideFirestore)(() => (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_12__.getFirestore)()),
+            _angular_platform_browser__WEBPACK_IMPORTED_MODULE_13__.BrowserModule,
+            _angular_common_http__WEBPACK_IMPORTED_MODULE_14__.HttpClientModule,
+            _ionic_angular__WEBPACK_IMPORTED_MODULE_15__.IonicModule.forRoot(),
             _app_routing_module__WEBPACK_IMPORTED_MODULE_4__.AppRoutingModule,
-            _angular_forms__WEBPACK_IMPORTED_MODULE_15__.ReactiveFormsModule,
+            _angular_forms__WEBPACK_IMPORTED_MODULE_16__.ReactiveFormsModule,
         ],
         providers: [
             _ionic_native_spinner_dialog_ngx__WEBPACK_IMPORTED_MODULE_1__.SpinnerDialog,
             _ionic_native_google_plus_ngx__WEBPACK_IMPORTED_MODULE_6__.GooglePlus,
-            { provide: _angular_router__WEBPACK_IMPORTED_MODULE_16__.RouteReuseStrategy, useClass: _ionic_angular__WEBPACK_IMPORTED_MODULE_14__.IonicRouteStrategy },
+            _awesome_cordova_plugins_social_sharing_ngx__WEBPACK_IMPORTED_MODULE_7__.SocialSharing,
+            { provide: _angular_router__WEBPACK_IMPORTED_MODULE_17__.RouteReuseStrategy, useClass: _ionic_angular__WEBPACK_IMPORTED_MODULE_15__.IonicRouteStrategy },
             _ionic_native_in_app_purchase_2_ngx__WEBPACK_IMPORTED_MODULE_2__.InAppPurchase2,
-            _awesome_cordova_plugins_facebook_ngx__WEBPACK_IMPORTED_MODULE_7__.Facebook
+            _awesome_cordova_plugins_facebook_ngx__WEBPACK_IMPORTED_MODULE_8__.Facebook
         ],
         bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_3__.AppComponent],
     })
@@ -570,7 +575,8 @@ __webpack_require__.r(__webpack_exports__);
 let RestService = class RestService {
     constructor(http) {
         this.http = http;
-        this.localUrl = src_environments_environment__WEBPACK_IMPORTED_MODULE_0__.environment.localUrl;
+        //   localUrl = environment.localUrl;
+        this.localUrl = src_environments_environment__WEBPACK_IMPORTED_MODULE_0__.environment.stagingUrl;
     }
     postRequest(url, obj) {
         return this.http.post(this.localUrl + url, obj);
@@ -967,7 +973,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("body {\n  font-family: Poppins !important;\n}\n\n.text-center {\n  text-align: center;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImFwcC5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFLCtCQUFBO0FBQ0Y7O0FBRUE7RUFDRSxrQkFBQTtBQUNGIiwiZmlsZSI6ImFwcC5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbImJvZHkge1xyXG4gIGZvbnQtZmFtaWx5OiBQb3BwaW5zICFpbXBvcnRhbnQ7XHJcbn1cclxuXHJcbi50ZXh0LWNlbnRlciB7XHJcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xyXG59XHJcbiJdfQ== */");
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("body {\n  font-family: Poppins !important;\n}\n\n.text-center {\n  text-align: center;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImFwcC5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFLCtCQUFBO0FBQ0Y7O0FBRUE7RUFDRSxrQkFBQTtBQUNGIiwiZmlsZSI6ImFwcC5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbImJvZHkge1xuICBmb250LWZhbWlseTogUG9wcGlucyAhaW1wb3J0YW50O1xufVxuXG4udGV4dC1jZW50ZXIge1xuICB0ZXh0LWFsaWduOiBjZW50ZXI7XG59XG4iXX0= */");
 
 /***/ }),
 
@@ -1012,7 +1018,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("<ion-app>\r\n  <ion-router-outlet></ion-router-outlet>\r\n</ion-app>\r\n");
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("<ion-app>\n  <ion-router-outlet></ion-router-outlet>\n</ion-app>\n");
 
 /***/ }),
 
@@ -1027,7 +1033,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("<p>\r\n  dialog works!\r\n</p>\r\n");
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("<p>\n  dialog works!\n</p>\n");
 
 /***/ }),
 
@@ -1042,7 +1048,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("<p>\r\n  not-found works!\r\n</p>\r\n");
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("<p>\n  not-found works!\n</p>\n");
 
 /***/ })
 
