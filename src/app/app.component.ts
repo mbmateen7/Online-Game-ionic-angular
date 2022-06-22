@@ -7,17 +7,12 @@ import { Platform } from '@ionic/angular';
 import { AudioService } from './service/audio.service';
 import { Router } from '@angular/router';
 
-
-
 @Component({
     selector: 'app-root',
     templateUrl: 'app.component.html',
     styleUrls: ['app.component.scss'],
 })
 export class AppComponent {
-
-
-
 
     constructor(private restService: RestService, private platform: Platform, private audio: AudioService, private router: Router) {
 
@@ -30,22 +25,6 @@ export class AppComponent {
             // alert('Resume event detected');
             this.audio.playSound()
         });
-        // PushNotifications.requestPermissions().then(result => {
-        //     if (result.receive === 'granted') {
-        //         PushNotifications.register();
-        //     } else {
-        //     }
-        // });
-
-
-        // PushNotifications.getDeliveredNotifications().then(res => {
-        //   console.log('----->', res);
-        //   window.location.reload()
-
-        // })
-
-
-
 
         PushNotifications.addListener('registration',
             (token) => {
@@ -67,13 +46,6 @@ export class AppComponent {
                 alert('Error on registration: ' + JSON.stringify(error));
             }
         );
-
-        // PushNotifications.addListener('pushNotificationReceived', (res) => {
-        //   console.log('Resss', res);
-        //   this.router.navigate(['/main/game'], { replaceUrl: true })
-        // })
-
-
 
     }
 

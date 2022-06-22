@@ -8,4 +8,5 @@
     <string name="custom_url_scheme">com.picplayce.game</string>
  <string name="fb_app_id">843940766582402</string>
 <string name="fb_app_name">pic-playce</string>
+<string name="admob_app_id">ca-app-pub-8610493071974470~5495047916</string>
 </resources>

@@ -27,6 +27,7 @@
     "@awesome-cordova-plugins/media": "^5.37.3",
     "@awesome-cordova-plugins/native-audio": "^5.37.3",
     "@awesome-cordova-plugins/social-sharing": "^5.43.0",
+    "@capacitor-community/admob": "^3.2.0",
     "@capacitor-community/fcm": "^2.0.2",
     "@capacitor/android": "^3.6.0",
     "@capacitor/app": "^1.0.3",
