@@ -50,7 +50,6 @@ export class MainPage implements OnInit {
                 let tabBar = document.getElementById('tabs-bar');
                 console.log(tabBar);
                 tabBar.style.marginBottom = '60px';
-
             });
         })
     }
