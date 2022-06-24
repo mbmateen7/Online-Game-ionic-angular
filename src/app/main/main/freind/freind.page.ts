@@ -50,6 +50,8 @@ export class FreindPage implements OnInit {
 
   }
 
+  
+
   ionViewWillEnter() {
     this.getFriendList();
   }
@@ -109,6 +111,13 @@ export class FreindPage implements OnInit {
     console.log('Loading dismissed!');
   }
 
+  doLoading(){
+    let loader:any = this.loadingController.create({
+        message: 'Loading...'
+    });
+    return loader;
+  }
+
 
   selectDifficultyLevel(id) {
     Swal.fire({
@@ -148,7 +157,7 @@ export class FreindPage implements OnInit {
       this.friendList = res.filter(f => {
         return f.id != user['id']
       })
-    });
+     });
   }
 
   deleteFriend(id:any) {
@@ -161,6 +170,7 @@ export class FreindPage implements OnInit {
 
     }).then(res => {
       if (res.isConfirmed) {
+        this.doLoading().present().then(()=>{ 
         this.restService.delRequest('contacts/delete', friendInstance).subscribe(res => {
           const friendDetail = this.friendList.filter(x => 
             { 
@@ -168,6 +178,8 @@ export class FreindPage implements OnInit {
             });
           this.friendList = friendDetail;
         })
+        this.doLoading().dismiss();
+        });
       }
     })
   }

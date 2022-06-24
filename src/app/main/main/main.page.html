@@ -7,20 +7,20 @@
         <ion-badge>6</ion-badge>
       </ion-tab-button> -->
 
-      <ion-tab-button tab="game">
+      <ion-tab-button tab="game" (click)="doLoading()">
         <ion-icon [src]="activeTab == 'game'  ? 'assets/icon/picplayce_dark.svg' : 'assets/icon/c-dull-logo.svg' ">
         </ion-icon>
 
         <ion-label [ngClass]="{'activeText': activeTab == 'game'}">Game</ion-label>
       </ion-tab-button>
 
-      <ion-tab-button tab="freind">
+      <ion-tab-button tab="freind" (click)="doLoading()" >
         <ion-icon [src]="activeTab == 'freind' ? 'assets/icon/friend_dark.svg' : 'assets/icon/friend.svg'">
         </ion-icon>
         <ion-label [ngClass]="{'activeText': activeTab == 'freind'}">Friends</ion-label>
       </ion-tab-button>
 
-      <ion-tab-button tab="store">
+      <ion-tab-button tab="store" (click)="doLoading()" >
         <ion-icon [src]="activeTab == 'store' ? 'assets/icon/store_dark.svg' : 'assets/icon/store.svg'"></ion-icon>
         <ion-label [ngClass]="{'activeText': activeTab == 'store'}">Store</ion-label>
       </ion-tab-button>
