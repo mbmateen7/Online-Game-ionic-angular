@@ -27,7 +27,7 @@ export class SignUpPage implements OnInit {
   ngOnInit() {
     this.pfCheckBox = false;
     this.profileForm = new FormGroup({
-      user_name: new FormControl('', [Validators.required, Validators.minLength(4)]),
+      user_name: new FormControl('', [Validators.required, Validators.minLength(4) , Validators.maxLength(10)]),
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [
         Validators.required,
@@ -95,11 +95,33 @@ export class SignUpPage implements OnInit {
   }
 
   onSignUp() {
+
+    
     this.showSignUpLoader = true;
     this.restService.postRequest('users/register', this.profileForm.value).subscribe(
       (res: any) => {
-        if (res.token) {
-          // console.log('This is res', res.data);
+                  console.log('This is res tipu', res.data.user_name.length);
+                  // if ()
+                  // {
+                    
+                  //     this.showSignUpLoader = false;
+                  //     // console.log('This is error', err.error);
+                  //     Swal.fire({
+                  //       title: '<div><h5>Error!</h5></div>',
+                  //       html: 'userName is too long',
+                  //       confirmButtonText: 'Ok',
+                  //       confirmButtonColor: '#99C43C',
+              
+                  //     })
+                  //     this.router.navigate(['sign-up']);
+
+                  // }
+
+        if (res.data.user_name.length <= 10){
+          if (res.token) {
+          // console.log('This is res tipu', res.data.user_name.maxLength);
+         
+
           localStorage.setItem('token', res.token);
           localStorage.setItem('user', JSON.stringify(res.data));
 
@@ -112,8 +134,10 @@ export class SignUpPage implements OnInit {
           this.showSignUpLoader = false;
           this.router.navigate(['main'])
         }
+      }
       },
       err => {
+        
         this.showSignUpLoader = false;
         // console.log('This is error', err.error);
         Swal.fire({
