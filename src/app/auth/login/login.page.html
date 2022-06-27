@@ -26,16 +26,12 @@
               </ion-label>
               <ion-input (input)="removeString($event)"></ion-input>
             </ion-item>
-
             <p class="ml-20 danger" *ngIf="profileForm.touched && errorControl.email.errors?.required">
               Email is required
             </p>
-
             <p class="ml-20 danger" *ngIf="profileForm.touched && errorControl.email.status === 'INVALID' ">
               Email is incorrect
             </p>
-
-
           </ion-col>
         </ion-row>
 

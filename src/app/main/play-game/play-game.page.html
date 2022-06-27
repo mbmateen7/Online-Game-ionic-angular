@@ -16,9 +16,9 @@
   </div>
   <div id="page-container">
 
-    <img width="360" height="360" id="originalImage" *ngIf="cameraImage && gameObj.type =='easy'" src="{{cameraImage}}" (load)="Crop()" />
+    <img id="originalImage" *ngIf="cameraImage && gameObj.type =='easy'" src="{{cameraImage}}" (load)="Crop()" />
 
-    <img width="360" height="360" id="originalImage" *ngIf="cameraImage && gameObj.type == 'medium'" src="{{cameraImage}}" (load)="Crop1()" />
+    <img id="originalImage" *ngIf="cameraImage && gameObj.type == 'medium'" src="{{cameraImage}}" (load)="Crop1()" />
 
     <ion-grid *ngIf="gameObj.type == 'easy' && gameObj.status == 0" class="ion-justify-content-center" id="container" style="padding: 2px 5vh 0">
       <ion-row class="spaceinrow" [ngClass]="primaryFilter">
@@ -85,7 +85,7 @@
     <ion-grid *ngIf="gameObj.type == 'medium' && gameObj.status == 0" class="ion-justify-content-center" id="container" style="padding: 0px 13% 0">
       <ion-row class="spaceinrow" [ngClass]="primaryFilter">
         <ion-col class="{{sequence[0]}}" col-4="4" dragula="totalPiece" style="padding: 2px">
-          <canvas height="200" width="200" id="canvas1" style="display: inline-block" [ngStyle]="{
+          <canvas id="canvas1" style="display: inline-block" [ngStyle]="{
    'filter': 'grayscale(' + this.secondaryValues.numbers.grayscale + '%) ' +
    'hue-rotate(' + this.secondaryValues.numbers.hue_rotate + 'deg) ' +
    'invert(' + this.secondaryValues.numbers.invert + '%) ' +
@@ -100,7 +100,7 @@
         </ion-col>
 
         <ion-col class="{{sequence[1]}}" col-4="4" dragula="totalPiece" style="padding: 2px">
-          <canvas height="200" width="200" id="canvas2" style="display: inline-block" [ngStyle]="{
+          <canvas id="canvas2" style="display: inline-block" [ngStyle]="{
    'filter': 'grayscale(' + this.secondaryValues.numbers.grayscale + '%) ' +
    'hue-rotate(' + this.secondaryValues.numbers.hue_rotate + 'deg) ' +
    'invert(' + this.secondaryValues.numbers.invert + '%) ' +
@@ -115,7 +115,7 @@
         </ion-col>
 
         <ion-col class="{{sequence[2]}}" col-4="4" dragula="totalPiece" style="padding: 2px">
-          <canvas height="200" width="200" id="canvas3" style="display: inline-block" [ngStyle]="{
+          <canvas id="canvas3" style="display: inline-block" [ngStyle]="{
  'filter': 'grayscale(' + this.secondaryValues.numbers.grayscale + '%) ' +
  'hue-rotate(' + this.secondaryValues.numbers.hue_rotate + 'deg) ' +
  'invert(' + this.secondaryValues.numbers.invert + '%) ' +
@@ -133,7 +133,7 @@
       <ion-row class="spaceinrow" [ngClass]="primaryFilter">
 
         <ion-col class="{{sequence[3]}}" col-4="4" dragula="totalPiece" style="padding: 2px">
-          <canvas height="200" width="200" id="canvas4" style="display: inline-block" [ngStyle]="{
+          <canvas id="canvas4" style="display: inline-block" [ngStyle]="{
  'filter': 'grayscale(' + this.secondaryValues.numbers.grayscale + '%) ' +
  'hue-rotate(' + this.secondaryValues.numbers.hue_rotate + 'deg) ' +
  'invert(' + this.secondaryValues.numbers.invert + '%) ' +
@@ -148,7 +148,7 @@
         </ion-col>
 
         <ion-col class="{{sequence[4]}}" col-4="4" dragula="totalPiece" style="padding: 2px">
-          <canvas height="200" width="200" id="canvas5" style="display: inline-block" [ngStyle]="{
+          <canvas id="canvas5" style="display: inline-block" [ngStyle]="{
    'filter': 'grayscale(' + this.secondaryValues.numbers.grayscale + '%) ' +
    'hue-rotate(' + this.secondaryValues.numbers.hue_rotate + 'deg) ' +
    'invert(' + this.secondaryValues.numbers.invert + '%) ' +
@@ -162,7 +162,7 @@
         </ion-col>
 
         <ion-col class="{{sequence[5]}}" col-4="4" dragula="totalPiece" style="padding: 2px">
-          <canvas height="200" width="200" id="canvas6" style="display: inline-block" [ngStyle]="{
+          <canvas id="canvas6" style="display: inline-block" [ngStyle]="{
    'filter': 'grayscale(' + this.secondaryValues.numbers.grayscale + '%) ' +
    'hue-rotate(' + this.secondaryValues.numbers.hue_rotate + 'deg) ' +
    'invert(' + this.secondaryValues.numbers.invert + '%) ' +
@@ -179,7 +179,7 @@
 
       <ion-row class="spaceinrow" [ngClass]="primaryFilter">
         <ion-col class="{{sequence[6]}}" col-4="4" dragula="totalPiece" style="padding: 2px">
-          <canvas height="200" width="200" id="canvas7" style="display: inline-block" [ngStyle]="{
+          <canvas id="canvas7" style="display: inline-block" [ngStyle]="{
    'filter': 'grayscale(' + this.secondaryValues.numbers.grayscale + '%) ' +
    'hue-rotate(' + this.secondaryValues.numbers.hue_rotate + 'deg) ' +
    'invert(' + this.secondaryValues.numbers.invert + '%) ' +
@@ -194,7 +194,7 @@
         </ion-col>
 
         <ion-col class="{{sequence[7]}}" col-4="4" dragula="totalPiece" style="padding: 2px">
-          <canvas height="200" width="200" id="canvas8" style="display: inline-block" [ngStyle]="{
+          <canvas id="canvas8" style="display: inline-block" [ngStyle]="{
    'filter': 'grayscale(' + this.secondaryValues.numbers.grayscale + '%) ' +
    'hue-rotate(' + this.secondaryValues.numbers.hue_rotate + 'deg) ' +
    'invert(' + this.secondaryValues.numbers.invert + '%) ' +
@@ -208,7 +208,7 @@
         </ion-col>
 
         <ion-col class="{{sequence[8]}}" col-4="4" dragula="totalPiece" style="padding: 2px">
-          <canvas height="200" width="200" id="canvas9" style="display: inline-block" [ngStyle]="{
+          <canvas id="canvas9" style="display: inline-block" [ngStyle]="{
    'filter': 'grayscale(' + this.secondaryValues.numbers.grayscale + '%) ' +
    'hue-rotate(' + this.secondaryValues.numbers.hue_rotate + 'deg) ' +
    'invert(' + this.secondaryValues.numbers.invert + '%) ' +
@@ -387,23 +387,23 @@
 
     <div class="space-between">
       <div class="toHide" dragula="totalPiece">
-        <canvas height="200" width="200" (click)="onRotate(1,'toHide')" id="canvas1">
+        <canvas  (click)="onRotate(1,'toHide')" id="canvas1">
         </canvas>
       </div>
 
       <div class="toHide1" dragula="totalPiece">
-        <canvas height="200" width="200" (click)="onRotate(2,'toHide1')" id="canvas2">
+        <canvas  (click)="onRotate(2,'toHide1')" id="canvas2">
         </canvas>
       </div>
     </div>
 
     <div class="space-between">
       <div class="toHide2" dragula="totalPiece">
-        <canvas height="200" width="200" (click)="onRotate(3,'toHide2')" id="canvas3">
+        <canvas  (click)="onRotate(3,'toHide2')" id="canvas3">
         </canvas>
       </div>
       <div class="toHide3" dragula="totalPiece">
-        <canvas height="200" width="200" (click)="onRotate(4,'toHide3')" id="canvas4">
+        <canvas  (click)="onRotate(4,'toHide3')" id="canvas4">
         </canvas>
       </div>
     </div>

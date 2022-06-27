@@ -267,3 +267,17 @@ page-play-game {
 //     list-style: none;
 //   }
 // }
+
+ion-col {
+    canvas{
+        height: 20vh;
+        width: 20vw;
+    }
+}
+
+#originalImage{
+    height: 40vh;
+    width: 80vw;
+    display: block;
+    margin: auto;
+}

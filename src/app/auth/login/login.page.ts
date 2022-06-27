@@ -206,14 +206,13 @@ export class LoginPage implements OnInit {
             .then((res: AppleSignInResponse) => {
                 console.log(res);
                 var json = {
-                    token: res.identityToken,
                     email: res.email,
-                    id: res.user,
-                    name: res.fullName.givenName + ' ' + res.fullName.familyName,
+                    apple_id: res.user,
                     type: 'apple',
+                    name: res.fullName.givenName + ' ' + res.fullName.familyName,
                     user_name: (res.fullName?.givenName + ' ' + res.fullName?.familyName).replace(/\s/g, '')
                 }
-                this.onSignUp(json);
+                this.onSignUp(JSON.stringify(json));
             })
             .catch((error: AppleSignInErrorResponse) => {
                 console.error(error);
@@ -234,8 +233,9 @@ export class LoginPage implements OnInit {
                 }
             },
             err => {
+
                 this.showSignUpLoader = false;
-                // console.log('This is error', err.error);
+                console.log('This is error', err.error);
                 Swal.fire({
                     title: '<div><h5>Error!</h5></div>',
                     html: err.error,

@@ -14,7 +14,7 @@ export class MainPage implements OnInit {
     secondaryFilterList: any;
     ownedItemsList: any;
     activeTab = 'game';
-    constructor(private restService: RestService , private loading:LoadingController) { }
+    constructor(private restService: RestService, private loading: LoadingController) { }
 
     ngOnInit() {
         this.restService.getRequest('shop/AllFilterList').subscribe((res: any) => {
@@ -48,9 +48,9 @@ export class MainPage implements OnInit {
         initialize().then(r => {
             banner().then(x => {
                 console.log('banner response => ', x);
-                let tabBar = document.getElementById('tabs-bar');
+                let tabBar = document.getElementsByTagName('ion-app');
                 console.log(tabBar);
-                tabBar.style.marginBottom = '60px';
+                tabBar[0].style.bottom = '60px';
             });
         })
     }
@@ -60,8 +60,8 @@ export class MainPage implements OnInit {
         this.activeTab = e.tab;
     }
 
-    doLoading(){
-        let loader:any = this.loading.create({
+    doLoading() {
+        let loader: any = this.loading.create({
             message: 'Loading...'
         });
     }
