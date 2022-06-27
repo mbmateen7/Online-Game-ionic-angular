@@ -118,7 +118,7 @@ export class SignUpPage implements OnInit {
         // console.log('This is error', err.error);
         Swal.fire({
           title: '<div><h5>Error!</h5></div>',
-          html: err.error,
+          html: 'Email already Exist',
           confirmButtonText: 'Ok',
           confirmButtonColor: '#99C43C',
 

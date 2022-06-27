@@ -47,7 +47,7 @@ export class ResetPage implements OnInit {
     const alert = await this.alertController.create({
       cssClass: 'my-custom-class',
       header: 'PicPlayce',
-      message: 'Code is sent Succefully! Please check Your mail',
+      message: 'Code is sent Successfully! Please check Your mail',
       buttons: [{
         text: 'OK', handler: () => {
           this.router.navigate(['send-code']);
@@ -58,6 +58,5 @@ export class ResetPage implements OnInit {
     await alert.present();
 
     const { role } = await alert.onDidDismiss();
-    console.log('onDidDismiss resolved with role', role);
   }
 }
