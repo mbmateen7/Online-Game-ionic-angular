@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { RestService } from 'src/app/service/rest.service';
 
 import { AdMob, BannerAdOptions, BannerAdSize, BannerAdPosition, BannerAdPluginEvents, AdMobBannerSize } from '@capacitor-community/admob';
+import { LoadingController } from '@ionic/angular';
 @Component({
     selector: 'app-main',
     templateUrl: './main.page.html',
@@ -13,7 +14,7 @@ export class MainPage implements OnInit {
     secondaryFilterList: any;
     ownedItemsList: any;
     activeTab = 'game';
-    constructor(private restService: RestService) { }
+    constructor(private restService: RestService , private loading:LoadingController) { }
 
     ngOnInit() {
         this.restService.getRequest('shop/AllFilterList').subscribe((res: any) => {
@@ -58,6 +59,13 @@ export class MainPage implements OnInit {
         console.log('This is event', e.tab)
         this.activeTab = e.tab;
     }
+
+    doLoading(){
+        let loader:any = this.loading.create({
+            message: 'Loading...'
+        });
+    }
+
 }
 
 export async function banner(): Promise<void> {
@@ -101,4 +109,6 @@ export async function initialize(): Promise<void> {
         testingDevices: ['2077ef9a63d2b398840261c8221a0c9b'],
         initializeForTesting: true,
     });
+
+
 }

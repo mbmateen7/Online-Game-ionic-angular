@@ -4,7 +4,7 @@ import { RestService } from 'src/app/service/rest.service';
 
 
 import Swal from 'sweetalert2';
-import { NavController } from '@ionic/angular';
+import { LoadingController, NavController } from '@ionic/angular';
 import { PushNotifications } from "@capacitor/push-notifications";
 
 import { GooglePlus } from '@ionic-native/google-plus/ngx';
@@ -28,7 +28,8 @@ export class GamePage implements OnInit {
     private restService: RestService,
     private router: Router,
     private navCtrl: NavController,
-    private activatedRoute: ActivatedRoute, private googlePlus: GooglePlus
+    private activatedRoute: ActivatedRoute, private googlePlus: GooglePlus,
+    private loading:LoadingController
   ) {
 
 
@@ -101,8 +102,18 @@ export class GamePage implements OnInit {
 
   onPlayGame(game) {
 
-    this.router.navigate(['play-game', { game: JSON.stringify(game) }], { replaceUrl: true });
+    this.doLoading().present().then(()=>{ 
 
+    this.router.navigate(['play-game', { game: JSON.stringify(game) }], { replaceUrl: true });
+      this.doLoading().dismiss();
+  });
+  }
+
+  doLoading(){
+    let loader:any = this.loading.create({
+        message: 'Loading...'
+    });
+    return loader;
   }
 
   onRewardUpdate(user, i) {

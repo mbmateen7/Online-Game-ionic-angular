@@ -137,12 +137,12 @@
           </div>
         </div>
         <!-- <div class="loader1"></div> -->
-        <div class="play-cus-btn">
-          <ion-button (click)="onNewGameEvent()">New Game
-          </ion-button>
-        </div>
+        
       </ion-col>
     </ion-row>
   </ion-grid>
-
+  <ion-fab class="play-cus-btn" vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="onNewGameEvent()">New Game
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>
