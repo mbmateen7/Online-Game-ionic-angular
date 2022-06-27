@@ -9,6 +9,7 @@ import Swal from 'sweetalert2';
 import { UserService } from 'src/app/service/user.service';
 import { DialogComponent } from 'src/app/dialog/dialog.component';
 import { GooglePlus } from '@ionic-native/google-plus/ngx';
+import { SignInWithApple, AppleSignInResponse, AppleSignInErrorResponse, ASAuthorizationAppleIDRequest } from '@awesome-cordova-plugins/sign-in-with-apple/ngx';
 import { HttpClient } from '@angular/common/http';
 import { Facebook, FacebookLoginResponse } from '@awesome-cordova-plugins/facebook/ngx';
 // import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook/ngx';
@@ -35,7 +36,8 @@ export class LoginPage implements OnInit {
         public loadingController: LoadingController,
         public alertController: AlertController,
         private userService: UserService,
-        private googlePlus: GooglePlus, private fbb: Facebook
+        private googlePlus: GooglePlus, private fbb: Facebook,
+        private signInWithApple: SignInWithApple
 
     ) { }
 
@@ -185,13 +187,36 @@ export class LoginPage implements OnInit {
                     user_name: this.user.givenName.replace(/\s/g, ''),
                     email: this.user.email,
                     id: this.user.userId
-
                 }
                 this.onSignUp(JSON.stringify(json));
             })
             .catch(err => {
                 console.log(err);
                 this.user = `Error ${JSON.stringify(err)}`
+            });
+    }
+
+    AppleSignIn() {
+        this.signInWithApple.signin({
+            requestedScopes: [
+                ASAuthorizationAppleIDRequest.ASAuthorizationScopeFullName,
+                ASAuthorizationAppleIDRequest.ASAuthorizationScopeEmail
+            ]
+        })
+            .then((res: AppleSignInResponse) => {
+                console.log(res);
+                var json = {
+                    token: res.identityToken,
+                    email: res.email,
+                    id: res.user,
+                    name: res.fullName.givenName + ' ' + res.fullName.familyName,
+                    type: 'apple',
+                    user_name: (res.fullName?.givenName + ' ' + res.fullName?.familyName).replace(/\s/g, '')
+                }
+                this.onSignUp(json);
+            })
+            .catch((error: AppleSignInErrorResponse) => {
+                console.error(error);
             });
     }
 

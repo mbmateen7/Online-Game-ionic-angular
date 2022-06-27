@@ -8,16 +8,17 @@ import { LoginPageRoutingModule } from './login-routing.module';
 
 import { GooglePlus } from '@ionic-native/google-plus/ngx';
 import { LoginPage } from './login.page';
+import { SignInWithApple } from '@awesome-cordova-plugins/sign-in-with-apple/ngx';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    LoginPageRoutingModule,
-    ReactiveFormsModule,
-  ],
-  providers: [GooglePlus],
-  declarations: [LoginPage]
+    imports: [
+        CommonModule,
+        FormsModule,
+        IonicModule,
+        LoginPageRoutingModule,
+        ReactiveFormsModule,
+    ],
+    providers: [GooglePlus, SignInWithApple],
+    declarations: [LoginPage]
 })
 export class LoginPageModule { }

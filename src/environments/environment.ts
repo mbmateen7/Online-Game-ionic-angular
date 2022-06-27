@@ -3,7 +3,7 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-    localUrl: 'http://192.168.100.90:8080/api/',
+    localUrl: 'http://192.168.1.209:8080/api/',
     stagingUrl: 'https://picplayce.io-devs.cf/api/',
     production: false
 };

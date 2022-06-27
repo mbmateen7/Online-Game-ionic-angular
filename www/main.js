@@ -559,8 +559,7 @@ __webpack_require__.r(__webpack_exports__);
 let RestService = class RestService {
     constructor(http) {
         this.http = http;
-        // localUrl = environment.localUrl;
-        this.localUrl = src_environments_environment__WEBPACK_IMPORTED_MODULE_0__.environment.stagingUrl;
+        this.localUrl = src_environments_environment__WEBPACK_IMPORTED_MODULE_0__.environment.localUrl;
     }
     postRequest(url, obj) {
         return this.http.post(this.localUrl + url, obj);
@@ -617,7 +616,7 @@ __webpack_require__.r(__webpack_exports__);
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 const environment = {
-    localUrl: 'http://192.168.100.90:8080/api/',
+    localUrl: 'http://192.168.1.209:8080/api/',
     stagingUrl: 'https://picplayce.io-devs.cf/api/',
     production: false
 };
