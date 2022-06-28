@@ -16,7 +16,7 @@ export class SettingPage implements OnInit {
 
     user;
     ref_code: any = "";
-    constructor( private alertController: AlertController, private googlePlus: GooglePlus, private router: Router, private restService: RestService, private audio: AudioService, private socialSharing: SocialSharing) { }
+    constructor(private alertController: AlertController, private googlePlus: GooglePlus, private router: Router, private restService: RestService, private audio: AudioService, private socialSharing: SocialSharing) { }
 
     ngOnInit() {
         this.user = JSON.parse(localStorage.getItem('user'));
@@ -117,5 +117,5 @@ export class SettingPage implements OnInit {
     }
 
 
-    
+
 }
