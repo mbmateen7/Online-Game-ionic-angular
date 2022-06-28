@@ -65,7 +65,7 @@
           <div class="card-header reward">Reward</div>
           <div class="card-body">
             <div class="body-header">
-              <button *ngIf="claimList[0]?.claim_reward?.length" (click)="claimAllReward()" class="cus-btn">Calim
+              <button *ngIf="claimList[0]?.claim_reward?.length" (click)="claimAllReward()" class="cus-btn">Claim
                 All</button>
             </div>
             <ng-container *ngFor="let claim of claimList; index as i">

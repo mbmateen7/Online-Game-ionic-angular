@@ -108,4 +108,8 @@ export class SettingPage implements OnInit {
         };
         this.socialSharing.shareWithOptions(options);
     }
+
+    openMail() {
+        location.href = "mailto:feedback@picplayce.com?subject=Report an Issue"
+    }
 }
