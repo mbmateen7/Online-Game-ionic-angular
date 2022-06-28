@@ -7,8 +7,8 @@ import { environment } from 'src/environments/environment';
 })
 export class RestService {
 
-    localUrl = environment.localUrl;
-    // localUrl = environment.stagingUrl;
+    // localUrl = environment.localUrl;
+    localUrl = environment.stagingUrl;
     private headers;
     constructor(private http: HttpClient) {
     }

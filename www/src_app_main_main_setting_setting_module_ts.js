@@ -100,16 +100,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "SettingPage": () => (/* binding */ SettingPage)
 /* harmony export */ });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! tslib */ 64762);
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! tslib */ 64762);
 /* harmony import */ var _raw_loader_setting_page_html__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !raw-loader!./setting.page.html */ 37481);
 /* harmony import */ var _setting_page_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./setting.page.scss */ 6017);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @angular/core */ 37716);
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @angular/router */ 39895);
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/router */ 39895);
 /* harmony import */ var _ionic_native_google_plus_ngx__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ionic-native/google-plus/ngx */ 19342);
 /* harmony import */ var _awesome_cordova_plugins_social_sharing_ngx__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @awesome-cordova-plugins/social-sharing/ngx */ 35221);
 /* harmony import */ var src_app_service_audio_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/service/audio.service */ 87494);
 /* harmony import */ var src_app_service_rest_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/service/rest.service */ 90421);
-/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @ionic/angular */ 80476);
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @ionic/angular */ 80476);
 /* harmony import */ var _capacitor_community_admob__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @capacitor-community/admob */ 15453);
 
 
@@ -218,75 +218,16 @@ let SettingPage = class SettingPage {
     openMail() {
         location.href = "mailto:feedback@picplayce.com?subject=Report an Issue";
     }
-    onSendCode() {
-        return (0,tslib__WEBPACK_IMPORTED_MODULE_7__.__awaiter)(this, void 0, void 0, function* () {
-            if (this.emailorphone == "email") {
-                if (!this.email) {
-                    const alert = yield this.alertController.create({
-                        cssClass: 'my-custom-class',
-                        message: 'Email Required',
-                        buttons: [{
-                                text: 'OK', handler: () => {
-                                    alert.onDidDismiss();
-                                }
-                            }]
-                    });
-                    yield alert.present();
-                }
-                let json = {
-                    email: this.email.replace(/\s/g, ''),
-                    ref_code: this.code
-                };
-                this.restService.postRequestToken('users/referrel', json).subscribe((res) => {
-                    this.presentAlert();
-                });
-            }
-            else {
-                if (!this.phone) {
-                    const alert = yield this.alertController.create({
-                        cssClass: 'my-custom-class',
-                        message: 'phone Number Required',
-                        buttons: [{
-                                text: 'OK', handler: () => {
-                                    alert.onDidDismiss();
-                                }
-                            }]
-                    });
-                    yield alert.present();
-                }
-                let json = {
-                    number: this.phone,
-                    ref_code: this.code
-                };
-                this.restService.postRequestToken('users/refertoNumber', json).subscribe((res) => {
-                    this.presentAlert();
-                });
-            }
-        });
-    }
-    presentAlert() {
-        return (0,tslib__WEBPACK_IMPORTED_MODULE_7__.__awaiter)(this, void 0, void 0, function* () {
-            const alert = yield this.alertController.create({
-                cssClass: 'my-custom-class',
-                message: 'Code is sent Succefully',
-                buttons: [{
-                        text: 'OK', handler: () => {
-                            this.router.navigate(['main/setting']);
-                        }
-                    }]
-            });
-        });
-    }
 };
 SettingPage.ctorParameters = () => [
-    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_8__.AlertController },
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_7__.AlertController },
     { type: _ionic_native_google_plus_ngx__WEBPACK_IMPORTED_MODULE_2__.GooglePlus },
-    { type: _angular_router__WEBPACK_IMPORTED_MODULE_9__.Router },
+    { type: _angular_router__WEBPACK_IMPORTED_MODULE_8__.Router },
     { type: src_app_service_rest_service__WEBPACK_IMPORTED_MODULE_5__.RestService },
     { type: src_app_service_audio_service__WEBPACK_IMPORTED_MODULE_4__.AudioService },
     { type: _awesome_cordova_plugins_social_sharing_ngx__WEBPACK_IMPORTED_MODULE_3__.SocialSharing }
 ];
-SettingPage = (0,tslib__WEBPACK_IMPORTED_MODULE_7__.__decorate)([
+SettingPage = (0,tslib__WEBPACK_IMPORTED_MODULE_9__.__decorate)([
     (0,_angular_core__WEBPACK_IMPORTED_MODULE_10__.Component)({
         selector: 'app-setting',
         template: _raw_loader_setting_page_html__WEBPACK_IMPORTED_MODULE_0__.default,
@@ -324,7 +265,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("<ion-content>\n  <div class=\"top-container\">\n    <div class=\"top-body\">\n      <div [routerLink]=\"['/main']\" class=\"icon\">\n        <ion-icon src=\"assets/icon/back-icon.svg\"></ion-icon>\n      </div>\n      <div class=\"text\">Setting</div>\n    </div>\n  </div>\n\n  <div class=\"body-container\">\n\n    <div class=\"mt-30\">\n      <ion-item (click)=\"onUpdateProfile()\" detail>\n        <ion-label>\n          Update Profile\n        </ion-label>\n      </ion-item>\n    </div>\n\n\n    <div class=\"mt-30\">\n      <ion-item lines=\"none\">\n        <ion-label>MUSIC & SOUNDS</ion-label>\n      </ion-item>\n\n      <ion-item>\n        <ion-label>\n          Toggle Background Music\n        </ion-label>\n\n        <ion-toggle checked=\"true\" (ionChange)=\"changeSound($event)\" color=\"primary\"></ion-toggle>\n\n      </ion-item>\n    </div>\n\n\n    <div class=\"mt-30\">\n      <ion-item lines=\"none\">\n        <ion-label>LEGAL </ion-label>\n      </ion-item>\n      <ion-item detail>\n        <ion-label  >\n          <a href=\"https://www.picplayce.com/tos.html\" style=\"text-decoration: none; color: black;\">\n          Terms Of Service\n        </a>\n        </ion-label>\n      </ion-item>\n      <ion-item detail>\n        <ion-label  (click)=\"openMail()\" >\n          Report A Technical Issue\n        </ion-label>\n      </ion-item>\n    </div>\n\n    <div class=\"mt-30\">\n      <ion-item (click)=\"goToPurchaseDetails()\" detail>\n        <ion-label>\n          Purchased Items\n        </ion-label>\n      </ion-item>\n    </div>\n\n    <div class=\"mt-30\"  >\n\n      <ion-label *ngIf=\"ref_code; else sendCode\" >&nbsp;&nbsp;&nbsp;\n        Referrel Code: {{ref_code}}\n      </ion-label> &nbsp;&nbsp; &nbsp; &nbsp;\n      <ng-template #sendCode )>\n          <!-- {{ this.onSendCode() }} -->\n      </ng-template>\n      <button class=\"share-btn\" (click)=\"shareSocial()\">share</button>\n\n\n    </div>\n\n\n  </div>\n\n  <div class=\"mt-30 logout-btn\">\n    <button (click)=\"onLogout()\"> LOG OUT</button>\n  </div>\n</ion-content>");
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("<ion-content>\n  <div class=\"top-container\">\n    <div class=\"top-body\">\n      <div [routerLink]=\"['/main']\" class=\"icon\">\n        <ion-icon src=\"assets/icon/back-icon.svg\"></ion-icon>\n      </div>\n      <div class=\"text\">Setting</div>\n    </div>\n  </div>\n\n  <div class=\"body-container\">\n\n    <div class=\"mt-30\">\n      <ion-item (click)=\"onUpdateProfile()\" detail>\n        <ion-label>\n          Update Profile\n        </ion-label>\n      </ion-item>\n    </div>\n\n\n    <div class=\"mt-30\">\n      <ion-item lines=\"none\">\n        <ion-label>MUSIC & SOUNDS</ion-label>\n      </ion-item>\n\n      <ion-item>\n        <ion-label>\n          Toggle Background Music\n        </ion-label>\n\n        <ion-toggle checked=\"true\" (ionChange)=\"changeSound($event)\" color=\"primary\"></ion-toggle>\n\n      </ion-item>\n    </div>\n\n\n    <div class=\"mt-30\">\n      <ion-item lines=\"none\">\n        <ion-label>LEGAL </ion-label>\n      </ion-item>\n      <ion-item detail>\n        <ion-label  >\n          <a href=\"https://www.picplayce.com/tos.html\" style=\"text-decoration: none; color: black;\">\n          Terms Of Service\n        </a>\n        </ion-label>\n      </ion-item>\n      <ion-item detail>\n        <ion-label  (click)=\"openMail()\" >\n          Report A Technical Issue\n        </ion-label>\n      </ion-item>\n    </div>\n\n    <div class=\"mt-30\">\n      <ion-item (click)=\"goToPurchaseDetails()\" detail>\n        <ion-label>\n          Purchased Items\n        </ion-label>\n      </ion-item>\n    </div>\n\n    <div class=\"mt-30\"  >\n\n      <ion-label *ngIf=\"ref_code; else sendCode\" >&nbsp;&nbsp;&nbsp;\n        Referrel Code: {{ref_code}}\n      </ion-label> &nbsp;&nbsp; &nbsp; &nbsp;\n      <ng-template #sendCode )>\n          <!-- {{ SendCode() }} -->\n      </ng-template>\n      <button class=\"share-btn\" (click)=\"shareSocial()\">share</button>\n\n\n    </div>\n\n\n  </div>\n\n  <div class=\"mt-30 logout-btn\">\n    <button (click)=\"onLogout()\"> LOG OUT</button>\n  </div>\n</ion-content>");
 
 /***/ })
 

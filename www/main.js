@@ -92,11 +92,11 @@ const routes = [
     },
     {
         path: 'login',
-        loadChildren: () => Promise.all(/*! import() */[__webpack_require__.e("common"), __webpack_require__.e("src_app_auth_login_login_module_ts")]).then(__webpack_require__.bind(__webpack_require__, /*! ./auth/login/login.module */ 28990)).then(m => m.LoginPageModule)
+        loadChildren: () => Promise.all(/*! import() */[__webpack_require__.e("default-node_modules_awesome-cordova-plugins_sign-in-with-apple___ivy_ngcc___ngx_index_js"), __webpack_require__.e("common"), __webpack_require__.e("src_app_auth_login_login_module_ts")]).then(__webpack_require__.bind(__webpack_require__, /*! ./auth/login/login.module */ 28990)).then(m => m.LoginPageModule)
     },
     {
         path: 'sign-up',
-        loadChildren: () => __webpack_require__.e(/*! import() */ "src_app_auth_sign-up_sign-up_module_ts").then(__webpack_require__.bind(__webpack_require__, /*! ./auth/sign-up/sign-up.module */ 87222)).then(m => m.SignUpPageModule)
+        loadChildren: () => Promise.all(/*! import() */[__webpack_require__.e("default-node_modules_awesome-cordova-plugins_sign-in-with-apple___ivy_ngcc___ngx_index_js"), __webpack_require__.e("src_app_auth_sign-up_sign-up_module_ts")]).then(__webpack_require__.bind(__webpack_require__, /*! ./auth/sign-up/sign-up.module */ 87222)).then(m => m.SignUpPageModule)
     },
     {
         path: 'main',
@@ -214,6 +214,11 @@ let AppComponent = class AppComponent {
             // alert('Resume event detected');
             this.audio.playSound();
         }));
+        this.platform.ready().then(() => {
+            if (this.platform.is('iphone')) {
+                document.getElementById('main-app-ion').style.marginTop = '30px';
+            }
+        });
         _capacitor_push_notifications__WEBPACK_IMPORTED_MODULE_2__.PushNotifications.addListener('registration', (token) => {
             console.log('Token => ', token.value);
             this.restService.postRequestToken('users/set-device-token', { deviceToken: token }).subscribe(res => {
@@ -257,24 +262,28 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "AppModule": () => (/* binding */ AppModule)
 /* harmony export */ });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! tslib */ 64762);
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @angular/core */ 37716);
-/* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @angular/platform-browser */ 39075);
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @angular/router */ 39895);
-/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @angular/forms */ 3679);
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @angular/common/http */ 91841);
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! tslib */ 64762);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @angular/core */ 37716);
+/* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @angular/platform-browser */ 39075);
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @angular/router */ 39895);
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! @angular/forms */ 3679);
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @angular/common/http */ 91841);
 /* harmony import */ var _firebase_config__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../firebase.config */ 23043);
-/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @ionic/angular */ 80476);
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @ionic/angular */ 80476);
 /* harmony import */ var _ionic_native_spinner_dialog_ngx__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @ionic-native/spinner-dialog/ngx */ 32423);
 /* harmony import */ var _ionic_native_in_app_purchase_2_ngx__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ionic-native/in-app-purchase-2/ngx */ 73532);
 /* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./app.component */ 55041);
 /* harmony import */ var _app_routing_module__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./app-routing.module */ 90158);
-/* harmony import */ var _angular_fire_app__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @angular/fire/app */ 90127);
-/* harmony import */ var _angular_fire_firestore__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @angular/fire/firestore */ 20630);
+/* harmony import */ var _angular_fire_app__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @angular/fire/app */ 90127);
+/* harmony import */ var _angular_fire_firestore__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @angular/fire/firestore */ 20630);
 /* harmony import */ var _dialog_dialog_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./dialog/dialog.component */ 95029);
 /* harmony import */ var _ionic_native_google_plus_ngx__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ionic-native/google-plus/ngx */ 19342);
 /* harmony import */ var _awesome_cordova_plugins_social_sharing_ngx__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @awesome-cordova-plugins/social-sharing/ngx */ 35221);
 /* harmony import */ var _awesome_cordova_plugins_facebook_ngx__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @awesome-cordova-plugins/facebook/ngx */ 5901);
+/* harmony import */ var _service_interceptor_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./service/interceptor.service */ 6986);
+/* harmony import */ var _components_loader_loader_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/loader/loader.component */ 98868);
+
+
 
 
 
@@ -295,30 +304,80 @@ __webpack_require__.r(__webpack_exports__);
 
 let AppModule = class AppModule {
 };
-AppModule = (0,tslib__WEBPACK_IMPORTED_MODULE_9__.__decorate)([
-    (0,_angular_core__WEBPACK_IMPORTED_MODULE_10__.NgModule)({
-        declarations: [_app_component__WEBPACK_IMPORTED_MODULE_3__.AppComponent, _dialog_dialog_component__WEBPACK_IMPORTED_MODULE_5__.DialogComponent],
+AppModule = (0,tslib__WEBPACK_IMPORTED_MODULE_11__.__decorate)([
+    (0,_angular_core__WEBPACK_IMPORTED_MODULE_12__.NgModule)({
+        declarations: [_app_component__WEBPACK_IMPORTED_MODULE_3__.AppComponent, _dialog_dialog_component__WEBPACK_IMPORTED_MODULE_5__.DialogComponent, _components_loader_loader_component__WEBPACK_IMPORTED_MODULE_10__.LoaderComponent],
         entryComponents: [],
         imports: [
-            (0,_angular_fire_app__WEBPACK_IMPORTED_MODULE_11__.provideFirebaseApp)(() => (0,_angular_fire_app__WEBPACK_IMPORTED_MODULE_11__.initializeApp)(_firebase_config__WEBPACK_IMPORTED_MODULE_0__.firebaseConfig)),
-            (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_12__.provideFirestore)(() => (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_12__.getFirestore)()),
-            _angular_platform_browser__WEBPACK_IMPORTED_MODULE_13__.BrowserModule,
-            _angular_common_http__WEBPACK_IMPORTED_MODULE_14__.HttpClientModule,
-            _ionic_angular__WEBPACK_IMPORTED_MODULE_15__.IonicModule.forRoot(),
+            (0,_angular_fire_app__WEBPACK_IMPORTED_MODULE_13__.provideFirebaseApp)(() => (0,_angular_fire_app__WEBPACK_IMPORTED_MODULE_13__.initializeApp)(_firebase_config__WEBPACK_IMPORTED_MODULE_0__.firebaseConfig)),
+            (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_14__.provideFirestore)(() => (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_14__.getFirestore)()),
+            _angular_platform_browser__WEBPACK_IMPORTED_MODULE_15__.BrowserModule,
+            _angular_common_http__WEBPACK_IMPORTED_MODULE_16__.HttpClientModule,
+            _ionic_angular__WEBPACK_IMPORTED_MODULE_17__.IonicModule.forRoot(),
             _app_routing_module__WEBPACK_IMPORTED_MODULE_4__.AppRoutingModule,
-            _angular_forms__WEBPACK_IMPORTED_MODULE_16__.ReactiveFormsModule,
+            _angular_forms__WEBPACK_IMPORTED_MODULE_18__.ReactiveFormsModule,
         ],
         providers: [
+            {
+                provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_16__.HTTP_INTERCEPTORS,
+                useClass: _service_interceptor_service__WEBPACK_IMPORTED_MODULE_9__.InterceptorService,
+                multi: true,
+            },
             _ionic_native_spinner_dialog_ngx__WEBPACK_IMPORTED_MODULE_1__.SpinnerDialog,
             _ionic_native_google_plus_ngx__WEBPACK_IMPORTED_MODULE_6__.GooglePlus,
             _awesome_cordova_plugins_social_sharing_ngx__WEBPACK_IMPORTED_MODULE_7__.SocialSharing,
-            { provide: _angular_router__WEBPACK_IMPORTED_MODULE_17__.RouteReuseStrategy, useClass: _ionic_angular__WEBPACK_IMPORTED_MODULE_15__.IonicRouteStrategy },
+            { provide: _angular_router__WEBPACK_IMPORTED_MODULE_19__.RouteReuseStrategy, useClass: _ionic_angular__WEBPACK_IMPORTED_MODULE_17__.IonicRouteStrategy },
             _ionic_native_in_app_purchase_2_ngx__WEBPACK_IMPORTED_MODULE_2__.InAppPurchase2,
             _awesome_cordova_plugins_facebook_ngx__WEBPACK_IMPORTED_MODULE_8__.Facebook
         ],
         bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_3__.AppComponent],
     })
 ], AppModule);
+
+
+
+/***/ }),
+
+/***/ 98868:
+/*!*******************************************************!*\
+  !*** ./src/app/components/loader/loader.component.ts ***!
+  \*******************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "LoaderComponent": () => (/* binding */ LoaderComponent)
+/* harmony export */ });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! tslib */ 64762);
+/* harmony import */ var _raw_loader_loader_component_html__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !raw-loader!./loader.component.html */ 22141);
+/* harmony import */ var _loader_component_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./loader.component.scss */ 97035);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/core */ 37716);
+/* harmony import */ var src_app_service_loading_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/service/loading.service */ 29794);
+
+
+
+
+
+let LoaderComponent = class LoaderComponent {
+    constructor(_loading) {
+        this._loading = _loading;
+        this._loading.isLoading.subscribe((v) => {
+            this.loading = v;
+        });
+    }
+    ngOnInit() { }
+};
+LoaderComponent.ctorParameters = () => [
+    { type: src_app_service_loading_service__WEBPACK_IMPORTED_MODULE_2__.LoadingService }
+];
+LoaderComponent = (0,tslib__WEBPACK_IMPORTED_MODULE_3__.__decorate)([
+    (0,_angular_core__WEBPACK_IMPORTED_MODULE_4__.Component)({
+        selector: 'app-loader',
+        template: _raw_loader_loader_component_html__WEBPACK_IMPORTED_MODULE_0__.default,
+        styles: [_loader_component_scss__WEBPACK_IMPORTED_MODULE_1__.default]
+    })
+], LoaderComponent);
 
 
 
@@ -532,6 +591,89 @@ AudioService = (0,tslib__WEBPACK_IMPORTED_MODULE_1__.__decorate)([
         providedIn: 'root'
     })
 ], AudioService);
+
+
+
+/***/ }),
+
+/***/ 6986:
+/*!************************************************!*\
+  !*** ./src/app/service/interceptor.service.ts ***!
+  \************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "InterceptorService": () => (/* binding */ InterceptorService)
+/* harmony export */ });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! tslib */ 64762);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/core */ 37716);
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs */ 40205);
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rxjs/operators */ 5304);
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/operators */ 68939);
+/* harmony import */ var _loading_service__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./loading.service */ 29794);
+
+
+
+
+
+let InterceptorService = class InterceptorService {
+    constructor(_loading) {
+        this._loading = _loading;
+    }
+    intercept(req, next) {
+        this._loading.isLoading.next(true);
+        return next.handle(req).pipe((0,rxjs_operators__WEBPACK_IMPORTED_MODULE_1__.catchError)((error) => {
+            console.error(error);
+            this._loading.isLoading.next(false);
+            return (0,rxjs__WEBPACK_IMPORTED_MODULE_2__.throwError)(error);
+        }), (0,rxjs_operators__WEBPACK_IMPORTED_MODULE_3__.finalize)(() => {
+            this._loading.isLoading.next(false);
+        }));
+    }
+};
+InterceptorService.ctorParameters = () => [
+    { type: _loading_service__WEBPACK_IMPORTED_MODULE_0__.LoadingService }
+];
+InterceptorService = (0,tslib__WEBPACK_IMPORTED_MODULE_4__.__decorate)([
+    (0,_angular_core__WEBPACK_IMPORTED_MODULE_5__.Injectable)({
+        providedIn: 'root'
+    })
+], InterceptorService);
+
+
+
+/***/ }),
+
+/***/ 29794:
+/*!********************************************!*\
+  !*** ./src/app/service/loading.service.ts ***!
+  \********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "LoadingService": () => (/* binding */ LoadingService)
+/* harmony export */ });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! tslib */ 64762);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ 37716);
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! rxjs */ 26215);
+
+
+
+let LoadingService = class LoadingService {
+    constructor() {
+        this.isLoading = new rxjs__WEBPACK_IMPORTED_MODULE_0__.BehaviorSubject(false);
+    }
+};
+LoadingService.ctorParameters = () => [];
+LoadingService = (0,tslib__WEBPACK_IMPORTED_MODULE_1__.__decorate)([
+    (0,_angular_core__WEBPACK_IMPORTED_MODULE_2__.Injectable)({
+        providedIn: 'root',
+    })
+], LoadingService);
 
 
 
@@ -961,6 +1103,21 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ 97035:
+/*!*********************************************************!*\
+  !*** ./src/app/components/loader/loader.component.scss ***!
+  \*********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (".loading-spinner {\n  position: fixed;\n  width: 100%;\n  top: 0px;\n  left: 0px;\n  height: 100vh;\n  align-items: center;\n  justify-content: center;\n  display: flex;\n  z-index: 100;\n  background-color: rgba(0, 0, 0, 0.3);\n}\n.loading-spinner .loading-message {\n  font-size: 16px;\n  width: auto;\n  padding: 20px;\n  background: white;\n  border-radius: 10px;\n  text-align: center;\n  display: flex;\n  justify-content: start;\n  align-items: center;\n}\n.loading-spinner .loading-message ion-spinner {\n  margin-right: 10px;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImxvYWRlci5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNJLGVBQUE7RUFDQSxXQUFBO0VBQ0EsUUFBQTtFQUNBLFNBQUE7RUFDQSxhQUFBO0VBQ0EsbUJBQUE7RUFDQSx1QkFBQTtFQUNBLGFBQUE7RUFDQSxZQUFBO0VBQ0Esb0NBQUE7QUFDSjtBQUNJO0VBQ0ksZUFBQTtFQUNBLFdBQUE7RUFDQSxhQUFBO0VBQ0EsaUJBQUE7RUFDQSxtQkFBQTtFQUNBLGtCQUFBO0VBQ0EsYUFBQTtFQUNBLHNCQUFBO0VBQ0EsbUJBQUE7QUFDUjtBQUFRO0VBQ0ksa0JBQUE7QUFFWiIsImZpbGUiOiJsb2FkZXIuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIubG9hZGluZy1zcGlubmVyIHtcbiAgICBwb3NpdGlvbjogZml4ZWQ7XG4gICAgd2lkdGg6IDEwMCU7XG4gICAgdG9wOiAwcHg7XG4gICAgbGVmdDogMHB4O1xuICAgIGhlaWdodDogMTAwdmg7XG4gICAgYWxpZ24taXRlbXM6IGNlbnRlcjtcbiAgICBqdXN0aWZ5LWNvbnRlbnQ6IGNlbnRlcjtcbiAgICBkaXNwbGF5OiBmbGV4O1xuICAgIHotaW5kZXg6IDEwMDtcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiByZ2JhKCRjb2xvcjogYmxhY2ssICRhbHBoYTogMC4zKTtcblxuICAgIC5sb2FkaW5nLW1lc3NhZ2Uge1xuICAgICAgICBmb250LXNpemU6IDE2cHg7XG4gICAgICAgIHdpZHRoOiBhdXRvO1xuICAgICAgICBwYWRkaW5nOiAyMHB4O1xuICAgICAgICBiYWNrZ3JvdW5kOiB3aGl0ZTtcbiAgICAgICAgYm9yZGVyLXJhZGl1czogMTBweDtcbiAgICAgICAgdGV4dC1hbGlnbjogY2VudGVyO1xuICAgICAgICBkaXNwbGF5OiBmbGV4O1xuICAgICAgICBqdXN0aWZ5LWNvbnRlbnQ6IHN0YXJ0O1xuICAgICAgICBhbGlnbi1pdGVtczogY2VudGVyOyBcbiAgICAgICAgaW9uLXNwaW5uZXJ7XG4gICAgICAgICAgICBtYXJnaW4tcmlnaHQ6IDEwcHg7XG4gICAgICAgIH1cbiAgICB9XG59XG4iXX0= */");
+
+/***/ }),
+
 /***/ 46921:
 /*!**********************************************!*\
   !*** ./src/app/dialog/dialog.component.scss ***!
@@ -1002,7 +1159,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("<ion-app>\n  <ion-router-outlet></ion-router-outlet>\n</ion-app>\n");
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("<ion-app id=\"main-app-ion\">\n    <app-loader></app-loader>\n    <ion-router-outlet></ion-router-outlet>\n</ion-app>\n");
+
+/***/ }),
+
+/***/ 22141:
+/*!***********************************************************************************************!*\
+  !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/components/loader/loader.component.html ***!
+  \***********************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("<div class=\"progress-loader\" [hidden]=\"!loading\">\n    <div class=\"loading-spinner\">\n        <span class=\"loading-message\">\n            <ion-spinner color=\"white\"></ion-spinner> Loading\n        </span>\n    </div>\n</div>\n");
 
 /***/ }),
 

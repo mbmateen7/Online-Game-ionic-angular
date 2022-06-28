@@ -19,15 +19,9 @@ export class InterceptorService implements HttpInterceptor {
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         this._loading.isLoading.next(true)
         return next.handle(req).pipe(
-            map((event: HttpEvent<any>) => {
-                if (event instanceof HttpResponse) {
-                    console.log('event--->>>', event);
-                }
-
-                return event;
-            }),
             catchError((error: HttpErrorResponse) => {
                 console.error(error);
+                this._loading.isLoading.next(false)
                 return throwError(error);
             }),
             finalize(() => {

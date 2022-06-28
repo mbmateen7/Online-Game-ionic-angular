@@ -1156,6 +1156,10 @@ ion-searchbar ion-icon {
   animation: spin 2s linear infinite;
   margin: auto;
 }
+.btn-end {
+  margin-left: auto;
+  width: auto !important;
+}
 /* Safari */
 @keyframes spin {
   0% {

@@ -20,7 +20,7 @@ import { Facebook, FacebookLoginResponse } from '@awesome-cordova-plugins/facebo
     styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
-    isApple:boolean=false;
+    isApple: boolean = false;
     @ViewChild(DialogComponent) child;
     alertMessage = 'please Wait...';
     profileForm;
@@ -38,12 +38,12 @@ export class LoginPage implements OnInit {
         private userService: UserService,
         private googlePlus: GooglePlus, private fbb: Facebook,
         private signInWithApple: SignInWithApple,
-        public platform:Platform
+        public platform: Platform
 
-    ) { 
-        this.platform.ready().then(()=>{
-            if(this.platform.is('ios')){
-                this.isApple=true
+    ) {
+        this.platform.ready().then(() => {
+            if (this.platform.is('ios')) {
+                this.isApple = true
             }
         })
     }
@@ -51,14 +51,14 @@ export class LoginPage implements OnInit {
     ngOnInit() {
         this.profileForm = this.fb.group({
             email: [
-                'fahadnajeeb@devstudio.us',
+                '',
                 [
                     Validators.required,
                     Validators.email,
                     Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'),
                 ],
             ],
-            password: ['Abcd@1234', [Validators.required, Validators.minLength(6)]],
+            password: ['', [Validators.required, Validators.minLength(6)]],
         });
     }
 
