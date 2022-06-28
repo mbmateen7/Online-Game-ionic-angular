@@ -6,45 +6,18 @@
                     <img src="assets/dummy-user.jpg" alt="" width="55" style="border-radius: 50%;  vertical-align: middle;" />
                     <span class="pl-10 username-css">{{this.user.user_name}}</span>
                 </div>
-            </div>
-        </ion-row>
-
-        <ion-row>
-            <ion-col size="12">
-                <div class="card">
-                    <div class="card-header reward">Reward</div>
-                    <div class="card-body">
-                        <div class="body-header">
-                            <button *ngIf="claimList[0]?.claim_reward?.length" (click)="claimAllReward()" class="cus-btn">Claim
-                                All</button>
+                <div class="box">
+                    <img style="z-index: 1" src="assets/currency-logo.svg" alt="" />
+                    <div class="currency-bg">
+                        <div class="content-center font-700 f-12">
+                            <span>{{this.user.puzzle_pieces ? this.user.puzzle_pieces : 0 }}</span>
                         </div>
-                        <ng-container *ngFor="let claim of claimList; index as i">
-                            <ng-container *ngFor="let claim_reward of claim.claim_reward">
-
-                                <div class="top-box mt-10">
-                                    <img class="ml-10" src="assets/dummy-user.jpg" alt="" width="55" style="border-radius: 50%" />
-                                    <span class="ml-2" *ngIf="(claim.user_id == user.id) && (claim_reward.reward_id== 3)">{{claim.player.user_name}}
-                                        cracked your code</span>
-
-                                    <span class="ml-2" *ngIf="(claim.player_id == user.id) && (claim_reward.reward_id == 2)">You cracked
-                                        {{claim.user.user_name}} Code</span>
-
-                                    <span class="ml-2" *ngIf="(claim.user_id == user.id) &&  (claim_reward.reward_id== 2)">You cracked
-                                        {{claim.player.user_name}}</span>
-
-                                    <span class="ml-2" *ngIf="(claim.player_id == user.id) && (claim_reward.reward_id == 3)">{{claim.user.user_name}}
-                                        Cracked your code
-                                    </span>
-                                    <div class="btn-end">
-                                        <ion-button (click)="onRewardUpdate(claim_reward, i)" class="cus-btn">Claim
-                                        </ion-button>
-                                    </div>
-                                </div>
-                            </ng-container>
-                        </ng-container>
+                    </div>
+                    <div class="plus-bg ml--10" [routerLink]="['/main/store']">
+                        <img width="15" src="assets/plus.svg" alt="" />
                     </div>
                 </div>
-            </ion-col>
+            </div>
         </ion-row>
 
         <ion-row class="mt-10">
