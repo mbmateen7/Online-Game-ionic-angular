@@ -617,7 +617,7 @@ __webpack_require__.r(__webpack_exports__);
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 const environment = {
-    localUrl: 'http://192.168.100.90:8080/api/',
+    localUrl: 'http://192.168.1.209:8080/api/',
     stagingUrl: 'https://picplayce.io-devs.cf/api/',
     production: false
 };

@@ -25,7 +25,11 @@ export class AppComponent {
             // alert('Resume event detected');
             this.audio.playSound()
         });
-
+        this.platform.ready().then(() => {
+            if (this.platform.is('iphone')) {
+                document.getElementById('main-app-ion').style.marginTop = '30px';
+            }
+        });
         PushNotifications.addListener('registration',
             (token) => {
                 console.log('Token => ', token.value);

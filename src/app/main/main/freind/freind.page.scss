@@ -14,7 +14,7 @@
 
 
 .delete-icon {
-  margin-left: 20px;
+  margin-left: 10px;
   margin-top: 10px;
   color: red;
 }
@@ -82,7 +82,7 @@
 
 .card {
   background: #ffffff;
-  box-shadow: 0px 4px 10px rgba(153, 153, 153, 0.37);
+  box-shadow: 0px 0px 10px rgba(153, 153, 153, 0.37);
   border-radius: 10px;
   width: 129px;
   height: 169px;
@@ -225,6 +225,7 @@ ion-grid {
 
 
 .slide-wrapper {
+    padding: 10px 0px;
   .swiper-slide img {
     width: none !important;
   }

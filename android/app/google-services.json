@@ -15,6 +15,38 @@
       },
       "oauth_client": [
         {
+          "client_id": "997921265945-23141n9ee8cqlpij6rehlgdkmrcjt7g0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.picplayce.game",
+            "certificate_hash": "df159386cf2f1609a036f314663d81c049888964"
+          }
+        },
+        {
+          "client_id": "997921265945-6iitt46gguab89h4q8b0mo14gv1uc3n7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.picplayce.game",
+            "certificate_hash": "b06e4f7f14078ca43277e98bbfb3cd1c173bdb24"
+          }
+        },
+        {
+          "client_id": "997921265945-g32mqg3rnjgihbqg63no86c9234dpar0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.picplayce.game",
+            "certificate_hash": "9bb7450f6066c468cd076356de710db6c467d13d"
+          }
+        },
+        {
+          "client_id": "997921265945-l346ar4qsdb9sbr3gm0sn2pn47474k3d.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.picplayce.game",
+            "certificate_hash": "593ace6d6be3e9eea5b8e820646c7dc92c6ef5ec"
+          }
+        },
+        {
           "client_id": "997921265945-4ie6u1a9rrunjfdqkm610qq2mthuts2q.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -30,6 +62,13 @@
             {
               "client_id": "997921265945-4ie6u1a9rrunjfdqkm610qq2mthuts2q.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "997921265945-comsu2mres78pejkkrta1mm1okte17m0.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.picplayce.game"
+              }
             }
           ]
         }

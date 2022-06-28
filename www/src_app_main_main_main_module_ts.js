@@ -671,9 +671,9 @@ let MainPage = class MainPage {
         initialize().then(r => {
             banner().then(x => {
                 console.log('banner response => ', x);
-                let tabBar = document.getElementById('tabs-bar');
+                let tabBar = document.getElementsByTagName('ion-app');
                 console.log(tabBar);
-                tabBar.style.marginBottom = '60px';
+                tabBar[0].style.bottom = '60px';
             });
         });
     }

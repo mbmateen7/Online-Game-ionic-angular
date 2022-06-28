@@ -1,76 +1,75 @@
 <ion-grid>
-  <ion-row class="top">
     <ion-row class="top">
-      <div class="top-box">
-        <ion-col offset="1" size="2">
-          <div class="box">
-            <img src="assets/dummy-user.jpg" alt="" width="55" style="border-radius: 50%; margin-left: 5px" />
-          </div>
-        </ion-col>
+        <ion-row class="top">
+            <div class="top-box">
+                <ion-col offset="1" size="2">
+                    <div class="box">
+                        <img src="assets/dummy-user.jpg" alt="" width="55" style="border-radius: 50%; margin-left: 5px" />
+                    </div>
+                </ion-col>
 
-        <ion-col offset="1" size="7">
-          <div class="v-cntr header-text">
-            FRIENDS
-            <ion-button [routerLink]="['/add-contact']" class="cus-btn-sm ml-2">+ Add Friend </ion-button>
-          </div>
-        </ion-col>
-      </div>
-    </ion-row>
-  </ion-row>
-
-  <span class="purple-text ml-15 mt-15">Play Random</span>
-  <ion-row class="mt-15">
-    <ion-slides class="mt-15 slide-wrapper" loop="false" [options]="{slidesPerView: slidesLength}" pager="false">
-      <ion-slide *ngFor="let user of randomList">
-        <div class="card-container">
-          <div class="card ">
-            <img src="assets/dummy-user.jpg" alt="" width="55"
-              style="border-radius: 50%; margin-left: 5px; width: 55px !important" />
-            <p class="card-text">{{user.user_name}}</p>
-            <ion-button (click)="selectDifficultyLevel(user.id)" class="card-btn">Play</ion-button>
-          </div>
-        </div>
-      </ion-slide>
-    </ion-slides>
-  </ion-row>
-
-  <ion-row class="mt-15">
-    <ion-col size="12">
-      <div class="card-lg">
-        <div class="card-header">My Friends</div>
-        <div class="card-body">
-          <div class="top-box mt-10" *ngFor="let friend of friendList">
-            <img class="ml-10" src="assets/dummy-user.jpg" alt="" width="55" style="border-radius: 50%" />
-            <span class="ml-2" *ngIf="friend.user_name.length < 12; else shortName" >
-              {{ friend.user_name}}
-            </span>
-            <ng-template #shortName>
-              {{ friend.user_name.substr(0,11) }}...
-            </ng-template>
-
-            <div class="btn-end">
-              <ion-button (click)="selectDifficultyLevel(friend.id)" class="card-btn">Play</ion-button>
-                <ion-icon class="delete-icon"  (click)="deleteFriend(friend.id)" name="trash-outline"></ion-icon>
+                <ion-col offset="1" size="7">
+                    <div class="v-cntr header-text">
+                        FRIENDS
+                        <ion-button [routerLink]="['/add-contact']" class="cus-btn-sm ml-2">+ Add Friend </ion-button>
+                    </div>
+                </ion-col>
             </div>
-          </div>
-        </div>
-      </div>
-    </ion-col>
-  </ion-row>
-
-  <ion-row class="mt-15">
-    <ion-col size="12">
-      <div class="card-rect">
-        <ion-row class="v-align">
-          <ion-col offset="1" size="3">
-            <img src="assets/friend-invite.svg" alt="" />
-          </ion-col>
-          <ion-col [routerLink]="['/add-contact']" size="8">
-            <span class="purple-text">Invite a friend</span> <br />
-            <span>Gain puzzle pieces by inviting a friend! </span>
-          </ion-col>
         </ion-row>
-      </div>
-    </ion-col>
-  </ion-row>
+    </ion-row>
+
+    <span class="purple-text ml-15 mt-15">Play Random</span>
+    <ion-row class="mt-15">
+        <ion-slides class="mt-15 slide-wrapper" loop="false" [options]="{slidesPerView: slidesLength}" pager="false">
+            <ion-slide *ngFor="let user of randomList">
+                <div class="card-container">
+                    <div class="card ">
+                        <img src="assets/dummy-user.jpg" alt="" width="55" style="border-radius: 50%; margin-left: 5px; width: 55px !important" />
+                        <p class="card-text">{{user.user_name}}</p>
+                        <ion-button (click)="selectDifficultyLevel(user.id)" class="card-btn">Play</ion-button>
+                    </div>
+                </div>
+            </ion-slide>
+        </ion-slides>
+    </ion-row>
+
+    <ion-row class="mt-15">
+        <ion-col size="12">
+            <div class="card-lg">
+                <div class="card-header">My Friends</div>
+                <div class="card-body">
+                    <div class="top-box mt-10" *ngFor="let friend of friendList">
+                        <img class="ml-10" src="assets/dummy-user.jpg" alt="" width="55" style="border-radius: 50%" />
+                        <span class="ml-2" *ngIf="friend.user_name.length < 12; else shortName">
+                            {{ friend.user_name}}
+                        </span>
+                        <ng-template #shortName>
+                            {{ friend.user_name.substr(0,11) }}...
+                        </ng-template>
+
+                        <div class="btn-end">
+                            <ion-button (click)="selectDifficultyLevel(friend.id)" class="card-btn">Play</ion-button>
+                            <ion-icon class="delete-icon" (click)="deleteFriend(friend.id)" name="trash-outline"></ion-icon>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ion-col>
+    </ion-row>
+
+    <ion-row class="mt-15">
+        <ion-col size="12">
+            <div class="card-rect">
+                <ion-row class="v-align">
+                    <ion-col offset="1" size="3">
+                        <img src="assets/friend-invite.svg" alt="" />
+                    </ion-col>
+                    <ion-col [routerLink]="['/add-contact']" size="8">
+                        <span class="purple-text">Invite a friend</span> <br />
+                        <span>Gain puzzle pieces by inviting a friend! </span>
+                    </ion-col>
+                </ion-row>
+            </div>
+        </ion-col>
+    </ion-row>
 </ion-grid>

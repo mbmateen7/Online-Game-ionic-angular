@@ -66,7 +66,9 @@ export class SettingPage implements OnInit {
     // }
 
     logout() {
-        AdMob.hideBanner()
+        AdMob.hideBanner().then(() => {
+            document.getElementsByTagName('ion-app')[0].style.bottom = '0'
+        })
         this.googlePlus.logout()
             .then(res => {
                 console.log(res);
