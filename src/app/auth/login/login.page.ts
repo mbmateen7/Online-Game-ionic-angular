@@ -169,7 +169,9 @@ export class LoginPage implements OnInit {
                     console.log('Token --->', token);
                 })
             }
-        );
+        ).catch(err => {
+            console.log('Token Error', err);
+        });
     }
 
     removeString(event) {

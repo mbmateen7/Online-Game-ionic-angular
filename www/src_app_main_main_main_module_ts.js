@@ -620,12 +620,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "banner": () => (/* binding */ banner),
 /* harmony export */   "initialize": () => (/* binding */ initialize)
 /* harmony export */ });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! tslib */ 64762);
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! tslib */ 64762);
 /* harmony import */ var _raw_loader_main_page_html__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !raw-loader!./main.page.html */ 3495);
 /* harmony import */ var _main_page_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./main.page.scss */ 52382);
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/core */ 37716);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/core */ 37716);
 /* harmony import */ var src_app_service_rest_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/service/rest.service */ 90421);
 /* harmony import */ var _capacitor_community_admob__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @capacitor-community/admob */ 15453);
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ionic/angular */ 80476);
+
 
 
 
@@ -633,8 +635,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let MainPage = class MainPage {
-    constructor(restService) {
+    constructor(restService, loading) {
         this.restService = restService;
+        this.loading = loading;
         this.activeTab = 'game';
     }
     ngOnInit() {
@@ -668,9 +671,9 @@ let MainPage = class MainPage {
         initialize().then(r => {
             banner().then(x => {
                 console.log('banner response => ', x);
-                let tabBar = document.getElementById('tabs-bar');
+                let tabBar = document.getElementsByTagName('ion-app');
                 console.log(tabBar);
-                tabBar.style.marginBottom = '60px';
+                tabBar[0].style.bottom = '60px';
             });
         });
     }
@@ -678,12 +681,18 @@ let MainPage = class MainPage {
         console.log('This is event', e.tab);
         this.activeTab = e.tab;
     }
+    doLoading() {
+        let loader = this.loading.create({
+            message: 'Loading...'
+        });
+    }
 };
 MainPage.ctorParameters = () => [
-    { type: src_app_service_rest_service__WEBPACK_IMPORTED_MODULE_2__.RestService }
+    { type: src_app_service_rest_service__WEBPACK_IMPORTED_MODULE_2__.RestService },
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__.LoadingController }
 ];
-MainPage = (0,tslib__WEBPACK_IMPORTED_MODULE_4__.__decorate)([
-    (0,_angular_core__WEBPACK_IMPORTED_MODULE_5__.Component)({
+MainPage = (0,tslib__WEBPACK_IMPORTED_MODULE_5__.__decorate)([
+    (0,_angular_core__WEBPACK_IMPORTED_MODULE_6__.Component)({
         selector: 'app-main',
         template: _raw_loader_main_page_html__WEBPACK_IMPORTED_MODULE_0__.default,
         styles: [_main_page_scss__WEBPACK_IMPORTED_MODULE_1__.default]
@@ -691,7 +700,7 @@ MainPage = (0,tslib__WEBPACK_IMPORTED_MODULE_4__.__decorate)([
 ], MainPage);
 
 function banner() {
-    return (0,tslib__WEBPACK_IMPORTED_MODULE_4__.__awaiter)(this, void 0, void 0, function* () {
+    return (0,tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(this, void 0, void 0, function* () {
         _capacitor_community_admob__WEBPACK_IMPORTED_MODULE_3__.AdMob.addListener(_capacitor_community_admob__WEBPACK_IMPORTED_MODULE_3__.BannerAdPluginEvents.Loaded, () => {
             // Subscribe Banner Event Listener
         });
@@ -710,7 +719,7 @@ function banner() {
     });
 }
 function initialize() {
-    return (0,tslib__WEBPACK_IMPORTED_MODULE_4__.__awaiter)(this, void 0, void 0, function* () {
+    return (0,tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(this, void 0, void 0, function* () {
         const { status } = yield _capacitor_community_admob__WEBPACK_IMPORTED_MODULE_3__.AdMob.trackingAuthorizationStatus();
         if (status === 'notDetermined') {
             /**
@@ -761,7 +770,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("<ion-app>\n  <ion-tabs (ionTabsDidChange)=\"setCurrentTab($event)\">\n    <ion-tab-bar slot=\"bottom\" id=\"tabs-bar\">\n      <!-- <ion-tab-button tab=\"main\">\n        <ion-icon name=\"calendar\"></ion-icon>\n        <ion-label>Schedule</ion-label>\n        <ion-badge>6</ion-badge>\n      </ion-tab-button> -->\n\n      <ion-tab-button tab=\"game\">\n        <ion-icon [src]=\"activeTab == 'game'  ? 'assets/icon/picplayce_dark.svg' : 'assets/icon/c-dull-logo.svg' \">\n        </ion-icon>\n\n        <ion-label [ngClass]=\"{'activeText': activeTab == 'game'}\">Game</ion-label>\n      </ion-tab-button>\n\n      <ion-tab-button tab=\"freind\">\n        <ion-icon [src]=\"activeTab == 'freind' ? 'assets/icon/friend_dark.svg' : 'assets/icon/friend.svg'\">\n        </ion-icon>\n        <ion-label [ngClass]=\"{'activeText': activeTab == 'freind'}\">Friends</ion-label>\n      </ion-tab-button>\n\n      <ion-tab-button tab=\"store\">\n        <ion-icon [src]=\"activeTab == 'store' ? 'assets/icon/store_dark.svg' : 'assets/icon/store.svg'\"></ion-icon>\n        <ion-label [ngClass]=\"{'activeText': activeTab == 'store'}\">Store</ion-label>\n      </ion-tab-button>\n\n      <ion-tab-button tab=\"setting\">\n        <ion-icon [src]=\"activeTab == 'setting' ? 'assets/icon/setting_dark.svg' : 'assets/icon/setting.svg'\">\n        </ion-icon>\n        <ion-label [ngClass]=\"{'activeText': activeTab == 'setting'}\">Setting</ion-label>\n      </ion-tab-button>\n    </ion-tab-bar>\n  </ion-tabs>\n</ion-app>\n");
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("<ion-app>\n  <ion-tabs (ionTabsDidChange)=\"setCurrentTab($event)\">\n    <ion-tab-bar slot=\"bottom\" id=\"tabs-bar\">\n      <!-- <ion-tab-button tab=\"main\">\n        <ion-icon name=\"calendar\"></ion-icon>\n        <ion-label>Schedule</ion-label>\n        <ion-badge>6</ion-badge>\n      </ion-tab-button> -->\n\n      <ion-tab-button tab=\"game\" (click)=\"doLoading()\">\n        <ion-icon [src]=\"activeTab == 'game'  ? 'assets/icon/picplayce_dark.svg' : 'assets/icon/c-dull-logo.svg' \">\n        </ion-icon>\n\n        <ion-label [ngClass]=\"{'activeText': activeTab == 'game'}\">Game</ion-label>\n      </ion-tab-button>\n\n      <ion-tab-button tab=\"freind\" (click)=\"doLoading()\" >\n        <ion-icon [src]=\"activeTab == 'freind' ? 'assets/icon/friend_dark.svg' : 'assets/icon/friend.svg'\">\n        </ion-icon>\n        <ion-label [ngClass]=\"{'activeText': activeTab == 'freind'}\">Friends</ion-label>\n      </ion-tab-button>\n\n      <ion-tab-button tab=\"store\" (click)=\"doLoading()\" >\n        <ion-icon [src]=\"activeTab == 'store' ? 'assets/icon/store_dark.svg' : 'assets/icon/store.svg'\"></ion-icon>\n        <ion-label [ngClass]=\"{'activeText': activeTab == 'store'}\">Store</ion-label>\n      </ion-tab-button>\n\n      <ion-tab-button tab=\"setting\">\n        <ion-icon [src]=\"activeTab == 'setting' ? 'assets/icon/setting_dark.svg' : 'assets/icon/setting.svg'\">\n        </ion-icon>\n        <ion-label [ngClass]=\"{'activeText': activeTab == 'setting'}\">Setting</ion-label>\n      </ion-tab-button>\n    </ion-tab-bar>\n  </ion-tabs>\n</ion-app>\n");
 
 /***/ })
 

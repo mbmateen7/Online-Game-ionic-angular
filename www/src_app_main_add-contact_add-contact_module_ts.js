@@ -115,11 +115,12 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let AddContactPage = class AddContactPage {
-    constructor(contacts, restSerice, router, alertController) {
+    constructor(contacts, restSerice, router, alertController, loadingCtrl) {
         this.contacts = contacts;
         this.restSerice = restSerice;
         this.router = router;
         this.alertController = alertController;
+        this.loadingCtrl = loadingCtrl;
         this.contactList = [];
         this.showUserList = false;
         this.usernameSearchRes = [];
@@ -166,10 +167,23 @@ let AddContactPage = class AddContactPage {
         });
     }
     onImportContacts() {
-        this.contacts.find(['displayName']).then((res) => (0,tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(this, void 0, void 0, function* () {
-            const list = yield res;
-            this.getNumbersArrayOnly(list);
-        }));
+        this.presentLoading().then(() => {
+            this.contacts.find(['displayName']).then((res) => (0,tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(this, void 0, void 0, function* () {
+                const list = yield res;
+                this.getNumbersArrayOnly(list);
+                console.log(res);
+            }), err => {
+                console.log(err);
+            });
+        });
+    }
+    presentLoading() {
+        return (0,tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(this, void 0, void 0, function* () {
+            this.loader = yield this.loadingCtrl.create({
+                message: 'Importing Contacts',
+            });
+            yield this.loader.present();
+        });
     }
     getNumbersArrayOnly(list) {
         for (const element of list) {
@@ -190,6 +204,15 @@ let AddContactPage = class AddContactPage {
             .subscribe((res) => {
             const contactList = JSON.stringify(res['save_contacts']);
             this.router.navigate(['/main/freind', { user: contactList }]);
+            this.loader.dismiss();
+        }, err => {
+            console.log(err);
+            this.loader.dismiss();
+            sweetalert2__WEBPACK_IMPORTED_MODULE_4___default().fire({
+                title: 'Error',
+                text: err.error.message,
+                confirmButtonText: "OK",
+            });
         });
     }
     onSearchByUsername(e) {
@@ -237,7 +260,8 @@ AddContactPage.ctorParameters = () => [
     { type: _ionic_native_contacts_ngx__WEBPACK_IMPORTED_MODULE_2__.Contacts },
     { type: src_app_service_rest_service__WEBPACK_IMPORTED_MODULE_3__.RestService },
     { type: _angular_router__WEBPACK_IMPORTED_MODULE_6__.Router },
-    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_7__.AlertController }
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_7__.AlertController },
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_7__.LoadingController }
 ];
 AddContactPage = (0,tslib__WEBPACK_IMPORTED_MODULE_5__.__decorate)([
     (0,_angular_core__WEBPACK_IMPORTED_MODULE_8__.Component)({

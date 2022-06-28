@@ -200,20 +200,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let AppComponent = class AppComponent {
-    constructor(restService, platform, audio, router, loading) {
+    constructor(restService, platform, audio, router) {
         this.restService = restService;
         this.platform = platform;
         this.audio = audio;
         this.router = router;
-        this.loading = loading;
-        this.loading.create({
-            message: "Loading ..."
-        }).then((loading) => {
-            loading.present();
-            setTimeout(() => {
-                loading.dismiss();
-            }, 3000);
-        });
         this.audio.playSound();
         this.platform.pause.subscribe(() => (0,tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(this, void 0, void 0, function* () {
             console.log('Change', 'Pause event detected');
@@ -241,8 +232,7 @@ AppComponent.ctorParameters = () => [
     { type: _service_rest_service__WEBPACK_IMPORTED_MODULE_3__.RestService },
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_6__.Platform },
     { type: _service_audio_service__WEBPACK_IMPORTED_MODULE_4__.AudioService },
-    { type: _angular_router__WEBPACK_IMPORTED_MODULE_7__.Router },
-    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_6__.LoadingController }
+    { type: _angular_router__WEBPACK_IMPORTED_MODULE_7__.Router }
 ];
 AppComponent = (0,tslib__WEBPACK_IMPORTED_MODULE_5__.__decorate)([
     (0,_angular_core__WEBPACK_IMPORTED_MODULE_8__.Component)({
@@ -569,7 +559,8 @@ __webpack_require__.r(__webpack_exports__);
 let RestService = class RestService {
     constructor(http) {
         this.http = http;
-        this.localUrl = src_environments_environment__WEBPACK_IMPORTED_MODULE_0__.environment.localUrl;
+        // localUrl = environment.localUrl;
+        this.localUrl = src_environments_environment__WEBPACK_IMPORTED_MODULE_0__.environment.stagingUrl;
     }
     postRequest(url, obj) {
         return this.http.post(this.localUrl + url, obj);
