@@ -9,7 +9,7 @@
         <img src="assets/icon/back-icon.svg" />
       </div>
       <div class="in-right">
-        <ion-button class="cus-btn" *ngIf="gameObj.type=='easy' " ion-button>Next
+        <ion-button class="cus-btn" *ngIf="gameObj.type=='easy' " (click)="presentLoading()" ion-button>Next
         </ion-button>
       </div>
     </div>

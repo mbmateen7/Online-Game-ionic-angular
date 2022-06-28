@@ -6,6 +6,7 @@ import { AudioService } from 'src/app/service/audio.service';
 import { RestService } from 'src/app/service/rest.service';
 import { AlertController } from '@ionic/angular';
 import { AdMob } from '@capacitor-community/admob';
+
 @Component({
     selector: 'app-setting',
     templateUrl: './setting.page.html',
@@ -15,7 +16,7 @@ export class SettingPage implements OnInit {
 
     user;
     ref_code: any = "";
-    constructor(private alertController: AlertController, private googlePlus: GooglePlus, private router: Router, private restService: RestService, private audio: AudioService, private socialSharing: SocialSharing) { }
+    constructor( private alertController: AlertController, private googlePlus: GooglePlus, private router: Router, private restService: RestService, private audio: AudioService, private socialSharing: SocialSharing) { }
 
     ngOnInit() {
         this.user = JSON.parse(localStorage.getItem('user'));
@@ -112,4 +113,7 @@ export class SettingPage implements OnInit {
     openMail() {
         location.href = "mailto:feedback@picplayce.com?subject=Report an Issue"
     }
+
+
+    
 }

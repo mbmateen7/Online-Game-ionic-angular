@@ -533,7 +533,9 @@ let PhotoService = class PhotoService {
             const capturedPhoto = yield _capacitor_camera__WEBPACK_IMPORTED_MODULE_0__.Camera.getPhoto({
                 resultType: _capacitor_camera__WEBPACK_IMPORTED_MODULE_0__.CameraResultType.Base64,
                 source: src,
-                quality: 100,
+                quality: 80,
+                width: 800,
+                height: 800,
                 preserveAspectRatio: true
             }).then((res) => {
                 return res;

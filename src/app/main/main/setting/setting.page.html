@@ -61,11 +61,14 @@
       </ion-item>
     </div>
 
-    <div class="mt-30">
+    <div class="mt-30"  >
 
-      <ion-label>&nbsp;&nbsp;&nbsp;
+      <ion-label *ngIf="ref_code; else sendCode" >&nbsp;&nbsp;&nbsp;
         Referrel Code: {{ref_code}}
       </ion-label> &nbsp;&nbsp; &nbsp; &nbsp;
+      <ng-template #sendCode )>
+          <!-- {{ SendCode() }} -->
+      </ng-template>
       <button class="share-btn" (click)="shareSocial()">share</button>
 
 
