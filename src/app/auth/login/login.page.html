@@ -92,7 +92,7 @@
                     </ion-label>
                 </ion-chip>
             </ion-col>
-            <ion-col class="text-center">
+            <ion-col class="text-center" *ngIf="isApple">
                 <ion-chip class="cus-chip-social" (click)="AppleSignIn()">
                     <ion-label class="text-center cus-label-social social-chip-space">
                         <ion-icon name="logo-apple"></ion-icon>

@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RestService } from 'src/app/service/rest.service';
-import { LoadingController, NavController } from '@ionic/angular';
+import { LoadingController, NavController, Platform } from '@ionic/angular';
 import { AlertController } from '@ionic/angular';
 import { PushNotifications } from "@capacitor/push-notifications";
 import Swal from 'sweetalert2';
@@ -20,7 +20,7 @@ import { Facebook, FacebookLoginResponse } from '@awesome-cordova-plugins/facebo
     styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
-
+    isApple:boolean=false;
     @ViewChild(DialogComponent) child;
     alertMessage = 'please Wait...';
     profileForm;
@@ -37,9 +37,16 @@ export class LoginPage implements OnInit {
         public alertController: AlertController,
         private userService: UserService,
         private googlePlus: GooglePlus, private fbb: Facebook,
-        private signInWithApple: SignInWithApple
+        private signInWithApple: SignInWithApple,
+        public platform:Platform
 
-    ) { }
+    ) { 
+        this.platform.ready().then(()=>{
+            if(this.platform.is('ios')){
+                this.isApple=true
+            }
+        })
+    }
 
     ngOnInit() {
         this.profileForm = this.fb.group({

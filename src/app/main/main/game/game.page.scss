@@ -232,9 +232,12 @@ span {
   justify-content: center;
   position: fixed;
   margin: auto;
-  bottom: 160px;
+  bottom: 15px;
   left: 0;
   right: 0;
+}
+.play-cus-btn.ios{
+  bottom:160px
 }
 
 .play-cus-btn {
