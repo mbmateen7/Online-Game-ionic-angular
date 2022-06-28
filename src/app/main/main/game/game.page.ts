@@ -281,11 +281,32 @@ export class GamePage implements OnInit {
         })
     }
 
-    refreshGame(event) {
-        setTimeout(() => {
-            event.target.complete();
-        }, 2000);
-    }
+    // refreshGame(event) {
+    //     setTimeout(() => {
+    //         event.target.complete();
+    //     }, 2000);
+    // }
+
+    // check(user_reward) {
+    //   if (user_reward.reward_id != 4) {
+    //     this.showClaimBtn = true;
+    //     return true
+    //   }
+    //   this.showClaimBtn = false;
+    //   return false;
+    // }
+
+
+    // giveRewardCheckBtn(user_reward) {
+    //   if (user_reward.reward_id == 4) {
+    //     this.showGiveRewardClaimBtn = true;
+    //     return true
+    //   }
+    //   this.showGiveRewardClaimBtn = false;
+    //   return false;
+    // }
+
+
 
     // check(user_reward) {
     //   if (user_reward.reward_id != 4) {

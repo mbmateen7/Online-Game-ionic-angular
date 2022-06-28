@@ -41,7 +41,12 @@
         <div class="card-body">
           <div class="top-box mt-10" *ngFor="let friend of friendList">
             <img class="ml-10" src="assets/dummy-user.jpg" alt="" width="55" style="border-radius: 50%" />
-            <span class="ml-2">{{friend.user_name}}</span>
+            <span class="ml-2" *ngIf="friend.user_name.length < 12; else shortName" >
+              {{ friend.user_name}}
+            </span>
+            <ng-template #shortName>
+              {{ friend.user_name.substr(0,11) }}...
+            </ng-template>
 
             <div class="btn-end">
               <ion-button (click)="selectDifficultyLevel(friend.id)" class="card-btn">Play</ion-button>

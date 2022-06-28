@@ -44,7 +44,7 @@ export class FilterPage implements OnInit {
     });
   }
 
-  onBuyPrimaryFilter() {
+  onBuyFilter() {
 
     if (this.user.puzzle_pieces > 3000) {
 
