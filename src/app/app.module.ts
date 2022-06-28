@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 
 import { firebaseConfig } from '../../firebase.config';
@@ -20,28 +20,35 @@ import { DialogComponent } from './dialog/dialog.component';
 import { GooglePlus } from '@ionic-native/google-plus/ngx';
 import { SocialSharing } from '@awesome-cordova-plugins/social-sharing/ngx';
 import { Facebook, FacebookLoginResponse } from '@awesome-cordova-plugins/facebook/ngx';
+import { InterceptorService } from './service/interceptor.service';
+import { LoaderComponent } from './components/loader/loader.component';
 
 @NgModule({
-  declarations: [AppComponent, DialogComponent],
-  entryComponents: [],
-  imports: [
-    provideFirebaseApp(() => initializeApp(firebaseConfig)),
-    provideFirestore(() => getFirestore()),
-    BrowserModule,
-    HttpClientModule,
-    IonicModule.forRoot(),
-    AppRoutingModule,
-    ReactiveFormsModule,
-  ],
-  providers: [
-    SpinnerDialog,
-    GooglePlus,
-    SocialSharing,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    InAppPurchase2,
-    Facebook
-  ],
-  bootstrap: [AppComponent],
+    declarations: [AppComponent, DialogComponent, LoaderComponent],
+    entryComponents: [],
+    imports: [
+        provideFirebaseApp(() => initializeApp(firebaseConfig)),
+        provideFirestore(() => getFirestore()),
+        BrowserModule,
+        HttpClientModule,
+        IonicModule.forRoot(),
+        AppRoutingModule,
+        ReactiveFormsModule,
+    ],
+    providers: [
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: InterceptorService,
+            multi: true,
+        },
+        SpinnerDialog,
+        GooglePlus,
+        SocialSharing,
+        { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+        InAppPurchase2,
+        Facebook
+    ],
+    bootstrap: [AppComponent],
 
 })
 export class AppModule { }

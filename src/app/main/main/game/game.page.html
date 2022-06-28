@@ -1,5 +1,5 @@
 <ion-content>
-    <ion-grid>
+    <ion-grid class="header-nav">
         <ion-row class=" blue-bg">
             <div class="user-container">
                 <div class="img-container">
@@ -18,44 +18,6 @@
                     </div>
                 </div>
             </div>
-        </ion-row>
-
-        <ion-row class="mt-10">
-            <div class="lvl-card-container">
-                <div class="lvl-circle">
-                    <span>lvl{{user.level_id}}</span>
-                </div>
-
-                <!-- align-self: center; width: {{progressPercent}}%; -->
-                <div class="lvl-loader">
-                    <div class="loader" style="align-self: center; width: {{progressPercent}}%;"></div>
-                </div>
-
-                <div style="margin-left: auto" class="lvl-circle-y">
-                    <span>lvl{{user.level_id+1}}</span>
-                </div>
-            </div>
-        </ion-row>
-
-        <ion-row>
-            <ion-col size="12">
-                <div class="card">
-                    <div class="card-header move">Your Move</div>
-                    <div class="card-body">
-                        <ng-container *ngFor="let user of gameList">
-                            <div class="top-box mt-10" *ngFor="let game of user.games">
-                                <div class="loader" *ngIf="!game.id"></div>
-                                <img *ngIf="game.id" class="ml-10" src="assets/dummy-user.jpg" alt="" width="55" style="border-radius: 50%" />
-                                <span *ngIf="game.id" class="ml-2">{{user.user_name}}</span>
-
-                                <div *ngIf="game.id" class="btn-end">
-                                    <ion-button (click)="onPlayGame(game)" class="cus-btn">Play</ion-button>
-                                </div>
-                            </div>
-                        </ng-container>
-                    </div>
-                </div>
-            </ion-col>
         </ion-row>
 
         <ion-row class="mt-10">
@@ -152,11 +114,7 @@
                                         {{claim.user.user_name}}</span>
 
 
-                                    <span class="ml-2" *ngIf="(claim.user_id == user.id) && (give_reward.reward_id== 4 )">Give Reward to
-                                        {{claim.player.user_name}}</span>
-
-
-
+                                    <span class="ml-2" *ngIf="(claim.user_id == user.id) && (give_reward.reward_id== 4 )">Give Reward to {{claim.player.user_name}}</span>
                                     <div class="btn-end">
                                         <ion-button (click)="onRewardUpdate(give_reward, i)" class="cus-btn">Claim</ion-button>
                                     </div>
@@ -165,8 +123,6 @@
                         </ng-container>
                     </div>
                 </div>
-                <!-- <div class="loader1"></div> -->
-
             </ion-col>
         </ion-row>
     </ion-grid>

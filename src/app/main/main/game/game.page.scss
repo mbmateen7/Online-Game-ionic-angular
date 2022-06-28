@@ -211,19 +211,20 @@ span {
 }
 
 .btn-end {
-  display: flex;
-  width: 100%;
-  justify-content: end;
+  display: block;
+  float: right;
+  margin-left: auto;
   margin-right: 10px;
 }
 
 .cus-btn {
-  --background: #99c43c;
+  background: #99c43c;
   border-radius: 30px;
   width: auto;
   height: 28px;
   font-size: 14px;
   letter-spacing: 0.03em;
+  color: white;
 }
 
 .play-cus-btn {
@@ -231,7 +232,7 @@ span {
   justify-content: center;
   position: fixed;
   margin: auto;
-  bottom: 10px;
+  bottom: 160px;
   left: 0;
   right: 0;
 }

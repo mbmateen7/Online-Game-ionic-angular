@@ -44,14 +44,14 @@ export class LoginPage implements OnInit {
     ngOnInit() {
         this.profileForm = this.fb.group({
             email: [
-                '',
+                'fahadnajeeb@devstudio.us',
                 [
                     Validators.required,
                     Validators.email,
                     Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'),
                 ],
             ],
-            password: ['', [Validators.required, Validators.minLength(6)]],
+            password: ['Abcd@1234', [Validators.required, Validators.minLength(6)]],
         });
     }
 
@@ -175,9 +175,7 @@ export class LoginPage implements OnInit {
     }
 
     removeString(event) {
-        console.log(this.profileForm.value);
         this.profileForm.get('email').setValue(event.target.value.trim());
-        console.log(this.profileForm.value);
     }
 
     googleSignIn() {
@@ -231,6 +229,8 @@ export class LoginPage implements OnInit {
                     localStorage.setItem('user', JSON.stringify(res.data));
                     this.setDeviceToken();
                     this.showSignUpLoader = false;
+                    console.log('Logged In');
+
                     this.router.navigate(['main'])
                 }
             },

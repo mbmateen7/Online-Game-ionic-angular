@@ -203,7 +203,7 @@ let FilterPage = class FilterPage {
             localStorage.setItem('ownedItemsList', JSON.stringify(this.ownedItemsList));
         });
     }
-    onBuyPrimaryFilter() {
+    onBuyFilter() {
         var _a, _b;
         if (this.user.puzzle_pieces > 3000) {
             if (((_a = this.getFilterData) === null || _a === void 0 ? void 0 : _a.shop_id) && ((_b = this.getFilterData) === null || _b === void 0 ? void 0 : _b.id)) {
@@ -627,7 +627,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("<div class=\"main-container\">\n  <div class=\"list mt-10\" (click)=\"onBuyPrimaryFilter()\">\n    <div>\n      <img src=\"assets/icon/filter-icon.svg\" />\n      <span class=\"pl-5 filter-text\">Primary Filter</span>\n    </div>\n    <div class=\"cus-btn\">\n      <img width=\"15\" src=\"assets/currency-log-w.svg\" alt=\"\">\n      <span class=\"wh-text\">3000</span>\n    </div>\n  </div>\n</div>");
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("<div class=\"main-container\">\n  <div class=\"list mt-10\" (click)=\"onBuyFilter()\">\n    <div>\n      <img src=\"assets/icon/filter-icon.svg\" />\n      <span class=\"pl-5 filter-text\">Primary Filter</span>\n    </div>\n    <div class=\"cus-btn\">\n      <img width=\"15\" src=\"assets/currency-log-w.svg\" alt=\"\">\n      <span class=\"wh-text\">3000</span>\n    </div>\n  </div>\n  <div class=\"list mt-10\" (click)=\"onBuyFilter()\">\n    <div>\n      <img src=\"assets/icon/filter-icon.svg\" />\n      <span class=\"pl-5 filter-text\">Secondary Filter</span>\n    </div>\n    <div class=\"cus-btn\">\n      <img width=\"15\" src=\"assets/currency-log-w.svg\" alt=\"\">\n      <span class=\"wh-text\">3000</span>\n    </div>\n  </div>\n</div>");
 
 /***/ }),
 

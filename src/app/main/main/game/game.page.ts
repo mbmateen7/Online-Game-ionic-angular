@@ -117,18 +117,12 @@ export class GamePage implements OnInit {
     }
 
     onRewardUpdate(user, i) {
-
-
-        this.claimList[i].claim_reward.splice(this.claimList[i].claim_reward.indexOf(user), 1);
         const rewardObj = {
             game_id: user.game_id,
             reward_id: user.reward_id,
             player_id: user.friend_id,
 
         }
-        console.log('calim list', this.claimList)
-
-
         this.restService.postRequestToken('claim/claim-reward', rewardObj).subscribe(res => {
             if (res) {
                 this.getCalimList()
