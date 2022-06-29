@@ -30,13 +30,13 @@
       <div class="store-body">
         <p>Claim daily puzzle pieces!</p>
         <div class="logo-bg">
-          <img width="38" src="assets/currency-logo-b.svg" alt="">
-          <img width="38" src="assets/currency-logo-b.svg" alt="">
-          <img width="38" src="assets/currency-logo-b.svg" alt="">
-          <img width="38" src="assets/currency-logo-b.svg" alt="">
-          <img width="38" src="assets/currency-logo-b.svg" alt="">
+          <img id="claim-image-1" width="38" src="assets/currency-logo-b.svg" alt="">
+          <img id="claim-image-2" width="38" src="assets/currency-logo-b.svg" alt="">
+          <img id="claim-image-3" width="38" src="assets/currency-logo-b.svg" alt="">
+          <img id="claim-image-4" width="38" src="assets/currency-logo-b.svg" alt="">
+          <img id="claim-image-5" width="38" src="assets/currency-logo-b.svg" alt="">
         </div>
-        <ion-button class="cus-btn">CLAIM</ion-button>
+        <ion-button id="claim-btn" class="cus-btn" (click)="claimDailyReward()"  >CLAIM</ion-button>
       </div>
 
     </ion-col>
