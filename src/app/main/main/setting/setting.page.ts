@@ -28,7 +28,9 @@ export class SettingPage implements OnInit {
     onLogout() {
         this.logout();
         this.setLastLogin()
+        let lastClaim = localStorage.getItem('LastLoginClaim')
         localStorage.clear();
+        localStorage.setItem('LastLoginClaim',lastClaim);
         this.router.routeReuseStrategy.shouldReuseRoute = function () { return false; };
         this.router.navigate(['/home'], { replaceUrl: true })
 
