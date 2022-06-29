@@ -4,7 +4,7 @@ import { GooglePlus } from '@ionic-native/google-plus/ngx';
 import { SocialSharing } from '@awesome-cordova-plugins/social-sharing/ngx';
 import { AudioService } from 'src/app/service/audio.service';
 import { RestService } from 'src/app/service/rest.service';
-import { AlertController } from '@ionic/angular';
+import { AlertController, NavController } from '@ionic/angular';
 import { AdMob } from '@capacitor-community/admob';
 
 @Component({
@@ -16,7 +16,7 @@ export class SettingPage implements OnInit {
 
     user;
     ref_code: any = "";
-    constructor(private alertController: AlertController, private googlePlus: GooglePlus, private router: Router, private restService: RestService, private audio: AudioService, private socialSharing: SocialSharing) { }
+    constructor(private alertController: AlertController, private googlePlus: GooglePlus, private router: Router, private restService: RestService, private audio: AudioService, private socialSharing: SocialSharing, private navCtrl: NavController) { }
 
     ngOnInit() {
         this.user = JSON.parse(localStorage.getItem('user'));
@@ -32,6 +32,7 @@ export class SettingPage implements OnInit {
         localStorage.clear();
         localStorage.setItem('LastLoginClaim',lastClaim);
         this.router.routeReuseStrategy.shouldReuseRoute = function () { return false; };
+        this.navCtrl.setDirection('root');
         this.router.navigate(['/home'], { replaceUrl: true })
 
     }

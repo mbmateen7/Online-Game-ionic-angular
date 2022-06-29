@@ -1,9 +1,9 @@
 <div class="main-container">
-  <div class="mt-10" *ngFor="let shop of shopList">
+  <div class="mt-15" *ngFor="let shop of shopList">
     <div class="list" (click)="onBuyBundle(shop)">
       <div>
         <img src="assets/icon/filter-icon.svg" />
-        <span class="pl-5 filter-text">{{shop.name}}</span>
+        <span class="pl-5 filter-text" style="word-break:break-all;">{{shop.name}}</span>
       </div>
       <div class="cus-btn">
         <img width="15" src="assets/currency-log-w.svg" alt="">

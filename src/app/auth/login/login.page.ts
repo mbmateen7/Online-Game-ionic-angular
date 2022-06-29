@@ -12,6 +12,7 @@ import { GooglePlus } from '@ionic-native/google-plus/ngx';
 import { SignInWithApple, AppleSignInResponse, AppleSignInErrorResponse, ASAuthorizationAppleIDRequest } from '@awesome-cordova-plugins/sign-in-with-apple/ngx';
 import { HttpClient } from '@angular/common/http';
 import { Facebook, FacebookLoginResponse } from '@awesome-cordova-plugins/facebook/ngx';
+
 // import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook/ngx';
 // import { Facebook, FacebookLoginResponse } from '@awesome-cordova-plugins/facebook/ngx';
 @Component({
@@ -38,7 +39,8 @@ export class LoginPage implements OnInit {
         private userService: UserService,
         private googlePlus: GooglePlus, private fbb: Facebook,
         private signInWithApple: SignInWithApple,
-        public platform: Platform
+        public platform: Platform,
+        private navCtrl: NavController
 
     ) {
         this.platform.ready().then(() => {
@@ -84,6 +86,7 @@ export class LoginPage implements OnInit {
             this.setDeviceToken()
             this.setLastLogin();
             this.showSignUpLoader = false;
+            this.navCtrl.setDirection('root');
             this.router.navigate(['/main']);
         }
 
@@ -237,7 +240,7 @@ export class LoginPage implements OnInit {
                     this.setDeviceToken();
                     this.showSignUpLoader = false;
                     console.log('Logged In');
-
+                    this.navCtrl.setDirection('root');
                     this.router.navigate(['main'])
                 }
             },

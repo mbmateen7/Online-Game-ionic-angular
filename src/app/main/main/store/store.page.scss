@@ -20,7 +20,22 @@ ion-grid {
   display: flex;
   align-items: center;
   width: 100%;
+  justify-content: space-between;
 }
+
+.img-container {
+  flex-direction: column;
+}
+
+.username-css {
+  letter-spacing: 0.03em;
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 15px;
+  line-height: 22px;
+  font-family: Poppins;
+}
+
 
 .currency-bg {
   width: 89px;
@@ -44,13 +59,20 @@ ion-grid {
   padding-left: 5px;
 }
 
-.username-css {
+.v-cntr {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.header-text {
   letter-spacing: 0.03em;
-  color: #ffffff;
-  font-weight: 600;
-  font-size: 15px;
-  line-height: 22px;
   font-family: Poppins;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 20px;
+  line-height: 30px;
+  color: #ffffff;
 }
 
 .home-currency {
@@ -234,7 +256,7 @@ span {
 .card {
   width: calc(100% - 50px);
   margin: auto;
-  min-height: 491px;
+  min-height: 391px;
   background: #ffffff;
   box-shadow: 0px 4px 10px rgba(130, 130, 130, 0.25);
   border-radius: 20px;
@@ -243,8 +265,7 @@ span {
     padding-top: 25px;
     display: flex;
     justify-content: space-around;
-    font-weight: bold;
-    font-size: 18px;
+    font-size: 16px;
   }
 
   .card-header>span:nth-child(1) {
@@ -258,6 +279,13 @@ span {
   .card-header>span:nth-child(2) {
     color: #876baf;
   }
+}
+
+.selected-tab {
+  // background-color: #f29d93; padding: 10px; color: #fff; border-radius: 10px;
+  text-decoration: underline;
+  font-weight: bold;
+  font-size: 20px;
 }
 
 

@@ -42,6 +42,20 @@
   display: flex;
   align-items: center;
   width: 100%;
+  justify-content: space-between;
+}
+
+.img-container {
+  flex-direction: column;
+}
+
+.username-css {
+  letter-spacing: 0.03em;
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 15px;
+  line-height: 22px;
+  font-family: Poppins;
 }
 
 .v-cntr {
@@ -111,7 +125,7 @@
 }
 
 .card-container {
-  width: 95%;
+  width: 90%;
   margin: auto;
   display: flex;
 
@@ -126,12 +140,16 @@
   margin-top: 15px;
 }
 
+.m-20 {
+  margin: 0px 20px;
+}
+
 .purple-text {
   font-family: Poppins;
   font-style: normal;
   font-weight: 500;
   font-size: 18px;
-  line-height: 27px;
+  line-height: 29px;
   letter-spacing: 0.03em;
   color: #8892c8;
 }

@@ -2,10 +2,15 @@ import { Component } from '@angular/core';
 import { PushNotifications } from "@capacitor/push-notifications";
 import { RestService } from './service/rest.service';
 
+import { StatusBar, Style } from '@capacitor/status-bar';
 
 import { Platform } from '@ionic/angular';
 import { AudioService } from './service/audio.service';
 import { Router } from '@angular/router';
+
+const setStatusBarStyleDark = async () => {
+    await StatusBar.setStyle({ style: Style.Dark });
+  };
 
 @Component({
     selector: 'app-root',
@@ -15,6 +20,8 @@ import { Router } from '@angular/router';
 export class AppComponent {
 
     constructor(private restService: RestService, private platform: Platform, private audio: AudioService, private router: Router) {
+
+        setStatusBarStyleDark().then().catch();
 
         this.audio.playSound();
         this.platform.pause.subscribe(async () => {
