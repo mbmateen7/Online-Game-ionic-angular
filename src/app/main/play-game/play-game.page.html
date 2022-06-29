@@ -16,6 +16,7 @@
   </div>
   <div id="page-container">
 
+    <!-- {{gameObj | json}} -->
     <img id="originalImage" *ngIf="cameraImage && gameObj.type =='easy'" src="{{cameraImage}}" (load)="Crop()" />
 
     <img id="originalImage" *ngIf="cameraImage && gameObj.type == 'medium'" src="{{cameraImage}}" (load)="Crop1()" />

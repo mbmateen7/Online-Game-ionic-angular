@@ -249,6 +249,8 @@ export class PlayGamePage implements OnInit {
 
   revealCount = 0;
 
+  checkGameStatus: any;
+
   constructor(
     private route: ActivatedRoute,
     private dragulaService: DragulaService,
@@ -259,7 +261,7 @@ export class PlayGamePage implements OnInit {
     private navCtrl: NavController,
     private alertController: AlertController,
     private changeDetection: ChangeDetectorRef,
-    private spinnerDialog: SpinnerDialog
+    private spinnerDialog: SpinnerDialog,
   ) {
 
     // this.router.events.subscribe((event) => console.log(event))
@@ -425,7 +427,10 @@ export class PlayGamePage implements OnInit {
                   // window.location.reload();
                   // console.log('Game Object', THIS.gameObj);
 
-                } else { THIS.router.navigate(['main'], { replaceUrl: true }) }
+                } else { 
+                  THIS.navCtrl.setDirection('root');
+                  THIS.router.navigate(['main'], { replaceUrl: true }) 
+                }
               });
             }
 
@@ -456,6 +461,7 @@ export class PlayGamePage implements OnInit {
                   THIS.router.navigate(['contactlist', { friend_id: THIS.gameObj.user_id }], { replaceUrl: true })
                 }
                 else {
+                  THIS.navCtrl.setDirection('root');
                   THIS.router.navigate(['main', { gameSent: true }], { replaceUrl: true })
                 }
 
@@ -506,6 +512,7 @@ export class PlayGamePage implements OnInit {
                 THIS.router.navigate(['contactlist', { friend_id: THIS.gameObj.user_id }], { replaceUrl: true })
               }
               else {
+                THIS.navCtrl.setDirection('root');
                 THIS.router.navigate(['main', { gameSent: true }], { replaceUrl: true })
               }
               // if (result.value) {
@@ -627,10 +634,20 @@ export class PlayGamePage implements OnInit {
           }
           ctx.drawImage(newImage, x, y, w2 * 2, h2 * 2);
         }
+
       }; //end of onload function
 
       $('#originalImage').css('display', 'none');
       $('#gamewindiv').css('display', 'none');
+      // this.checkGameStatus = setInterval( () => {
+      //   console.log(this.gameObj);
+        
+      //   if(this.gameObj.status == 0) {
+      //     $('#originalImage').css('display', 'none');
+      //   }else {
+      //     clearInterval(this.checkGameStatus);
+      //   }
+      // },50);
     } else {
       $('#originalImage').css('display', 'show');
       $('#gamewindiv').css('display', 'block');
@@ -802,7 +819,7 @@ export class PlayGamePage implements OnInit {
             confirmButtonText: 'Cool',
             confirmButtonColor: '#99C43C',
           }).then(result => {
-            this.router.navigate(['/main', { gameSent: true }], { replaceUrl: true, });
+            // this.router.navigate(['/main', { gameSent: true }], { replaceUrl: true, });
             $('#originalImage').css('display', 'block');
             $('#canvas-grid').css('display', 'none');
           });
@@ -852,7 +869,7 @@ export class PlayGamePage implements OnInit {
             confirmButtonText: 'Cool',
             confirmButtonColor: '#99C43C',
           }).then(result => {
-            this.router.navigate(['/main', { gameSent: true }], { replaceUrl: true, });
+            // this.router.navigate(['/main', { gameSent: true }], { replaceUrl: true, });
             $('#originalImage').css('display', 'block');
             $('#canvas-grid').css('display', 'none');
           });

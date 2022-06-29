@@ -48,7 +48,7 @@ export class ItemPage implements OnInit {
 
             Swal.fire({
                 title: 'Error',
-                text: 'You Donot have enough puzzle pieces. want to buy?'
+                text: 'You Do not have enough puzzle pieces. want to buy?'
             }).then(res => {
                 if (res.isConfirmed) {
                     this.messageEvent.emit(true)

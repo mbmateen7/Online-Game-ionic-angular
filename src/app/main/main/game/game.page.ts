@@ -153,10 +153,11 @@ export class GamePage implements OnInit {
             this.levelList = res.message;
             this.user = localStorage.getItem('user');
             this.user = JSON.parse(this.user);
+            
             baseLvl = this.levelList.filter(lvl => lvl.id == this.user.level_id);
             upLvl = this.levelList.filter(lvl => lvl.id == this.user.level_id + 1);
-            // console.log('--', baseLvl[0]);
-
+    
+            
             if (baseLvl[0]) {
                 const baseDiff = upLvl[0].experience - baseLvl[0].experience;
                 if (this.user.experience > baseLvl[0].experience) {

@@ -2,30 +2,34 @@
     <ion-row class="top">
         <ion-row class="top">
             <div class="top-box">
-                <ion-col offset="1" size="2">
-                    <div class="box">
+                <ion-col>
+                    <div class="box img-container">
                         <img src="assets/dummy-user.jpg" alt="" width="55" style="border-radius: 50%; margin-left: 5px" />
+                        <span class="pl-10 username-css">{{this.user.user_name}}</span>
                     </div>
                 </ion-col>
 
-                <ion-col offset="1" size="7">
+                <ion-col >
                     <div class="v-cntr header-text">
                         FRIENDS
-                        <ion-button [routerLink]="['/add-contact']" class="cus-btn-sm ml-2">+ Add Friend </ion-button>
                     </div>
+                </ion-col>
+                <ion-col>
+                    <ion-button [routerLink]="['/add-contact']" class="cus-btn-sm ml-2">+ Add Friend </ion-button>
                 </ion-col>
             </div>
         </ion-row>
     </ion-row>
-
-    <span class="purple-text ml-15 mt-15">Play Random</span>
     <ion-row class="mt-15">
+        <span class="purple-text m-20">Play Random</span>
+    </ion-row>
+    <ion-row class="m-20">
         <ion-slides class="mt-15 slide-wrapper" loop="false" [options]="{slidesPerView: slidesLength}" pager="false">
             <ion-slide *ngFor="let user of randomList">
                 <div class="card-container">
                     <div class="card ">
                         <img src="assets/dummy-user.jpg" alt="" width="55" style="border-radius: 50%; margin-left: 5px; width: 55px !important" />
-                        <p class="card-text">{{user.user_name}}</p>
+                        <p  class="card-text" style="word-wrap:break-word;">{{user.user_name.substr(0,8)}}</p>
                         <ion-button (click)="selectDifficultyLevel(user.id)" class="card-btn">Play</ion-button>
                     </div>
                 </div>
@@ -71,5 +75,8 @@
                 </ion-row>
             </div>
         </ion-col>
+        <ion-col class="text-center">
+            <div style="width: 100%; height: 50px;"></div>
+         </ion-col>
     </ion-row>
 </ion-grid>

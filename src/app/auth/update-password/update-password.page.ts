@@ -12,6 +12,10 @@ export class UpdatePasswordPage implements OnInit {
   user;
   password;
   cpassword;
+  isSeen = false;
+  passwordType = "password";
+  cisSeen = false;
+  cpasswordType = "password";
   constructor(private route: ActivatedRoute, private rest: RestService, private alertController: AlertController, private router: Router) { }
 
   ngOnInit() {
@@ -66,6 +70,24 @@ export class UpdatePasswordPage implements OnInit {
 
     await alert.present();
   }
+
+  passwordSeenStatus() {
+    this.isSeen = !this.isSeen;
+    if (this.isSeen) {
+        this.passwordType = 'text';
+    } else {
+        this.passwordType = 'password';
+    }
+}
+
+passwordCSeenStatus() {
+  this.cisSeen = !this.cisSeen;
+  if (this.cisSeen) {
+      this.cpasswordType = 'text';
+  } else {
+      this.cpasswordType = 'password';
+  }
+}
 
 
   async notMatch() {

@@ -11,7 +11,7 @@ import { PushNotifications } from "@capacitor/push-notifications";
 import Swal from 'sweetalert2';
 import { GooglePlus } from '@ionic-native/google-plus/ngx';
 import { AppleSignInErrorResponse, AppleSignInResponse, ASAuthorizationAppleIDRequest, SignInWithApple } from '@awesome-cordova-plugins/sign-in-with-apple/ngx';
-import { Platform } from '@ionic/angular';
+import { Platform, NavController } from '@ionic/angular';
 @Component({
     selector: 'app-sign-up',
     templateUrl: './sign-up.page.html',
@@ -25,7 +25,7 @@ export class SignUpPage implements OnInit {
     passwordType = 'password';
     user: any;
     isApple: boolean = false;
-    constructor(private restService: RestService, private router: Router, private googlePlus: GooglePlus, private signInWithApple: SignInWithApple, public platform: Platform) {
+    constructor(private restService: RestService, private router: Router, private googlePlus: GooglePlus, private signInWithApple: SignInWithApple, public platform: Platform,private navCtrl: NavController) {
         this.platform.ready().then(() => {
             if (this.platform.is('ios')) {
                 this.isApple = true
@@ -97,6 +97,7 @@ export class SignUpPage implements OnInit {
                     localStorage.setItem('user', JSON.stringify(res.data));
                     this.setDeviceToken();
                     this.showSignUpLoader = false;
+                    this.navCtrl.setDirection('root');
                     this.router.navigate(['main'])
                 }
             },
@@ -157,6 +158,7 @@ export class SignUpPage implements OnInit {
 
 
                         this.showSignUpLoader = false;
+                        this.navCtrl.setDirection('root');
                         this.router.navigate(['main'])
                     }
                 }

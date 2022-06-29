@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NavController } from '@ionic/angular';
 import { RestService } from 'src/app/service/rest.service';
 import Swal from 'sweetalert2';
 @Component({
@@ -12,7 +13,7 @@ export class SendGamePage implements OnInit {
   puzzleImage;
   gameObj = null;
   hintWord = null;
-  constructor(private route: ActivatedRoute, private restService: RestService, private router: Router) { }
+  constructor(private route: ActivatedRoute, private restService: RestService, private router: Router, private navCtrl: NavController) { }
 
   ngOnInit() {
     this.puzzleImage = localStorage.getItem('puzzleImage');
@@ -61,7 +62,8 @@ export class SendGamePage implements OnInit {
       allowOutsideClick: true,
       // backdrop: true,
     }).then(res => {
-      this.router.navigate(['/main/game', { gameSent: true }])
+      this.navCtrl.setDirection('root');
+      this.router.navigate(['/main/game', { gameSent: true}])
     });
   }
 

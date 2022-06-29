@@ -73,31 +73,75 @@ export class ContactlistPage implements OnInit {
   }
   async cameraOrGallery(id) {
 
-    const alert = await this.alertController.create({
-      // cssClass: 'my-custom-class',
-      // header: 'Alert',
-      // subHeader: 'Please Select',
-      message: 'Please Select.',
-      buttons: [
-        {
-          text: 'Gallery',
-          role: 'gallery',
-          cssClass: 'secondary',
-          handler: () => {
-            this.getPicture(CameraSource.Photos, id);
-          },
-        },
-        {
-          text: 'Camera',
-          role: 'camera',
-          handler: () => {
-            this.getPicture(CameraSource.Camera, id);
-          },
-        },
-      ],
-    });
+    // const alert = await this.alertController.create({
+    //   // cssClass: 'my-custom-class',
+    //   // header: 'Alert',
+    //   // subHeader: 'Please Select',
+    //   message: 'Please Select.',
+    //   buttons: [
+    //     {
+    //       text: 'Gallery',
+    //       role: 'gallery',
+    //       cssClass: 'secondary',
+    //       handler: () => {
+    //         this.getPicture(CameraSource.Photos, id);
+    //       },
+    //     },
+    //     {
+    //       text: 'Camera',
+    //       role: 'camera',
+    //       handler: () => {
+    //         this.getPicture(CameraSource.Camera, id);
+    //       },
+    //     },
+    //   ],
+    // });
 
-    await alert.present();
+    // await alert.present();
+
+    if(this.gameType == ""){
+      const alert = await this.alertController.create({
+        message: 'Oops! Medium difficulty will unlock at level 5.',
+        buttons: [
+          {
+            text: 'Okay',
+            role: 'Okay',
+            cssClass: 'secondary',
+            handler: () => {
+              // this.getPicture(CameraSource.Photos, id);
+            },
+          }
+        ],
+      });
+  
+      await alert.present();
+    }else {
+      const alert = await this.alertController.create({
+        // cssClass: 'my-custom-class',
+        // header: 'Alert',
+        // subHeader: 'Please Select',
+        message: 'Please Select.',
+        buttons: [
+          {
+            text: 'Gallery',
+            role: 'gallery',
+            cssClass: 'secondary',
+            handler: () => {
+              this.getPicture(CameraSource.Photos, id);
+            },
+          },
+          {
+            text: 'Camera',
+            role: 'camera',
+            handler: () => {
+              this.getPicture(CameraSource.Camera, id);
+            },
+          },
+        ],
+      });
+  
+      await alert.present();
+    }
     // const { role } = await alert.onDidDismiss();
     // console.log('onDidDismiss resolved with role', role);
   }
@@ -181,7 +225,7 @@ export class ContactlistPage implements OnInit {
       confirmButtonColor: "#99C43C",
       showCancelButton: true,
       // allowOutsideClick: true,
-      cancelButtonColor: "#ebb434",
+      cancelButtonColor: this.user.level_id < 4 ? "#ccc" : "#ebb434",
       cancelButtonText: this.user.level_id < 4 ? "Medium (Unlock at level 5)" : "Medium"
 
     },
@@ -189,10 +233,18 @@ export class ContactlistPage implements OnInit {
     ).then((result: any) => {
 
       console.log('swal-result', result)
-
+    
       if (result.dismiss == "backdrop") { return }
 
-      result.dismiss == 'cancel' ? this.gameType = 'medium' : result.value == true ? this.gameType = 'easy' : this.gameType = '';
+      if(result.dismiss == 'cancel'){
+        if(this.user.level_id < 4) {
+          this.gameType = '';
+        }else {
+          this.gameType = 'medium';
+        }
+      } else {
+        result.value == true ? this.gameType = 'easy' : this.gameType = '';
+      }
 
       this.cameraOrGallery(id)
 
