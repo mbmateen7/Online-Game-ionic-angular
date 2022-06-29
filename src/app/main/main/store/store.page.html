@@ -43,7 +43,7 @@
           <img id="claim-image-4" width="38" src="assets/currency-logo-b.svg" alt="">
           <img id="claim-image-5" width="38" src="assets/currency-logo-b.svg" alt="">
         </div>
-        <ion-button id="claim-btn" class="cus-btn" (click)="claimDailyReward()"  >CLAIM</ion-button>
+        <ion-button  disabled="{{ buttonDisabled }}" id="claim-btn" class="cus-btn" (click)="claimDailyReward()"  >CLAIM</ion-button>
       </div>
 
     </ion-col>

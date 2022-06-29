@@ -16,6 +16,7 @@ export class StorePage implements OnInit{
   CheckDate;
   dateCount;
   dateCounter=1;
+  buttonDisabled: boolean;
   lastClaimDate;
   isFilterOpened = true;
   isItemOpened = false;
@@ -34,7 +35,16 @@ export class StorePage implements OnInit{
   }
 
   ngOnInit() {
+    this.buttonDisabled = false;
     this.user = JSON.parse(localStorage.getItem('user'));
+    this.lastClaimDate = localStorage.getItem('LastLoginClaim');
+    let ClaimDate = JSON.parse(this.lastClaimDate);
+
+      let savedClaimDate = new Date(ClaimDate.date).getDate();  
+      let inDateCount = ClaimDate.dateCount;
+      for (let index = 1; index <= inDateCount; index++) {
+            const element = document.getElementById('claim-image-'+index).style.opacity='0.5';
+          }
     // this.lastClaimDate = localStorage.getItem('LastLoginClaim');
     //  let ClaimDate = JSON.parse(this.lastClaimDate);
 
@@ -162,25 +172,31 @@ export class StorePage implements OnInit{
                           localStorage.setItem('LastLoginClaim',JSON.stringify({date:this.lastLogin,dateCount:this.dateCounter, userId:this.user.id}));
                             
                             console.log("counter in else if"+this.dateCounter);
-                               for (let index = 1; index <= inDateCount; index++) {
+                               for (let index = 1; index <= inDateCount+1; index++) {
                                     const element = document.getElementById('claim-image-'+index).style.opacity='0.5';
                                                                 }
 
                             switch (this.dateCounter) {
                               case 1:
                                 this.updateUser(10);
+                                this.buttonDisabled = true;
                                 break;
                               case 2:
-                                this.updateUser(20);                                
+                                this.updateUser(20);  
+                                this.buttonDisabled = true;                              
                                 break;
                               case 3:
-                                this.updateUser(30);                                
+                                this.updateUser(30); 
+                                this.buttonDisabled = true;                               
                                 break;
                               case 4:
-                                this.updateUser(40);                                
+                                this.updateUser(40);  
+                                this.buttonDisabled = true;
+
                                 break;
                               case 5:
                                 this.updateUser(50);
+                                this.buttonDisabled = true;
                                   break;
                             
                             }
@@ -192,11 +208,10 @@ export class StorePage implements OnInit{
 
                             localStorage.setItem('LastLoginClaim',JSON.stringify({date:this.lastLogin,dateCount:this.dateCounter, userId:this.user.id}));
 
-                            this.updateUser(10);
-                            for (let index = 2; index <= 5; index++) {
+                            for (let index = 1; index <= 5; index++) {
                               const element = document.getElementById('claim-image-'+index).style.opacity='1';
                                                           }
-                            // this.updateUser(10);
+                            this.updateUser(10);
                             // for (let index = 1; index <= inDateCount; index++) {
                             //   const element = document.getElementById('claim-image-'+index).style.opacity='0.5';
                             //                               }
