@@ -22,7 +22,7 @@ export class SendGamePage implements OnInit {
 
   ionViewWillEnter() {
     Swal.fire({
-      title: '<h5>Please enter a hint:</h5>',
+      title: '<h5>Please enter your puzzle word (4 Characters)</h5>',
       input: 'text',
       inputValidator: (value) => {
         if (!value) {
@@ -32,7 +32,7 @@ export class SendGamePage implements OnInit {
           return 'Spaces are not allowed'
         }
         if (value.length > 4) {
-          return 'You write Only 4 Letters'
+          return 'Maximum 4 Characters Allowed'
         }
       },
       confirmButtonText: 'SEND GAME',
