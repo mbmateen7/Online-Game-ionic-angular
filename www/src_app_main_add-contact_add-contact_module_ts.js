@@ -125,8 +125,7 @@ let AddContactPage = class AddContactPage {
         this.showUserList = false;
         this.usernameSearchRes = [];
     }
-    ngOnInit() {
-    }
+    ngOnInit() { }
     presentAlert(obj, headerText, headerBody) {
         return (0,tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(this, void 0, void 0, function* () {
             const friendDialogbutton = [
@@ -136,18 +135,19 @@ let AddContactPage = class AddContactPage {
                     cssClass: 'secondary',
                     handler: (blah) => {
                         console.log('Confirm Cancel: blah');
-                    }
-                }, {
+                    },
+                },
+                {
                     text: 'yes',
                     handler: () => {
                         this.addFriendNameByUsername(obj);
-                    }
-                }
+                    },
+                },
             ];
             const resDialogbutton = [
                 {
                     text: 'OK',
-                }
+                },
             ];
             let buttonArr = [];
             if (obj) {
@@ -159,7 +159,7 @@ let AddContactPage = class AddContactPage {
             const alert = yield this.alertController.create({
                 header: headerText,
                 subHeader: headerBody,
-                buttons: buttonArr
+                buttons: buttonArr,
             });
             yield alert.present();
             const { role } = yield alert.onDidDismiss();
@@ -171,8 +171,7 @@ let AddContactPage = class AddContactPage {
             this.contacts.find(['displayName']).then((res) => (0,tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(this, void 0, void 0, function* () {
                 const list = yield res;
                 this.getNumbersArrayOnly(list);
-                console.log(res);
-            }), err => {
+            }), (err) => {
                 console.log(err);
             });
         });
@@ -188,7 +187,7 @@ let AddContactPage = class AddContactPage {
     getNumbersArrayOnly(list) {
         for (const element of list) {
             if (element.phoneNumbers) {
-                element.phoneNumbers.forEach(el => {
+                element.phoneNumbers.forEach((el) => {
                     if (el.value.replace(/ /g, '')) {
                         const str = el.value.replace(/ /g, '');
                         this.contactList.push(str);
@@ -200,18 +199,23 @@ let AddContactPage = class AddContactPage {
     }
     checkContactFromServer(list) {
         this.restSerice
-            .postRequestToken('contacts/contact-exist', { contacts_array: list })
+            .postRequestToken('contacts/contact-exist', {
+            contacts_array: list,
+        })
             .subscribe((res) => {
             const contactList = JSON.stringify(res['save_contacts']);
-            this.router.navigate(['/main/freind', { user: contactList }]);
+            this.router.navigate([
+                '/main/freind',
+                { user: contactList },
+            ]);
             this.loader.dismiss();
-        }, err => {
+        }, (err) => {
             console.log(err);
             this.loader.dismiss();
             sweetalert2__WEBPACK_IMPORTED_MODULE_4___default().fire({
                 title: 'Error',
                 text: err.error.message,
-                confirmButtonText: "OK",
+                confirmButtonText: 'OK',
             });
         });
     }
@@ -219,9 +223,11 @@ let AddContactPage = class AddContactPage {
         let username = e.target.value;
         this.showUserList = true;
         const searchObj = {
-            user_name: username
+            user_name: username,
         };
-        this.restSerice.postRequestToken('users/user-name', searchObj).subscribe((res) => {
+        this.restSerice
+            .postRequestToken('users/user-name', searchObj)
+            .subscribe((res) => {
             this.usernameSearchRes = res.user;
             // console.log('====>', this.usernameSearchRes);
         });
@@ -231,28 +237,32 @@ let AddContactPage = class AddContactPage {
     }
     openDialogBox(obj) {
         sweetalert2__WEBPACK_IMPORTED_MODULE_4___default().fire({
-            text: "Are you want to add as friend ",
-            confirmButtonText: "Yes",
-            confirmButtonColor: "#99C43C",
+            text: 'Are you want to add as friend ',
+            confirmButtonText: 'Yes',
+            confirmButtonColor: '#99C43C',
             showCancelButton: true,
             allowOutsideClick: false,
-            cancelButtonColor: "#E86B5D",
-            cancelButtonText: "Cancel",
-        }).then(res => {
+            cancelButtonColor: '#E86B5D',
+            cancelButtonText: 'Cancel',
+        }).then((res) => {
             if (res.isConfirmed) {
                 this.addFriendNameByUsername(obj);
             }
         });
     }
     addFriendNameByUsername(obj) {
-        this.restSerice.postRequestToken('contacts/add-username', { friend_id: obj.id }).subscribe((res) => {
+        this.restSerice
+            .postRequestToken('contacts/add-username', { friend_id: obj.id })
+            .subscribe((res) => {
             this.showUserList = false;
             sweetalert2__WEBPACK_IMPORTED_MODULE_4___default().fire({
                 title: 'Success',
                 text: res.message,
-                confirmButtonText: "Cool",
+                confirmButtonText: 'Cool',
             });
-            this.router.navigate(['/main/freind', { addFriend: true }], { replaceUrl: true });
+            this.router.navigate(['/main/freind', { addFriend: true }], {
+                replaceUrl: true,
+            });
         });
     }
 };

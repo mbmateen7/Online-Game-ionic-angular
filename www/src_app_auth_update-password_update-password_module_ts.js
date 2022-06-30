@@ -120,7 +120,6 @@ let UpdatePasswordPage = class UpdatePasswordPage {
     ngOnInit() {
         this.user = this.route.snapshot.paramMap.get('user');
         this.user = JSON.parse(this.user);
-        console.log('rtert', this.user);
     }
     onPasswordUpdate() {
         return (0,tslib__WEBPACK_IMPORTED_MODULE_3__.__awaiter)(this, void 0, void 0, function* () {

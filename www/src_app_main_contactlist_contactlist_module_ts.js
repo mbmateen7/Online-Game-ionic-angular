@@ -136,11 +136,9 @@ let ContactlistPage = class ContactlistPage {
         this.showFilterPageLoader = false;
     }
     ngOnInit() {
-        console.log(this.activatedRoute.snapshot.paramMap.get('friend_id'));
         this.user = JSON.parse(localStorage.getItem('user'));
         const friendId = this.activatedRoute.snapshot.paramMap.get('friend_id');
         if (friendId) {
-            console.log('--------------->');
             this.cameraOrGallery(friendId);
         }
         this.getFriendList();
@@ -180,7 +178,7 @@ let ContactlistPage = class ContactlistPage {
             //   ],
             // });
             // await alert.present();
-            if (this.gameType == "") {
+            if (this.gameType == '') {
                 const alert = yield this.alertController.create({
                     message: 'Oops! Medium difficulty will unlock at level 5.',
                     buttons: [
@@ -191,7 +189,7 @@ let ContactlistPage = class ContactlistPage {
                             handler: () => {
                                 // this.getPicture(CameraSource.Photos, id);
                             },
-                        }
+                        },
                     ],
                 });
                 yield alert.present();
@@ -250,7 +248,7 @@ let ContactlistPage = class ContactlistPage {
             const loading = yield this.loadingController.create({
                 cssClass: 'my-custom-class',
                 message: 'Please wait...',
-                duration: 2000
+                duration: 2000,
             });
             yield loading.present();
             const { role, data } = yield loading.onDidDismiss();
@@ -261,9 +259,11 @@ let ContactlistPage = class ContactlistPage {
         let username = e.target.value;
         this.showUserList = true;
         const searchObj = {
-            user_name: username
+            user_name: username,
         };
-        this.restService.postRequestToken('users/user-name', searchObj).subscribe((res) => {
+        this.restService
+            .postRequestToken('users/user-name', searchObj)
+            .subscribe((res) => {
             this.usernameSearchRes = res.user;
         });
     }
@@ -272,15 +272,15 @@ let ContactlistPage = class ContactlistPage {
     }
     openDialogBox(obj) {
         sweetalert2__WEBPACK_IMPORTED_MODULE_6___default().fire({
-            text: "Are you want to add as friend ",
-            confirmButtonText: "Yes",
-            confirmButtonColor: "#99C43C",
+            text: 'Are you want to add as friend ',
+            confirmButtonText: 'Yes',
+            confirmButtonColor: '#99C43C',
             showCancelButton: true,
             allowOutsideClick: false,
             // backdrop: true,
-            cancelButtonColor: "#E86B5D",
-            cancelButtonText: "Cancel",
-        }).then(res => {
+            cancelButtonColor: '#E86B5D',
+            cancelButtonText: 'Cancel',
+        }).then((res) => {
             if (res.isConfirmed) {
                 this.addFriendNameByUsername(obj);
             }
@@ -291,18 +291,19 @@ let ContactlistPage = class ContactlistPage {
             customClass: {
                 actions: 'vertical-buttons',
                 cancelButton: this.gameLevel > 4 ? 'top-margin' : 'top-margin disable',
-                confirmButton: 'font-size1'
+                confirmButton: 'font-size1',
             },
-            title: "Select Difficulty Level",
-            confirmButtonText: "Easy",
-            confirmButtonColor: "#99C43C",
+            title: 'Select Difficulty Level',
+            confirmButtonText: 'Easy',
+            confirmButtonColor: '#99C43C',
             showCancelButton: true,
             // allowOutsideClick: true,
-            cancelButtonColor: this.user.level_id < 4 ? "#ccc" : "#ebb434",
-            cancelButtonText: this.user.level_id < 4 ? "Medium (Unlock at level 5)" : "Medium"
+            cancelButtonColor: this.user.level_id < 4 ? '#ccc' : '#ebb434',
+            cancelButtonText: this.user.level_id < 4
+                ? 'Medium (Unlock at level 5)'
+                : 'Medium',
         }).then((result) => {
-            console.log('swal-result', result);
-            if (result.dismiss == "backdrop") {
+            if (result.dismiss == 'backdrop') {
                 return;
             }
             if (result.dismiss == 'cancel') {
@@ -314,37 +315,42 @@ let ContactlistPage = class ContactlistPage {
                 }
             }
             else {
-                result.value == true ? this.gameType = 'easy' : this.gameType = '';
+                result.value == true
+                    ? (this.gameType = 'easy')
+                    : (this.gameType = '');
             }
             this.cameraOrGallery(id);
         });
     }
     onRandomPlay() {
         this.spinnerDialog.show();
-        this.restService.getRequest('users/play-random').subscribe((res) => {
+        this.restService
+            .getRequest('users/play-random')
+            .subscribe((res) => {
             if (res.status) {
                 let index = this.getRandomInt(res.message.length);
                 if (index < 0) {
                     this.spinnerDialog.hide();
                     sweetalert2__WEBPACK_IMPORTED_MODULE_6___default().fire({
                         title: '<img src="assets/icon/questionmark.png" style="width: 20vw; height:20vw;">',
-                        text: "No User is Found ",
-                        cancelButtonColor: "#E86B5D",
-                        cancelButtonText: "Cancel",
+                        text: 'No User is Found ',
+                        cancelButtonColor: '#E86B5D',
+                        cancelButtonText: 'Cancel',
                     });
                 }
                 else {
                     this.spinnerDialog.hide();
                     sweetalert2__WEBPACK_IMPORTED_MODULE_6___default().fire({
                         title: '<img src="assets/icon/questionmark.png" style="width: 20vw; height:20vw;">',
-                        text: "Match found with " + res.message[index].user_name,
+                        text: 'Match found with ' +
+                            res.message[index].user_name,
                         confirmButtonText: "Let's play!",
-                        confirmButtonColor: "#99C43C",
+                        confirmButtonColor: '#99C43C',
                         showCancelButton: true,
                         allowOutsideClick: false,
                         // backdrop: true,
-                        cancelButtonColor: "#E86B5D",
-                        cancelButtonText: "Cancel",
+                        cancelButtonColor: '#E86B5D',
+                        cancelButtonText: 'Cancel',
                     }).then((result) => {
                         if (result.value) {
                             this.selectDifficultyLevel(res.message[index].id);
@@ -366,10 +372,14 @@ let ContactlistPage = class ContactlistPage {
             text: 'Are you sure to remove this user?',
             showCancelButton: true,
             showConfirmButton: true,
-        }).then(res => {
+        }).then((res) => {
             if (res.isConfirmed) {
-                this.restService.delRequest('contacts/delete', friendObj).subscribe(res => {
-                    const frndArr = this.freindList.filter(x => { return x.id != id; });
+                this.restService
+                    .delRequest('contacts/delete', friendObj)
+                    .subscribe((res) => {
+                    const frndArr = this.freindList.filter((x) => {
+                        return x.id != id;
+                    });
                     this.freindList = frndArr;
                     // console.log(' This is ffriend Object', frndArr);
                 });
@@ -377,21 +387,25 @@ let ContactlistPage = class ContactlistPage {
         });
     }
     addFriendNameByUsername(obj) {
-        this.restService.postRequestToken('contacts/add-username', { friend_id: obj.id }).subscribe((res) => {
+        this.restService
+            .postRequestToken('contacts/add-username', { friend_id: obj.id })
+            .subscribe((res) => {
             if (res) {
                 this.showUserList = false;
                 sweetalert2__WEBPACK_IMPORTED_MODULE_6___default().fire({
                     title: 'Success',
-                    text: "Friend Added",
-                    confirmButtonText: "Cool",
+                    text: 'Friend Added',
+                    confirmButtonText: 'Cool',
                 });
                 this.getFriendList();
             }
         });
     }
     getFriendList() {
-        this.restService.getRequest('contacts/listing').subscribe((res) => {
-            this.freindList = res.filter(x => x.id != this.user.id);
+        this.restService
+            .getRequest('contacts/listing')
+            .subscribe((res) => {
+            this.freindList = res.filter((x) => x.id != this.user.id);
             if (!this.freindList.length) {
                 this.showFilterPageLoader = false;
             }

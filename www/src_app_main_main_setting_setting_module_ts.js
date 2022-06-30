@@ -131,12 +131,16 @@ let SettingPage = class SettingPage {
         this.audio = audio;
         this.socialSharing = socialSharing;
         this.navCtrl = navCtrl;
-        this.ref_code = "";
+        this.ref_code = '';
+        this.playAudio = true;
     }
     ngOnInit() {
         this.user = JSON.parse(localStorage.getItem('user'));
     }
     ionViewDidEnter() {
+        this.playAudio = JSON.parse(localStorage.getItem('playAudio'));
+        if (!this.playAudio)
+            this.playAudio = false;
         this.getUserData();
     }
     onLogout() {
@@ -145,7 +149,9 @@ let SettingPage = class SettingPage {
         let lastClaim = localStorage.getItem('LastLoginClaim');
         localStorage.clear();
         localStorage.setItem('LastLoginClaim', lastClaim);
-        this.router.routeReuseStrategy.shouldReuseRoute = function () { return false; };
+        this.router.routeReuseStrategy.shouldReuseRoute = function () {
+            return false;
+        };
         this.navCtrl.setDirection('root');
         this.router.navigate(['/home'], { replaceUrl: true });
     }
@@ -181,25 +187,28 @@ let SettingPage = class SettingPage {
         _capacitor_community_admob__WEBPACK_IMPORTED_MODULE_6__.AdMob.hideBanner().then(() => {
             document.getElementsByTagName('ion-app')[0].style.bottom = '0';
         });
-        this.googlePlus.logout()
-            .then(res => {
-            console.log(res);
-        })
-            .catch(err => console.error(err));
+        this.googlePlus
+            .logout()
+            .then((res) => { })
+            .catch((err) => console.error(err));
     }
     setLastLogin() {
         let date = new Date();
         const obj = {
-            last_login: date
+            last_login: date,
         };
-        this.restService.postRequestToken('users/set-last-login', obj).subscribe((res) => {
+        this.restService
+            .postRequestToken('users/set-last-login', obj)
+            .subscribe((res) => {
             if (res.status) {
                 console.log('Last login is set successfully');
             }
         });
     }
     changeSound(e) {
+        localStorage.setItem('playAudio', JSON.stringify(e.detail.checked));
         if (e.detail.checked) {
+            this.audio.stopSound();
             this.audio.playSound();
         }
         else
@@ -215,12 +224,12 @@ let SettingPage = class SettingPage {
     }
     shareSocial() {
         var options = {
-            message: this.ref_code
+            message: "PicPlayce is a fun, interactive game to play with friends! Download now, for Android and IOS, so we can play! Signup using this code to get bonus points. Your Referral Code is " + this.ref_code + " https://www.picplayce.com",
         };
         this.socialSharing.shareWithOptions(options);
     }
     openMail() {
-        location.href = "mailto:feedback@picplayce.com?subject=Report an Issue";
+        location.href = 'mailto:feedback@picplayce.com?subject=Report an Issue';
     }
 };
 SettingPage.ctorParameters = () => [
@@ -270,7 +279,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("<ion-content>\n  <div class=\"top-container\">\n    <div class=\"top-body\">\n      <div [routerLink]=\"['/main']\" class=\"icon\">\n        <ion-icon src=\"assets/icon/back-icon.svg\"></ion-icon>\n      </div>\n      <div class=\"text\">Setting</div>\n    </div>\n  </div>\n\n  <div class=\"body-container\">\n\n    <div class=\"mt-30\">\n      <ion-item (click)=\"onUpdateProfile()\" detail>\n        <ion-label>\n          Update Profile\n        </ion-label>\n      </ion-item>\n    </div>\n\n\n    <div class=\"mt-30\">\n      <ion-item lines=\"none\">\n        <ion-label>MUSIC & SOUNDS</ion-label>\n      </ion-item>\n\n      <ion-item>\n        <ion-label>\n          Toggle Background Music\n        </ion-label>\n\n        <ion-toggle checked=\"true\" (ionChange)=\"changeSound($event)\" color=\"primary\"></ion-toggle>\n\n      </ion-item>\n    </div>\n\n\n    <div class=\"mt-30\">\n      <ion-item lines=\"none\">\n        <ion-label>LEGAL </ion-label>\n      </ion-item>\n      <ion-item detail>\n        <ion-label  >\n          <a href=\"https://www.picplayce.com/tos.html\" style=\"text-decoration: none; color: black;\">\n          Terms Of Service\n        </a>\n        </ion-label>\n      </ion-item>\n      <ion-item detail>\n        <ion-label  (click)=\"openMail()\" >\n          Report A Technical Issue\n        </ion-label>\n      </ion-item>\n    </div>\n\n    <div class=\"mt-30\">\n      <ion-item (click)=\"goToPurchaseDetails()\" detail>\n        <ion-label>\n          Purchased Items\n        </ion-label>\n      </ion-item>\n    </div>\n\n    <div class=\"mt-30\"  >\n\n      <ion-label *ngIf=\"ref_code; else sendCode\" >&nbsp;&nbsp;&nbsp;\n        Referrel Code: {{ref_code}}\n      </ion-label> &nbsp;&nbsp; &nbsp; &nbsp;\n      <ng-template #sendCode )>\n          <!-- {{ SendCode() }} -->\n      </ng-template>\n      <button class=\"share-btn\" (click)=\"shareSocial()\">share</button>\n\n\n    </div>\n\n\n  </div>\n\n  <div class=\"mt-30 logout-btn\">\n    <button (click)=\"onLogout()\"> LOG OUT</button>\n  </div>\n  <div class=\"text-center\">\n    <div style=\"width: 100%; height: 50px;\"></div>\n </div>\n</ion-content>");
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("<ion-content>\n  <div class=\"top-container\">\n    <div class=\"top-body\">\n      <div [routerLink]=\"['/main']\" class=\"icon\">\n        <ion-icon src=\"assets/icon/back-icon.svg\"></ion-icon>\n      </div>\n      <div class=\"text\">Setting</div>\n    </div>\n  </div>\n\n  <div class=\"body-container\">\n\n    <div class=\"mt-30\">\n      <ion-item (click)=\"onUpdateProfile()\" detail>\n        <ion-label>\n          Update Profile\n        </ion-label>\n      </ion-item>\n    </div>\n\n\n    <div class=\"mt-30\">\n      <ion-item lines=\"none\">\n        <ion-label>MUSIC & SOUNDS</ion-label>\n      </ion-item>\n\n      <ion-item>\n        <ion-label>\n          Toggle Background Music\n        </ion-label>\n\n        <ion-toggle [(ngModel)]=\"playAudio\" (ionChange)=\"changeSound($event)\" color=\"primary\"></ion-toggle>\n\n      </ion-item>\n    </div>\n\n\n    <div class=\"mt-30\">\n      <ion-item lines=\"none\">\n        <ion-label>LEGAL </ion-label>\n      </ion-item>\n      <ion-item detail>\n        <ion-label  >\n          <a href=\"https://www.picplayce.com/tos.html\" style=\"text-decoration: none; color: black;\">\n          Terms Of Service\n        </a>\n        </ion-label>\n      </ion-item>\n      <ion-item detail>\n        <ion-label  (click)=\"openMail()\" >\n          Report A Technical Issue\n        </ion-label>\n      </ion-item>\n    </div>\n\n    <div class=\"mt-30\">\n      <ion-item (click)=\"goToPurchaseDetails()\" detail>\n        <ion-label>\n          Purchased Items\n        </ion-label>\n      </ion-item>\n    </div>\n\n    <div class=\"mt-30\"  >\n\n      <ion-label *ngIf=\"ref_code; else sendCode\" >&nbsp;&nbsp;&nbsp;\n        Referrel Code: {{ref_code}}\n      </ion-label> &nbsp;&nbsp; &nbsp; &nbsp;\n      <ng-template #sendCode )>\n          <!-- {{ SendCode() }} -->\n      </ng-template>\n      <button class=\"share-btn\" (click)=\"shareSocial()\">share</button>\n\n\n    </div>\n\n\n  </div>\n\n  <div class=\"mt-30 logout-btn\">\n    <button (click)=\"onLogout()\"> LOG OUT</button>\n  </div>\n  <div class=\"text-center\">\n    <div style=\"width: 100%; height: 50px;\"></div>\n </div>\n</ion-content>");
 
 /***/ })
 

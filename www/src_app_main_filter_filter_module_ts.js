@@ -141,17 +141,17 @@ let FilterPage = class FilterPage {
         this.userService = userService;
         this.isLoading = true;
         this.filter_id = null;
-        this.sequence = ["toHide", "toHide1", "toHide2", "toHide3"];
+        this.sequence = ['toHide', 'toHide1', 'toHide2', 'toHide3'];
         this.sequence1 = [
-            "toHide",
-            "toHide1",
-            "toHide2",
-            "toHide3",
-            "toHide4",
-            "toHide5",
-            "toHide6",
-            "toHide7",
-            "toHide8",
+            'toHide',
+            'toHide1',
+            'toHide2',
+            'toHide3',
+            'toHide4',
+            'toHide5',
+            'toHide6',
+            'toHide7',
+            'toHide8',
         ];
         this.rotations = {
             toHide: 4,
@@ -172,9 +172,9 @@ let FilterPage = class FilterPage {
         };
         this.cameraImage = null;
         this.isPuzzleSolved = false;
-        this.primaryFilter = "";
-        this.buttons = "default";
-        this.selection = "primary";
+        this.primaryFilter = '';
+        this.buttons = 'default';
+        this.selection = 'primary';
         this.secondaryValues = {
             numbers: {
                 grayscale: 0,
@@ -244,15 +244,15 @@ let FilterPage = class FilterPage {
             },
         };
         this.secondaryFilterValues = [
-            "grayscale(100%)",
-            "hue-rotate(180deg)",
-            "invert(90%)",
-            "sepia(100%)",
-            "saturate(200%)",
-            "opacity(50%)",
-            "brightness(200%)",
-            "contrast(200%)",
-            "blur(5px)",
+            'grayscale(100%)',
+            'hue-rotate(180deg)',
+            'invert(90%)',
+            'sepia(100%)',
+            'saturate(200%)',
+            'opacity(50%)',
+            'brightness(200%)',
+            'contrast(200%)',
+            'blur(5px)',
         ];
         this.lastValue = 0;
         this.lettersArr = new _angular_forms__WEBPACK_IMPORTED_MODULE_7__.FormArray([]);
@@ -260,15 +260,17 @@ let FilterPage = class FilterPage {
         this.hintWord = new _angular_forms__WEBPACK_IMPORTED_MODULE_7__.FormControl('', _angular_forms__WEBPACK_IMPORTED_MODULE_7__.Validators.required);
         this.showWordSection = false;
         this.proSecondaryFilters = [
-            "grayscale",
-            "hue_rotate",
-            "invert",
-            "sepia",
-            "saturate",
+            'grayscale',
+            'hue_rotate',
+            'invert',
+            'sepia',
+            'saturate',
         ];
-        this.primeSecondaryFilters = ["opacity", "brightness", "contrast", "blur"];
+        this.primeSecondaryFilters = ['opacity', 'brightness', 'contrast', 'blur'];
         this.sendGameLoader = false;
         this.hideImage = false;
+    }
+    ionViewDidEnter() {
         this.dragulaService
             .drop('totalPiece')
             .subscribe(({ name, el, target, source, sibling }) => {
@@ -277,7 +279,6 @@ let FilterPage = class FilterPage {
                 const sourceIndex = this.sequence.indexOf(source.className.split(' ')[0]);
                 this.sequence[targetIndex] = source.className.split(' ')[0];
                 this.sequence[sourceIndex] = target.className.split(' ')[0];
-                console.log("finalSequence ", this.sequence);
                 const swappee = jquery__WEBPACK_IMPORTED_MODULE_3__(target).find('canvas').not(el);
                 swappee.appendTo(source);
                 let temp = source.className;
@@ -288,9 +289,10 @@ let FilterPage = class FilterPage {
             if (this.gameType == 'medium') {
                 const targetIndex = this.sequence1.indexOf(target.className.split(' ')[0]);
                 const sourceIndex = this.sequence1.indexOf(source.className.split(' ')[0]);
-                this.sequence1[targetIndex] = source.className.split(' ')[0];
-                this.sequence1[sourceIndex] = target.className.split(' ')[0];
-                console.log("finalSequence1 ", this.sequence1);
+                this.sequence1[targetIndex] =
+                    source.className.split(' ')[0];
+                this.sequence1[sourceIndex] =
+                    target.className.split(' ')[0];
                 const swappee = jquery__WEBPACK_IMPORTED_MODULE_3__(target).find('canvas').not(el);
                 swappee.appendTo(source);
                 let temp = source.className;
@@ -299,18 +301,9 @@ let FilterPage = class FilterPage {
                 this.autoSwap1();
             }
         });
-        this.userService.userData.subscribe(res => {
+        this.userService.userData.subscribe((res) => {
             this.ownedItemsList = JSON.parse(localStorage.getItem('ownedItemsList'));
-            console.log('ownedItemsList', this.ownedItemsList);
         });
-    }
-    // ionViewWillEnter() {
-    //   this.filterList = JSON.parse(localStorage.getItem('filterList'));
-    //   this.secondaryFilterList = JSON.parse(localStorage.getItem('secondaryList'));
-    //   this.ownedItemsList = JSON.parse(localStorage.getItem('ownedItemsList'));
-    //   console.log('ownedItemsList', this.ownedItemsList)
-    // }
-    ngOnInit() {
         this.user = JSON.parse(localStorage.getItem('user'));
         let str1 = localStorage.getItem('base64String1');
         let str2 = localStorage.getItem('base64String2');
@@ -324,16 +317,23 @@ let FilterPage = class FilterPage {
         if (!this.gameType) {
             this.gameType = localStorage.getItem('GameType');
         }
-        console.log('Game Type', this.gameType);
         this.compressImage(this.cameraImage, 100, 100).then((compressed) => {
             this.cameraImageThumbnail = compressed;
-            console.log('this.cameraImageThumbnail', this.cameraImageThumbnail);
         });
         this.filterList = [];
         this.secondaryFilterList = [];
         this.filterList = JSON.parse(localStorage.getItem('filterList'));
         this.secondaryFilterList = JSON.parse(localStorage.getItem('secondaryList'));
         this.ownedItemsList = JSON.parse(localStorage.getItem('ownedItemsList'));
+    }
+    ionViewWillEnter() {
+        // this.filterList = JSON.parse(localStorage.getItem('filterList'));
+        // this.secondaryFilterList = JSON.parse(localStorage.getItem('secondaryList'));
+        // this.ownedItemsList = JSON.parse(localStorage.getItem('ownedItemsList'));
+        // console.log('ownedItemsList', this.ownedItemsList)
+        // location.reload();
+    }
+    ngOnInit() {
         // this.restService.getRequest('shop/AllFilterList').subscribe((res: any) => {
         //   this.spinnerDialog.show();
         //   if (res.status) {
@@ -368,13 +368,16 @@ let FilterPage = class FilterPage {
                     {
                         text: 'Yes',
                         handler: () => {
-                            this.router.navigate(['main/store', { params: JSON.stringify(paramObj) }]);
-                        }
+                            this.router.navigate([
+                                'main/store',
+                                { params: JSON.stringify(paramObj) },
+                            ]);
+                        },
                     },
                     {
                         text: 'No',
-                    }
-                ]
+                    },
+                ],
             });
             yield alert.present();
             const { role } = yield alert.onDidDismiss();
@@ -386,7 +389,7 @@ let FilterPage = class FilterPage {
             const loading = yield this.loadingController.create({
                 cssClass: 'my-custom-class',
                 message: 'Please wait...',
-                duration: 2000
+                duration: 2000,
             });
             yield loading.present();
             const { role, data } = yield loading.onDidDismiss();
@@ -395,29 +398,29 @@ let FilterPage = class FilterPage {
     }
     onSendGame() {
         this.sendGameLoader = true;
-        var finalCanvas = document.createElement("canvas");
-        var finalContext = finalCanvas.getContext("2d");
+        var finalCanvas = (document.createElement('canvas'));
+        var finalContext = finalCanvas.getContext('2d');
         finalCanvas.width = 360;
         finalCanvas.height = 360;
         let finalList = [];
-        let children = jquery__WEBPACK_IMPORTED_MODULE_3__("." + this.sequence[0]).children("canvas");
-        let children1 = jquery__WEBPACK_IMPORTED_MODULE_3__("." + this.sequence[1]).children("canvas");
-        let children2 = jquery__WEBPACK_IMPORTED_MODULE_3__("." + this.sequence[2]).children("canvas");
-        let children3 = jquery__WEBPACK_IMPORTED_MODULE_3__("." + this.sequence[3]).children("canvas");
+        let children = jquery__WEBPACK_IMPORTED_MODULE_3__('.' + this.sequence[0]).children('canvas');
+        let children1 = jquery__WEBPACK_IMPORTED_MODULE_3__('.' + this.sequence[1]).children('canvas');
+        let children2 = jquery__WEBPACK_IMPORTED_MODULE_3__('.' + this.sequence[2]).children('canvas');
+        let children3 = jquery__WEBPACK_IMPORTED_MODULE_3__('.' + this.sequence[3]).children('canvas');
         children.each(function () {
-            let id = jquery__WEBPACK_IMPORTED_MODULE_3__(this).attr("id");
+            let id = jquery__WEBPACK_IMPORTED_MODULE_3__(this).attr('id');
             finalList.push(id);
         });
         children1.each(function () {
-            let id = jquery__WEBPACK_IMPORTED_MODULE_3__(this).attr("id");
+            let id = jquery__WEBPACK_IMPORTED_MODULE_3__(this).attr('id');
             finalList.push(id);
         });
         children2.each(function () {
-            let id = jquery__WEBPACK_IMPORTED_MODULE_3__(this).attr("id");
+            let id = jquery__WEBPACK_IMPORTED_MODULE_3__(this).attr('id');
             finalList.push(id);
         });
         children3.each(function () {
-            let id = jquery__WEBPACK_IMPORTED_MODULE_3__(this).attr("id");
+            let id = jquery__WEBPACK_IMPORTED_MODULE_3__(this).attr('id');
             finalList.push(id);
         });
         // console.log('Final List', finalList)
@@ -425,7 +428,7 @@ let FilterPage = class FilterPage {
         finalContext.drawImage(document.getElementById(finalList[1]), finalCanvas.width / 2, 0);
         finalContext.drawImage(document.getElementById(finalList[2]), 0, finalCanvas.height / 2);
         finalContext.drawImage(document.getElementById(finalList[3]), finalCanvas.width / 2, finalCanvas.height / 2);
-        var finalSource = finalCanvas.toDataURL("image/jpeg");
+        var finalSource = finalCanvas.toDataURL('image/jpeg');
         localStorage.setItem('puzzleImage', finalSource);
         const gameObj = {
             friend_id: this.userId,
@@ -436,14 +439,18 @@ let FilterPage = class FilterPage {
             p_image: finalSource,
             image: this.cameraImage,
             filter_id: this.filter_id,
-            secondary_values: JSON.stringify(this.secondaryValues)
+            secondary_values: JSON.stringify(this.secondaryValues),
         };
         // this.sequence = ['toHide', 'toHide1', 'toHide2', 'toHide3'];
         // this.rotations = {
         //   'toHide': 4, 'toHide1': 4, 'toHide2': 4, 'toHide3': 4
         // };
         // console.log('sendGameLoader', this.sendGameLoader)
-        this.router.navigate(['send-game', { gameObj: JSON.stringify(gameObj) }], { replaceUrl: true }).then(res => {
+        this.router
+            .navigate(['send-game', { gameObj: JSON.stringify(gameObj) }], {
+            replaceUrl: true,
+        })
+            .then((res) => {
             if (res) {
                 this.sendGameLoader = false;
             }
@@ -458,75 +465,70 @@ let FilterPage = class FilterPage {
         newImage.src = this.cameraImage;
         pictureWidth = 630;
         pictureHeight = 630;
-        console.log('pictureWidth', pictureWidth);
-        console.log('pictureHeight', pictureWidth);
-        var w2 = (pictureWidth / 3) - 10, h2 = (pictureHeight / 3) - 10;
-        console.log('w2', w2);
-        console.log('h2', h2);
-        var finalCanvas = document.createElement("canvas");
-        var finalContext = finalCanvas.getContext("2d");
+        var w2 = pictureWidth / 3 - 10, h2 = pictureHeight / 3 - 10;
+        var finalCanvas = (document.createElement('canvas'));
+        var finalContext = finalCanvas.getContext('2d');
         // finalCanvas.width = this.imageWidth - 10;
         // finalCanvas.height = this.imageWidth - 10;
-        finalCanvas.width = 580;
-        finalCanvas.height = 580;
+        finalCanvas.width = 600;
+        finalCanvas.height = 600;
         let finalList = [];
-        let children = jquery__WEBPACK_IMPORTED_MODULE_3__("." + this.sequence1[0]).children("canvas");
-        let children1 = jquery__WEBPACK_IMPORTED_MODULE_3__("." + this.sequence1[1]).children("canvas");
-        let children2 = jquery__WEBPACK_IMPORTED_MODULE_3__("." + this.sequence1[2]).children("canvas");
-        let children3 = jquery__WEBPACK_IMPORTED_MODULE_3__("." + this.sequence1[3]).children("canvas");
-        let children4 = jquery__WEBPACK_IMPORTED_MODULE_3__("." + this.sequence1[4]).children("canvas");
-        let children5 = jquery__WEBPACK_IMPORTED_MODULE_3__("." + this.sequence1[5]).children("canvas");
-        let children6 = jquery__WEBPACK_IMPORTED_MODULE_3__("." + this.sequence1[6]).children("canvas");
-        let children7 = jquery__WEBPACK_IMPORTED_MODULE_3__("." + this.sequence1[7]).children("canvas");
-        let children8 = jquery__WEBPACK_IMPORTED_MODULE_3__("." + this.sequence1[8]).children("canvas");
+        let children = jquery__WEBPACK_IMPORTED_MODULE_3__('.' + this.sequence1[0]).children('canvas');
+        let children1 = jquery__WEBPACK_IMPORTED_MODULE_3__('.' + this.sequence1[1]).children('canvas');
+        let children2 = jquery__WEBPACK_IMPORTED_MODULE_3__('.' + this.sequence1[2]).children('canvas');
+        let children3 = jquery__WEBPACK_IMPORTED_MODULE_3__('.' + this.sequence1[3]).children('canvas');
+        let children4 = jquery__WEBPACK_IMPORTED_MODULE_3__('.' + this.sequence1[4]).children('canvas');
+        let children5 = jquery__WEBPACK_IMPORTED_MODULE_3__('.' + this.sequence1[5]).children('canvas');
+        let children6 = jquery__WEBPACK_IMPORTED_MODULE_3__('.' + this.sequence1[6]).children('canvas');
+        let children7 = jquery__WEBPACK_IMPORTED_MODULE_3__('.' + this.sequence1[7]).children('canvas');
+        let children8 = jquery__WEBPACK_IMPORTED_MODULE_3__('.' + this.sequence1[8]).children('canvas');
         children.each(function () {
-            let id = jquery__WEBPACK_IMPORTED_MODULE_3__(this).attr("id");
+            let id = jquery__WEBPACK_IMPORTED_MODULE_3__(this).attr('id');
             finalList.push(id);
         });
         children1.each(function () {
-            let id = jquery__WEBPACK_IMPORTED_MODULE_3__(this).attr("id");
+            let id = jquery__WEBPACK_IMPORTED_MODULE_3__(this).attr('id');
             finalList.push(id);
         });
         children2.each(function () {
-            let id = jquery__WEBPACK_IMPORTED_MODULE_3__(this).attr("id");
+            let id = jquery__WEBPACK_IMPORTED_MODULE_3__(this).attr('id');
             finalList.push(id);
         });
         children3.each(function () {
-            let id = jquery__WEBPACK_IMPORTED_MODULE_3__(this).attr("id");
+            let id = jquery__WEBPACK_IMPORTED_MODULE_3__(this).attr('id');
             finalList.push(id);
         });
         children4.each(function () {
-            let id = jquery__WEBPACK_IMPORTED_MODULE_3__(this).attr("id");
+            let id = jquery__WEBPACK_IMPORTED_MODULE_3__(this).attr('id');
             finalList.push(id);
         });
         children5.each(function () {
-            let id = jquery__WEBPACK_IMPORTED_MODULE_3__(this).attr("id");
+            let id = jquery__WEBPACK_IMPORTED_MODULE_3__(this).attr('id');
             finalList.push(id);
         });
         children6.each(function () {
-            let id = jquery__WEBPACK_IMPORTED_MODULE_3__(this).attr("id");
+            let id = jquery__WEBPACK_IMPORTED_MODULE_3__(this).attr('id');
             finalList.push(id);
         });
         children7.each(function () {
-            let id = jquery__WEBPACK_IMPORTED_MODULE_3__(this).attr("id");
+            let id = jquery__WEBPACK_IMPORTED_MODULE_3__(this).attr('id');
             finalList.push(id);
         });
         children8.each(function () {
-            let id = jquery__WEBPACK_IMPORTED_MODULE_3__(this).attr("id");
+            let id = jquery__WEBPACK_IMPORTED_MODULE_3__(this).attr('id');
             finalList.push(id);
         });
         finalContext.drawImage(document.getElementById(finalList[0]), 0, 0);
         finalContext.drawImage(document.getElementById(finalList[1]), w2, 0);
-        finalContext.drawImage(document.getElementById(finalList[2]), (w2 * 2), 0);
+        finalContext.drawImage(document.getElementById(finalList[2]), w2 * 2, 0);
         finalContext.drawImage(document.getElementById(finalList[3]), 0, h2);
         finalContext.drawImage(document.getElementById(finalList[4]), w2, h2);
         finalContext.drawImage(document.getElementById(finalList[5]), w2 * 2, h2);
         finalContext.drawImage(document.getElementById(finalList[6]), 0, h2 * 2);
         finalContext.drawImage(document.getElementById(finalList[7]), w2, h2 * 2);
-        finalContext.drawImage(document.getElementById(finalList[8]), (w2 * 2), (h2 * 2));
-        var finalSource = finalCanvas.toDataURL("image/jpeg");
+        finalContext.drawImage(document.getElementById(finalList[8]), w2 * 2, h2 * 2);
+        var finalSource = finalCanvas.toDataURL('image/jpeg');
         localStorage.setItem('puzzleImage', finalSource);
-        console.log('Final Source', finalSource);
         const gameObj = {
             friend_id: this.userId,
             type: this.gameType,
@@ -535,9 +537,13 @@ let FilterPage = class FilterPage {
             p_image: finalSource,
             image: this.cameraImage,
             filter_id: this.filter_id,
-            secondary_values: JSON.stringify(this.secondaryValues)
+            secondary_values: JSON.stringify(this.secondaryValues),
         };
-        this.router.navigate(['send-game', { gameObj: JSON.stringify(gameObj) }], { replaceUrl: true }).then(res => {
+        this.router
+            .navigate(['send-game', { gameObj: JSON.stringify(gameObj) }], {
+            replaceUrl: true,
+        })
+            .then((res) => {
             if (res) {
                 this.sendGameLoader = false;
             }
@@ -545,7 +551,7 @@ let FilterPage = class FilterPage {
     }
     Crop() {
         this.hideImage = false;
-        let originalImage = jquery__WEBPACK_IMPORTED_MODULE_3__("#originalImage");
+        let originalImage = jquery__WEBPACK_IMPORTED_MODULE_3__('#originalImage');
         let self = this;
         let pictureWidth;
         let pictureHeight;
@@ -561,9 +567,8 @@ let FilterPage = class FilterPage {
             var count = 0;
             for (var i = 0; i < 4; i++) {
                 count = i + 1;
-                var canvas = (document.getElementById("canvas" + count));
-                console.log('Canvas', canvas);
-                var ctx = canvas.getContext("2d");
+                var canvas = (document.getElementById('canvas' + count));
+                var ctx = canvas.getContext('2d');
                 var x = (-w2 * i) % (w2 * 2), y = h2 * i <= h2 ? 0 : -h2;
                 canvas.width = w2;
                 canvas.height = h2;
@@ -579,7 +584,7 @@ let FilterPage = class FilterPage {
         // $("#originalImage").css("display", "none");
     }
     Crop1() {
-        let originalImage = jquery__WEBPACK_IMPORTED_MODULE_3__("#originalImage");
+        let originalImage = jquery__WEBPACK_IMPORTED_MODULE_3__('#originalImage');
         this.hideImage = false;
         let self = this;
         let pictureWidth;
@@ -593,39 +598,39 @@ let FilterPage = class FilterPage {
             pictureWidth = newImage.width;
             pictureHeight = newImage.height;
             var w2 = pictureWidth / 3, h2 = pictureHeight / 3, parts = [];
-            var canvas = document.getElementById("canvas1");
-            var ctx = canvas.getContext("2d");
+            var canvas = (document.getElementById('canvas1'));
+            var ctx = canvas.getContext('2d');
             // console.log('canvas width', canvas.width, 'canvas height', canvas.height);
             ctx.drawImage(newImage, 0, 0, w2, h2, 0, 0, canvas.width, canvas.height);
-            canvas = document.getElementById("canvas2");
-            ctx = canvas.getContext("2d");
+            canvas = document.getElementById('canvas2');
+            ctx = canvas.getContext('2d');
             // console.log('canvas width', canvas.width, 'canvas height', canvas.height);
             ctx.drawImage(newImage, w2, 0, w2, h2, 0, 0, canvas.width, canvas.height);
-            (canvas = document.getElementById("canvas3")),
-                (ctx = canvas.getContext("2d"));
+            (canvas = document.getElementById('canvas3')),
+                (ctx = canvas.getContext('2d'));
             // console.log('canvas width', canvas.width, 'canvas height', canvas.height);
             ctx.drawImage(newImage, w2 * 2, 0, w2, h2, 0, 0, canvas.width, canvas.height);
-            (canvas = document.getElementById("canvas4")),
-                (ctx = canvas.getContext("2d"));
+            (canvas = document.getElementById('canvas4')),
+                (ctx = canvas.getContext('2d'));
             // console.log('canvas width', canvas.width, 'canvas height', canvas.height);
             ctx.drawImage(newImage, 0, h2, w2, h2, 0, 0, canvas.width, canvas.height);
-            (canvas = document.getElementById("canvas5")),
-                (ctx = canvas.getContext("2d"));
+            (canvas = document.getElementById('canvas5')),
+                (ctx = canvas.getContext('2d'));
             // console.log('canvas width', canvas.width, 'canvas height', canvas.height);
             ctx.drawImage(newImage, w2, h2, w2, h2, 0, 0, canvas.width, canvas.height);
-            (canvas = document.getElementById("canvas6")),
-                (ctx = canvas.getContext("2d"));
+            (canvas = document.getElementById('canvas6')),
+                (ctx = canvas.getContext('2d'));
             // console.log('canvas width', canvas.width, 'canvas height', canvas.height);
             ctx.drawImage(newImage, w2 * 2, h2, w2, h2, 0, 0, canvas.width, canvas.height);
-            (canvas = document.getElementById("canvas7")),
-                (ctx = canvas.getContext("2d"));
+            (canvas = document.getElementById('canvas7')),
+                (ctx = canvas.getContext('2d'));
             // console.log('canvas width', canvas.width, 'canvas height', canvas.height);
             ctx.drawImage(newImage, 0, h2 * 2, w2, h2, 0, 0, canvas.width, canvas.height);
-            (canvas = document.getElementById("canvas8")),
-                (ctx = canvas.getContext("2d"));
+            (canvas = document.getElementById('canvas8')),
+                (ctx = canvas.getContext('2d'));
             // console.log('canvas width', canvas.width, 'canvas height', canvas.height);
             ctx.drawImage(newImage, w2, h2 * 2, w2, h2, 0, 0, canvas.width, canvas.height);
-            var canvas = document.getElementById("canvas9"), ctx = canvas.getContext("2d");
+            var canvas = (document.getElementById('canvas9')), ctx = canvas.getContext('2d');
             // console.log('canvas width', canvas.width, 'canvas height', canvas.height);
             ctx.drawImage(newImage, w2 * 2, h2 * 2, w2, h2, 0, 0, canvas.width, canvas.height);
             self.imageWidth = canvas.width;
@@ -649,12 +654,11 @@ let FilterPage = class FilterPage {
         };
         //end of onload function
         this.hideImage = true;
-        jquery__WEBPACK_IMPORTED_MODULE_3__("#originalImage1").css("display", "none");
+        jquery__WEBPACK_IMPORTED_MODULE_3__('#originalImage1').css('display', 'none');
     }
     Rotate(index, c) {
         this.rotations[c]++;
-        console.log(this.rotations);
-        var canvas = (document.getElementById("canvas" + index)), context = canvas.getContext("2d"), pictureWidth = canvas.width, pictureHeight = canvas.height;
+        var canvas = (document.getElementById('canvas' + index)), context = canvas.getContext('2d'), pictureWidth = canvas.width, pictureHeight = canvas.height;
         pictureWidth = pictureWidth * 2;
         pictureHeight = pictureHeight * 2;
         context.save();
@@ -665,8 +669,7 @@ let FilterPage = class FilterPage {
     }
     Rotate1(index, c) {
         this.rotations1[c]++;
-        console.log(this.rotations1);
-        var canvas = (document.getElementById("canvas" + index)), context = canvas.getContext("2d"), pictureWidth = canvas.width, pictureHeight = canvas.height;
+        var canvas = (document.getElementById('canvas' + index)), context = canvas.getContext('2d'), pictureWidth = canvas.width, pictureHeight = canvas.height;
         pictureWidth = pictureWidth * 2;
         pictureHeight = pictureHeight * 2;
         context.save();
@@ -677,11 +680,12 @@ let FilterPage = class FilterPage {
         // this.audioService.play("rotatingTile");
     }
     checkOwnedFilter(filter) {
-        return this.ownedItemsList.find(x => x.filter_id == filter.id);
+        return this.ownedItemsList.find((x) => x.filter_id == filter.id);
     }
     sliderChanged(event) {
         // console.log("slider event", event.detail.value);
-        this.secondaryValues.numbers[this.secondaryFilterSelected] = event.detail.value;
+        this.secondaryValues.numbers[this.secondaryFilterSelected] =
+            event.detail.value;
         // console.log('this.secondaryValues', this.secondaryValues);
         //alert(JSON.stringify(this.secondaryValues.numbers));
         //remember to set initial value of slider to number in json object
@@ -693,14 +697,13 @@ let FilterPage = class FilterPage {
         this.changeDetection.detectChanges();
         this.spinnerDialog.hide();
     }
-    revertButtons(cancel = "no") {
-        if (cancel == "cancel") {
-            this.secondaryValues.ranges[this.secondaryFilterSelected].sliderValue =
-                this.lastValue;
+    revertButtons(cancel = 'no') {
+        if (cancel == 'cancel') {
+            this.secondaryValues.ranges[this.secondaryFilterSelected].sliderValue = this.lastValue;
             this.secondaryValues.numbers[this.secondaryFilterSelected] =
                 this.lastValue;
         }
-        this.buttons = "default";
+        this.buttons = 'default';
     }
     makeFormGroup(arr) {
         return this.lettersArr.push(new _angular_forms__WEBPACK_IMPORTED_MODULE_7__.FormControl(''));
@@ -710,10 +713,10 @@ let FilterPage = class FilterPage {
             const img = new Image();
             img.src = src;
             img.onload = () => {
-                const elem = document.createElement("canvas");
+                const elem = document.createElement('canvas');
                 elem.width = newX;
                 elem.height = newY;
-                const ctx = elem.getContext("2d");
+                const ctx = elem.getContext('2d');
                 ctx.drawImage(img, 0, 0, newX, newY);
                 const data = ctx.canvas.toDataURL();
                 res(data);
@@ -750,7 +753,6 @@ let FilterPage = class FilterPage {
             children3Count++;
         });
         // console.log('check this count ', children3Count);
-        console.log('check this final sequence', this.sequence);
         let swapIn;
         let swapOut;
         if (childrenCount == 0) {
@@ -846,7 +848,6 @@ let FilterPage = class FilterPage {
             children8Count++;
         });
         // console.log('check this count ', children3Count);
-        console.log('check this final sequence', this.sequence1);
         let swapIn;
         let swapOut;
         if (childrenCount == 0) {
@@ -880,7 +881,7 @@ let FilterPage = class FilterPage {
     }
     changePrimary(filter) {
         this.spinnerDialog.show();
-        let res = this.ownedItemsList.filter(x => x.filter_id == filter.id);
+        let res = this.ownedItemsList.filter((x) => x.filter_id == filter.id);
         if (res.length) {
             this.spinnerDialog.hide();
             this.primaryFilter = filter.name;
@@ -895,10 +896,12 @@ let FilterPage = class FilterPage {
                 allowOutsideClick: true,
                 showCancelButton: true,
                 // backdrop: true,
-            }).then(res => {
+            }).then((res) => {
                 if (res.isConfirmed) {
                     // this.router.navigate(['main/store', { filter: trfilter: true }])
-                    this.navCtrl.navigateForward(['main/store'], { queryParams: { filterData: JSON.stringify(filter) } });
+                    this.navCtrl.navigateForward(['main/store'], {
+                        queryParams: { filterData: JSON.stringify(filter) },
+                    });
                 }
             });
             // this.presentAlertForShop('Sorry', 'Yo do not have this filter want to buy?', filter)
@@ -906,36 +909,37 @@ let FilterPage = class FilterPage {
     }
     changeButtons(filter) {
         this.spinnerDialog.show();
-        let res = this.ownedItemsList.filter(x => x.filter_id == filter.id);
+        let res = this.ownedItemsList.filter((x) => x.filter_id == filter.id);
         if (res.length) {
             this.spinnerDialog.hide();
-            if (filter.name == "hue-rotate") {
-                filter.name = "hue_rotate";
+            if (filter.name == 'hue-rotate') {
+                filter.name = 'hue_rotate';
             }
             this.secondaryFilterSelected = filter.name;
-            jquery__WEBPACK_IMPORTED_MODULE_3__("ion-range").attr("value", this.secondaryValues.numbers[filter.name]);
-            this.secondaryValues.ranges[this.secondaryFilterSelected].sliderValue = this.secondaryValues.numbers[this.secondaryFilterSelected];
-            this.lastValue = this.secondaryValues.numbers[this.secondaryFilterSelected];
-            this.buttons = "secondary";
+            jquery__WEBPACK_IMPORTED_MODULE_3__('ion-range').attr('value', this.secondaryValues.numbers[filter.name]);
+            this.secondaryValues.ranges[this.secondaryFilterSelected].sliderValue =
+                this.secondaryValues.numbers[this.secondaryFilterSelected];
+            this.lastValue =
+                this.secondaryValues.numbers[this.secondaryFilterSelected];
+            this.buttons = 'secondary';
         }
         else {
-            console.log('Filterr', this.secondaryFilterSelected);
-            if (filter.name == "hue-rotate") {
-                filter = "hue_rotate";
+            if (filter.name == 'hue-rotate') {
+                filter = 'hue_rotate';
             }
             let hasItem = false;
             let selectedFilter;
             let selectedOwnedFilter;
             for (let i = 0; i < this.proSecondaryFilters.length; i++) {
                 if (this.proSecondaryFilters[i] == filter.name) {
-                    selectedFilter = "proSecondaryFilter";
-                    selectedOwnedFilter = "ProSecondaryFilter";
+                    selectedFilter = 'proSecondaryFilter';
+                    selectedOwnedFilter = 'ProSecondaryFilter';
                 }
             }
             for (let i = 0; i < this.primeSecondaryFilters.length; i++) {
                 if (this.primeSecondaryFilters[i] == filter.name) {
-                    selectedFilter = "primeSecondaryFilter";
-                    selectedOwnedFilter = "PrimeSecondaryFilter";
+                    selectedFilter = 'primeSecondaryFilter';
+                    selectedOwnedFilter = 'PrimeSecondaryFilter';
                 }
             }
             for (let i = 0; i < this.ownedItemsList.length; i++) {
@@ -944,13 +948,13 @@ let FilterPage = class FilterPage {
                 }
             }
             if (hasItem == true) {
-                if (filter == "hue_rotate") {
-                    filter = "hue-rotate";
+                if (filter == 'hue_rotate') {
+                    filter = 'hue-rotate';
                 }
             }
             else {
-                if (filter == "hue_rotate") {
-                    filter = "hue-rotate";
+                if (filter == 'hue_rotate') {
+                    filter = 'hue-rotate';
                 }
                 this.spinnerDialog.hide();
                 sweetalert2__WEBPACK_IMPORTED_MODULE_5___default().fire({
@@ -960,10 +964,12 @@ let FilterPage = class FilterPage {
                     allowOutsideClick: true,
                     showCancelButton: true,
                     // backdrop: true,
-                }).then(res => {
+                }).then((res) => {
                     if (res.isConfirmed) {
                         // this.router.navigate(['main/store', { filter: trfilter: true }])
-                        this.navCtrl.navigateForward(['main/store'], { queryParams: { filter: true } });
+                        this.navCtrl.navigateForward(['main/store'], {
+                            queryParams: { filter: true },
+                        });
                     }
                 });
             }
@@ -1024,7 +1030,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("<link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/cssgram/0.1.10/cssgram.min.css\" />\n\n<ion-content class=\"mt-0\" *ngIf=\"!sendGameLoader\" scrollY=\"false\">\n  <div style=\"height: 78vh;\">\n    <div id=\"containertop\" style=\"width: 100%\">\n\n      <div class=\"top-buttons-head\">\n        <div class=\"in-left\" (click)=\"onNavigateEvent()\">\n          <img src=\"assets/icon/back-icon.svg\" />\n        </div>\n        <div class=\"in-right\">\n          <ion-button class=\"cus-btn\" *ngIf=\"gameType=='easy'\" ion-button (click)=\"onSendGame()\">Next\n          </ion-button>\n  \n          <ion-button class=\"cus-btn\" *ngIf=\"gameType=='medium'\" ion-button (click)=\"onSendGame1()\">Next\n          </ion-button>\n          <!-- <ion-button [disabled]=\"hintWord.invalid\" class=\"cus-btn\" *ngIf=\"type=='easy' && showWordSection\" ion-button\n            (click)=\"onSendGame1()\">Send Game</ion-button> -->\n  \n          <!-- <button *ngIf=\"type=='medium'\" ion-button (click)=\"nextPage1()\">Next</button> -->\n  \n        </div>\n      </div>\n    </div>\n  \n    <img [ngStyle]=\"{'display': hideImage ? 'none' : ''}\" width=\"360\" height=\"360\" id=\"originalImage\"\n      *ngIf=\"cameraImage && gameType =='easy'\" src=\"{{cameraImage}}\" (load)=\"Crop()\" />\n  \n    <img [ngStyle]=\"{'display': hideImage ? 'none' : ''}\" width=\"360\" height=\"360\" id=\"originalImage1\"\n      *ngIf=\"cameraImage && gameType =='medium'\" src=\"{{cameraImage}}\" (load)=\"Crop1()\" />\n  \n  \n  \n    <!-- <div>\n      <div *ngIf=\"!filterList.length\" class=\"loader1\"></div>\n    </div> -->\n  \n  \n    <ion-grid *ngIf=\"gameType == 'medium' \" class=\"ion-justify-content-center\" id=\"container\"\n      style=\"padding: 2px 5vh 0; height: 360px;\">\n      <ion-row class=\"spaceinrow\" [ngClass]=\"primaryFilter\">\n  \n        <ion-col class=\"toHide\" col-4=\"4\" dragula=\"totalPiece\" style=\"padding: 2px\">\n          <canvas id=\"canvas1\" height=\"200\" width=\"200\" style=\"display: inline-block\" [ngStyle]=\"{\n     'filter': 'grayscale(' + this.secondaryValues.numbers.grayscale + '%) ' +\n     'hue-rotate(' + this.secondaryValues.numbers.hue_rotate + 'deg) ' +\n     'invert(' + this.secondaryValues.numbers.invert + '%) ' +\n     'sepia(' + this.secondaryValues.numbers.sepia + '%) ' +\n     'saturate(' + this.secondaryValues.numbers.saturate + '%) ' +\n     'opacity(' + this.secondaryValues.numbers.opacity + '%) ' +\n     'brightness(' + this.secondaryValues.numbers.brightness + '%) ' +\n     'contrast(' + this.secondaryValues.numbers.contrast + '%) ' +\n     'blur(' + this.secondaryValues.numbers.blur + 'px)'\n  }\" (click)=\"Rotate1(1,'toHide')\">\n          </canvas>\n        </ion-col>\n  \n        <ion-col class=\"toHide1\" col-4=\"4\" dragula=\"totalPiece\" style=\"padding: 2px\">\n          <canvas id=\"canvas2\" height=\"200\" width=\"200\" style=\"display: inline-block\" [ngStyle]=\"{\n     'filter': 'grayscale(' + this.secondaryValues.numbers.grayscale + '%) ' +\n     'hue-rotate(' + this.secondaryValues.numbers.hue_rotate + 'deg) ' +\n     'invert(' + this.secondaryValues.numbers.invert + '%) ' +\n     'sepia(' + this.secondaryValues.numbers.sepia + '%) ' +\n     'saturate(' + this.secondaryValues.numbers.saturate + '%) ' +\n     'opacity(' + this.secondaryValues.numbers.opacity + '%) ' +\n     'brightness(' + this.secondaryValues.numbers.brightness + '%) ' +\n     'contrast(' + this.secondaryValues.numbers.contrast + '%) ' +\n     'blur(' + this.secondaryValues.numbers.blur + 'px)'\n  }\" (click)=\"Rotate1(2,'toHide1')\">\n          </canvas>\n        </ion-col>\n  \n        <ion-col class=\"toHide2\" col-4=\"4\" dragula=\"totalPiece\" style=\"padding: 2px\">\n          <canvas id=\"canvas3\" height=\"200\" width=\"200\" style=\"display: inline-block\" [ngStyle]=\"{\n     'filter': 'grayscale(' + this.secondaryValues.numbers.grayscale + '%) ' +\n     'hue-rotate(' + this.secondaryValues.numbers.hue_rotate + 'deg) ' +\n     'invert(' + this.secondaryValues.numbers.invert + '%) ' +\n     'sepia(' + this.secondaryValues.numbers.sepia + '%) ' +\n     'saturate(' + this.secondaryValues.numbers.saturate + '%) ' +\n     'opacity(' + this.secondaryValues.numbers.opacity + '%) ' +\n     'brightness(' + this.secondaryValues.numbers.brightness + '%) ' +\n     'contrast(' + this.secondaryValues.numbers.contrast + '%) ' +\n     'blur(' + this.secondaryValues.numbers.blur + 'px)'\n  }\" (click)=\"Rotate1(3,'toHide2')\">\n          </canvas>\n        </ion-col>\n  \n      </ion-row>\n      <ion-row class=\"spaceinrow\" [ngClass]=\"primaryFilter\">\n  \n        <ion-col class=\"toHide3\" col-4=\"4\" dragula=\"totalPiece\" style=\"padding: 2px\">\n          <canvas id=\"canvas4\" height=\"200\" width=\"200\" style=\"display: inline-block\" [ngStyle]=\"{\n     'filter': 'grayscale(' + this.secondaryValues.numbers.grayscale + '%) ' +\n     'hue-rotate(' + this.secondaryValues.numbers.hue_rotate + 'deg) ' +\n     'invert(' + this.secondaryValues.numbers.invert + '%) ' +\n     'sepia(' + this.secondaryValues.numbers.sepia + '%) ' +\n     'saturate(' + this.secondaryValues.numbers.saturate + '%) ' +\n     'opacity(' + this.secondaryValues.numbers.opacity + '%) ' +\n     'brightness(' + this.secondaryValues.numbers.brightness + '%) ' +\n     'contrast(' + this.secondaryValues.numbers.contrast + '%) ' +\n     'blur(' + this.secondaryValues.numbers.blur + 'px)'\n  }\" (click)=\"Rotate1(4,'toHide3')\">\n          </canvas>\n        </ion-col>\n  \n        <ion-col class=\"toHide4\" col-4=\"4\" dragula=\"totalPiece\" style=\"padding: 2px\">\n          <canvas id=\"canvas5\" height=\"200\" width=\"200\" style=\"display: inline-block\" [ngStyle]=\"{\n     'filter': 'grayscale(' + this.secondaryValues.numbers.grayscale + '%) ' +\n     'hue-rotate(' + this.secondaryValues.numbers.hue_rotate + 'deg) ' +\n     'invert(' + this.secondaryValues.numbers.invert + '%) ' +\n     'sepia(' + this.secondaryValues.numbers.sepia + '%) ' +\n     'saturate(' + this.secondaryValues.numbers.saturate + '%) ' +\n     'opacity(' + this.secondaryValues.numbers.opacity + '%) ' +\n     'brightness(' + this.secondaryValues.numbers.brightness + '%) ' +\n     'contrast(' + this.secondaryValues.numbers.contrast + '%) ' +\n     'blur(' + this.secondaryValues.numbers.blur + 'px)'}\" (click)=\"Rotate1(5,'toHide4')\">\n          </canvas>\n        </ion-col>\n  \n        <ion-col class=\"toHide5\" col-4=\"4\" dragula=\"totalPiece\" style=\"padding: 2px\">\n          <canvas id=\"canvas6\" height=\"200\" width=\"200\" style=\"display: inline-block\" [ngStyle]=\"{\n     'filter': 'grayscale(' + this.secondaryValues.numbers.grayscale + '%) ' +\n     'hue-rotate(' + this.secondaryValues.numbers.hue_rotate + 'deg) ' +\n     'invert(' + this.secondaryValues.numbers.invert + '%) ' +\n     'sepia(' + this.secondaryValues.numbers.sepia + '%) ' +\n     'saturate(' + this.secondaryValues.numbers.saturate + '%) ' +\n     'opacity(' + this.secondaryValues.numbers.opacity + '%) ' +\n     'brightness(' + this.secondaryValues.numbers.brightness + '%) ' +\n     'contrast(' + this.secondaryValues.numbers.contrast + '%) ' +\n     'blur(' + this.secondaryValues.numbers.blur + 'px)'}\" (click)=\"Rotate1(6,'toHide5')\">\n          </canvas>\n        </ion-col>\n      </ion-row>\n  \n      <ion-row class=\"spaceinrow\" [ngClass]=\"primaryFilter\">\n        <ion-col class=\"toHide6\" col-4=\"4\" dragula=\"totalPiece\" style=\"padding: 2px\">\n          <canvas id=\"canvas7\" height=\"200\" width=\"200\" style=\"display: inline-block\" [ngStyle]=\"{\n     'filter': 'grayscale(' + this.secondaryValues.numbers.grayscale + '%) ' +\n     'hue-rotate(' + this.secondaryValues.numbers.hue_rotate + 'deg) ' +\n     'invert(' + this.secondaryValues.numbers.invert + '%) ' +\n     'sepia(' + this.secondaryValues.numbers.sepia + '%) ' +\n     'saturate(' + this.secondaryValues.numbers.saturate + '%) ' +\n     'opacity(' + this.secondaryValues.numbers.opacity + '%) ' +\n     'brightness(' + this.secondaryValues.numbers.brightness + '%) ' +\n     'contrast(' + this.secondaryValues.numbers.contrast + '%) ' +\n     'blur(' + this.secondaryValues.numbers.blur + 'px)'\n  }\" (click)=\"Rotate1(7,'toHide6')\">\n          </canvas>\n        </ion-col>\n  \n        <ion-col class=\"toHide7\" col-4=\"4\" dragula=\"totalPiece\" style=\"padding: 2px\">\n          <canvas id=\"canvas8\" height=\"200\" width=\"200\" style=\"display: inline-block\" [ngStyle]=\"{\n     'filter': 'grayscale(' + this.secondaryValues.numbers.grayscale + '%) ' +\n     'hue-rotate(' + this.secondaryValues.numbers.hue_rotate + 'deg) ' +\n     'invert(' + this.secondaryValues.numbers.invert + '%) ' +\n     'sepia(' + this.secondaryValues.numbers.sepia + '%) ' +\n     'saturate(' + this.secondaryValues.numbers.saturate + '%) ' +\n     'opacity(' + this.secondaryValues.numbers.opacity + '%) ' +\n     'brightness(' + this.secondaryValues.numbers.brightness + '%) ' +\n     'contrast(' + this.secondaryValues.numbers.contrast + '%) ' +\n     'blur(' + this.secondaryValues.numbers.blur + 'px)'}\" (click)=\"Rotate1(8,'toHide7')\">\n          </canvas>\n        </ion-col>\n  \n        <ion-col class=\"toHide8\" col-4=\"4\" dragula=\"totalPiece\" style=\"padding: 2px\">\n          <canvas id=\"canvas9\" height=\"200\" width=\"200\" style=\"display: inline-block\" [ngStyle]=\"{\n     'filter': 'grayscale(' + this.secondaryValues.numbers.grayscale + '%) ' +\n     'hue-rotate(' + this.secondaryValues.numbers.hue_rotate + 'deg) ' +\n     'invert(' + this.secondaryValues.numbers.invert + '%) ' +\n     'sepia(' + this.secondaryValues.numbers.sepia + '%) ' +\n     'saturate(' + this.secondaryValues.numbers.saturate + '%) ' +\n     'opacity(' + this.secondaryValues.numbers.opacity + '%) ' +\n     'brightness(' + this.secondaryValues.numbers.brightness + '%) ' +\n     'contrast(' + this.secondaryValues.numbers.contrast + '%) ' +\n     'blur(' + this.secondaryValues.numbers.blur + 'px)'}\" (click)=\"Rotate1(9,'toHide8')\">\n          </canvas>\n        </ion-col>\n      </ion-row>\n  \n    </ion-grid>\n  \n    <ion-grid *ngIf=\"gameType == 'easy' \" class=\"ion-justify-content-center\" id=\"container\" style=\"padding: 2px 5vh 0\">\n      <ion-row class=\"spaceinrow\" [ngClass]=\"primaryFilter\">\n        <ion-col class=\"toHide\" col-6=\"6\" dragula=\"totalPiece\" style=\"padding: 2px\">\n          <canvas id=\"canvas1\" style=\"display: inline-block \" [ngStyle]=\"{\n  'filter': 'grayscale(' + this.secondaryValues.numbers.grayscale + '%) ' +\n  'hue-rotate(' + this.secondaryValues.numbers.hue_rotate + 'deg) ' +\n  'invert(' + this.secondaryValues.numbers.invert + '%) ' +\n  'sepia(' + this.secondaryValues.numbers.sepia + '%) ' +\n  'saturate(' + this.secondaryValues.numbers.saturate + '%) ' +\n  'opacity(' + this.secondaryValues.numbers.opacity + '%) ' +\n  'brightness(' + this.secondaryValues.numbers.brightness + '%) ' +\n  'contrast(' + this.secondaryValues.numbers.contrast + '%) ' +\n  'blur(' + this.secondaryValues.numbers.blur + 'px)'\n  }\" (click)=\"Rotate(1,'toHide')\">\n          </canvas>\n        </ion-col>\n        <ion-col class=\"toHide1\" col-6=\"6\" dragula=\"totalPiece\" style=\"padding: 2px\">\n          <canvas id=\"canvas2\" style=\"display: inline-block \" [ngStyle]=\"{\n  'filter': 'grayscale(' + this.secondaryValues.numbers.grayscale + '%) ' +\n  'hue-rotate(' + this.secondaryValues.numbers.hue_rotate + 'deg) ' +\n  'invert(' + this.secondaryValues.numbers.invert + '%) ' +\n  'sepia(' + this.secondaryValues.numbers.sepia + '%) ' +\n  'saturate(' + this.secondaryValues.numbers.saturate + '%) ' +\n  'opacity(' + this.secondaryValues.numbers.opacity + '%) ' +\n  'brightness(' + this.secondaryValues.numbers.brightness + '%) ' +\n  'contrast(' + this.secondaryValues.numbers.contrast + '%) ' +\n  'blur(' + this.secondaryValues.numbers.blur + 'px)'\n  }\" (click)=\"Rotate(2,'toHide1')\">\n          </canvas>\n        </ion-col>\n      </ion-row>\n      <ion-row class=\"spaceinrow\" [ngClass]=\"primaryFilter\">\n        <ion-col class=\"toHide2\" col-6=\"6\" dragula=\"totalPiece\" style=\"padding: 2px\">\n          <canvas id=\"canvas3\" style=\"display: inline-block  \" [ngStyle]=\"{\n  'filter': 'grayscale(' + this.secondaryValues.numbers.grayscale + '%) ' +\n  'hue-rotate(' + this.secondaryValues.numbers.hue_rotate + 'deg) ' +\n  'invert(' + this.secondaryValues.numbers.invert + '%) ' +\n  'sepia(' + this.secondaryValues.numbers.sepia + '%) ' +\n  'saturate(' + this.secondaryValues.numbers.saturate + '%) ' +\n  'opacity(' + this.secondaryValues.numbers.opacity + '%) ' +\n  'brightness(' + this.secondaryValues.numbers.brightness + '%) ' +\n  'contrast(' + this.secondaryValues.numbers.contrast + '%) ' +\n  'blur(' + this.secondaryValues.numbers.blur + 'px)'\n  }\" (click)=\"Rotate(3,'toHide2')\">\n          </canvas>\n        </ion-col>\n        <ion-col class=\"toHide3\" col-6=\"6\" dragula=\"totalPiece\" style=\"padding: 2px\">\n          <canvas id=\"canvas4\" style=\"display: inline-block \" [ngStyle]=\"{\n  'filter': 'grayscale(' + this.secondaryValues.numbers.grayscale + '%) ' +\n  'hue-rotate(' + this.secondaryValues.numbers.hue_rotate + 'deg) ' +\n  'invert(' + this.secondaryValues.numbers.invert + '%) ' +\n  'sepia(' + this.secondaryValues.numbers.sepia + '%) ' +\n  'saturate(' + this.secondaryValues.numbers.saturate + '%) ' +\n  'opacity(' + this.secondaryValues.numbers.opacity + '%) ' +\n  'brightness(' + this.secondaryValues.numbers.brightness + '%) ' +\n  'contrast(' + this.secondaryValues.numbers.contrast + '%) ' +\n  'blur(' + this.secondaryValues.numbers.blur + 'px)'}\" (click)=\"Rotate(4,'toHide3')\">\n          </canvas>\n        </ion-col>\n      </ion-row>\n    </ion-grid>\n  \n    <ion-slides loop=\"false\" [options]=\"{slidesPerView: 3}\" pager=\"false\"\n      *ngIf=\"selection == 'primary'  && !showWordSection\">\n      <ion-slide *ngFor=\"let filter of filterList\" style=\"display: flex; flex-direction: column;\">\n        <p>{{filter.name}}\n          <!-- <ion-icon name=\"lock-closed-outline\"></ion-icon> -->\n          <ion-icon name=\"lock-closed-outline\" *ngIf=\"!checkOwnedFilter(filter)\" style=\"margin-left: 2px\"></ion-icon>\n        </p>\n        <div [ngClass]=\"filter.name\">\n          <img *ngIf=\"cameraImageThumbnail\" src=\"{{cameraImageThumbnail}}\" (click)=\"changePrimary(filter)\"\n            style=\"width: auto\" />\n        </div>\n      </ion-slide>\n    </ion-slides>\n  \n    <ion-slides loop=\"false\" [options]=\"{slidesPerView: 3}\"\n      *ngIf=\"selection == 'secondary' && buttons == 'default' && !showWordSection\">\n      <ion-slide *ngFor=\"let filter of secondaryFilterList; let indexElement=index;\"\n        style=\"display: flex; flex-direction: column;\">\n        {{filter.name}}\n        <ion-icon name=\"lock-closed-outline\" *ngIf=\"!checkOwnedFilter(filter) && checkOwnedFilter.length\"\n          style=\"margin-left: 2px\">\n        </ion-icon>\n        <div [ngStyle]=\"{'filter': this.secondaryFilterValues[indexElement]}\">\n          <img *ngIf=\"cameraImageThumbnail\" src=\"{{cameraImageThumbnail}}\" (click)=\"changeButtons(filter)\"\n            style=\"width: auto\" />\n        </div>\n      </ion-slide>\n    </ion-slides>\n  \n    <div *ngIf=\"showWordSection\" class=\"bottom\" style=\"text-align: center;\">\n      <ion-input [formControl]=\"hintWord\" placeholder=\"Please Enter a word\"></ion-input>\n      <!-- <ion-button [disabled]=\"hintWord.invalid\" (click)=\"sendGame()\">Send Game</ion-button> -->\n    </div>\n  \n    <div *ngIf=\"buttons == 'secondary'\">\n      <p style=\"text-align: center; font-weight: bold; color: white\">\n        {{secondaryFilterSelected}}\n      </p>\n      <ion-range pin=\"true\" [step]=\"secondaryValues.ranges[secondaryFilterSelected].step\"\n        [min]=\"secondaryValues.ranges[secondaryFilterSelected].min\"\n        [max]=\"secondaryValues.ranges[secondaryFilterSelected].max\"\n        [(ngModel)]=\"secondaryValues.ranges[secondaryFilterSelected].sliderValue\" (ionChange)=\"sliderChanged($event)\">\n      </ion-range>\n    </div>\n  </div>\n  \n\n  <div no-border class=\"main-footer\" style=\"height: 50px; margin-bottom: 0; width: 100%;\" *ngIf=\"!showWordSection || !sendGameLoader\">\n    <ul *ngIf=\"buttons == 'default'\">\n      <li (click)=\"segmentChanged('primary')\">\n        <a [ngClass]=\"selection == 'primary'?'selectedSegment':'notSelected'\">PRIMARY</a>\n      </li>\n      <li (click)=\"segmentChanged('secondary')\">\n        <a [ngClass]=\"selection == 'secondary'?'selectedSegment':'notSelected'\">SECONDARY</a>\n      </li>\n    </ul>\n    <ul *ngIf=\"buttons == 'secondary'\">\n      <li><a (click)=\"revertButtons('cancel')\">CANCEL</a></li>\n      <li><a (click)=\"revertButtons()\">DONE</a></li>\n    </ul>\n  </div>\n</ion-content>\n\n<div *ngIf=\"sendGameLoader\" class=\"loaderContainer\">\n  <div class=\"loader1\"></div>\n</div>\n\n\n");
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("<link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/cssgram/0.1.10/cssgram.min.css\" />\n\n<ion-content class=\"mt-0\" *ngIf=\"!sendGameLoader\" scrollY=\"false\">\n  <div style=\"height: 78vh;\">\n    <div id=\"containertop\" style=\"width: 100%\">\n\n      <div class=\"top-buttons-head\">\n        <div class=\"in-left\" (click)=\"onNavigateEvent()\">\n          <img src=\"assets/icon/back-icon.svg\" />\n        </div>\n        <div class=\"in-right\">\n          <ion-button class=\"cus-btn\" *ngIf=\"gameType=='easy'\" ion-button (click)=\"onSendGame()\">Next\n          </ion-button>\n  \n          <ion-button class=\"cus-btn\" *ngIf=\"gameType=='medium'\" ion-button (click)=\"onSendGame1()\">Next\n          </ion-button>\n          <!-- <ion-button [disabled]=\"hintWord.invalid\" class=\"cus-btn\" *ngIf=\"type=='easy' && showWordSection\" ion-button\n            (click)=\"onSendGame1()\">Send Game</ion-button> -->\n  \n          <!-- <button *ngIf=\"type=='medium'\" ion-button (click)=\"nextPage1()\">Next</button> -->\n  \n        </div>\n      </div>\n    </div>\n\n    <!-- <img width=\"30\" height=\"30\"src=\"{{cameraImage}}\" /> -->\n  \n    <img [ngStyle]=\"{'display': hideImage ? 'none' : ''}\" width=\"360\" height=\"360\" id=\"originalImage\"\n      *ngIf=\"cameraImage && gameType =='easy'\" src=\"{{cameraImage}}\" (load)=\"Crop()\" />\n  \n    <img [ngStyle]=\"{'display': hideImage ? 'none' : ''}\" width=\"360\" height=\"360\" id=\"originalImage1\"\n      *ngIf=\"cameraImage && gameType =='medium'\" src=\"{{cameraImage}}\" (load)=\"Crop1()\" />\n  \n  \n  \n    <!-- <div>\n      <div *ngIf=\"!filterList.length\" class=\"loader1\"></div>\n    </div> -->\n  \n  \n    <ion-grid *ngIf=\"gameType == 'medium' \" class=\"ion-justify-content-center\" id=\"container\"\n      style=\"padding: 2px 5vh 0; height: 300px; overflow: hidden;\">\n      <ion-row class=\"spaceinrow\" [ngClass]=\"primaryFilter\">\n  \n        <ion-col class=\"toHide\" col-4=\"4\" dragula=\"totalPiece\" style=\"padding: 2px\">\n          <canvas id=\"canvas1\" height=\"200\" width=\"200\" style=\"display: inline-block\" [ngStyle]=\"{\n     'filter': 'grayscale(' + this.secondaryValues.numbers.grayscale + '%) ' +\n     'hue-rotate(' + this.secondaryValues.numbers.hue_rotate + 'deg) ' +\n     'invert(' + this.secondaryValues.numbers.invert + '%) ' +\n     'sepia(' + this.secondaryValues.numbers.sepia + '%) ' +\n     'saturate(' + this.secondaryValues.numbers.saturate + '%) ' +\n     'opacity(' + this.secondaryValues.numbers.opacity + '%) ' +\n     'brightness(' + this.secondaryValues.numbers.brightness + '%) ' +\n     'contrast(' + this.secondaryValues.numbers.contrast + '%) ' +\n     'blur(' + this.secondaryValues.numbers.blur + 'px)'\n  }\" (click)=\"Rotate1(1,'toHide')\">\n          </canvas>\n        </ion-col>\n  \n        <ion-col class=\"toHide1\" col-4=\"4\" dragula=\"totalPiece\" style=\"padding: 2px\">\n          <canvas id=\"canvas2\" height=\"200\" width=\"200\" style=\"display: inline-block\" [ngStyle]=\"{\n     'filter': 'grayscale(' + this.secondaryValues.numbers.grayscale + '%) ' +\n     'hue-rotate(' + this.secondaryValues.numbers.hue_rotate + 'deg) ' +\n     'invert(' + this.secondaryValues.numbers.invert + '%) ' +\n     'sepia(' + this.secondaryValues.numbers.sepia + '%) ' +\n     'saturate(' + this.secondaryValues.numbers.saturate + '%) ' +\n     'opacity(' + this.secondaryValues.numbers.opacity + '%) ' +\n     'brightness(' + this.secondaryValues.numbers.brightness + '%) ' +\n     'contrast(' + this.secondaryValues.numbers.contrast + '%) ' +\n     'blur(' + this.secondaryValues.numbers.blur + 'px)'\n  }\" (click)=\"Rotate1(2,'toHide1')\">\n          </canvas>\n        </ion-col>\n  \n        <ion-col class=\"toHide2\" col-4=\"4\" dragula=\"totalPiece\" style=\"padding: 2px\">\n          <canvas id=\"canvas3\" height=\"200\" width=\"200\" style=\"display: inline-block\" [ngStyle]=\"{\n     'filter': 'grayscale(' + this.secondaryValues.numbers.grayscale + '%) ' +\n     'hue-rotate(' + this.secondaryValues.numbers.hue_rotate + 'deg) ' +\n     'invert(' + this.secondaryValues.numbers.invert + '%) ' +\n     'sepia(' + this.secondaryValues.numbers.sepia + '%) ' +\n     'saturate(' + this.secondaryValues.numbers.saturate + '%) ' +\n     'opacity(' + this.secondaryValues.numbers.opacity + '%) ' +\n     'brightness(' + this.secondaryValues.numbers.brightness + '%) ' +\n     'contrast(' + this.secondaryValues.numbers.contrast + '%) ' +\n     'blur(' + this.secondaryValues.numbers.blur + 'px)'\n  }\" (click)=\"Rotate1(3,'toHide2')\">\n          </canvas>\n        </ion-col>\n  \n      </ion-row>\n      <ion-row class=\"spaceinrow\" [ngClass]=\"primaryFilter\">\n  \n        <ion-col class=\"toHide3\" col-4=\"4\" dragula=\"totalPiece\" style=\"padding: 2px\">\n          <canvas id=\"canvas4\" height=\"200\" width=\"200\" style=\"display: inline-block\" [ngStyle]=\"{\n     'filter': 'grayscale(' + this.secondaryValues.numbers.grayscale + '%) ' +\n     'hue-rotate(' + this.secondaryValues.numbers.hue_rotate + 'deg) ' +\n     'invert(' + this.secondaryValues.numbers.invert + '%) ' +\n     'sepia(' + this.secondaryValues.numbers.sepia + '%) ' +\n     'saturate(' + this.secondaryValues.numbers.saturate + '%) ' +\n     'opacity(' + this.secondaryValues.numbers.opacity + '%) ' +\n     'brightness(' + this.secondaryValues.numbers.brightness + '%) ' +\n     'contrast(' + this.secondaryValues.numbers.contrast + '%) ' +\n     'blur(' + this.secondaryValues.numbers.blur + 'px)'\n  }\" (click)=\"Rotate1(4,'toHide3')\">\n          </canvas>\n        </ion-col>\n  \n        <ion-col class=\"toHide4\" col-4=\"4\" dragula=\"totalPiece\" style=\"padding: 2px\">\n          <canvas id=\"canvas5\" height=\"200\" width=\"200\" style=\"display: inline-block\" [ngStyle]=\"{\n     'filter': 'grayscale(' + this.secondaryValues.numbers.grayscale + '%) ' +\n     'hue-rotate(' + this.secondaryValues.numbers.hue_rotate + 'deg) ' +\n     'invert(' + this.secondaryValues.numbers.invert + '%) ' +\n     'sepia(' + this.secondaryValues.numbers.sepia + '%) ' +\n     'saturate(' + this.secondaryValues.numbers.saturate + '%) ' +\n     'opacity(' + this.secondaryValues.numbers.opacity + '%) ' +\n     'brightness(' + this.secondaryValues.numbers.brightness + '%) ' +\n     'contrast(' + this.secondaryValues.numbers.contrast + '%) ' +\n     'blur(' + this.secondaryValues.numbers.blur + 'px)'}\" (click)=\"Rotate1(5,'toHide4')\">\n          </canvas>\n        </ion-col>\n  \n        <ion-col class=\"toHide5\" col-4=\"4\" dragula=\"totalPiece\" style=\"padding: 2px\">\n          <canvas id=\"canvas6\" height=\"200\" width=\"200\" style=\"display: inline-block\" [ngStyle]=\"{\n     'filter': 'grayscale(' + this.secondaryValues.numbers.grayscale + '%) ' +\n     'hue-rotate(' + this.secondaryValues.numbers.hue_rotate + 'deg) ' +\n     'invert(' + this.secondaryValues.numbers.invert + '%) ' +\n     'sepia(' + this.secondaryValues.numbers.sepia + '%) ' +\n     'saturate(' + this.secondaryValues.numbers.saturate + '%) ' +\n     'opacity(' + this.secondaryValues.numbers.opacity + '%) ' +\n     'brightness(' + this.secondaryValues.numbers.brightness + '%) ' +\n     'contrast(' + this.secondaryValues.numbers.contrast + '%) ' +\n     'blur(' + this.secondaryValues.numbers.blur + 'px)'}\" (click)=\"Rotate1(6,'toHide5')\">\n          </canvas>\n        </ion-col>\n      </ion-row>\n  \n      <ion-row class=\"spaceinrow\" [ngClass]=\"primaryFilter\">\n        <ion-col class=\"toHide6\" col-4=\"4\" dragula=\"totalPiece\" style=\"padding: 2px\">\n          <canvas id=\"canvas7\" height=\"200\" width=\"200\" style=\"display: inline-block\" [ngStyle]=\"{\n     'filter': 'grayscale(' + this.secondaryValues.numbers.grayscale + '%) ' +\n     'hue-rotate(' + this.secondaryValues.numbers.hue_rotate + 'deg) ' +\n     'invert(' + this.secondaryValues.numbers.invert + '%) ' +\n     'sepia(' + this.secondaryValues.numbers.sepia + '%) ' +\n     'saturate(' + this.secondaryValues.numbers.saturate + '%) ' +\n     'opacity(' + this.secondaryValues.numbers.opacity + '%) ' +\n     'brightness(' + this.secondaryValues.numbers.brightness + '%) ' +\n     'contrast(' + this.secondaryValues.numbers.contrast + '%) ' +\n     'blur(' + this.secondaryValues.numbers.blur + 'px)'\n  }\" (click)=\"Rotate1(7,'toHide6')\">\n          </canvas>\n        </ion-col>\n  \n        <ion-col class=\"toHide7\" col-4=\"4\" dragula=\"totalPiece\" style=\"padding: 2px\">\n          <canvas id=\"canvas8\" height=\"200\" width=\"200\" style=\"display: inline-block\" [ngStyle]=\"{\n     'filter': 'grayscale(' + this.secondaryValues.numbers.grayscale + '%) ' +\n     'hue-rotate(' + this.secondaryValues.numbers.hue_rotate + 'deg) ' +\n     'invert(' + this.secondaryValues.numbers.invert + '%) ' +\n     'sepia(' + this.secondaryValues.numbers.sepia + '%) ' +\n     'saturate(' + this.secondaryValues.numbers.saturate + '%) ' +\n     'opacity(' + this.secondaryValues.numbers.opacity + '%) ' +\n     'brightness(' + this.secondaryValues.numbers.brightness + '%) ' +\n     'contrast(' + this.secondaryValues.numbers.contrast + '%) ' +\n     'blur(' + this.secondaryValues.numbers.blur + 'px)'}\" (click)=\"Rotate1(8,'toHide7')\">\n          </canvas>\n        </ion-col>\n  \n        <ion-col class=\"toHide8\" col-4=\"4\" dragula=\"totalPiece\" style=\"padding: 2px\">\n          <canvas id=\"canvas9\" height=\"200\" width=\"200\" style=\"display: inline-block\" [ngStyle]=\"{\n     'filter': 'grayscale(' + this.secondaryValues.numbers.grayscale + '%) ' +\n     'hue-rotate(' + this.secondaryValues.numbers.hue_rotate + 'deg) ' +\n     'invert(' + this.secondaryValues.numbers.invert + '%) ' +\n     'sepia(' + this.secondaryValues.numbers.sepia + '%) ' +\n     'saturate(' + this.secondaryValues.numbers.saturate + '%) ' +\n     'opacity(' + this.secondaryValues.numbers.opacity + '%) ' +\n     'brightness(' + this.secondaryValues.numbers.brightness + '%) ' +\n     'contrast(' + this.secondaryValues.numbers.contrast + '%) ' +\n     'blur(' + this.secondaryValues.numbers.blur + 'px)'}\" (click)=\"Rotate1(9,'toHide8')\">\n          </canvas>\n        </ion-col>\n      </ion-row>\n  \n    </ion-grid>\n  \n    <ion-grid *ngIf=\"gameType == 'easy' \" class=\"ion-justify-content-center\" id=\"container\" style=\"padding: 2px 5vh 0\">\n      <ion-row class=\"spaceinrow\" [ngClass]=\"primaryFilter\">\n        <ion-col class=\"toHide\" col-6=\"6\" dragula=\"totalPiece\" style=\"padding: 2px\">\n          <canvas id=\"canvas1\" style=\"display: inline-block \" [ngStyle]=\"{\n  'filter': 'grayscale(' + this.secondaryValues.numbers.grayscale + '%) ' +\n  'hue-rotate(' + this.secondaryValues.numbers.hue_rotate + 'deg) ' +\n  'invert(' + this.secondaryValues.numbers.invert + '%) ' +\n  'sepia(' + this.secondaryValues.numbers.sepia + '%) ' +\n  'saturate(' + this.secondaryValues.numbers.saturate + '%) ' +\n  'opacity(' + this.secondaryValues.numbers.opacity + '%) ' +\n  'brightness(' + this.secondaryValues.numbers.brightness + '%) ' +\n  'contrast(' + this.secondaryValues.numbers.contrast + '%) ' +\n  'blur(' + this.secondaryValues.numbers.blur + 'px)'\n  }\" (click)=\"Rotate(1,'toHide')\">\n          </canvas>\n        </ion-col>\n        <ion-col class=\"toHide1\" col-6=\"6\" dragula=\"totalPiece\" style=\"padding: 2px\">\n          <canvas id=\"canvas2\" style=\"display: inline-block \" [ngStyle]=\"{\n  'filter': 'grayscale(' + this.secondaryValues.numbers.grayscale + '%) ' +\n  'hue-rotate(' + this.secondaryValues.numbers.hue_rotate + 'deg) ' +\n  'invert(' + this.secondaryValues.numbers.invert + '%) ' +\n  'sepia(' + this.secondaryValues.numbers.sepia + '%) ' +\n  'saturate(' + this.secondaryValues.numbers.saturate + '%) ' +\n  'opacity(' + this.secondaryValues.numbers.opacity + '%) ' +\n  'brightness(' + this.secondaryValues.numbers.brightness + '%) ' +\n  'contrast(' + this.secondaryValues.numbers.contrast + '%) ' +\n  'blur(' + this.secondaryValues.numbers.blur + 'px)'\n  }\" (click)=\"Rotate(2,'toHide1')\">\n          </canvas>\n        </ion-col>\n      </ion-row>\n      <ion-row class=\"spaceinrow\" [ngClass]=\"primaryFilter\">\n        <ion-col class=\"toHide2\" col-6=\"6\" dragula=\"totalPiece\" style=\"padding: 2px\">\n          <canvas id=\"canvas3\" style=\"display: inline-block  \" [ngStyle]=\"{\n  'filter': 'grayscale(' + this.secondaryValues.numbers.grayscale + '%) ' +\n  'hue-rotate(' + this.secondaryValues.numbers.hue_rotate + 'deg) ' +\n  'invert(' + this.secondaryValues.numbers.invert + '%) ' +\n  'sepia(' + this.secondaryValues.numbers.sepia + '%) ' +\n  'saturate(' + this.secondaryValues.numbers.saturate + '%) ' +\n  'opacity(' + this.secondaryValues.numbers.opacity + '%) ' +\n  'brightness(' + this.secondaryValues.numbers.brightness + '%) ' +\n  'contrast(' + this.secondaryValues.numbers.contrast + '%) ' +\n  'blur(' + this.secondaryValues.numbers.blur + 'px)'\n  }\" (click)=\"Rotate(3,'toHide2')\">\n          </canvas>\n        </ion-col>\n        <ion-col class=\"toHide3\" col-6=\"6\" dragula=\"totalPiece\" style=\"padding: 2px\">\n          <canvas id=\"canvas4\" style=\"display: inline-block \" [ngStyle]=\"{\n  'filter': 'grayscale(' + this.secondaryValues.numbers.grayscale + '%) ' +\n  'hue-rotate(' + this.secondaryValues.numbers.hue_rotate + 'deg) ' +\n  'invert(' + this.secondaryValues.numbers.invert + '%) ' +\n  'sepia(' + this.secondaryValues.numbers.sepia + '%) ' +\n  'saturate(' + this.secondaryValues.numbers.saturate + '%) ' +\n  'opacity(' + this.secondaryValues.numbers.opacity + '%) ' +\n  'brightness(' + this.secondaryValues.numbers.brightness + '%) ' +\n  'contrast(' + this.secondaryValues.numbers.contrast + '%) ' +\n  'blur(' + this.secondaryValues.numbers.blur + 'px)'}\" (click)=\"Rotate(4,'toHide3')\">\n          </canvas>\n        </ion-col>\n      </ion-row>\n    </ion-grid>\n  \n    <ion-slides loop=\"false\" [options]=\"{slidesPerView: 3}\" pager=\"false\"\n      *ngIf=\"selection == 'primary'  && !showWordSection\">\n      <ion-slide *ngFor=\"let filter of filterList\" style=\"display: flex; flex-direction: column;\">\n        <p>{{filter.name}}\n          <!-- <ion-icon name=\"lock-closed-outline\"></ion-icon> -->\n          <ion-icon name=\"lock-closed-outline\" *ngIf=\"!checkOwnedFilter(filter)\" style=\"margin-left: 2px\"></ion-icon>\n        </p>\n        <div [ngClass]=\"filter.name\">\n          <img *ngIf=\"cameraImageThumbnail\" src=\"{{cameraImageThumbnail}}\" (click)=\"changePrimary(filter)\"\n            style=\"width: 25vw\" />\n        </div>\n      </ion-slide>\n    </ion-slides>\n  \n    <ion-slides loop=\"false\" [options]=\"{slidesPerView: 3}\"\n      *ngIf=\"selection == 'secondary' && buttons == 'default' && !showWordSection\">\n      <ion-slide *ngFor=\"let filter of secondaryFilterList; let indexElement=index;\"\n        style=\"display: flex; flex-direction: column;\">\n        {{filter.name}}\n        <ion-icon name=\"lock-closed-outline\" *ngIf=\"!checkOwnedFilter(filter) && checkOwnedFilter.length\"\n          style=\"margin-left: 2px\">\n        </ion-icon>\n        <div [ngStyle]=\"{'filter': this.secondaryFilterValues[indexElement]}\">\n          <img *ngIf=\"cameraImageThumbnail\" src=\"{{cameraImageThumbnail}}\" (click)=\"changeButtons(filter)\"\n            style=\"width: 25vw\" />\n        </div>\n      </ion-slide>\n    </ion-slides>\n  \n    <div *ngIf=\"showWordSection\" class=\"bottom\" style=\"text-align: center;\">\n      <ion-input [formControl]=\"hintWord\" placeholder=\"Please Enter a word\"></ion-input>\n      <!-- <ion-button [disabled]=\"hintWord.invalid\" (click)=\"sendGame()\">Send Game</ion-button> -->\n    </div>\n  \n    <div *ngIf=\"buttons == 'secondary'\">\n      <p style=\"text-align: center; font-weight: bold; color: white\">\n        {{secondaryFilterSelected}}\n      </p>\n      <ion-range pin=\"true\" [step]=\"secondaryValues.ranges[secondaryFilterSelected].step\"\n        [min]=\"secondaryValues.ranges[secondaryFilterSelected].min\"\n        [max]=\"secondaryValues.ranges[secondaryFilterSelected].max\"\n        [(ngModel)]=\"secondaryValues.ranges[secondaryFilterSelected].sliderValue\" (ionChange)=\"sliderChanged($event)\">\n      </ion-range>\n    </div>\n  </div>\n  \n\n  <div no-border class=\"main-footer\" style=\"height: 50px; margin-bottom: 0; width: 100%;\" *ngIf=\"!showWordSection || !sendGameLoader\">\n    <ul *ngIf=\"buttons == 'default'\">\n      <li (click)=\"segmentChanged('primary')\">\n        <a [ngClass]=\"selection == 'primary'?'selectedSegment':'notSelected'\">PRIMARY</a>\n      </li>\n      <li (click)=\"segmentChanged('secondary')\">\n        <a [ngClass]=\"selection == 'secondary'?'selectedSegment':'notSelected'\">SECONDARY</a>\n      </li>\n    </ul>\n    <ul *ngIf=\"buttons == 'secondary'\">\n      <li><a (click)=\"revertButtons('cancel')\">CANCEL</a></li>\n      <li><a (click)=\"revertButtons()\">DONE</a></li>\n    </ul>\n  </div>\n</ion-content>\n\n<div *ngIf=\"sendGameLoader\" class=\"loaderContainer\">\n  <div class=\"loader1\"></div>\n</div>\n\n\n");
 
 /***/ })
 

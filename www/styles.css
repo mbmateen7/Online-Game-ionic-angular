@@ -1093,9 +1093,6 @@ sub {
   font-family: "Poppins";
   src: url('Poppins-Light.ttf');
 }
-ion-searchbar ion-icon {
-  left: 15px !important;
-}
 .cus .searchbar-input-container input::placeholder {
   padding-left: 15px;
 }

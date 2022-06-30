@@ -211,26 +211,30 @@ let AppComponent = class AppComponent {
         this.audio = audio;
         this.router = router;
         setStatusBarStyleDark().then().catch();
-        this.audio.playSound();
+        let playAudio = JSON.parse(localStorage.getItem('playAudio'));
+        playAudio ? this.audio.playSound() : null;
         this.platform.pause.subscribe(() => (0,tslib__WEBPACK_IMPORTED_MODULE_6__.__awaiter)(this, void 0, void 0, function* () {
             console.log('Change', 'Pause event detected');
             this.audio.stopSound();
         }));
         this.platform.resume.subscribe(() => (0,tslib__WEBPACK_IMPORTED_MODULE_6__.__awaiter)(this, void 0, void 0, function* () {
-            // alert('Resume event detected');
-            this.audio.playSound();
+            console.log('Resume event detected');
+            let playAudio = JSON.parse(localStorage.getItem('playAudio'));
+            playAudio ? this.audio.playSound() : null;
         }));
         this.platform.ready().then(() => {
             if (this.platform.is('iphone')) {
-                document.getElementById('main-app-ion').style.marginTop = '30px';
+                document.getElementById('main-app-ion').style.marginTop =
+                    '30px';
             }
         });
         _capacitor_push_notifications__WEBPACK_IMPORTED_MODULE_2__.PushNotifications.addListener('registration', (token) => {
-            console.log('Token => ', token.value);
-            this.restService.postRequestToken('users/set-device-token', { deviceToken: token }).subscribe(res => {
-                console.log('Token --->', res);
-            }, error => {
-                console.log('TOken UPdate Error', error);
+            this.restService
+                .postRequestToken('users/set-device-token', {
+                deviceToken: token,
+            })
+                .subscribe((res) => { }, (error) => {
+                console.log('Token UPdate Error', error);
             });
         });
         // Some issue with our setup and push will not work
@@ -510,7 +514,6 @@ let HomeGuardServiceService = class HomeGuardServiceService {
         this.navCtrl = navCtrl;
     }
     canActivate() {
-        console.log('---->', localStorage.getItem('token'));
         if (!localStorage.getItem('token')) {
             return true;
         }

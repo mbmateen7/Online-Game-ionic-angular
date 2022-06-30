@@ -175,9 +175,10 @@ let LoginPage = class LoginPage {
         });
     }
     fblogin() {
-        this.fbb.login(['public_profile', 'user_friends', 'email'])
-            .then((res) => console.log('Logged into Facebook!', res))
-            .catch(e => console.log('Error logging into Facebook', e));
+        this.fbb
+            .login(['public_profile', 'user_friends', 'email'])
+            .then((res) => console.log('Logged into Facebook!'))
+            .catch((e) => console.log('Error logging into Facebook', e));
         this.fbb.logEvent(this.fbb.EVENTS.EVENT_NAME_ADDED_TO_CART);
     }
     ionViewDidEnter() {
@@ -237,7 +238,7 @@ let LoginPage = class LoginPage {
                 cssClass: 'my-custom-class',
                 header: 'Alert',
                 message: this.alertMessage,
-                buttons: ['OK']
+                buttons: ['OK'],
             });
             yield alert.present();
             const { role } = yield alert.onDidDismiss();
@@ -247,16 +248,18 @@ let LoginPage = class LoginPage {
     setLastLogin() {
         let date = new Date();
         const obj = {
-            last_login: date
+            last_login: date,
         };
-        this.restService.postRequestToken('users/set-last-login', obj).subscribe((res) => {
+        this.restService
+            .postRequestToken('users/set-last-login', obj)
+            .subscribe((res) => {
             if (res.status) {
                 console.log('Last login is set successfully');
             }
         });
     }
     setDeviceToken() {
-        _capacitor_push_notifications__WEBPACK_IMPORTED_MODULE_3__.PushNotifications.requestPermissions().then(result => {
+        _capacitor_push_notifications__WEBPACK_IMPORTED_MODULE_3__.PushNotifications.requestPermissions().then((result) => {
             if (result.receive === 'granted') {
                 _capacitor_push_notifications__WEBPACK_IMPORTED_MODULE_3__.PushNotifications.register();
             }
@@ -264,11 +267,12 @@ let LoginPage = class LoginPage {
             }
         });
         _capacitor_push_notifications__WEBPACK_IMPORTED_MODULE_3__.PushNotifications.addListener('registration', (token) => {
-            console.log('Firebase Token => ', token.value);
-            this.restService.postRequestToken('users/set-device-token', { deviceToken: token }).subscribe(res => {
-                console.log('Token --->', token);
-            });
-        }).catch(err => {
+            this.restService
+                .postRequestToken('users/set-device-token', {
+                deviceToken: token,
+            })
+                .subscribe((res) => { });
+        }).catch((err) => {
             console.log('Token Error', err);
         });
     }
@@ -276,38 +280,40 @@ let LoginPage = class LoginPage {
         this.profileForm.get('email').setValue(event.target.value.trim());
     }
     googleSignIn() {
-        this.googlePlus.login({})
-            .then(result => {
+        this.googlePlus
+            .login({})
+            .then((result) => {
             this.user = result;
-            console.log(this.user);
             var json = {
                 user_name: this.user.givenName.replace(/\s/g, ''),
                 email: this.user.email,
-                id: this.user.userId
+                id: this.user.userId,
             };
             this.onSignUp(JSON.stringify(json));
         })
-            .catch(err => {
+            .catch((err) => {
             console.log(err);
             this.user = `Error ${JSON.stringify(err)}`;
         });
     }
     AppleSignIn() {
-        this.signInWithApple.signin({
+        this.signInWithApple
+            .signin({
             requestedScopes: [
                 _awesome_cordova_plugins_sign_in_with_apple_ngx__WEBPACK_IMPORTED_MODULE_8__.ASAuthorizationAppleIDRequest.ASAuthorizationScopeFullName,
-                _awesome_cordova_plugins_sign_in_with_apple_ngx__WEBPACK_IMPORTED_MODULE_8__.ASAuthorizationAppleIDRequest.ASAuthorizationScopeEmail
-            ]
+                _awesome_cordova_plugins_sign_in_with_apple_ngx__WEBPACK_IMPORTED_MODULE_8__.ASAuthorizationAppleIDRequest.ASAuthorizationScopeEmail,
+            ],
         })
             .then((res) => {
             var _a, _b;
-            console.log(res);
             var json = {
                 email: res.email,
                 apple_id: res.user,
                 type: 'apple',
                 name: res.fullName.givenName + ' ' + res.fullName.familyName,
-                user_name: (((_a = res.fullName) === null || _a === void 0 ? void 0 : _a.givenName) + ' ' + ((_b = res.fullName) === null || _b === void 0 ? void 0 : _b.familyName)).replace(/\s/g, '')
+                user_name: (((_a = res.fullName) === null || _a === void 0 ? void 0 : _a.givenName) +
+                    ' ' +
+                    ((_b = res.fullName) === null || _b === void 0 ? void 0 : _b.familyName)).replace(/\s/g, ''),
             };
             this.onSignUp(JSON.stringify(json));
         })
@@ -319,7 +325,6 @@ let LoginPage = class LoginPage {
         // this.showSignUpLoader = true;
         this.restService.postRequest('users/register', data).subscribe((res) => {
             if (res.token) {
-                // console.log('This is res', res.data);
                 localStorage.setItem('token', res.token);
                 localStorage.setItem('user', JSON.stringify(res.data));
                 this.setDeviceToken();
@@ -328,7 +333,7 @@ let LoginPage = class LoginPage {
                 this.navCtrl.setDirection('root');
                 this.router.navigate(['main']);
             }
-        }, err => {
+        }, (err) => {
             this.showSignUpLoader = false;
             console.log('This is error', err.error);
             sweetalert2__WEBPACK_IMPORTED_MODULE_4___default().fire({

@@ -134,7 +134,9 @@ let FreindPage = class FreindPage {
         if (this.activatedRoute.snapshot.paramMap.get('addFriend')) {
             this.getFriendList();
         }
-        this.restService.getRequest('users/play-random').subscribe((res) => {
+        this.restService
+            .getRequest('users/play-random')
+            .subscribe((res) => {
             if (res.status) {
                 this.randomList = res.message;
                 if (this.randomList.length <= 2) {
@@ -151,9 +153,7 @@ let FreindPage = class FreindPage {
     }
     cameraOrGallery(id) {
         return (0,tslib__WEBPACK_IMPORTED_MODULE_6__.__awaiter)(this, void 0, void 0, function* () {
-            console.log("here", id);
-            console.log(this.gameType);
-            if (this.gameType == "") {
+            if (this.gameType == '') {
                 const alert = yield this.alertController.create({
                     message: 'Oops! Medium difficulty will unlock at level 5.',
                     buttons: [
@@ -164,7 +164,7 @@ let FreindPage = class FreindPage {
                             handler: () => {
                                 // this.getPicture(CameraSource.Photos, id);
                             },
-                        }
+                        },
                     ],
                 });
                 yield alert.present();
@@ -218,7 +218,7 @@ let FreindPage = class FreindPage {
             const loading = yield this.loadingController.create({
                 cssClass: 'my-custom-class',
                 message: 'Please wait...',
-                duration: 2000
+                duration: 2000,
             });
             yield loading.present();
             const { role, data } = yield loading.onDidDismiss();
@@ -227,7 +227,7 @@ let FreindPage = class FreindPage {
     }
     doLoading() {
         let loader = this.loadingController.create({
-            message: 'Loading...'
+            message: 'Loading...',
         });
         return loader;
     }
@@ -236,17 +236,19 @@ let FreindPage = class FreindPage {
             customClass: {
                 actions: 'vertical-buttons',
                 cancelButton: this.gameLevel > 4 ? 'top-margin' : 'top-margin disable',
-                confirmButton: 'font-size1'
+                confirmButton: 'font-size1',
             },
-            title: "Select Difficulty Level",
-            confirmButtonText: "Easy",
-            confirmButtonColor: "#99C43C",
+            title: 'Select Difficulty Level',
+            confirmButtonText: 'Easy',
+            confirmButtonColor: '#99C43C',
             showCancelButton: true,
             // allowOutsideClick: true,
-            cancelButtonColor: this.user.level_id < 4 ? "#ccc" : "#ebb434",
-            cancelButtonText: this.user.level_id < 4 ? "Medium (Unlock at level 5)" : "Medium"
+            cancelButtonColor: this.user.level_id < 4 ? '#ccc' : '#ebb434',
+            cancelButtonText: this.user.level_id < 4
+                ? 'Medium (Unlock at level 5)'
+                : 'Medium',
         }).then((result) => {
-            if (result.dismiss == "backdrop") {
+            if (result.dismiss == 'backdrop') {
                 return;
             }
             if (result.dismiss == 'cancel') {
@@ -258,7 +260,9 @@ let FreindPage = class FreindPage {
                 }
             }
             else {
-                result.value == true ? this.gameType = 'easy' : this.gameType = '';
+                result.value == true
+                    ? (this.gameType = 'easy')
+                    : (this.gameType = '');
             }
             this.cameraOrGallery(id);
         });
@@ -266,8 +270,10 @@ let FreindPage = class FreindPage {
     getFriendList() {
         let user = localStorage.getItem('user');
         user = JSON.parse(user);
-        this.restService.getRequest('contacts/listing').subscribe((res) => {
-            this.friendList = res.filter(f => {
+        this.restService
+            .getRequest('contacts/listing')
+            .subscribe((res) => {
+            this.friendList = res.filter((f) => {
                 return f.id != user['id'];
             });
         });
@@ -279,11 +285,15 @@ let FreindPage = class FreindPage {
             text: 'Are you sure to remove this Friend?',
             showCancelButton: true,
             showConfirmButton: true,
-        }).then(res => {
+        }).then((res) => {
             if (res.isConfirmed) {
-                this.doLoading().present().then(() => {
-                    this.restService.delRequest('contacts/delete', friendInstance).subscribe(res => {
-                        const friendDetail = this.friendList.filter(x => {
+                this.doLoading()
+                    .present()
+                    .then(() => {
+                    this.restService
+                        .delRequest('contacts/delete', friendInstance)
+                        .subscribe((res) => {
+                        const friendDetail = this.friendList.filter((x) => {
                             return x.id != id;
                         });
                         this.friendList = friendDetail;

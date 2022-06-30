@@ -145,48 +145,54 @@ let SignUpPage = class SignUpPage {
     ngOnInit() {
         this.pfCheckBox = false;
         this.profileForm = new _angular_forms__WEBPACK_IMPORTED_MODULE_7__.FormGroup({
-            user_name: new _angular_forms__WEBPACK_IMPORTED_MODULE_7__.FormControl('', [_angular_forms__WEBPACK_IMPORTED_MODULE_7__.Validators.required, _angular_forms__WEBPACK_IMPORTED_MODULE_7__.Validators.minLength(4), _angular_forms__WEBPACK_IMPORTED_MODULE_7__.Validators.maxLength(10)]),
+            user_name: new _angular_forms__WEBPACK_IMPORTED_MODULE_7__.FormControl('', [
+                _angular_forms__WEBPACK_IMPORTED_MODULE_7__.Validators.required,
+                _angular_forms__WEBPACK_IMPORTED_MODULE_7__.Validators.minLength(4),
+                _angular_forms__WEBPACK_IMPORTED_MODULE_7__.Validators.maxLength(10),
+            ]),
             email: new _angular_forms__WEBPACK_IMPORTED_MODULE_7__.FormControl('', [_angular_forms__WEBPACK_IMPORTED_MODULE_7__.Validators.required, _angular_forms__WEBPACK_IMPORTED_MODULE_7__.Validators.email]),
             password: new _angular_forms__WEBPACK_IMPORTED_MODULE_7__.FormControl('', [
                 _angular_forms__WEBPACK_IMPORTED_MODULE_7__.Validators.required,
                 _angular_forms__WEBPACK_IMPORTED_MODULE_7__.Validators.minLength(6),
             ]),
-            referal_code: new _angular_forms__WEBPACK_IMPORTED_MODULE_7__.FormControl('')
+            referal_code: new _angular_forms__WEBPACK_IMPORTED_MODULE_7__.FormControl(''),
         });
     }
     googleSignIn() {
-        this.googlePlus.login({})
-            .then(result => {
+        this.googlePlus
+            .login({})
+            .then((result) => {
             this.user = result;
-            console.log(this.user);
             var json = {
                 user_name: this.user.givenName.replace(/\s/g, ''),
                 email: this.user.email,
-                id: this.user.userId
+                id: this.user.userId,
             };
             this.onSignUp2(JSON.stringify(json));
         })
-            .catch(err => {
+            .catch((err) => {
             console.log(err);
             this.user = `Error ${JSON.stringify(err)}`;
         });
     }
     AppleSignIn() {
-        this.signInWithApple.signin({
+        this.signInWithApple
+            .signin({
             requestedScopes: [
                 _awesome_cordova_plugins_sign_in_with_apple_ngx__WEBPACK_IMPORTED_MODULE_6__.ASAuthorizationAppleIDRequest.ASAuthorizationScopeFullName,
-                _awesome_cordova_plugins_sign_in_with_apple_ngx__WEBPACK_IMPORTED_MODULE_6__.ASAuthorizationAppleIDRequest.ASAuthorizationScopeEmail
-            ]
+                _awesome_cordova_plugins_sign_in_with_apple_ngx__WEBPACK_IMPORTED_MODULE_6__.ASAuthorizationAppleIDRequest.ASAuthorizationScopeEmail,
+            ],
         })
             .then((res) => {
             var _a, _b;
-            console.log(res);
             var json = {
                 email: res.email,
                 apple_id: res.user,
                 type: 'apple',
                 name: res.fullName.givenName + ' ' + res.fullName.familyName,
-                user_name: (((_a = res.fullName) === null || _a === void 0 ? void 0 : _a.givenName) + ' ' + ((_b = res.fullName) === null || _b === void 0 ? void 0 : _b.familyName)).replace(/\s/g, '')
+                user_name: (((_a = res.fullName) === null || _a === void 0 ? void 0 : _a.givenName) +
+                    ' ' +
+                    ((_b = res.fullName) === null || _b === void 0 ? void 0 : _b.familyName)).replace(/\s/g, ''),
             };
             this.onSignUp2(JSON.stringify(json));
         })
@@ -198,7 +204,6 @@ let SignUpPage = class SignUpPage {
         this.showSignUpLoader = true;
         this.restService.postRequest('users/register', data).subscribe((res) => {
             if (res.token) {
-                // console.log('This is res', res.data);
                 localStorage.setItem('token', res.token);
                 localStorage.setItem('user', JSON.stringify(res.data));
                 this.setDeviceToken();
@@ -206,7 +211,7 @@ let SignUpPage = class SignUpPage {
                 this.navCtrl.setDirection('root');
                 this.router.navigate(['main']);
             }
-        }, err => {
+        }, (err) => {
             this.showSignUpLoader = false;
             // console.log('This is error', err.error);
             sweetalert2__WEBPACK_IMPORTED_MODULE_4___default().fire({
@@ -222,8 +227,9 @@ let SignUpPage = class SignUpPage {
     }
     onSignUp() {
         this.showSignUpLoader = true;
-        this.restService.postRequest('users/register', this.profileForm.value).subscribe((res) => {
-            console.log('This is res tipu', res.data.user_name.length);
+        this.restService
+            .postRequest('users/register', this.profileForm.value)
+            .subscribe((res) => {
             // if ()
             // {
             //     this.showSignUpLoader = false;
@@ -247,7 +253,7 @@ let SignUpPage = class SignUpPage {
                     this.router.navigate(['main']);
                 }
             }
-        }, err => {
+        }, (err) => {
             this.showSignUpLoader = false;
             // console.log('This is error', err.error);
             sweetalert2__WEBPACK_IMPORTED_MODULE_4___default().fire({
@@ -273,7 +279,7 @@ let SignUpPage = class SignUpPage {
         }
     }
     setDeviceToken() {
-        _capacitor_push_notifications__WEBPACK_IMPORTED_MODULE_3__.PushNotifications.requestPermissions().then(result => {
+        _capacitor_push_notifications__WEBPACK_IMPORTED_MODULE_3__.PushNotifications.requestPermissions().then((result) => {
             if (result.receive === 'granted') {
                 _capacitor_push_notifications__WEBPACK_IMPORTED_MODULE_3__.PushNotifications.register();
             }
@@ -281,9 +287,11 @@ let SignUpPage = class SignUpPage {
             }
         });
         _capacitor_push_notifications__WEBPACK_IMPORTED_MODULE_3__.PushNotifications.addListener('registration', (token) => {
-            this.restService.postRequestToken('users/set-device-token', { deviceToken: token }).subscribe(res => {
-                console.log('Token --->', token);
-            });
+            this.restService
+                .postRequestToken('users/set-device-token', {
+                deviceToken: token,
+            })
+                .subscribe((res) => { });
         });
     }
 };

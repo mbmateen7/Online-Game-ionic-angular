@@ -78,16 +78,14 @@ let ItemsPage = class ItemsPage {
         this.restService = restService;
     }
     ngOnInit() {
-        this.restService.getRequest('shop/purchase-detail').subscribe((res) => {
+        this.restService
+            .getRequest('shop/purchase-detail')
+            .subscribe((res) => {
             this.ownedItemsList = res.message;
-            this.primayFilterRemovalList = this.ownedItemsList.filter(x => x.shop_id == 3);
-            this.secondaryFilterRemovalList = this.ownedItemsList.filter(x => x.shop_id == 4);
-            this.addTurn = this.ownedItemsList.filter(x => x.shop_id == 5);
-            this.revealList = this.ownedItemsList.filter(x => x.shop_id == 6);
-            console.log('this.primayFilterRemovalList', this.primayFilterRemovalList);
-            console.log('this.secondaryFilterRemovalList', this.secondaryFilterRemovalList);
-            console.log('this.addTurn', this.addTurn);
-            console.log('this.revealList', this.revealList);
+            this.primayFilterRemovalList = this.ownedItemsList.filter((x) => x.shop_id == 3);
+            this.secondaryFilterRemovalList = this.ownedItemsList.filter((x) => x.shop_id == 4);
+            this.addTurn = this.ownedItemsList.filter((x) => x.shop_id == 5);
+            this.revealList = this.ownedItemsList.filter((x) => x.shop_id == 6);
         });
     }
 };
@@ -222,10 +220,8 @@ let PurchaseContainerPage = class PurchaseContainerPage {
     constructor() {
         this.segmentValue = 'filterList';
     }
-    ngOnInit() {
-    }
+    ngOnInit() { }
     segmentChanged(ev) {
-        console.log('Segment changed', ev.detail.value);
         this.segmentValue = ev.detail.value;
     }
 };
