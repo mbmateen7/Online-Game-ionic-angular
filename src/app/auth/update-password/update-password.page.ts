@@ -21,7 +21,6 @@ export class UpdatePasswordPage implements OnInit {
   ngOnInit() {
     this.user = this.route.snapshot.paramMap.get('user');
     this.user = JSON.parse(this.user);
-    console.log('rtert', this.user);
 
   }
 

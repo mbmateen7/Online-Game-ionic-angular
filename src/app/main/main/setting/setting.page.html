@@ -29,7 +29,7 @@
           Toggle Background Music
         </ion-label>
 
-        <ion-toggle checked="true" (ionChange)="changeSound($event)" color="primary"></ion-toggle>
+        <ion-toggle [(ngModel)]="playAudio" (ionChange)="changeSound($event)" color="primary"></ion-toggle>
 
       </ion-item>
     </div>
