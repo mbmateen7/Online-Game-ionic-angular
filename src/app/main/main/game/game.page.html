@@ -38,6 +38,11 @@
         </ion-row>
 
         <ion-row>
+            <ion-col>
+                <ion-button *ngIf="lastGameCheck" class="continue-cus-btn" (click)="onLastGameEvent()">
+                   Continue Game
+               </ion-button>
+           </ion-col>
             <ion-col size="12">
                 <div class="card">
                     <div class="card-header move">Your Move</div>
@@ -61,6 +66,7 @@
                     </div>
                 </div>
             </ion-col>
+            
         </ion-row>
 
         <ion-row>
@@ -143,6 +149,9 @@
     <ion-button class="play-cus-btn" (click)="onNewGameEvent()">
         New Game
     </ion-button>
+    <!-- <ion-button *ngIf="lastGameCheck" class="play-cus-btn" (click)="onLastGameEvent()">
+        Continue Game
+    </ion-button> -->
     <!-- <ion-fab class="play-cus-btn" vertical="bottom" horizontal="end" slot="fixed">
         <ion-fab-button (click)="onNewGameEvent()">New Game
         </ion-fab-button>

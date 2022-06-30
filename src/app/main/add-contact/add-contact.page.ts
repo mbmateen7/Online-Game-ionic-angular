@@ -16,17 +16,21 @@ import Swal from 'sweetalert2';
     styleUrls: ['./add-contact.page.scss'],
 })
 export class AddContactPage implements OnInit {
-
     contactList: any[] = [];
 
     showUserList = false;
 
     usernameSearchRes = [];
     loader;
-    constructor(private contacts: Contacts, private restSerice: RestService, private router: Router, private alertController: AlertController, private loadingCtrl: LoadingController) { }
+    constructor(
+        private contacts: Contacts,
+        private restSerice: RestService,
+        private router: Router,
+        private alertController: AlertController,
+        private loadingCtrl: LoadingController
+    ) {}
 
-    ngOnInit() {
-    }
+    ngOnInit() {}
 
     async presentAlert(obj, headerText, headerBody) {
         const friendDialogbutton = [
@@ -36,32 +40,34 @@ export class AddContactPage implements OnInit {
                 cssClass: 'secondary',
                 handler: (blah) => {
                     console.log('Confirm Cancel: blah');
-                }
-            }, {
+                },
+            },
+            {
                 text: 'yes',
                 handler: () => {
-
-                    this.addFriendNameByUsername(obj)
-                }
-            }
-        ]
-
+                    this.addFriendNameByUsername(obj);
+                },
+            },
+        ];
 
         const resDialogbutton = [
             {
                 text: 'OK',
-            }
-        ]
+            },
+        ];
         let buttonArr = [];
 
-        if (obj) { buttonArr = friendDialogbutton } else { buttonArr = resDialogbutton }
+        if (obj) {
+            buttonArr = friendDialogbutton;
+        } else {
+            buttonArr = resDialogbutton;
+        }
 
         const alert = await this.alertController.create({
             header: headerText,
             subHeader: headerBody,
 
-
-            buttons: buttonArr
+            buttons: buttonArr,
         });
 
         await alert.present();
@@ -72,17 +78,16 @@ export class AddContactPage implements OnInit {
 
     onImportContacts() {
         this.presentLoading().then(() => {
-            this.contacts.find(['displayName']).then(async (res: any) => {
-                const list = await res;
-                this.getNumbersArrayOnly(list);
-                console.log(res);
-
-            }, err => {
-                console.log(err);
-
-            });
+            this.contacts.find(['displayName']).then(
+                async (res: any) => {
+                    const list = await res;
+                    this.getNumbersArrayOnly(list);
+                },
+                (err) => {
+                    console.log(err);
+                }
+            );
         });
-
     }
 
     async presentLoading() {
@@ -94,7 +99,7 @@ export class AddContactPage implements OnInit {
     getNumbersArrayOnly(list) {
         for (const element of list) {
             if (element.phoneNumbers) {
-                element.phoneNumbers.forEach(el => {
+                element.phoneNumbers.forEach((el) => {
                     if (el.value.replace(/ /g, '')) {
                         const str = el.value.replace(/ /g, '');
                         this.contactList.push(str);
@@ -104,39 +109,47 @@ export class AddContactPage implements OnInit {
         }
 
         this.checkContactFromServer(JSON.stringify(this.contactList));
-
     }
 
     checkContactFromServer(list) {
         this.restSerice
-            .postRequestToken('contacts/contact-exist', { contacts_array: list })
-            .subscribe((res) => {
-                const contactList = JSON.stringify(res['save_contacts']);
-                this.router.navigate(['/main/freind', { user: contactList }]);
-                this.loader.dismiss()
-            }, err => {
-                console.log(err);
+            .postRequestToken('contacts/contact-exist', {
+                contacts_array: list,
+            })
+            .subscribe(
+                (res) => {
+                    const contactList = JSON.stringify(res['save_contacts']);
+                    this.router.navigate([
+                        '/main/freind',
+                        { user: contactList },
+                    ]);
+                    this.loader.dismiss();
+                },
+                (err) => {
+                    console.log(err);
 
-                this.loader.dismiss()
-                Swal.fire({
-                    title: 'Error',
-                    text: err.error.message,
-                    confirmButtonText: "OK",
-                })
-            });
+                    this.loader.dismiss();
+                    Swal.fire({
+                        title: 'Error',
+                        text: err.error.message,
+                        confirmButtonText: 'OK',
+                    });
+                }
+            );
     }
 
     onSearchByUsername(e) {
-        let username = e.target.value
+        let username = e.target.value;
         this.showUserList = true;
         const searchObj = {
-            user_name: username
-        }
-        this.restSerice.postRequestToken('users/user-name', searchObj).subscribe((res: any) => {
-            this.usernameSearchRes = res.user;
-            // console.log('====>', this.usernameSearchRes);
-        })
-
+            user_name: username,
+        };
+        this.restSerice
+            .postRequestToken('users/user-name', searchObj)
+            .subscribe((res: any) => {
+                this.usernameSearchRes = res.user;
+                // console.log('====>', this.usernameSearchRes);
+            });
     }
 
     onCancelSearch() {
@@ -145,35 +158,33 @@ export class AddContactPage implements OnInit {
 
     openDialogBox(obj) {
         Swal.fire({
-            text: "Are you want to add as friend ",
-            confirmButtonText: "Yes",
-            confirmButtonColor: "#99C43C",
+            text: 'Are you want to add as friend ',
+            confirmButtonText: 'Yes',
+            confirmButtonColor: '#99C43C',
             showCancelButton: true,
             allowOutsideClick: false,
-            cancelButtonColor: "#E86B5D",
-            cancelButtonText: "Cancel",
-        }).then(res => {
+            cancelButtonColor: '#E86B5D',
+            cancelButtonText: 'Cancel',
+        }).then((res) => {
             if (res.isConfirmed) {
-                this.addFriendNameByUsername(obj)
+                this.addFriendNameByUsername(obj);
             }
-        })
+        });
     }
 
     addFriendNameByUsername(obj) {
-        this.restSerice.postRequestToken('contacts/add-username', { friend_id: obj.id }).subscribe((res: any) => {
-
-            this.showUserList = false;
-            Swal.fire({
-                title: 'Success',
-                text: res.message,
-                confirmButtonText: "Cool",
-            })
-            this.router.navigate(['/main/freind', { addFriend: true }], { replaceUrl: true })
-        })
+        this.restSerice
+            .postRequestToken('contacts/add-username', { friend_id: obj.id })
+            .subscribe((res: any) => {
+                this.showUserList = false;
+                Swal.fire({
+                    title: 'Success',
+                    text: res.message,
+                    confirmButtonText: 'Cool',
+                });
+                this.router.navigate(['/main/freind', { addFriend: true }], {
+                    replaceUrl: true,
+                });
+            });
     }
-
-
 }
-
-
-

@@ -4,7 +4,7 @@
         <ion-row class="top-box">
           <ion-col >
             <div class="box img-container">
-              <ion-back-button defaultHref="filter" *ngIf="filterPage" icon="chevron-back-outline"></ion-back-button>
+              <!-- <ion-back-button defaultHref="filter" *ngIf="filterPage" icon="chevron-back-outline"></ion-back-button> -->
               <img src="assets/dummy-user.jpg" alt="" width="55" style="border-radius: 50%; margin-left: 5px" />
               <span class="pl-10 username-css">{{this.user.user_name}}</span>
             </div>
@@ -37,11 +37,36 @@
       <div class="store-body">
         <p>Claim daily puzzle pieces!</p>
         <div class="logo-bg">
-          <img id="claim-image-1" width="38" src="assets/currency-logo-b.svg" alt="">
-          <img id="claim-image-2" width="38" src="assets/currency-logo-b.svg" alt="">
-          <img id="claim-image-3" width="38" src="assets/currency-logo-b.svg" alt="">
-          <img id="claim-image-4" width="38" src="assets/currency-logo-b.svg" alt="">
-          <img id="claim-image-5" width="38" src="assets/currency-logo-b.svg" alt="">
+          <div>
+            <img id="claim-image-1" width="38" src="assets/currency-logo-b.svg" alt="">
+            <br>
+            <div style="text-align: center; color: white;">10</div>
+          </div>
+          <div>
+            <img id="claim-image-2" width="38" src="assets/currency-logo-b.svg" alt="">
+            <br>
+            <div style="text-align: center; color: white;">20</div>
+          </div>
+          <div>
+            <img id="claim-image-3" width="38" src="assets/currency-logo-b.svg" alt="">
+            <br>
+            <div style="text-align: center; color: white;">30</div>
+          </div>
+          <div>
+            <img id="claim-image-4" width="38" src="assets/currency-logo-b.svg" alt="">
+            <br>
+            <div style="text-align: center; color: white;">40</div>
+          </div>
+          <div>
+            <img id="claim-image-5" width="38" src="assets/currency-logo-b.svg" alt="">
+            <br>
+            <div style="text-align: center; color: white;">50</div>
+          </div>
+          
+          <!-- <img id="claim-image-2" width="38" src="assets/currency-logo-b.svg" alt=""> 20
+          <img id="claim-image-3" width="38" src="assets/currency-logo-b.svg" alt=""> 30
+          <img id="claim-image-4" width="38" src="assets/currency-logo-b.svg" alt=""> 40
+          <img id="claim-image-5" width="38" src="assets/currency-logo-b.svg" alt=""> 50 -->
         </div>
         <ion-button  disabled="{{ buttonDisabled }}" id="claim-btn" class="cus-btn" (click)="claimDailyReward()"  >CLAIM</ion-button>
       </div>
@@ -72,3 +97,9 @@
     <div style="width: 100%; height: 50px;"></div>
  </ion-row>
 </ion-grid>
+<ion-button *ngIf="lastGameCheck" class="play-cus-btn" (click)="onLastGameEvent()">
+  Continue Game
+</ion-button>
+<ion-button *ngIf="filterPage" class="play-cus-btn" (click)="backToGame()">
+  Back to Game
+</ion-button>

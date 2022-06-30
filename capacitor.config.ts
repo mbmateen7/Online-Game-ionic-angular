@@ -2,7 +2,7 @@ import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
   appId: 'com.picplayce.game',
-  appName: 'pic-playce',
+  appName: 'PicPlayce',
   webDir: 'www',
   bundledWebRuntime: false,
   plugins: {

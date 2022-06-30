@@ -13,35 +13,46 @@ import { AdMob } from '@capacitor-community/admob';
     styleUrls: ['./setting.page.scss'],
 })
 export class SettingPage implements OnInit {
-
     user;
-    ref_code: any = "";
-    constructor(private alertController: AlertController, private googlePlus: GooglePlus, private router: Router, private restService: RestService, private audio: AudioService, private socialSharing: SocialSharing, private navCtrl: NavController) { }
+    ref_code: any = '';
+    playAudio = true;
+    constructor(
+        private alertController: AlertController,
+        private googlePlus: GooglePlus,
+        private router: Router,
+        private restService: RestService,
+        private audio: AudioService,
+        private socialSharing: SocialSharing,
+        private navCtrl: NavController
+    ) {}
 
     ngOnInit() {
         this.user = JSON.parse(localStorage.getItem('user'));
     }
     ionViewDidEnter() {
+        this.playAudio = JSON.parse(localStorage.getItem('playAudio'));
+        if (!this.playAudio) this.playAudio = false;
         this.getUserData();
     }
 
     onLogout() {
         this.logout();
-        this.setLastLogin()
-        let lastClaim = localStorage.getItem('LastLoginClaim')
+        this.setLastLogin();
+        let lastClaim = localStorage.getItem('LastLoginClaim');
         localStorage.clear();
-        localStorage.setItem('LastLoginClaim',lastClaim);
-        this.router.routeReuseStrategy.shouldReuseRoute = function () { return false; };
+        localStorage.setItem('LastLoginClaim', lastClaim);
+        this.router.routeReuseStrategy.shouldReuseRoute = function () {
+            return false;
+        };
         this.navCtrl.setDirection('root');
-        this.router.navigate(['/home'], { replaceUrl: true })
-
+        this.router.navigate(['/home'], { replaceUrl: true });
     }
     getUserData() {
         this.restService.getRequest('users/detail').subscribe((res: any) => {
             if (res) {
                 this.ref_code = res.referal_code;
             }
-        })
+        });
     }
 
     // async share() {
@@ -70,55 +81,53 @@ export class SettingPage implements OnInit {
 
     logout() {
         AdMob.hideBanner().then(() => {
-            document.getElementsByTagName('ion-app')[0].style.bottom = '0'
-        })
-        this.googlePlus.logout()
-            .then(res => {
-                console.log(res);
-
-            })
-            .catch(err => console.error(err));
+            document.getElementsByTagName('ion-app')[0].style.bottom = '0';
+        });
+        this.googlePlus
+            .logout()
+            .then((res) => {})
+            .catch((err) => console.error(err));
     }
 
     setLastLogin() {
         let date = new Date();
         const obj = {
-            last_login: date
-        }
-        this.restService.postRequestToken('users/set-last-login', obj).subscribe((res: any) => {
-            if (res.status) {
-                console.log('Last login is set successfully');
-
-            }
-        })
+            last_login: date,
+        };
+        this.restService
+            .postRequestToken('users/set-last-login', obj)
+            .subscribe((res: any) => {
+                if (res.status) {
+                    console.log('Last login is set successfully');
+                }
+            });
     }
     changeSound(e) {
+        localStorage.setItem('playAudio', JSON.stringify(e.detail.checked));
         if (e.detail.checked) {
+            this.audio.stopSound();
             this.audio.playSound();
-        } else this.audio.stopSound()
+        } else this.audio.stopSound();
     }
 
     onUpdateProfile() {
-        this.router.navigate(['/update-profile'])
+        this.router.navigate(['/update-profile']);
         // console.log('---------------')
         // this.router.navigate(['../../update-profile'], { replaceUrl: true })
     }
 
     goToPurchaseDetails() {
-        this.router.navigate(['/main/setting/purchase-container'])
+        this.router.navigate(['/main/setting/purchase-container']);
     }
 
     shareSocial() {
         var options = {
-            message: this.ref_code
+            message: "PicPlayce is a fun, interactive game to play with friends! Download now, for Android and IOS, so we can play! Signup using this code to get bonus points. Your Referral Code is " + this.ref_code + " https://www.picplayce.com",
         };
         this.socialSharing.shareWithOptions(options);
     }
 
     openMail() {
-        location.href = "mailto:feedback@picplayce.com?subject=Report an Issue"
+        location.href = 'mailto:feedback@picplayce.com?subject=Report an Issue';
     }
-
-
-
 }
