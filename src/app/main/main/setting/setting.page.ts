@@ -122,7 +122,7 @@ export class SettingPage implements OnInit {
 
     shareSocial() {
         var options = {
-            message: "PicPlayce is a fun, interactive game to play with friends! Download now, for Android and IOS, so we can play! Signup using this code to get bonus points. Your Referral Code is " + this.ref_code + " https://www.picplayce.com",
+            message: "PicPlayce is a fun, interactive game to play with friends! Download now, for Android and IOS, so we can play! (https://www.picplayce.com)   Signup using this code to get bonus points. Code: " + this.ref_code,
         };
         this.socialSharing.shareWithOptions(options);
     }
