@@ -641,7 +641,9 @@ let MainPage = class MainPage {
         this.activeTab = 'game';
     }
     ngOnInit() {
-        this.restService.getRequest('shop/AllFilterList').subscribe((res) => {
+        this.restService
+            .getRequest('shop/AllFilterList')
+            .subscribe((res) => {
             // this.spinnerDialog.show();
             console.log('All filters response');
             if (res.status) {
@@ -657,9 +659,10 @@ let MainPage = class MainPage {
                 }
                 localStorage.setItem('filterList', JSON.stringify(this.filterList));
                 localStorage.setItem('secondaryList', JSON.stringify(this.secondaryFilterList));
-                console.log('SecondatyList', this.secondaryFilterList);
             }
-            this.restService.getRequest('shop/purchase-detail').subscribe((res) => {
+            this.restService
+                .getRequest('shop/purchase-detail')
+                .subscribe((res) => {
                 console.log('purchase detail reponse');
                 this.ownedItemsList = res.message;
                 localStorage.setItem('ownedItemsList', JSON.stringify(this.ownedItemsList));
@@ -668,11 +671,9 @@ let MainPage = class MainPage {
                 // this.spinnerDialog.hide();
             });
         });
-        initialize().then(r => {
-            banner().then(x => {
-                console.log('banner response => ', x);
+        initialize().then((r) => {
+            banner().then((x) => {
                 let tabBar = document.getElementsByTagName('ion-app');
-                console.log(tabBar);
                 tabBar[0].style.bottom = '60px';
             });
         });
@@ -683,7 +684,7 @@ let MainPage = class MainPage {
     }
     doLoading() {
         let loader = this.loading.create({
-            message: 'Loading...'
+            message: 'Loading...',
         });
     }
 };
@@ -712,7 +713,7 @@ function banner() {
             adSize: _capacitor_community_admob__WEBPACK_IMPORTED_MODULE_3__.BannerAdSize.ADAPTIVE_BANNER,
             position: _capacitor_community_admob__WEBPACK_IMPORTED_MODULE_3__.BannerAdPosition.BOTTOM_CENTER,
             margin: 0,
-            isTesting: true
+            // isTesting: true
             // npa: true
         };
         _capacitor_community_admob__WEBPACK_IMPORTED_MODULE_3__.AdMob.showBanner(options);

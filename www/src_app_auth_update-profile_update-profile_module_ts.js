@@ -119,8 +119,6 @@ let UpdateProfilePage = class UpdateProfilePage {
     }
     ngOnInit() {
         this.user = JSON.parse(localStorage.getItem('user'));
-        console.log('User', this.user);
-        // console.log('User Data', JSON.parse(localStorage.getItem('user')))
         this.pfCheckBox = false;
         this.profileForm = new _angular_forms__WEBPACK_IMPORTED_MODULE_4__.FormGroup({
             // user_name: new FormControl('', [Validators.required, Validators.minLength(4)]),
@@ -130,12 +128,12 @@ let UpdateProfilePage = class UpdateProfilePage {
             //   Validators.minLength(6),
             // ]),
             referal_code: new _angular_forms__WEBPACK_IMPORTED_MODULE_4__.FormControl(''),
-            phone_number: new _angular_forms__WEBPACK_IMPORTED_MODULE_4__.FormControl('')
+            phone_number: new _angular_forms__WEBPACK_IMPORTED_MODULE_4__.FormControl(''),
         });
         this.profileForm.patchValue({
             // user_name: this.user.user_name,
             // email: this.user.email,
-            phone_number: this.user.phone_number
+            phone_number: this.user.phone_number,
         });
     }
     getProfileFormError() {
@@ -143,12 +141,13 @@ let UpdateProfilePage = class UpdateProfilePage {
     }
     onSignUp() {
         this.showSignUpLoader = true;
-        console.log('profileForm', this.profileForm.value);
-        this.restService.putRequestToken('users/update', this.profileForm.value).subscribe((res) => {
+        this.restService
+            .putRequestToken('users/update', this.profileForm.value)
+            .subscribe((res) => {
             if (res) {
                 sweetalert2__WEBPACK_IMPORTED_MODULE_3___default().fire({
                     title: '<div><h5>Success!</h5></div>',
-                    text: "Updated",
+                    text: 'Updated',
                     confirmButtonText: 'Ok',
                     confirmButtonColor: '#99C43C',
                 });
@@ -158,7 +157,7 @@ let UpdateProfilePage = class UpdateProfilePage {
                 this.showSignUpLoader = false;
                 this.router.navigate(['main/setting']);
             }
-        }, err => {
+        }, (err) => {
             this.showSignUpLoader = false;
             // console.log('This is error', err.error);
             sweetalert2__WEBPACK_IMPORTED_MODULE_3___default().fire({

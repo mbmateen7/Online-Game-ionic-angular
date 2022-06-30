@@ -136,11 +136,9 @@ let ContactlistPage = class ContactlistPage {
         this.showFilterPageLoader = false;
     }
     ngOnInit() {
-        console.log(this.activatedRoute.snapshot.paramMap.get('friend_id'));
         this.user = JSON.parse(localStorage.getItem('user'));
         const friendId = this.activatedRoute.snapshot.paramMap.get('friend_id');
         if (friendId) {
-            console.log('--------------->');
             this.cameraOrGallery(friendId);
         }
         this.getFriendList();
@@ -156,30 +154,72 @@ let ContactlistPage = class ContactlistPage {
     }
     cameraOrGallery(id) {
         return (0,tslib__WEBPACK_IMPORTED_MODULE_7__.__awaiter)(this, void 0, void 0, function* () {
-            const alert = yield this.alertController.create({
-                // cssClass: 'my-custom-class',
-                // header: 'Alert',
-                // subHeader: 'Please Select',
-                message: 'Please Select.',
-                buttons: [
-                    {
-                        text: 'Gallery',
-                        role: 'gallery',
-                        cssClass: 'secondary',
-                        handler: () => {
-                            this.getPicture(_capacitor_camera__WEBPACK_IMPORTED_MODULE_3__.CameraSource.Photos, id);
+            // const alert = await this.alertController.create({
+            //   // cssClass: 'my-custom-class',
+            //   // header: 'Alert',
+            //   // subHeader: 'Please Select',
+            //   message: 'Please Select.',
+            //   buttons: [
+            //     {
+            //       text: 'Gallery',
+            //       role: 'gallery',
+            //       cssClass: 'secondary',
+            //       handler: () => {
+            //         this.getPicture(CameraSource.Photos, id);
+            //       },
+            //     },
+            //     {
+            //       text: 'Camera',
+            //       role: 'camera',
+            //       handler: () => {
+            //         this.getPicture(CameraSource.Camera, id);
+            //       },
+            //     },
+            //   ],
+            // });
+            // await alert.present();
+            if (this.gameType == '') {
+                const alert = yield this.alertController.create({
+                    message: 'Oops! Medium difficulty will unlock at level 5.',
+                    buttons: [
+                        {
+                            text: 'Okay',
+                            role: 'Okay',
+                            cssClass: 'secondary',
+                            handler: () => {
+                                // this.getPicture(CameraSource.Photos, id);
+                            },
                         },
-                    },
-                    {
-                        text: 'Camera',
-                        role: 'camera',
-                        handler: () => {
-                            this.getPicture(_capacitor_camera__WEBPACK_IMPORTED_MODULE_3__.CameraSource.Camera, id);
+                    ],
+                });
+                yield alert.present();
+            }
+            else {
+                const alert = yield this.alertController.create({
+                    // cssClass: 'my-custom-class',
+                    // header: 'Alert',
+                    // subHeader: 'Please Select',
+                    message: 'Please Select.',
+                    buttons: [
+                        {
+                            text: 'Gallery',
+                            role: 'gallery',
+                            cssClass: 'secondary',
+                            handler: () => {
+                                this.getPicture(_capacitor_camera__WEBPACK_IMPORTED_MODULE_3__.CameraSource.Photos, id);
+                            },
                         },
-                    },
-                ],
-            });
-            yield alert.present();
+                        {
+                            text: 'Camera',
+                            role: 'camera',
+                            handler: () => {
+                                this.getPicture(_capacitor_camera__WEBPACK_IMPORTED_MODULE_3__.CameraSource.Camera, id);
+                            },
+                        },
+                    ],
+                });
+                yield alert.present();
+            }
             // const { role } = await alert.onDidDismiss();
             // console.log('onDidDismiss resolved with role', role);
         });
@@ -208,7 +248,7 @@ let ContactlistPage = class ContactlistPage {
             const loading = yield this.loadingController.create({
                 cssClass: 'my-custom-class',
                 message: 'Please wait...',
-                duration: 2000
+                duration: 2000,
             });
             yield loading.present();
             const { role, data } = yield loading.onDidDismiss();
@@ -219,9 +259,11 @@ let ContactlistPage = class ContactlistPage {
         let username = e.target.value;
         this.showUserList = true;
         const searchObj = {
-            user_name: username
+            user_name: username,
         };
-        this.restService.postRequestToken('users/user-name', searchObj).subscribe((res) => {
+        this.restService
+            .postRequestToken('users/user-name', searchObj)
+            .subscribe((res) => {
             this.usernameSearchRes = res.user;
         });
     }
@@ -230,15 +272,15 @@ let ContactlistPage = class ContactlistPage {
     }
     openDialogBox(obj) {
         sweetalert2__WEBPACK_IMPORTED_MODULE_6___default().fire({
-            text: "Are you want to add as friend ",
-            confirmButtonText: "Yes",
-            confirmButtonColor: "#99C43C",
+            text: 'Are you want to add as friend ',
+            confirmButtonText: 'Yes',
+            confirmButtonColor: '#99C43C',
             showCancelButton: true,
             allowOutsideClick: false,
             // backdrop: true,
-            cancelButtonColor: "#E86B5D",
-            cancelButtonText: "Cancel",
-        }).then(res => {
+            cancelButtonColor: '#E86B5D',
+            cancelButtonText: 'Cancel',
+        }).then((res) => {
             if (res.isConfirmed) {
                 this.addFriendNameByUsername(obj);
             }
@@ -249,50 +291,66 @@ let ContactlistPage = class ContactlistPage {
             customClass: {
                 actions: 'vertical-buttons',
                 cancelButton: this.gameLevel > 4 ? 'top-margin' : 'top-margin disable',
-                confirmButton: 'font-size1'
+                confirmButton: 'font-size1',
             },
-            title: "Select Difficulty Level",
-            confirmButtonText: "Easy",
-            confirmButtonColor: "#99C43C",
+            title: 'Select Difficulty Level',
+            confirmButtonText: 'Easy',
+            confirmButtonColor: '#99C43C',
             showCancelButton: true,
             // allowOutsideClick: true,
-            cancelButtonColor: "#ebb434",
-            cancelButtonText: this.user.level_id < 4 ? "Medium (Unlock at level 5)" : "Medium"
+            cancelButtonColor: this.user.level_id < 4 ? '#ccc' : '#ebb434',
+            cancelButtonText: this.user.level_id < 4
+                ? 'Medium (Unlock at level 5)'
+                : 'Medium',
         }).then((result) => {
-            console.log('swal-result', result);
-            if (result.dismiss == "backdrop") {
+            if (result.dismiss == 'backdrop') {
                 return;
             }
-            result.dismiss == 'cancel' ? this.gameType = 'medium' : result.value == true ? this.gameType = 'easy' : this.gameType = '';
+            if (result.dismiss == 'cancel') {
+                if (this.user.level_id < 4) {
+                    this.gameType = '';
+                }
+                else {
+                    this.gameType = 'medium';
+                }
+            }
+            else {
+                result.value == true
+                    ? (this.gameType = 'easy')
+                    : (this.gameType = '');
+            }
             this.cameraOrGallery(id);
         });
     }
     onRandomPlay() {
         this.spinnerDialog.show();
-        this.restService.getRequest('users/play-random').subscribe((res) => {
+        this.restService
+            .getRequest('users/play-random')
+            .subscribe((res) => {
             if (res.status) {
                 let index = this.getRandomInt(res.message.length);
                 if (index < 0) {
                     this.spinnerDialog.hide();
                     sweetalert2__WEBPACK_IMPORTED_MODULE_6___default().fire({
                         title: '<img src="assets/icon/questionmark.png" style="width: 20vw; height:20vw;">',
-                        text: "No User is Found ",
-                        cancelButtonColor: "#E86B5D",
-                        cancelButtonText: "Cancel",
+                        text: 'No User is Found ',
+                        cancelButtonColor: '#E86B5D',
+                        cancelButtonText: 'Cancel',
                     });
                 }
                 else {
                     this.spinnerDialog.hide();
                     sweetalert2__WEBPACK_IMPORTED_MODULE_6___default().fire({
                         title: '<img src="assets/icon/questionmark.png" style="width: 20vw; height:20vw;">',
-                        text: "Match found with " + res.message[index].user_name,
+                        text: 'Match found with ' +
+                            res.message[index].user_name,
                         confirmButtonText: "Let's play!",
-                        confirmButtonColor: "#99C43C",
+                        confirmButtonColor: '#99C43C',
                         showCancelButton: true,
                         allowOutsideClick: false,
                         // backdrop: true,
-                        cancelButtonColor: "#E86B5D",
-                        cancelButtonText: "Cancel",
+                        cancelButtonColor: '#E86B5D',
+                        cancelButtonText: 'Cancel',
                     }).then((result) => {
                         if (result.value) {
                             this.selectDifficultyLevel(res.message[index].id);
@@ -314,10 +372,14 @@ let ContactlistPage = class ContactlistPage {
             text: 'Are you sure to remove this user?',
             showCancelButton: true,
             showConfirmButton: true,
-        }).then(res => {
+        }).then((res) => {
             if (res.isConfirmed) {
-                this.restService.delRequest('contacts/delete', friendObj).subscribe(res => {
-                    const frndArr = this.freindList.filter(x => { return x.id != id; });
+                this.restService
+                    .delRequest('contacts/delete', friendObj)
+                    .subscribe((res) => {
+                    const frndArr = this.freindList.filter((x) => {
+                        return x.id != id;
+                    });
                     this.freindList = frndArr;
                     // console.log(' This is ffriend Object', frndArr);
                 });
@@ -325,21 +387,25 @@ let ContactlistPage = class ContactlistPage {
         });
     }
     addFriendNameByUsername(obj) {
-        this.restService.postRequestToken('contacts/add-username', { friend_id: obj.id }).subscribe((res) => {
+        this.restService
+            .postRequestToken('contacts/add-username', { friend_id: obj.id })
+            .subscribe((res) => {
             if (res) {
                 this.showUserList = false;
                 sweetalert2__WEBPACK_IMPORTED_MODULE_6___default().fire({
                     title: 'Success',
-                    text: "Friend Added",
-                    confirmButtonText: "Cool",
+                    text: 'Friend Added',
+                    confirmButtonText: 'Cool',
                 });
                 this.getFriendList();
             }
         });
     }
     getFriendList() {
-        this.restService.getRequest('contacts/listing').subscribe((res) => {
-            this.freindList = res.filter(x => x.id != this.user.id);
+        this.restService
+            .getRequest('contacts/listing')
+            .subscribe((res) => {
+            this.freindList = res.filter((x) => x.id != this.user.id);
             if (!this.freindList.length) {
                 this.showFilterPageLoader = false;
             }
@@ -393,7 +459,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("<ion-grid>\n  <div class=\"top-container\">\n    <div class=\"top-body\">\n      <div [routerLink]=\"['/main']\" class=\"icon\">\n        <ion-icon src=\"assets/icon/back-icon.svg\"></ion-icon>\n      </div>\n      <div class=\"text\">Add Contact</div>\n    </div>\n  </div>\n\n\n  <ion-row>\n\n    <div>\n      <div>\n        <ion-searchbar show-cancel-button=\"focus\" class=\"cus-search-bar\" placeholder=\"Search by Name or User Name\"\n          (ionChange)=\"onSearchByUsername($event)\" (ionCancel)=\"onCancelSearch()\"></ion-searchbar>\n      </div>\n    </div>\n  </ion-row>\n\n\n  <div *ngIf=\"showFilterPageLoader\" class=\"loaderContainer\">\n    <div class=\"loader1\"></div>\n    <!-- <div *ngIf=\"!freindList.length\">No Record Found</div> -->\n\n  </div>\n\n  <ion-row *ngIf=\"!showUserList && !showFilterPageLoader\">\n    <ion-col size=\"12\">\n      <div class=\"card\">\n        <ion-list>\n          <ion-item-sliding id=\"item100\" class=\"mt-2\" *ngFor=\"let friend of freindList\">\n            <ion-item>\n              <ion-label>\n                <h2>{{friend.user_name}}</h2>\n              </ion-label>\n              <ion-button class=\"cus-btn\" slot=\"end\" (click)=\"selectDifficultyLevel(friend.id)\"> Play </ion-button>\n            </ion-item>\n\n            <ion-item-options side=\"end\">\n              <ion-item-option color=\"danger\" (click)=\"onDelFriend(friend.id)\">\n                <ion-icon slot=\"icon-only\" name=\"trash\"></ion-icon>\n              </ion-item-option>\n            </ion-item-options>\n          </ion-item-sliding>\n\n        </ion-list>\n\n        <div class=\"mt-45 align-end\">\n          <ion-button (click)=\"onRandomPlay()\" class=\"cus-btn-lg \"><b>+ Play Random</b> </ion-button>\n        </div>\n      </div>\n    </ion-col>\n  </ion-row>\n\n  <ion-row *ngIf=\"showUserList\">\n    <ion-col size=\"12\" *ngIf=\"usernameSearchRes.length\">\n      <div class=\"scrollDiv\">\n        <ion-item (click)=\"openDialogBox(name)\" *ngFor=\"let name of usernameSearchRes\">\n          <ion-label>\n            <h2>{{name.user_name}}</h2>\n          </ion-label>\n        </ion-item>\n      </div>\n    </ion-col>\n    <ion-col *ngIf=\"!usernameSearchRes.length\">\n      <p>No user Found</p>\n    </ion-col>\n  </ion-row>\n</ion-grid>");
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("<ion-grid>\n  <div class=\"top-container\">\n    <div class=\"top-body\">\n      <div [routerLink]=\"['/main']\" class=\"icon\">\n        <ion-icon src=\"assets/icon/back-icon.svg\"></ion-icon>\n      </div>\n      <div class=\"text\">Play Game</div>\n    </div>\n  </div>\n\n\n  <ion-row>\n    <ion-searchbar show-cancel-button=\"focus\" class=\"cus-search-bar\" placeholder=\"  Search by Name or User Name\"\n    (ionChange)=\"onSearchByUsername($event)\" (ionCancel)=\"onCancelSearch()\"></ion-searchbar>\n  </ion-row>\n\n\n  <div *ngIf=\"showFilterPageLoader\" class=\"loaderContainer\">\n    <div class=\"loader1\"></div>\n    <!-- <div *ngIf=\"!freindList.length\">No Record Found</div> -->\n\n  </div>\n\n  <ion-row *ngIf=\"!showUserList && !showFilterPageLoader\">\n    <ion-col size=\"12\">\n      <div class=\"card\" style=\"max-height: 60vh; overflow-y: auto;\">\n        <ion-list style=\"margin-bottom: 70px;\">\n          <ion-item-sliding id=\"item100\" class=\"mt-2\" *ngFor=\"let friend of freindList\">\n            <ion-item>\n              <ion-label>\n                <h2>{{friend.user_name}}</h2>\n              </ion-label>\n              <ion-button class=\"cus-btn\" slot=\"end\" (click)=\"selectDifficultyLevel(friend.id)\"> Play </ion-button>\n            </ion-item>\n\n            <ion-item-options side=\"end\">\n              <ion-item-option color=\"danger\" (click)=\"onDelFriend(friend.id)\">\n                <ion-icon slot=\"icon-only\" name=\"trash\"></ion-icon>\n              </ion-item-option>\n            </ion-item-options>\n          </ion-item-sliding>\n        </ion-list>\n\n        <div class=\"mt-45 align-end\" style=\"position: absolute; bottom:10px; right:25px;\">\n          <ion-button (click)=\"onRandomPlay()\" class=\"cus-btn-lg \"><b>+ Play Random</b> </ion-button>\n        </div>\n      </div>\n    </ion-col>\n  </ion-row>\n\n  <ion-row *ngIf=\"showUserList\">\n    <ion-col size=\"12\" *ngIf=\"usernameSearchRes.length\">\n      <div class=\"scrollDiv\">\n        <ion-item (click)=\"openDialogBox(name)\" *ngFor=\"let name of usernameSearchRes\">\n          <ion-label>\n            <h2>{{name.user_name}}</h2>\n          </ion-label>\n        </ion-item>\n      </div>\n    </ion-col>\n    <ion-col *ngIf=\"!usernameSearchRes.length\">\n      <p>No user Found</p>\n    </ion-col>\n  </ion-row>\n</ion-grid>");
 
 /***/ })
 

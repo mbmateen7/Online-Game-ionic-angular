@@ -167,7 +167,11 @@ export class LoginPage implements OnInit {
     }
 
     setDeviceToken() {
+        console.log("SET DEVICE TOKEN");
+        
         PushNotifications.requestPermissions().then((result) => {
+            console.log(result.receive);
+            
             if (result.receive === 'granted') {
                 PushNotifications.register();
             } else {
@@ -175,6 +179,8 @@ export class LoginPage implements OnInit {
         });
 
         PushNotifications.addListener('registration', (token) => {
+            console.log("token : ", token);
+            
             this.restService
                 .postRequestToken('users/set-device-token', {
                     deviceToken: token,

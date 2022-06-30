@@ -235,8 +235,8 @@ let PlayGamePage = class PlayGamePage {
         this.filterList = [];
         this.ownedItemsList = [];
         this.isLoading = true;
-        this.selection = "primary";
-        this.buttons = "default";
+        this.selection = 'primary';
+        this.buttons = 'default';
         this.lastValue = 0;
         this.secondaryValues = {
             numbers: {
@@ -389,7 +389,6 @@ let PlayGamePage = class PlayGamePage {
             const sourceIndex = this.sequence.indexOf(source.className.split(' ')[0]);
             this.sequence[targetIndex] = source.className.split(' ')[0];
             this.sequence[sourceIndex] = target.className.split(' ')[0];
-            console.log('finalSequence', this.sequence);
             const swappee = jquery__WEBPACK_IMPORTED_MODULE_2__(target).find('canvas').not(el);
             swappee.appendTo(source);
             let temp = source.className;
@@ -406,7 +405,11 @@ let PlayGamePage = class PlayGamePage {
         this.userId = this.route.snapshot.paramMap.get('userId');
         this.gameObj = this.route.snapshot.paramMap.get('game');
         this.gameObj = JSON.parse(this.gameObj);
-        this.restService.postRequest('filter/get-filter-by-id', { filter_id: this.gameObj.filter_id }).subscribe((res) => {
+        this.restService
+            .postRequest('filter/get-filter-by-id', {
+            filter_id: this.gameObj.filter_id,
+        })
+            .subscribe((res) => {
             if (res.filter.length) {
                 this.primaryFilter = res.filter[0].name;
             }
@@ -422,12 +425,14 @@ let PlayGamePage = class PlayGamePage {
         let secondaryVal = JSON.parse(this.gameObj.secondary_values);
         this.secondaryValues.numbers.blur = secondaryVal.numbers.blur;
         this.secondaryValues.numbers.grayscale = secondaryVal.numbers.grayscale;
-        this.secondaryValues.numbers.hue_rotate = secondaryVal.numbers.hue_rotate;
+        this.secondaryValues.numbers.hue_rotate =
+            secondaryVal.numbers.hue_rotate;
         this.secondaryValues.numbers.invert = secondaryVal.numbers.invert;
         this.secondaryValues.numbers.sepia = secondaryVal.numbers.sepia;
         this.secondaryValues.numbers.saturate = secondaryVal.numbers.saturate;
         this.secondaryValues.numbers.opacity = secondaryVal.numbers.opacity;
-        this.secondaryValues.numbers.brightness = secondaryVal.numbers.brightness;
+        this.secondaryValues.numbers.brightness =
+            secondaryVal.numbers.brightness;
         this.secondaryValues.numbers.contrast = secondaryVal.numbers.contrast;
         this.tl = this.sequence[0];
         this.tr = this.sequence[1];
@@ -437,9 +442,34 @@ let PlayGamePage = class PlayGamePage {
         for (let i = 0; i < word.length; i++) {
             this.makeFormGroup(word);
         }
-        var alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h',
-            'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's',
-            't', 'u', 'v', 'w', 'x', 'y', 'z'];
+        var alphabet = [
+            'a',
+            'b',
+            'c',
+            'd',
+            'e',
+            'f',
+            'g',
+            'h',
+            'i',
+            'j',
+            'k',
+            'l',
+            'm',
+            'n',
+            'o',
+            'p',
+            'q',
+            'r',
+            's',
+            't',
+            'u',
+            'v',
+            'w',
+            'x',
+            'y',
+            'z',
+        ];
         var list;
         var buttons = function () {
             let myButtons = document.getElementById('buttons');
@@ -473,19 +503,26 @@ let PlayGamePage = class PlayGamePage {
             // console.log('this.lettersArr', THIS.lettersArr);
             if (THIS.countWord) {
                 THIS.countWord--;
-                that.setAttribute("class", "active");
+                that.setAttribute('class', 'active');
                 for (let index = 0; index < THIS.gameObj.word.length; index++) {
-                    if (THIS.gameObj.word[index].toLowerCase() == that.innerHTML.toLowerCase()) {
+                    if (THIS.gameObj.word[index].toLowerCase() ==
+                        that.innerHTML.toLowerCase()) {
                         THIS.lettersArr.controls[index].setValue(that.innerHTML);
                     }
                     if (THIS.lettersArr.status == 'VALID') {
-                        let str = THIS.lettersArr.value.toString().replace(/,/g, '').toLowerCase();
+                        let str = THIS.lettersArr.value
+                            .toString()
+                            .replace(/,/g, '')
+                            .toLowerCase();
                         if (str == THIS.gameObj.word.toLowerCase()) {
+                            localStorage.removeItem('lastGame');
                             const gameResult = {
                                 game_id: THIS.gameObj.id,
-                                status: 2
+                                status: 2,
                             };
-                            THIS.restService.postRequestToken('games/result', gameResult).subscribe(res => {
+                            THIS.restService
+                                .postRequestToken('games/result', gameResult)
+                                .subscribe((res) => {
                                 if (res) {
                                     jquery__WEBPACK_IMPORTED_MODULE_2__('#originalImage').css('display', 'block');
                                     jquery__WEBPACK_IMPORTED_MODULE_2__('#canvas-grid').css('display', 'none');
@@ -496,53 +533,67 @@ let PlayGamePage = class PlayGamePage {
                                 text: "It's your turn! Would you like to send a game back?",
                                 confirmButtonText: 'Send',
                                 confirmButtonColor: '#99C43C',
-                                showCancelButton: true, allowOutsideClick: true,
+                                showCancelButton: true,
+                                allowOutsideClick: true,
                                 // backdrop: true,
                                 cancelButtonColor: '#E86B5D',
-                                cancelButtonText: "Cancel"
+                                cancelButtonText: 'Cancel',
                             }).then((result) => {
-                                console.log('--->', result);
                                 if (result.isConfirmed) {
-                                    THIS.router.navigate(['contactlist', { friend_id: THIS.gameObj.user_id }], { replaceUrl: true });
+                                    THIS.router.navigate([
+                                        'contactlist',
+                                        { friend_id: THIS.gameObj.user_id },
+                                    ], { replaceUrl: true });
                                     // window.location.reload();
                                     // console.log('Game Object', THIS.gameObj);
                                 }
                                 else {
-                                    THIS.router.navigate(['main'], { replaceUrl: true });
+                                    THIS.navCtrl.setDirection('root');
+                                    THIS.router.navigate(['main'], {
+                                        replaceUrl: true,
+                                    });
                                 }
                             });
                         }
                         if (str != THIS.gameObj.word.toLowerCase()) {
                             sweetalert2__WEBPACK_IMPORTED_MODULE_4___default().fire({
                                 title: '<div><img src="assets/icon/lost.png" style="width: 20vw; height:20vw;"><br><h5>You lost!</h5></div>',
-                                html: "The correct answer was: " + THIS.gameObj.word + "<br>It's your turn! Would you like to send a game back?",
+                                html: 'The correct answer was: ' +
+                                    THIS.gameObj.word +
+                                    "<br>It's your turn! Would you like to send a game back?",
                                 confirmButtonText: 'Send',
                                 confirmButtonColor: '#99C43C',
-                                showCancelButton: true, allowOutsideClick: true,
+                                showCancelButton: true,
+                                allowOutsideClick: true,
                                 // backdrop: true,
                                 cancelButtonColor: '#E86B5D',
-                                cancelButtonText: "Cancel"
+                                cancelButtonText: 'Cancel',
                             }).then((result) => {
                                 const gameResult = {
                                     game_id: THIS.gameObj.id,
-                                    status: 3
+                                    status: 3,
                                 };
-                                THIS.restService.postRequestToken('games/result', gameResult).subscribe(res => {
+                                THIS.restService
+                                    .postRequestToken('games/result', gameResult)
+                                    .subscribe((res) => {
                                     if (res) {
                                         THIS.getUserData();
                                     }
                                 });
                                 if (result.isConfirmed) {
-                                    THIS.router.navigate(['contactlist', { friend_id: THIS.gameObj.user_id }], { replaceUrl: true });
+                                    THIS.router.navigate([
+                                        'contactlist',
+                                        { friend_id: THIS.gameObj.user_id },
+                                    ], { replaceUrl: true });
                                 }
                                 else {
+                                    THIS.navCtrl.setDirection('root');
                                     THIS.router.navigate(['main', { gameSent: true }], { replaceUrl: true });
                                 }
                             });
                         }
                     }
                 }
-                ;
             }
             else {
                 sweetalert2__WEBPACK_IMPORTED_MODULE_4___default().fire({
@@ -550,37 +601,47 @@ let PlayGamePage = class PlayGamePage {
                     text: 'You dont have extra turn. Do you want to go to store and buy from there?',
                     confirmButtonText: 'Yes',
                     confirmButtonColor: '#99C43C',
-                    showCancelButton: true, allowOutsideClick: true,
+                    showCancelButton: true,
+                    allowOutsideClick: true,
                     // backdrop: true,
                     cancelButtonColor: '#E86B5D',
-                    cancelButtonText: "No"
-                }).then(result => {
+                    cancelButtonText: 'No',
+                }).then((result) => {
                     if (result.isConfirmed) {
                     }
                     if (!result.isConfirmed) {
                         sweetalert2__WEBPACK_IMPORTED_MODULE_4___default().fire({
                             title: '<div><img src="assets/icon/lost.png" style="width: 20vw; height:20vw;"><br><h5>You lost!</h5></div>',
-                            html: "The correct answer was: " + THIS.gameObj.word + "<br>It's your turn! Would you like to send a game back?",
+                            html: 'The correct answer was: ' +
+                                THIS.gameObj.word +
+                                "<br>It's your turn! Would you like to send a game back?",
                             confirmButtonText: 'Send',
                             confirmButtonColor: '#99C43C',
-                            showCancelButton: true, allowOutsideClick: true,
+                            showCancelButton: true,
+                            allowOutsideClick: true,
                             // backdrop: true,
                             cancelButtonColor: '#E86B5D',
-                            cancelButtonText: "Cancel"
+                            cancelButtonText: 'Cancel',
                         }).then((result) => {
                             const gameResult = {
                                 game_id: THIS.gameObj.id,
-                                status: 3
+                                status: 3,
                             };
-                            THIS.restService.postRequestToken('games/result', gameResult).subscribe(res => {
+                            THIS.restService
+                                .postRequestToken('games/result', gameResult)
+                                .subscribe((res) => {
                                 if (res) {
                                     THIS.getUserData();
                                 }
                             });
                             if (result.isConfirmed) {
-                                THIS.router.navigate(['contactlist', { friend_id: THIS.gameObj.user_id }], { replaceUrl: true });
+                                THIS.router.navigate([
+                                    'contactlist',
+                                    { friend_id: THIS.gameObj.user_id },
+                                ], { replaceUrl: true });
                             }
                             else {
+                                THIS.navCtrl.setDirection('root');
                                 THIS.router.navigate(['main', { gameSent: true }], { replaceUrl: true });
                             }
                             // if (result.value) {
@@ -606,9 +667,9 @@ let PlayGamePage = class PlayGamePage {
                         text: 'OK',
                         handler: () => {
                             this.navCtrl.navigateBack('main');
-                        }
-                    }
-                ]
+                        },
+                    },
+                ],
             });
             yield alert.present();
             const { role } = yield alert.onDidDismiss();
@@ -625,13 +686,16 @@ let PlayGamePage = class PlayGamePage {
                     {
                         text: 'Yes',
                         handler: () => {
-                            this.router.navigate(['main/store', { params: JSON.stringify(paramObj) }]);
-                        }
+                            this.router.navigate([
+                                'main/store',
+                                { params: JSON.stringify(paramObj) },
+                            ]);
+                        },
                     },
                     {
                         text: 'No',
-                    }
-                ]
+                    },
+                ],
             });
             yield alert.present();
             const { role } = yield alert.onDidDismiss();
@@ -640,9 +704,9 @@ let PlayGamePage = class PlayGamePage {
     }
     Rotate(index, c) {
         this.rotations[c]++;
-        var canvas = document.getElementById('canvas' + index), context = canvas.getContext('2d'), pictureWidth = canvas.width, pictureHeight = canvas.height;
-        pictureWidth = (pictureWidth) * 2;
-        pictureHeight = (pictureHeight) * 2;
+        var canvas = (document.getElementById('canvas' + index)), context = canvas.getContext('2d'), pictureWidth = canvas.width, pictureHeight = canvas.height;
+        pictureWidth = pictureWidth * 2;
+        pictureHeight = pictureHeight * 2;
         context.save();
         context.translate(pictureWidth / 4, pictureHeight / 4);
         context.rotate(Math.PI / 2);
@@ -653,24 +717,26 @@ let PlayGamePage = class PlayGamePage {
     }
     Crop() {
         if (!this.isPuzzleSolved && this.gameObj.status == 0) {
-            console.log('Game Obj', this.gameObj);
-            let originalImage = jquery__WEBPACK_IMPORTED_MODULE_2__("#originalImage");
+            let originalImage = jquery__WEBPACK_IMPORTED_MODULE_2__('#originalImage');
             let self = this;
             let pictureWidth;
             let pictureHeight;
             let newImage = new Image();
             newImage.src = this.cameraImage;
-            newImage.width = originalImage.width();
-            console.log('Width', newImage.width);
-            newImage.height = originalImage.width();
+            // newImage.width = originalImage.width();
+            // console.log('Width', newImage.width);
+            // newImage.height = originalImage.width();
             //this.imageWidth = originalImage.width();
             newImage.onload = function () {
-                pictureWidth = originalImage.width();
-                pictureHeight = originalImage.width();
+                let img = this;
+                pictureWidth = img.width;
+                pictureHeight = img.height;
+                // pictureWidth = originalImage.width();
+                // pictureHeight = originalImage.width();
                 var w2 = pictureWidth / 2, h2 = pictureHeight / 2, parts = [];
                 for (var i = 0; i < 4; i++) {
                     var count = i + 1;
-                    var canvas = (document.getElementById("canvas" + count)), ctx = canvas.getContext("2d");
+                    var canvas = (document.getElementById('canvas' + count)), ctx = canvas.getContext('2d');
                     var x = (-w2 * i) % (w2 * 2), y = h2 * i <= h2 ? 0 : -h2;
                     canvas.width = w2;
                     canvas.height = h2;
@@ -682,6 +748,14 @@ let PlayGamePage = class PlayGamePage {
             }; //end of onload function
             jquery__WEBPACK_IMPORTED_MODULE_2__('#originalImage').css('display', 'none');
             jquery__WEBPACK_IMPORTED_MODULE_2__('#gamewindiv').css('display', 'none');
+            // this.checkGameStatus = setInterval( () => {
+            //   console.log(this.gameObj);
+            //   if(this.gameObj.status == 0) {
+            //     $('#originalImage').css('display', 'none');
+            //   }else {
+            //     clearInterval(this.checkGameStatus);
+            //   }
+            // },50);
         }
         else {
             jquery__WEBPACK_IMPORTED_MODULE_2__('#originalImage').css('display', 'show');
@@ -690,8 +764,7 @@ let PlayGamePage = class PlayGamePage {
     }
     Crop1() {
         if (!this.isPuzzleSolved && this.gameObj.status == 0) {
-            console.log('Game Obj', this.gameObj);
-            let originalImage = jquery__WEBPACK_IMPORTED_MODULE_2__("#originalImage1");
+            let originalImage = jquery__WEBPACK_IMPORTED_MODULE_2__('#originalImage');
             let self = this;
             let pictureWidth;
             let pictureHeight;
@@ -704,19 +777,21 @@ let PlayGamePage = class PlayGamePage {
             // newImage.width = originalImage.width();
             // newImage.height = originalImage.height();
             //this.imageWidth = originalImage.width();
+            // console.log(originalImage.naturalWidth());
             newImage.onload = function () {
-                pictureWidth = oWidth;
-                pictureHeight = oHeight;
+                let img = this;
+                pictureWidth = img.width;
+                pictureHeight = img.height;
                 var gridSize = 3;
                 //   var marginValueW = (oWidth / gridSize) - 200;
                 //   var marginValueH = (oHeight / gridSize) - 200;
                 var w2 = pictureWidth / gridSize, h2 = pictureHeight / gridSize, parts = [];
                 for (let i = 0; i < gridSize; i++) {
                     for (let j = 0; j < gridSize; j++) {
-                        let cnvs = "canvas" + ((j + 1) + (i * gridSize));
-                        var canvas = document.getElementById(cnvs);
-                        var ctx = canvas.getContext("2d");
-                        ctx.drawImage(newImage, (w2 * j), (h2 * i), w2, h2, 0, 0, canvas.width, canvas.height);
+                        let cnvs = 'canvas' + (j + 1 + i * gridSize);
+                        var canvas = (document.getElementById(cnvs));
+                        var ctx = canvas.getContext('2d');
+                        ctx.drawImage(newImage, w2 * j, h2 * i, w2, h2, 0, 0, canvas.width, canvas.height);
                     }
                 }
             };
@@ -760,7 +835,6 @@ let PlayGamePage = class PlayGamePage {
             children3Count++;
         });
         // console.log('check this count ', children3Count);
-        console.log('check this final sequence', this.sequence);
         let swapIn;
         let swapOut;
         if (childrenCount == 0) {
@@ -803,23 +877,26 @@ let PlayGamePage = class PlayGamePage {
         });
     }
     checkGameWin() {
-        console.log('Gameee win ', this.gameObj);
         const gameResult = {
             game_id: this.gameObj.id,
-            status: 1
+            status: 1,
         };
         if (this.gameObj.type == 'easy') {
             if (this.rotations['toHide'] % 4 === 0 &&
                 this.rotations['toHide1'] % 4 === 0 &&
                 this.rotations['toHide2'] % 4 === 0 &&
-                this.rotations['toHide3'] % 4 === 0 && !this.isPuzzleSolved) {
+                this.rotations['toHide3'] % 4 === 0 &&
+                !this.isPuzzleSolved) {
                 if (this.sequence[0] === 'toHide' &&
                     this.sequence[1] === 'toHide1' &&
                     this.sequence[2] === 'toHide2' &&
                     this.sequence[3] === 'toHide3') {
                     this.isPuzzleSolved = true;
                     this.gameObj.status = 1;
-                    this.restService.postRequestToken('games/result', gameResult).subscribe(res => {
+                    this.cameraImage = this.gameObj.image;
+                    this.restService
+                        .postRequestToken('games/result', gameResult)
+                        .subscribe((res) => {
                         if (res) {
                             this.getUserData();
                         }
@@ -829,8 +906,8 @@ let PlayGamePage = class PlayGamePage {
                         text: 'You got 50 exp and 3 Puzzle Pieces!',
                         confirmButtonText: 'Cool',
                         confirmButtonColor: '#99C43C',
-                    }).then(result => {
-                        this.router.navigate(['/main', { gameSent: true }], { replaceUrl: true, });
+                    }).then((result) => {
+                        // this.router.navigate(['/main', { gameSent: true }], { replaceUrl: true, });
                         jquery__WEBPACK_IMPORTED_MODULE_2__('#originalImage').css('display', 'block');
                         jquery__WEBPACK_IMPORTED_MODULE_2__('#canvas-grid').css('display', 'none');
                     });
@@ -838,9 +915,7 @@ let PlayGamePage = class PlayGamePage {
             }
         }
         if (this.gameObj.type == 'medium') {
-            console.log(this.sequence);
-            console.log(this.rotations);
-            if ((this.rotations['toHide'] % 4 === 0 &&
+            if (this.rotations['toHide'] % 4 === 0 &&
                 this.rotations['toHide1'] % 4 === 0 &&
                 this.rotations['toHide2'] % 4 === 0 &&
                 this.rotations['toHide3'] % 4 === 0 &&
@@ -850,7 +925,8 @@ let PlayGamePage = class PlayGamePage {
                 this.rotations['toHide5'] % 4 === 0 &&
                 this.rotations['toHide5'] % 4 === 0 &&
                 this.rotations['toHide5'] % 4 === 0 &&
-                this.rotations['toHide5'] % 4 === 0) && !this.isPuzzleSolved) {
+                this.rotations['toHide5'] % 4 === 0 &&
+                !this.isPuzzleSolved) {
                 if (this.sequence[0] === 'toHide' &&
                     this.sequence[1] === 'toHide1' &&
                     this.sequence[2] === 'toHide2' &&
@@ -862,7 +938,10 @@ let PlayGamePage = class PlayGamePage {
                     this.sequence[8] === 'toHide8') {
                     this.isPuzzleSolved = true;
                     this.gameObj.status = 1;
-                    this.restService.postRequestToken('games/result', gameResult).subscribe(res => {
+                    this.cameraImage = this.gameObj.image;
+                    this.restService
+                        .postRequestToken('games/result', gameResult)
+                        .subscribe((res) => {
                         if (res) {
                             this.getUserData();
                         }
@@ -872,8 +951,8 @@ let PlayGamePage = class PlayGamePage {
                         text: 'You got 50 exp and 3 Puzzle Pieces!',
                         confirmButtonText: 'Cool',
                         confirmButtonColor: '#99C43C',
-                    }).then(result => {
-                        this.router.navigate(['/main', { gameSent: true }], { replaceUrl: true, });
+                    }).then((result) => {
+                        // this.router.navigate(['/main', { gameSent: true }], { replaceUrl: true, });
                         jquery__WEBPACK_IMPORTED_MODULE_2__('#originalImage').css('display', 'block');
                         jquery__WEBPACK_IMPORTED_MODULE_2__('#canvas-grid').css('display', 'none');
                     });
@@ -882,7 +961,6 @@ let PlayGamePage = class PlayGamePage {
         }
     }
     nextInputFocus(index, event) {
-        console.log('event', event.innerHTML);
         if (this.puzzleWordCount) {
             this.puzzleWordCount--;
             if (event.innerHTML != 'backSpace') {
@@ -897,10 +975,13 @@ let PlayGamePage = class PlayGamePage {
             }
             const gameResult = {
                 game_id: this.gameObj.id,
-                status: 2
+                status: 2,
             };
             if (this.lettersArr.controls.length == index + 1) {
-                let str = this.lettersArr.value.toString().replace(/,/g, '').toLowerCase();
+                let str = this.lettersArr.value
+                    .toString()
+                    .replace(/,/g, '')
+                    .toLowerCase();
                 if (str == this.gameObj.word.toLowerCase()) {
                     this.presentAlert('Congratulations', 'youwin');
                     // this.restService.postRequestToken('games/result', gameResult).subscribe(res => {
@@ -915,7 +996,7 @@ let PlayGamePage = class PlayGamePage {
         else {
             const gameResult = {
                 game_id: this.gameObj.id,
-                status: 3
+                status: 3,
             };
             // this.restService.postRequestToken('games/result', gameResult).subscribe(res => {
             //   if (res) {
@@ -927,8 +1008,7 @@ let PlayGamePage = class PlayGamePage {
         }
     }
     checkOwnedFilter(filter) {
-        console.log(this.ownedItemsList.find(x => x.filter_id == filter.id));
-        return this.ownedItemsList.find(x => x.filter_id == filter.id);
+        return this.ownedItemsList.find((x) => x.filter_id == filter.id);
         // !ownedItemsList[0].includes(filter.id)
     }
     segmentChanged(ev) {
@@ -936,22 +1016,23 @@ let PlayGamePage = class PlayGamePage {
         this.selection = ev;
         this.changeDetection.detectChanges();
     }
-    revertButtons(cancel = "no") {
-        if (cancel == "cancel") {
-            this.secondaryValues.ranges[this.secondaryFilterSelected].sliderValue =
-                this.lastValue;
+    revertButtons(cancel = 'no') {
+        if (cancel == 'cancel') {
+            this.secondaryValues.ranges[this.secondaryFilterSelected].sliderValue = this.lastValue;
             this.secondaryValues.numbers[this.secondaryFilterSelected] =
                 this.lastValue;
         }
-        this.buttons = "default";
+        this.buttons = 'default';
     }
     getOwnedItemList() {
-        this.restService.getRequest('shop/purchase-detail').subscribe((res) => {
+        this.restService
+            .getRequest('shop/purchase-detail')
+            .subscribe((res) => {
             this.ownedItemsList = res.message;
-            this.primayFilterRemovalList = this.ownedItemsList.filter(x => x.shop_id == 3);
-            this.secondaryFilterRemovalList = this.ownedItemsList.filter(x => x.shop_id == 4);
-            this.addTurn = this.ownedItemsList.filter(x => x.shop_id == 5);
-            this.revealList = this.ownedItemsList.filter(x => x.shop_id == 6);
+            this.primayFilterRemovalList = this.ownedItemsList.filter((x) => x.shop_id == 3);
+            this.secondaryFilterRemovalList = this.ownedItemsList.filter((x) => x.shop_id == 4);
+            this.addTurn = this.ownedItemsList.filter((x) => x.shop_id == 5);
+            this.revealList = this.ownedItemsList.filter((x) => x.shop_id == 6);
         });
     }
     hideKeyboard(event) {
@@ -966,26 +1047,32 @@ let PlayGamePage = class PlayGamePage {
             sweetalert2__WEBPACK_IMPORTED_MODULE_4___default().fire({
                 title: 'Alert',
                 text: 'There are no filters to remove.',
-                confirmButtonText: 'OK'
+                confirmButtonText: 'OK',
             });
             return;
         }
         if (this.primayFilterRemovalList.length > 0) {
-            this.itemUsageConsentDialog('RemovePrimary', 'It will remove the primary filter from puzzle').then((res) => {
+            this.itemUsageConsentDialog('RemovePrimary', 'It will remove the primary filter from puzzle')
+                .then((res) => {
                 if (res.isConfirmed) {
                     this.primaryFilter = '';
                     this.primayFilterRemovalList.shift();
-                    this.restService.postRequestToken('shop/update-item', { user_shop_id: this.primayFilterRemovalList[0].id }).subscribe((res) => {
+                    this.restService
+                        .postRequestToken('shop/update-item', {
+                        user_shop_id: this.primayFilterRemovalList[0].id,
+                    })
+                        .subscribe((res) => {
                         if (res.status) {
                             sweetalert2__WEBPACK_IMPORTED_MODULE_4___default().fire({
                                 title: 'Success',
                                 text: 'You have Consumed Primary Filter',
-                                confirmButtonText: 'OK'
+                                confirmButtonText: 'OK',
                             });
                         }
                     });
                 }
-            }).catch(err => {
+            })
+                .catch((err) => {
                 console.log('Error', err);
             });
         }
@@ -995,7 +1082,7 @@ let PlayGamePage = class PlayGamePage {
                 showDenyButton: true,
                 confirmButtonText: 'Yes',
                 denyButtonText: `Not`,
-            }).then(res => {
+            }).then((res) => {
                 if (res.isConfirmed) {
                     this.router.navigate(['main/store'], { replaceUrl: true });
                 }
@@ -1007,21 +1094,23 @@ let PlayGamePage = class PlayGamePage {
             sweetalert2__WEBPACK_IMPORTED_MODULE_4___default().fire({
                 title: 'Alert',
                 text: 'There are no filters to remove.',
-                confirmButtonText: 'OK'
+                confirmButtonText: 'OK',
             });
             return;
         }
         if (this.secondaryFilterRemovalList.length > 0) {
-            this.itemUsageConsentDialog('RemoveSecondary', 'It will remove the secondary filter from the puzzle').then(res => {
-                console.log('Responsee', res);
-            }).catch(err => {
+            this.itemUsageConsentDialog('RemoveSecondary', 'It will remove the secondary filter from the puzzle')
+                .then((res) => { })
+                .catch((err) => {
                 console.log('Error', err);
             });
             this.secondaryValues = this.normalSecondaryValues;
             this.secondaryFilterRemovalList.shift();
-            this.restService.postRequestToken('shop/update-item', { user_shop_id: this.secondaryFilterRemovalList[0].id }).subscribe(res => {
-                console.log('====>', res);
-            });
+            this.restService
+                .postRequestToken('shop/update-item', {
+                user_shop_id: this.secondaryFilterRemovalList[0].id,
+            })
+                .subscribe((res) => { });
         }
         else {
             sweetalert2__WEBPACK_IMPORTED_MODULE_4___default().fire({
@@ -1029,7 +1118,7 @@ let PlayGamePage = class PlayGamePage {
                 showDenyButton: true,
                 confirmButtonText: 'Yes',
                 denyButtonText: `Not`,
-            }).then(res => {
+            }).then((res) => {
                 if (res.isConfirmed) {
                     this.router.navigate(['main/store'], { replaceUrl: true });
                 }
@@ -1038,14 +1127,20 @@ let PlayGamePage = class PlayGamePage {
     }
     onApplyingAddTurn() {
         if (this.addTurn.length) {
-            this.itemUsageConsentDialog('AddTurn', 'It will add an extra guess').then((res) => {
+            this.itemUsageConsentDialog('AddTurn', 'It will add an extra guess')
+                .then((res) => {
                 if (res.isConfirmed) {
                     this.countWord++;
-                    this.restService.postRequestToken('shop/update-item', { user_shop_id: this.addTurn[0].id }).subscribe(res => {
+                    this.restService
+                        .postRequestToken('shop/update-item', {
+                        user_shop_id: this.addTurn[0].id,
+                    })
+                        .subscribe((res) => {
                         this.addTurn.shift();
                     });
                 }
-            }).catch(err => {
+            })
+                .catch((err) => {
                 console.log('This is error of extra guess', err);
             });
         }
@@ -1055,10 +1150,11 @@ let PlayGamePage = class PlayGamePage {
                 text: 'You dont have extra AddTurn. Do you want to go to store and buy from there?',
                 confirmButtonText: 'Yes',
                 confirmButtonColor: '#99C43C',
-                showCancelButton: true, allowOutsideClick: true,
+                showCancelButton: true,
+                allowOutsideClick: true,
                 // backdrop: true,
                 cancelButtonColor: '#E86B5D',
-                cancelButtonText: "No"
+                cancelButtonText: 'No',
             }).then((result) => {
                 if (result.isConfirmed) {
                     this.router.navigate(['main/store'], { replaceUrl: true });
@@ -1068,19 +1164,25 @@ let PlayGamePage = class PlayGamePage {
     }
     onApplyingReveal() {
         if (this.revealList.length) {
-            this.itemUsageConsentDialog('Reveal', 'It will reveal a letter').then((res) => {
+            this.itemUsageConsentDialog('Reveal', 'It will reveal a letter')
+                .then((res) => {
                 if (res.isConfirmed) {
                     this.revealCount++;
                     for (let i = 0; i < this.revealCount; i++) {
                         this.lettersArr.controls[i].setValue(this.gameObj.word[i]);
                     }
-                    this.restService.postRequestToken('shop/update-item', { user_shop_id: this.revealList[0].id }).subscribe(res => {
+                    this.restService
+                        .postRequestToken('shop/update-item', {
+                        user_shop_id: this.revealList[0].id,
+                    })
+                        .subscribe((res) => {
                         if (res) {
                             this.revealList.shift();
                         }
                     });
                 }
-            }).catch(err => {
+            })
+                .catch((err) => {
                 console.log('This is error of applying reveal', err);
             });
         }
@@ -1090,10 +1192,11 @@ let PlayGamePage = class PlayGamePage {
                 text: 'You dont have extra reveal. Do you want to go to store and buy from there?',
                 confirmButtonText: 'Yes',
                 confirmButtonColor: '#99C43C',
-                showCancelButton: true, allowOutsideClick: true,
+                showCancelButton: true,
+                allowOutsideClick: true,
                 // backdrop: true,
                 cancelButtonColor: '#E86B5D',
-                cancelButtonText: "No"
+                cancelButtonText: 'No',
             }).then((result) => {
                 if (result.isConfirmed) {
                     this.router.navigate(['main/store'], { replaceUrl: true });
@@ -1102,29 +1205,35 @@ let PlayGamePage = class PlayGamePage {
         }
     }
     itemUsageConsentDialog(item, itemdesc) {
-        return new Promise(((resolve, reject) => {
+        return new Promise((resolve, reject) => {
             sweetalert2__WEBPACK_IMPORTED_MODULE_4___default().fire({
                 title: '<div><img src="assets/icon/questionmark.png" style="width: 20vw; height:20vw;">',
-                text: 'Are you sure you want to use ' + item + '? ' + itemdesc + '.',
+                text: 'Are you sure you want to use ' +
+                    item +
+                    '? ' +
+                    itemdesc +
+                    '.',
                 confirmButtonText: 'Yes',
                 confirmButtonColor: '#99C43C',
-                showCancelButton: true, allowOutsideClick: true,
+                showCancelButton: true,
+                allowOutsideClick: true,
                 // backdrop: true,
                 cancelButtonColor: '#E86B5D',
-                cancelButtonText: "No"
-            }).then((result) => {
-                console.log('consent result1', result);
+                cancelButtonText: 'No',
+            })
+                .then((result) => {
                 if (result.value) {
                     resolve(result);
                 }
                 else {
                     reject(false);
                 }
-            }).catch(res => {
+            })
+                .catch((res) => {
                 console.log('consent result', res);
                 reject(res);
             });
-        }));
+        });
     }
     getUserData() {
         this.restService.getRequest('users/detail').subscribe((res) => {
@@ -1267,7 +1376,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("page-filters {\n  /* in-flight clone */\n  /* high-performance display:none; helper */\n  /* added to mirrorContainer (default = body) while dragging */\n  /* added to the source element while its mirror is dragged */\n}\npage-filters .slide-zoom {\n  color: #7d7d7d !important;\n  font-size: 13px !important;\n}\npage-filters .range-bar {\n  top: 27px !important;\n  height: 10px !important;\n}\npage-filters .range-knob {\n  width: 39px !important;\n  height: 39px !important;\n}\npage-filters .range-pin {\n  left: 10px !important;\n}\npage-filters .swiper-slide .slide-zoom {\n  width: auto !important;\n}\npage-filters ion-slides {\n  height: 35vh;\n}\npage-filters #back {\n  padding: 15px 15px 35px 15px;\n  position: relative;\n}\npage-filters #back-img {\n  margin: auto;\n  float: left;\n  height: auto;\n  width: 10%;\n}\npage-filters .gu-mirror {\n  position: fixed !important;\n  margin: 0 !important;\n  z-index: 9999 !important;\n  opacity: 0.8;\n  -ms-filter: \"progid:DXImageTransform.Microsoft.Alpha(Opacity=80)\";\n  filter: alpha(opacity=80);\n  pointer-events: none;\n}\npage-filters .gu-hide {\n  left: -9999px !important;\n}\npage-filters .gu-unselectable {\n  -webkit-user-select: none !important;\n  user-select: none !important;\n}\npage-filters .gu-transit {\n  opacity: 0.2;\n  -ms-filter: \"progid:DXImageTransform.Microsoft.Alpha(Opacity=20)\";\n  filter: alpha(opacity=20);\n}\npage-filters ion-content .scroll-content {\n  background: #000 !important;\n  overflow-y: hidden !important;\n}\npage-filters .selectedSegment {\n  font-weight: bold;\n  color: white;\n}\npage-filters .notSelected {\n  color: white;\n  opacity: 0.5;\n}\n.toHide canvas:nth-child(2) {\n  display: none !important;\n}\n.toHide1 canvas:nth-child(2) {\n  display: none !important;\n}\n.toHide2 canvas:nth-child(2) {\n  display: none !important;\n}\n.toHide3 canvas:nth-child(2) {\n  display: none !important;\n}\n.spaceinrow {\n  display: flex;\n  justify-content: space-between;\n}\n#container canvas {\n  width: 100% !important;\n}\n.main-footer {\n  background: #000 !important;\n}\n.main-footer ul {\n  display: flex;\n  align-items: center;\n  justify-content: space-evenly;\n  padding: 0;\n  margin: 0;\n  list-style: none;\n}\n.main-footer ul li a {\n  color: #fff;\n  text-decoration: none;\n  font-size: 16px;\n  font-weight: 500;\n}\n.top-buttons-head {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  padding: 10px 20px;\n  background: linear-gradient(180deg, #6976B9 0%, rgba(105, 118, 185, 0.76) 100%);\n}\n.top-buttons-head .in-right button {\n  background: #0f77f0;\n  border-radius: 20px;\n  font-size: 14px;\n  padding: 0px 25px;\n}\n.cus-btn {\n  --background: #99c43c;\n  --border-radius: 30px;\n  width: auto;\n  font-size: 14px;\n  letter-spacing: 0.03em;\n}\n.iconsdiv {\n  background: rgba(101, 121, 183, 0.41) !important;\n  display: flex;\n  padding: 10px 20px !important;\n}\n.iconsdiv .in-left ul {\n  display: flex;\n  align-items: center;\n  padding: 0;\n  margin: 0;\n  list-style: none;\n}\n.iconsdiv .in-left ul li {\n  display: flex;\n  align-items: flex-end;\n  margin-right: 20px;\n}\n.iconsdiv .in-left ul li img {\n  width: 24px;\n  height: 22px;\n  object-fit: contain;\n}\n.iconsdiv .in-left ul li h6 {\n  font-size: 12px;\n  margin: 0 0 0 8px;\n  color: #000;\n}\n.iconsdiv .in-right p {\n  margin: 0 !important;\n  padding: 0 !important;\n  font-size: 12px !important;\n  color: #000 !important;\n  position: static !important;\n}\n.input-number {\n  display: flex;\n  justify-content: space-evenly;\n  margin-top: 10px;\n}\n.input-number input {\n  width: 25px;\n  height: 20px;\n  border-radius: 0px;\n  border: none;\n  border-bottom: 1px solid black;\n  text-align: center;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  padding: 0px;\n}\n.input-number input:focus {\n  outline: none;\n}\nion-col canvas {\n  height: 20vh;\n  width: 20vw;\n}\n#originalImage {\n  height: 40vh;\n  width: 80vw;\n  display: block;\n  margin: auto;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInBsYXktZ2FtZS5wYWdlLnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUEwQ0Usb0JBQUE7RUFXQSwwQ0FBQTtFQUtBLDZEQUFBO0VBUUEsNERBQUE7QUE3REY7QUFKRTtFQUNFLHlCQUFBO0VBQ0EsMEJBQUE7QUFNSjtBQUhFO0VBQ0Usb0JBQUE7RUFDQSx1QkFBQTtBQUtKO0FBRkU7RUFDRSxzQkFBQTtFQUNBLHVCQUFBO0FBSUo7QUFERTtFQUNFLHFCQUFBO0FBR0o7QUFDSTtFQUNFLHNCQUFBO0FBQ047QUFHRTtFQUNFLFlBQUE7QUFESjtBQUlFO0VBQ0UsNEJBQUE7RUFDQSxrQkFBQTtBQUZKO0FBS0U7RUFDRSxZQUFBO0VBQ0EsV0FBQTtFQUNBLFlBQUE7RUFDQSxVQUFBO0FBSEo7QUFPRTtFQUNFLDBCQUFBO0VBQ0Esb0JBQUE7RUFDQSx3QkFBQTtFQUNBLFlBQUE7RUFDQSxpRUFBQTtFQUNBLHlCQUFBO0VBQ0Esb0JBQUE7QUFMSjtBQVNFO0VBQ0Usd0JBQUE7QUFQSjtBQVdFO0VBQ0Usb0NBQUE7RUFHQSw0QkFBQTtBQVRKO0FBYUU7RUFDRSxZQUFBO0VBQ0EsaUVBQUE7RUFDQSx5QkFBQTtBQVhKO0FBZUk7RUFDRSwyQkFBQTtFQUNBLDZCQUFBO0FBYk47QUFrQkU7RUFDRSxpQkFBQTtFQUNBLFlBQUE7QUFoQko7QUFtQkU7RUFDRSxZQUFBO0VBQ0EsWUFBQTtBQWpCSjtBQXNCQTtFQUNFLHdCQUFBO0FBbkJGO0FBc0JBO0VBQ0Usd0JBQUE7QUFuQkY7QUFzQkE7RUFDRSx3QkFBQTtBQW5CRjtBQXNCQTtFQUNFLHdCQUFBO0FBbkJGO0FBc0JBO0VBQ0UsYUFBQTtFQUNBLDhCQUFBO0FBbkJGO0FBc0JBO0VBQ0Usc0JBQUE7QUFuQkY7QUFzQkE7RUFDRSwyQkFBQTtBQW5CRjtBQXFCRTtFQUNFLGFBQUE7RUFDQSxtQkFBQTtFQUNBLDZCQUFBO0VBQ0EsVUFBQTtFQUNBLFNBQUE7RUFDQSxnQkFBQTtBQW5CSjtBQXNCTTtFQUNFLFdBQUE7RUFDQSxxQkFBQTtFQUNBLGVBQUE7RUFDQSxnQkFBQTtBQXBCUjtBQTBCQTtFQUNFLGFBQUE7RUFDQSxtQkFBQTtFQUNBLDhCQUFBO0VBQ0Esa0JBQUE7RUFDQSwrRUFBQTtBQXZCRjtBQThCSTtFQUNFLG1CQUFBO0VBQ0EsbUJBQUE7RUFDQSxlQUFBO0VBQ0EsaUJBQUE7QUE1Qk47QUFpQ0E7RUFDRSxxQkFBQTtFQUNBLHFCQUFBO0VBQ0EsV0FBQTtFQUVBLGVBQUE7RUFDQSxzQkFBQTtBQS9CRjtBQW1DQTtFQUNFLGdEQUFBO0VBQ0EsYUFBQTtFQUlBLDZCQUFBO0FBbkNGO0FBc0NJO0VBQ0UsYUFBQTtFQUNBLG1CQUFBO0VBQ0EsVUFBQTtFQUNBLFNBQUE7RUFDQSxnQkFBQTtBQXBDTjtBQXNDTTtFQUNFLGFBQUE7RUFDQSxxQkFBQTtFQUNBLGtCQUFBO0FBcENSO0FBc0NRO0VBQ0UsV0FBQTtFQUNBLFlBQUE7RUFDQSxtQkFBQTtBQXBDVjtBQXVDUTtFQUNFLGVBQUE7RUFDQSxpQkFBQTtFQUNBLFdBQUE7QUFyQ1Y7QUE0Q0k7RUFDRSxvQkFBQTtFQUNBLHFCQUFBO0VBQ0EsMEJBQUE7RUFDQSxzQkFBQTtFQUNBLDJCQUFBO0FBMUNOO0FBaURBO0VBQ0UsYUFBQTtFQUNBLDZCQUFBO0VBQ0EsZ0JBQUE7QUE5Q0Y7QUFnREU7RUFDRSxXQUFBO0VBQ0EsWUFBQTtFQUNBLGtCQUFBO0VBQ0EsWUFBQTtFQUNBLDhCQUFBO0VBQ0Esa0JBQUE7RUFDQSxhQUFBO0VBQ0EsdUJBQUE7RUFDQSxtQkFBQTtFQUNBLFlBQUE7QUE5Q0o7QUFpREU7RUFDRSxhQUFBO0FBL0NKO0FBa0ZJO0VBQ0ksWUFBQTtFQUNBLFdBQUE7QUEvRVI7QUFtRkE7RUFDSSxZQUFBO0VBQ0EsV0FBQTtFQUNBLGNBQUE7RUFDQSxZQUFBO0FBaEZKIiwiZmlsZSI6InBsYXktZ2FtZS5wYWdlLnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyJwYWdlLWZpbHRlcnMge1xuICAuc2xpZGUtem9vbSB7XG4gICAgY29sb3I6ICM3ZDdkN2QgIWltcG9ydGFudDtcbiAgICBmb250LXNpemU6IDEzcHggIWltcG9ydGFudDtcbiAgfVxuXG4gIC5yYW5nZS1iYXIge1xuICAgIHRvcDogMjdweCAhaW1wb3J0YW50O1xuICAgIGhlaWdodDogMTBweCAhaW1wb3J0YW50O1xuICB9XG5cbiAgLnJhbmdlLWtub2Ige1xuICAgIHdpZHRoOiAzOXB4ICFpbXBvcnRhbnQ7XG4gICAgaGVpZ2h0OiAzOXB4ICFpbXBvcnRhbnQ7XG4gIH1cblxuICAucmFuZ2UtcGluIHtcbiAgICBsZWZ0OiAxMHB4ICFpbXBvcnRhbnQ7XG4gIH1cblxuICAuc3dpcGVyLXNsaWRlIHtcbiAgICAuc2xpZGUtem9vbSB7XG4gICAgICB3aWR0aDogYXV0byAhaW1wb3J0YW50O1xuICAgIH1cbiAgfVxuXG4gIGlvbi1zbGlkZXMge1xuICAgIGhlaWdodDogMzV2aDtcbiAgfVxuXG4gICNiYWNrIHtcbiAgICBwYWRkaW5nOiAxNXB4IDE1cHggMzVweCAxNXB4O1xuICAgIHBvc2l0aW9uOiByZWxhdGl2ZTtcbiAgfVxuXG4gICNiYWNrLWltZyB7XG4gICAgbWFyZ2luOiBhdXRvO1xuICAgIGZsb2F0OiBsZWZ0O1xuICAgIGhlaWdodDogYXV0bztcbiAgICB3aWR0aDogMTAlO1xuICB9XG5cbiAgLyogaW4tZmxpZ2h0IGNsb25lICovXG4gIC5ndS1taXJyb3Ige1xuICAgIHBvc2l0aW9uOiBmaXhlZCAhaW1wb3J0YW50O1xuICAgIG1hcmdpbjogMCAhaW1wb3J0YW50O1xuICAgIHotaW5kZXg6IDk5OTkgIWltcG9ydGFudDtcbiAgICBvcGFjaXR5OiAwLjg7XG4gICAgLW1zLWZpbHRlcjogXCJwcm9naWQ6RFhJbWFnZVRyYW5zZm9ybS5NaWNyb3NvZnQuQWxwaGEoT3BhY2l0eT04MClcIjtcbiAgICBmaWx0ZXI6IGFscGhhKG9wYWNpdHk9ODApO1xuICAgIHBvaW50ZXItZXZlbnRzOiBub25lO1xuICB9XG5cbiAgLyogaGlnaC1wZXJmb3JtYW5jZSBkaXNwbGF5Om5vbmU7IGhlbHBlciAqL1xuICAuZ3UtaGlkZSB7XG4gICAgbGVmdDogLTk5OTlweCAhaW1wb3J0YW50O1xuICB9XG5cbiAgLyogYWRkZWQgdG8gbWlycm9yQ29udGFpbmVyIChkZWZhdWx0ID0gYm9keSkgd2hpbGUgZHJhZ2dpbmcgKi9cbiAgLmd1LXVuc2VsZWN0YWJsZSB7XG4gICAgLXdlYmtpdC11c2VyLXNlbGVjdDogbm9uZSAhaW1wb3J0YW50O1xuICAgIC1tb3otdXNlci1zZWxlY3Q6IG5vbmUgIWltcG9ydGFudDtcbiAgICAtbXMtdXNlci1zZWxlY3Q6IG5vbmUgIWltcG9ydGFudDtcbiAgICB1c2VyLXNlbGVjdDogbm9uZSAhaW1wb3J0YW50O1xuICB9XG5cbiAgLyogYWRkZWQgdG8gdGhlIHNvdXJjZSBlbGVtZW50IHdoaWxlIGl0cyBtaXJyb3IgaXMgZHJhZ2dlZCAqL1xuICAuZ3UtdHJhbnNpdCB7XG4gICAgb3BhY2l0eTogMC4yO1xuICAgIC1tcy1maWx0ZXI6IFwicHJvZ2lkOkRYSW1hZ2VUcmFuc2Zvcm0uTWljcm9zb2Z0LkFscGhhKE9wYWNpdHk9MjApXCI7XG4gICAgZmlsdGVyOiBhbHBoYShvcGFjaXR5PTIwKTtcbiAgfVxuXG4gIGlvbi1jb250ZW50IHtcbiAgICAuc2Nyb2xsLWNvbnRlbnQge1xuICAgICAgYmFja2dyb3VuZDogIzAwMCAhaW1wb3J0YW50O1xuICAgICAgb3ZlcmZsb3cteTogaGlkZGVuICFpbXBvcnRhbnQ7XG5cbiAgICB9XG4gIH1cblxuICAuc2VsZWN0ZWRTZWdtZW50IHtcbiAgICBmb250LXdlaWdodDogYm9sZDtcbiAgICBjb2xvcjogd2hpdGU7XG4gIH1cblxuICAubm90U2VsZWN0ZWQge1xuICAgIGNvbG9yOiB3aGl0ZTtcbiAgICBvcGFjaXR5OiAwLjU7XG4gIH1cbn1cblxuXG4udG9IaWRlIGNhbnZhczpudGgtY2hpbGQoMikge1xuICBkaXNwbGF5OiBub25lICFpbXBvcnRhbnQ7XG59XG5cbi50b0hpZGUxIGNhbnZhczpudGgtY2hpbGQoMikge1xuICBkaXNwbGF5OiBub25lICFpbXBvcnRhbnQ7XG59XG5cbi50b0hpZGUyIGNhbnZhczpudGgtY2hpbGQoMikge1xuICBkaXNwbGF5OiBub25lICFpbXBvcnRhbnQ7XG59XG5cbi50b0hpZGUzIGNhbnZhczpudGgtY2hpbGQoMikge1xuICBkaXNwbGF5OiBub25lICFpbXBvcnRhbnQ7XG59XG5cbi5zcGFjZWlucm93IHtcbiAgZGlzcGxheTogZmxleDtcbiAganVzdGlmeS1jb250ZW50OiBzcGFjZS1iZXR3ZWVuO1xufVxuXG4jY29udGFpbmVyIGNhbnZhcyB7XG4gIHdpZHRoOiAxMDAlICFpbXBvcnRhbnQ7XG59XG5cbi5tYWluLWZvb3RlciB7XG4gIGJhY2tncm91bmQ6ICMwMDAgIWltcG9ydGFudDtcblxuICB1bCB7XG4gICAgZGlzcGxheTogZmxleDtcbiAgICBhbGlnbi1pdGVtczogY2VudGVyO1xuICAgIGp1c3RpZnktY29udGVudDogc3BhY2UtZXZlbmx5O1xuICAgIHBhZGRpbmc6IDA7XG4gICAgbWFyZ2luOiAwO1xuICAgIGxpc3Qtc3R5bGU6IG5vbmU7XG5cbiAgICBsaSB7XG4gICAgICBhIHtcbiAgICAgICAgY29sb3I6ICNmZmY7XG4gICAgICAgIHRleHQtZGVjb3JhdGlvbjogbm9uZTtcbiAgICAgICAgZm9udC1zaXplOiAxNnB4O1xuICAgICAgICBmb250LXdlaWdodDogNTAwO1xuICAgICAgfVxuICAgIH1cbiAgfVxufVxuXG4udG9wLWJ1dHRvbnMtaGVhZCB7XG4gIGRpc3BsYXk6IGZsZXg7XG4gIGFsaWduLWl0ZW1zOiBjZW50ZXI7XG4gIGp1c3RpZnktY29udGVudDogc3BhY2UtYmV0d2VlbjtcbiAgcGFkZGluZzogMTBweCAyMHB4O1xuICBiYWNrZ3JvdW5kOiBsaW5lYXItZ3JhZGllbnQoMTgwZGVnLCAjNjk3NkI5IDAlLCByZ2JhKDEwNSwgMTE4LCAxODUsIDAuNzYpIDEwMCUpO1xuXG4gIC5pbi1sZWZ0IHtcbiAgICBpbWcge31cbiAgfVxuXG4gIC5pbi1yaWdodCB7XG4gICAgYnV0dG9uIHtcbiAgICAgIGJhY2tncm91bmQ6ICMwZjc3ZjA7XG4gICAgICBib3JkZXItcmFkaXVzOiAyMHB4O1xuICAgICAgZm9udC1zaXplOiAxNHB4O1xuICAgICAgcGFkZGluZzogMHB4IDI1cHg7XG4gICAgfVxuICB9XG59XG5cbi5jdXMtYnRuIHtcbiAgLS1iYWNrZ3JvdW5kOiAjOTljNDNjO1xuICAtLWJvcmRlci1yYWRpdXM6IDMwcHg7XG4gIHdpZHRoOiBhdXRvO1xuXG4gIGZvbnQtc2l6ZTogMTRweDtcbiAgbGV0dGVyLXNwYWNpbmc6IDAuMDNlbTtcbn1cblxuXG4uaWNvbnNkaXYge1xuICBiYWNrZ3JvdW5kOiByZ2JhKDEwMSwgMTIxLCAxODMsIDAuNDEpICFpbXBvcnRhbnQ7XG4gIGRpc3BsYXk6IGZsZXg7XG4gIC8vIGFsaWduLWl0ZW1zOiBmbGV4LWVuZDtcbiAgLy8ganVzdGlmeS1jb250ZW50OiBzcGFjZS1iZXR3ZWVuO1xuICAvLyBqdXN0aWZ5LWNvbnRlbnQ6IGNlbnRlcjtcbiAgcGFkZGluZzogMTBweCAyMHB4ICFpbXBvcnRhbnQ7XG5cbiAgLmluLWxlZnQge1xuICAgIHVsIHtcbiAgICAgIGRpc3BsYXk6IGZsZXg7XG4gICAgICBhbGlnbi1pdGVtczogY2VudGVyO1xuICAgICAgcGFkZGluZzogMDtcbiAgICAgIG1hcmdpbjogMDtcbiAgICAgIGxpc3Qtc3R5bGU6IG5vbmU7XG5cbiAgICAgIGxpIHtcbiAgICAgICAgZGlzcGxheTogZmxleDtcbiAgICAgICAgYWxpZ24taXRlbXM6IGZsZXgtZW5kO1xuICAgICAgICBtYXJnaW4tcmlnaHQ6IDIwcHg7XG5cbiAgICAgICAgaW1nIHtcbiAgICAgICAgICB3aWR0aDogMjRweDtcbiAgICAgICAgICBoZWlnaHQ6IDIycHg7XG4gICAgICAgICAgb2JqZWN0LWZpdDogY29udGFpbjtcbiAgICAgICAgfVxuXG4gICAgICAgIGg2IHtcbiAgICAgICAgICBmb250LXNpemU6IDEycHg7XG4gICAgICAgICAgbWFyZ2luOiAwIDAgMCA4cHg7XG4gICAgICAgICAgY29sb3I6ICMwMDA7XG4gICAgICAgIH1cbiAgICAgIH1cbiAgICB9XG4gIH1cblxuICAuaW4tcmlnaHQge1xuICAgIHAge1xuICAgICAgbWFyZ2luOiAwICFpbXBvcnRhbnQ7XG4gICAgICBwYWRkaW5nOiAwICFpbXBvcnRhbnQ7XG4gICAgICBmb250LXNpemU6IDEycHggIWltcG9ydGFudDtcbiAgICAgIGNvbG9yOiAjMDAwICFpbXBvcnRhbnQ7XG4gICAgICBwb3NpdGlvbjogc3RhdGljICFpbXBvcnRhbnQ7XG4gICAgICAvL2ZvbnQtd2VpZ2h0OiA1MDA7XG4gICAgfVxuICB9XG59XG5cblxuLmlucHV0LW51bWJlciB7XG4gIGRpc3BsYXk6IGZsZXg7XG4gIGp1c3RpZnktY29udGVudDogc3BhY2UtZXZlbmx5O1xuICBtYXJnaW4tdG9wOiAxMHB4O1xuXG4gIGlucHV0IHtcbiAgICB3aWR0aDogMjVweDtcbiAgICBoZWlnaHQ6IDIwcHg7XG4gICAgYm9yZGVyLXJhZGl1czogMHB4O1xuICAgIGJvcmRlcjogbm9uZTtcbiAgICBib3JkZXItYm90dG9tOiAxcHggc29saWQgYmxhY2s7XG4gICAgdGV4dC1hbGlnbjogY2VudGVyO1xuICAgIGRpc3BsYXk6IGZsZXg7XG4gICAganVzdGlmeS1jb250ZW50OiBjZW50ZXI7XG4gICAgYWxpZ24taXRlbXM6IGNlbnRlcjtcbiAgICBwYWRkaW5nOiAwcHg7XG4gIH1cblxuICBpbnB1dDpmb2N1cyB7XG4gICAgb3V0bGluZTogbm9uZTtcbiAgfVxufVxuXG5wYWdlLXBsYXktZ2FtZSB7XG4gIEBtaXhpbiBjbGVhciB7XG4gICAgJjphZnRlciB7XG4gICAgICBjb250ZW50OiBcIlwiO1xuICAgICAgZGlzcGxheTogdGFibGU7XG4gICAgICBjbGVhcjogYm90aDtcbiAgICB9XG4gIH1cbn1cblxuLy8gLmFjdGl2ZSB7XG4vLyAgIEBpbmNsdWRlIG9wYWNpdHk7XG4vLyAgIGN1cnNvcjogZGVmYXVsdDtcblxuLy8gICAmOmhvdmVyIHtcbi8vICAgICBAaW5jbHVkZSBmYWRlO1xuLy8gICAgIEBpbmNsdWRlIG9wYWNpdHk7XG4vLyAgIH1cbi8vIH1cblxuXG5cbi8vIC5idXR0b25zLXdyYXBwZXIge1xuLy8gICB1bCNhbHBoYWJldCB7XG4vLyAgICAgcGFkZGluZzogMjBweCAyMHB4ICFpbXBvcnRhbnQ7XG4vLyAgICAgbWFyZ2luOiAwICFpbXBvcnRhbnQ7XG4vLyAgICAgbGlzdC1zdHlsZTogbm9uZTtcbi8vICAgfVxuLy8gfVxuXG5pb24tY29sIHtcbiAgICBjYW52YXN7XG4gICAgICAgIGhlaWdodDogMjB2aDtcbiAgICAgICAgd2lkdGg6IDIwdnc7XG4gICAgfVxufVxuXG4jb3JpZ2luYWxJbWFnZXtcbiAgICBoZWlnaHQ6IDQwdmg7XG4gICAgd2lkdGg6IDgwdnc7XG4gICAgZGlzcGxheTogYmxvY2s7XG4gICAgbWFyZ2luOiBhdXRvO1xufVxuIl19 */");
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("page-filters {\n  /* in-flight clone */\n  /* high-performance display:none; helper */\n  /* added to mirrorContainer (default = body) while dragging */\n  /* added to the source element while its mirror is dragged */\n}\npage-filters .slide-zoom {\n  color: #7d7d7d !important;\n  font-size: 13px !important;\n}\npage-filters .range-bar {\n  top: 27px !important;\n  height: 10px !important;\n}\npage-filters .range-knob {\n  width: 39px !important;\n  height: 39px !important;\n}\npage-filters .range-pin {\n  left: 10px !important;\n}\npage-filters .swiper-slide .slide-zoom {\n  width: auto !important;\n}\npage-filters ion-slides {\n  height: 35vh;\n}\npage-filters #back {\n  padding: 15px 15px 35px 15px;\n  position: relative;\n}\npage-filters #back-img {\n  margin: auto;\n  float: left;\n  height: auto;\n  width: 10%;\n}\npage-filters .gu-mirror {\n  position: fixed !important;\n  margin: 0 !important;\n  z-index: 9999 !important;\n  opacity: 0.8;\n  -ms-filter: \"progid:DXImageTransform.Microsoft.Alpha(Opacity=80)\";\n  filter: alpha(opacity=80);\n  pointer-events: none;\n}\npage-filters .gu-hide {\n  left: -9999px !important;\n}\npage-filters .gu-unselectable {\n  -webkit-user-select: none !important;\n  user-select: none !important;\n}\npage-filters .gu-transit {\n  opacity: 0.2;\n  -ms-filter: \"progid:DXImageTransform.Microsoft.Alpha(Opacity=20)\";\n  filter: alpha(opacity=20);\n}\npage-filters ion-content .scroll-content {\n  background: #000 !important;\n  overflow-y: hidden !important;\n}\npage-filters .selectedSegment {\n  font-weight: bold;\n  color: white;\n}\npage-filters .notSelected {\n  color: white;\n  opacity: 0.5;\n}\n.toHide canvas:nth-child(2) {\n  display: none !important;\n}\n.toHide1 canvas:nth-child(2) {\n  display: none !important;\n}\n.toHide2 canvas:nth-child(2) {\n  display: none !important;\n}\n.toHide3 canvas:nth-child(2) {\n  display: none !important;\n}\n.spaceinrow {\n  display: flex;\n  justify-content: space-between;\n}\n#container canvas {\n  width: 100% !important;\n}\n.main-footer {\n  background: #000 !important;\n}\n.main-footer ul {\n  display: flex;\n  align-items: center;\n  justify-content: space-evenly;\n  padding: 0;\n  margin: 0;\n  list-style: none;\n}\n.main-footer ul li a {\n  color: #fff;\n  text-decoration: none;\n  font-size: 16px;\n  font-weight: 500;\n}\n.top-buttons-head {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  padding: 10px 20px;\n  background: linear-gradient(180deg, #6976B9 0%, rgba(105, 118, 185, 0.76) 100%);\n}\n.top-buttons-head .in-right button {\n  background: #0f77f0;\n  border-radius: 20px;\n  font-size: 14px;\n  padding: 0px 25px;\n}\n.cus-btn {\n  --background: #99c43c;\n  --border-radius: 30px;\n  width: auto;\n  font-size: 14px;\n  letter-spacing: 0.03em;\n}\n.iconsdiv {\n  background: rgba(101, 121, 183, 0.41) !important;\n  display: flex;\n  padding: 10px 20px !important;\n}\n.iconsdiv .in-left ul {\n  display: flex;\n  align-items: center;\n  padding: 0;\n  margin: 0;\n  list-style: none;\n}\n.iconsdiv .in-left ul li {\n  display: flex;\n  align-items: flex-end;\n  margin-right: 20px;\n}\n.iconsdiv .in-left ul li img {\n  width: 24px;\n  height: 22px;\n  object-fit: contain;\n}\n.iconsdiv .in-left ul li h6 {\n  font-size: 12px;\n  margin: 0 0 0 8px;\n  color: #000;\n}\n.iconsdiv .in-right p {\n  margin: 0 !important;\n  padding: 0 !important;\n  font-size: 12px !important;\n  color: #000 !important;\n  position: static !important;\n}\n.input-number {\n  display: flex;\n  justify-content: space-evenly;\n  margin-top: 10px;\n}\n.input-number input {\n  width: 25px;\n  height: 20px;\n  border-radius: 0px;\n  border: none;\n  border-bottom: 1px solid black;\n  text-align: center;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  padding: 0px;\n}\n.input-number input:focus {\n  outline: none;\n}\n#originalImage {\n  height: 40vh;\n  width: 80vw;\n  display: block;\n  margin: auto;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInBsYXktZ2FtZS5wYWdlLnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUEwQ0Usb0JBQUE7RUFXQSwwQ0FBQTtFQUtBLDZEQUFBO0VBUUEsNERBQUE7QUE3REY7QUFKRTtFQUNFLHlCQUFBO0VBQ0EsMEJBQUE7QUFNSjtBQUhFO0VBQ0Usb0JBQUE7RUFDQSx1QkFBQTtBQUtKO0FBRkU7RUFDRSxzQkFBQTtFQUNBLHVCQUFBO0FBSUo7QUFERTtFQUNFLHFCQUFBO0FBR0o7QUFDSTtFQUNFLHNCQUFBO0FBQ047QUFHRTtFQUNFLFlBQUE7QUFESjtBQUlFO0VBQ0UsNEJBQUE7RUFDQSxrQkFBQTtBQUZKO0FBS0U7RUFDRSxZQUFBO0VBQ0EsV0FBQTtFQUNBLFlBQUE7RUFDQSxVQUFBO0FBSEo7QUFPRTtFQUNFLDBCQUFBO0VBQ0Esb0JBQUE7RUFDQSx3QkFBQTtFQUNBLFlBQUE7RUFDQSxpRUFBQTtFQUNBLHlCQUFBO0VBQ0Esb0JBQUE7QUFMSjtBQVNFO0VBQ0Usd0JBQUE7QUFQSjtBQVdFO0VBQ0Usb0NBQUE7RUFHQSw0QkFBQTtBQVRKO0FBYUU7RUFDRSxZQUFBO0VBQ0EsaUVBQUE7RUFDQSx5QkFBQTtBQVhKO0FBZUk7RUFDRSwyQkFBQTtFQUNBLDZCQUFBO0FBYk47QUFrQkU7RUFDRSxpQkFBQTtFQUNBLFlBQUE7QUFoQko7QUFtQkU7RUFDRSxZQUFBO0VBQ0EsWUFBQTtBQWpCSjtBQXNCQTtFQUNFLHdCQUFBO0FBbkJGO0FBc0JBO0VBQ0Usd0JBQUE7QUFuQkY7QUFzQkE7RUFDRSx3QkFBQTtBQW5CRjtBQXNCQTtFQUNFLHdCQUFBO0FBbkJGO0FBc0JBO0VBQ0UsYUFBQTtFQUNBLDhCQUFBO0FBbkJGO0FBc0JBO0VBQ0Usc0JBQUE7QUFuQkY7QUFzQkE7RUFDRSwyQkFBQTtBQW5CRjtBQXFCRTtFQUNFLGFBQUE7RUFDQSxtQkFBQTtFQUNBLDZCQUFBO0VBQ0EsVUFBQTtFQUNBLFNBQUE7RUFDQSxnQkFBQTtBQW5CSjtBQXNCTTtFQUNFLFdBQUE7RUFDQSxxQkFBQTtFQUNBLGVBQUE7RUFDQSxnQkFBQTtBQXBCUjtBQTBCQTtFQUNFLGFBQUE7RUFDQSxtQkFBQTtFQUNBLDhCQUFBO0VBQ0Esa0JBQUE7RUFDQSwrRUFBQTtBQXZCRjtBQThCSTtFQUNFLG1CQUFBO0VBQ0EsbUJBQUE7RUFDQSxlQUFBO0VBQ0EsaUJBQUE7QUE1Qk47QUFpQ0E7RUFDRSxxQkFBQTtFQUNBLHFCQUFBO0VBQ0EsV0FBQTtFQUVBLGVBQUE7RUFDQSxzQkFBQTtBQS9CRjtBQW1DQTtFQUNFLGdEQUFBO0VBQ0EsYUFBQTtFQUlBLDZCQUFBO0FBbkNGO0FBc0NJO0VBQ0UsYUFBQTtFQUNBLG1CQUFBO0VBQ0EsVUFBQTtFQUNBLFNBQUE7RUFDQSxnQkFBQTtBQXBDTjtBQXNDTTtFQUNFLGFBQUE7RUFDQSxxQkFBQTtFQUNBLGtCQUFBO0FBcENSO0FBc0NRO0VBQ0UsV0FBQTtFQUNBLFlBQUE7RUFDQSxtQkFBQTtBQXBDVjtBQXVDUTtFQUNFLGVBQUE7RUFDQSxpQkFBQTtFQUNBLFdBQUE7QUFyQ1Y7QUE0Q0k7RUFDRSxvQkFBQTtFQUNBLHFCQUFBO0VBQ0EsMEJBQUE7RUFDQSxzQkFBQTtFQUNBLDJCQUFBO0FBMUNOO0FBaURBO0VBQ0UsYUFBQTtFQUNBLDZCQUFBO0VBQ0EsZ0JBQUE7QUE5Q0Y7QUFnREU7RUFDRSxXQUFBO0VBQ0EsWUFBQTtFQUNBLGtCQUFBO0VBQ0EsWUFBQTtFQUNBLDhCQUFBO0VBQ0Esa0JBQUE7RUFDQSxhQUFBO0VBQ0EsdUJBQUE7RUFDQSxtQkFBQTtFQUNBLFlBQUE7QUE5Q0o7QUFpREU7RUFDRSxhQUFBO0FBL0NKO0FBd0ZBO0VBQ0ksWUFBQTtFQUNBLFdBQUE7RUFDQSxjQUFBO0VBQ0EsWUFBQTtBQXJGSiIsImZpbGUiOiJwbGF5LWdhbWUucGFnZS5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsicGFnZS1maWx0ZXJzIHtcbiAgLnNsaWRlLXpvb20ge1xuICAgIGNvbG9yOiAjN2Q3ZDdkICFpbXBvcnRhbnQ7XG4gICAgZm9udC1zaXplOiAxM3B4ICFpbXBvcnRhbnQ7XG4gIH1cblxuICAucmFuZ2UtYmFyIHtcbiAgICB0b3A6IDI3cHggIWltcG9ydGFudDtcbiAgICBoZWlnaHQ6IDEwcHggIWltcG9ydGFudDtcbiAgfVxuXG4gIC5yYW5nZS1rbm9iIHtcbiAgICB3aWR0aDogMzlweCAhaW1wb3J0YW50O1xuICAgIGhlaWdodDogMzlweCAhaW1wb3J0YW50O1xuICB9XG5cbiAgLnJhbmdlLXBpbiB7XG4gICAgbGVmdDogMTBweCAhaW1wb3J0YW50O1xuICB9XG5cbiAgLnN3aXBlci1zbGlkZSB7XG4gICAgLnNsaWRlLXpvb20ge1xuICAgICAgd2lkdGg6IGF1dG8gIWltcG9ydGFudDtcbiAgICB9XG4gIH1cblxuICBpb24tc2xpZGVzIHtcbiAgICBoZWlnaHQ6IDM1dmg7XG4gIH1cblxuICAjYmFjayB7XG4gICAgcGFkZGluZzogMTVweCAxNXB4IDM1cHggMTVweDtcbiAgICBwb3NpdGlvbjogcmVsYXRpdmU7XG4gIH1cblxuICAjYmFjay1pbWcge1xuICAgIG1hcmdpbjogYXV0bztcbiAgICBmbG9hdDogbGVmdDtcbiAgICBoZWlnaHQ6IGF1dG87XG4gICAgd2lkdGg6IDEwJTtcbiAgfVxuXG4gIC8qIGluLWZsaWdodCBjbG9uZSAqL1xuICAuZ3UtbWlycm9yIHtcbiAgICBwb3NpdGlvbjogZml4ZWQgIWltcG9ydGFudDtcbiAgICBtYXJnaW46IDAgIWltcG9ydGFudDtcbiAgICB6LWluZGV4OiA5OTk5ICFpbXBvcnRhbnQ7XG4gICAgb3BhY2l0eTogMC44O1xuICAgIC1tcy1maWx0ZXI6IFwicHJvZ2lkOkRYSW1hZ2VUcmFuc2Zvcm0uTWljcm9zb2Z0LkFscGhhKE9wYWNpdHk9ODApXCI7XG4gICAgZmlsdGVyOiBhbHBoYShvcGFjaXR5PTgwKTtcbiAgICBwb2ludGVyLWV2ZW50czogbm9uZTtcbiAgfVxuXG4gIC8qIGhpZ2gtcGVyZm9ybWFuY2UgZGlzcGxheTpub25lOyBoZWxwZXIgKi9cbiAgLmd1LWhpZGUge1xuICAgIGxlZnQ6IC05OTk5cHggIWltcG9ydGFudDtcbiAgfVxuXG4gIC8qIGFkZGVkIHRvIG1pcnJvckNvbnRhaW5lciAoZGVmYXVsdCA9IGJvZHkpIHdoaWxlIGRyYWdnaW5nICovXG4gIC5ndS11bnNlbGVjdGFibGUge1xuICAgIC13ZWJraXQtdXNlci1zZWxlY3Q6IG5vbmUgIWltcG9ydGFudDtcbiAgICAtbW96LXVzZXItc2VsZWN0OiBub25lICFpbXBvcnRhbnQ7XG4gICAgLW1zLXVzZXItc2VsZWN0OiBub25lICFpbXBvcnRhbnQ7XG4gICAgdXNlci1zZWxlY3Q6IG5vbmUgIWltcG9ydGFudDtcbiAgfVxuXG4gIC8qIGFkZGVkIHRvIHRoZSBzb3VyY2UgZWxlbWVudCB3aGlsZSBpdHMgbWlycm9yIGlzIGRyYWdnZWQgKi9cbiAgLmd1LXRyYW5zaXQge1xuICAgIG9wYWNpdHk6IDAuMjtcbiAgICAtbXMtZmlsdGVyOiBcInByb2dpZDpEWEltYWdlVHJhbnNmb3JtLk1pY3Jvc29mdC5BbHBoYShPcGFjaXR5PTIwKVwiO1xuICAgIGZpbHRlcjogYWxwaGEob3BhY2l0eT0yMCk7XG4gIH1cblxuICBpb24tY29udGVudCB7XG4gICAgLnNjcm9sbC1jb250ZW50IHtcbiAgICAgIGJhY2tncm91bmQ6ICMwMDAgIWltcG9ydGFudDtcbiAgICAgIG92ZXJmbG93LXk6IGhpZGRlbiAhaW1wb3J0YW50O1xuXG4gICAgfVxuICB9XG5cbiAgLnNlbGVjdGVkU2VnbWVudCB7XG4gICAgZm9udC13ZWlnaHQ6IGJvbGQ7XG4gICAgY29sb3I6IHdoaXRlO1xuICB9XG5cbiAgLm5vdFNlbGVjdGVkIHtcbiAgICBjb2xvcjogd2hpdGU7XG4gICAgb3BhY2l0eTogMC41O1xuICB9XG59XG5cblxuLnRvSGlkZSBjYW52YXM6bnRoLWNoaWxkKDIpIHtcbiAgZGlzcGxheTogbm9uZSAhaW1wb3J0YW50O1xufVxuXG4udG9IaWRlMSBjYW52YXM6bnRoLWNoaWxkKDIpIHtcbiAgZGlzcGxheTogbm9uZSAhaW1wb3J0YW50O1xufVxuXG4udG9IaWRlMiBjYW52YXM6bnRoLWNoaWxkKDIpIHtcbiAgZGlzcGxheTogbm9uZSAhaW1wb3J0YW50O1xufVxuXG4udG9IaWRlMyBjYW52YXM6bnRoLWNoaWxkKDIpIHtcbiAgZGlzcGxheTogbm9uZSAhaW1wb3J0YW50O1xufVxuXG4uc3BhY2VpbnJvdyB7XG4gIGRpc3BsYXk6IGZsZXg7XG4gIGp1c3RpZnktY29udGVudDogc3BhY2UtYmV0d2Vlbjtcbn1cblxuI2NvbnRhaW5lciBjYW52YXMge1xuICB3aWR0aDogMTAwJSAhaW1wb3J0YW50O1xufVxuXG4ubWFpbi1mb290ZXIge1xuICBiYWNrZ3JvdW5kOiAjMDAwICFpbXBvcnRhbnQ7XG5cbiAgdWwge1xuICAgIGRpc3BsYXk6IGZsZXg7XG4gICAgYWxpZ24taXRlbXM6IGNlbnRlcjtcbiAgICBqdXN0aWZ5LWNvbnRlbnQ6IHNwYWNlLWV2ZW5seTtcbiAgICBwYWRkaW5nOiAwO1xuICAgIG1hcmdpbjogMDtcbiAgICBsaXN0LXN0eWxlOiBub25lO1xuXG4gICAgbGkge1xuICAgICAgYSB7XG4gICAgICAgIGNvbG9yOiAjZmZmO1xuICAgICAgICB0ZXh0LWRlY29yYXRpb246IG5vbmU7XG4gICAgICAgIGZvbnQtc2l6ZTogMTZweDtcbiAgICAgICAgZm9udC13ZWlnaHQ6IDUwMDtcbiAgICAgIH1cbiAgICB9XG4gIH1cbn1cblxuLnRvcC1idXR0b25zLWhlYWQge1xuICBkaXNwbGF5OiBmbGV4O1xuICBhbGlnbi1pdGVtczogY2VudGVyO1xuICBqdXN0aWZ5LWNvbnRlbnQ6IHNwYWNlLWJldHdlZW47XG4gIHBhZGRpbmc6IDEwcHggMjBweDtcbiAgYmFja2dyb3VuZDogbGluZWFyLWdyYWRpZW50KDE4MGRlZywgIzY5NzZCOSAwJSwgcmdiYSgxMDUsIDExOCwgMTg1LCAwLjc2KSAxMDAlKTtcblxuICAuaW4tbGVmdCB7XG4gICAgaW1nIHt9XG4gIH1cblxuICAuaW4tcmlnaHQge1xuICAgIGJ1dHRvbiB7XG4gICAgICBiYWNrZ3JvdW5kOiAjMGY3N2YwO1xuICAgICAgYm9yZGVyLXJhZGl1czogMjBweDtcbiAgICAgIGZvbnQtc2l6ZTogMTRweDtcbiAgICAgIHBhZGRpbmc6IDBweCAyNXB4O1xuICAgIH1cbiAgfVxufVxuXG4uY3VzLWJ0biB7XG4gIC0tYmFja2dyb3VuZDogIzk5YzQzYztcbiAgLS1ib3JkZXItcmFkaXVzOiAzMHB4O1xuICB3aWR0aDogYXV0bztcblxuICBmb250LXNpemU6IDE0cHg7XG4gIGxldHRlci1zcGFjaW5nOiAwLjAzZW07XG59XG5cblxuLmljb25zZGl2IHtcbiAgYmFja2dyb3VuZDogcmdiYSgxMDEsIDEyMSwgMTgzLCAwLjQxKSAhaW1wb3J0YW50O1xuICBkaXNwbGF5OiBmbGV4O1xuICAvLyBhbGlnbi1pdGVtczogZmxleC1lbmQ7XG4gIC8vIGp1c3RpZnktY29udGVudDogc3BhY2UtYmV0d2VlbjtcbiAgLy8ganVzdGlmeS1jb250ZW50OiBjZW50ZXI7XG4gIHBhZGRpbmc6IDEwcHggMjBweCAhaW1wb3J0YW50O1xuXG4gIC5pbi1sZWZ0IHtcbiAgICB1bCB7XG4gICAgICBkaXNwbGF5OiBmbGV4O1xuICAgICAgYWxpZ24taXRlbXM6IGNlbnRlcjtcbiAgICAgIHBhZGRpbmc6IDA7XG4gICAgICBtYXJnaW46IDA7XG4gICAgICBsaXN0LXN0eWxlOiBub25lO1xuXG4gICAgICBsaSB7XG4gICAgICAgIGRpc3BsYXk6IGZsZXg7XG4gICAgICAgIGFsaWduLWl0ZW1zOiBmbGV4LWVuZDtcbiAgICAgICAgbWFyZ2luLXJpZ2h0OiAyMHB4O1xuXG4gICAgICAgIGltZyB7XG4gICAgICAgICAgd2lkdGg6IDI0cHg7XG4gICAgICAgICAgaGVpZ2h0OiAyMnB4O1xuICAgICAgICAgIG9iamVjdC1maXQ6IGNvbnRhaW47XG4gICAgICAgIH1cblxuICAgICAgICBoNiB7XG4gICAgICAgICAgZm9udC1zaXplOiAxMnB4O1xuICAgICAgICAgIG1hcmdpbjogMCAwIDAgOHB4O1xuICAgICAgICAgIGNvbG9yOiAjMDAwO1xuICAgICAgICB9XG4gICAgICB9XG4gICAgfVxuICB9XG5cbiAgLmluLXJpZ2h0IHtcbiAgICBwIHtcbiAgICAgIG1hcmdpbjogMCAhaW1wb3J0YW50O1xuICAgICAgcGFkZGluZzogMCAhaW1wb3J0YW50O1xuICAgICAgZm9udC1zaXplOiAxMnB4ICFpbXBvcnRhbnQ7XG4gICAgICBjb2xvcjogIzAwMCAhaW1wb3J0YW50O1xuICAgICAgcG9zaXRpb246IHN0YXRpYyAhaW1wb3J0YW50O1xuICAgICAgLy9mb250LXdlaWdodDogNTAwO1xuICAgIH1cbiAgfVxufVxuXG5cbi5pbnB1dC1udW1iZXIge1xuICBkaXNwbGF5OiBmbGV4O1xuICBqdXN0aWZ5LWNvbnRlbnQ6IHNwYWNlLWV2ZW5seTtcbiAgbWFyZ2luLXRvcDogMTBweDtcblxuICBpbnB1dCB7XG4gICAgd2lkdGg6IDI1cHg7XG4gICAgaGVpZ2h0OiAyMHB4O1xuICAgIGJvcmRlci1yYWRpdXM6IDBweDtcbiAgICBib3JkZXI6IG5vbmU7XG4gICAgYm9yZGVyLWJvdHRvbTogMXB4IHNvbGlkIGJsYWNrO1xuICAgIHRleHQtYWxpZ246IGNlbnRlcjtcbiAgICBkaXNwbGF5OiBmbGV4O1xuICAgIGp1c3RpZnktY29udGVudDogY2VudGVyO1xuICAgIGFsaWduLWl0ZW1zOiBjZW50ZXI7XG4gICAgcGFkZGluZzogMHB4O1xuICB9XG5cbiAgaW5wdXQ6Zm9jdXMge1xuICAgIG91dGxpbmU6IG5vbmU7XG4gIH1cbn1cblxucGFnZS1wbGF5LWdhbWUge1xuICBAbWl4aW4gY2xlYXIge1xuICAgICY6YWZ0ZXIge1xuICAgICAgY29udGVudDogXCJcIjtcbiAgICAgIGRpc3BsYXk6IHRhYmxlO1xuICAgICAgY2xlYXI6IGJvdGg7XG4gICAgfVxuICB9XG59XG5cbi8vIC5hY3RpdmUge1xuLy8gICBAaW5jbHVkZSBvcGFjaXR5O1xuLy8gICBjdXJzb3I6IGRlZmF1bHQ7XG5cbi8vICAgJjpob3ZlciB7XG4vLyAgICAgQGluY2x1ZGUgZmFkZTtcbi8vICAgICBAaW5jbHVkZSBvcGFjaXR5O1xuLy8gICB9XG4vLyB9XG5cblxuXG4vLyAuYnV0dG9ucy13cmFwcGVyIHtcbi8vICAgdWwjYWxwaGFiZXQge1xuLy8gICAgIHBhZGRpbmc6IDIwcHggMjBweCAhaW1wb3J0YW50O1xuLy8gICAgIG1hcmdpbjogMCAhaW1wb3J0YW50O1xuLy8gICAgIGxpc3Qtc3R5bGU6IG5vbmU7XG4vLyAgIH1cbi8vIH1cblxuLy8gaW9uLWNvbCB7XG4vLyAgICAgY2FudmFze1xuLy8gICAgICAgICBoZWlnaHQ6IDIwdmg7XG4vLyAgICAgICAgIHdpZHRoOiAyMHZ3O1xuLy8gICAgIH1cbi8vIH1cblxuI29yaWdpbmFsSW1hZ2V7XG4gICAgaGVpZ2h0OiA0MHZoO1xuICAgIHdpZHRoOiA4MHZ3O1xuICAgIGRpc3BsYXk6IGJsb2NrO1xuICAgIG1hcmdpbjogYXV0bztcbn1cbiJdfQ== */");
 
 /***/ }),
 
@@ -1282,7 +1391,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("<link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/cssgram/0.1.10/cssgram.min.css\" />\n\n<ion-content class=\"mt-0\" no-bounce has-bouncing=\"false\" forceOverscroll=\"false\">\n\n  <div id=\"containertop\" style=\"width: 100%\">\n\n    <div class=\"top-buttons-head\">\n      <div class=\"in-left\" [replaceUrl]=\"true\" [routerLink]=\"['/main']\">\n        <img src=\"assets/icon/back-icon.svg\" />\n      </div>\n      <div class=\"in-right\">\n        <ion-button class=\"cus-btn\" *ngIf=\"gameObj.type=='easy' \" (click)=\"presentLoading()\" ion-button>Next\n        </ion-button>\n      </div>\n    </div>\n  </div>\n  <div id=\"page-container\">\n\n    <img id=\"originalImage\" *ngIf=\"cameraImage && gameObj.type =='easy'\" src=\"{{cameraImage}}\" (load)=\"Crop()\" />\n\n    <img id=\"originalImage\" *ngIf=\"cameraImage && gameObj.type == 'medium'\" src=\"{{cameraImage}}\" (load)=\"Crop1()\" />\n\n    <ion-grid *ngIf=\"gameObj.type == 'easy' && gameObj.status == 0\" class=\"ion-justify-content-center\" id=\"container\" style=\"padding: 2px 5vh 0\">\n      <ion-row class=\"spaceinrow\" [ngClass]=\"primaryFilter\">\n        <ion-col class=\"toHide\" col-6=\"6\" dragula=\"totalPiece\" style=\"padding: 2px\">\n          <canvas id=\"canvas1\" style=\"display: inline-block \" [ngStyle]=\"{\n    'filter': 'grayscale(' + this.secondaryValues.numbers.grayscale + '%) ' +\n    'hue-rotate(' + this.secondaryValues.numbers.hue_rotate + 'deg) ' +\n    'invert(' + this.secondaryValues.numbers.invert + '%) ' +\n    'sepia(' + this.secondaryValues.numbers.sepia + '%) ' +\n    'saturate(' + this.secondaryValues.numbers.saturate + '%) ' +\n    'opacity(' + this.secondaryValues.numbers.opacity + '%) ' +\n    'brightness(' + this.secondaryValues.numbers.brightness + '%) ' +\n    'contrast(' + this.secondaryValues.numbers.contrast + '%) ' +\n    'blur(' + this.secondaryValues.numbers.blur + 'px)'\n    }\" (click)=\"Rotate(1,'toHide')\">\n          </canvas>\n        </ion-col>\n        <ion-col class=\"toHide1\" col-6=\"6\" dragula=\"totalPiece\" style=\"padding: 2px\">\n          <canvas id=\"canvas2\" style=\"display: inline-block \" [ngStyle]=\"{\n    'filter': 'grayscale(' + this.secondaryValues.numbers.grayscale + '%) ' +\n    'hue-rotate(' + this.secondaryValues.numbers.hue_rotate + 'deg) ' +\n    'invert(' + this.secondaryValues.numbers.invert + '%) ' +\n    'sepia(' + this.secondaryValues.numbers.sepia + '%) ' +\n    'saturate(' + this.secondaryValues.numbers.saturate + '%) ' +\n    'opacity(' + this.secondaryValues.numbers.opacity + '%) ' +\n    'brightness(' + this.secondaryValues.numbers.brightness + '%) ' +\n    'contrast(' + this.secondaryValues.numbers.contrast + '%) ' +\n    'blur(' + this.secondaryValues.numbers.blur + 'px)'\n    }\" (click)=\"Rotate(2,'toHide1')\">\n          </canvas>\n        </ion-col>\n      </ion-row>\n      <ion-row class=\"spaceinrow\" [ngClass]=\"primaryFilter\">\n        <ion-col class=\"toHide2\" col-6=\"6\" dragula=\"totalPiece\" style=\"padding: 2px\">\n          <canvas id=\"canvas3\" style=\"display: inline-block  \" [ngStyle]=\"{\n    'filter': 'grayscale(' + this.secondaryValues.numbers.grayscale + '%) ' +\n    'hue-rotate(' + this.secondaryValues.numbers.hue_rotate + 'deg) ' +\n    'invert(' + this.secondaryValues.numbers.invert + '%) ' +\n    'sepia(' + this.secondaryValues.numbers.sepia + '%) ' +\n    'saturate(' + this.secondaryValues.numbers.saturate + '%) ' +\n    'opacity(' + this.secondaryValues.numbers.opacity + '%) ' +\n    'brightness(' + this.secondaryValues.numbers.brightness + '%) ' +\n    'contrast(' + this.secondaryValues.numbers.contrast + '%) ' +\n    'blur(' + this.secondaryValues.numbers.blur + 'px)'\n    }\" (click)=\"Rotate(3,'toHide2')\">\n          </canvas>\n        </ion-col>\n        <ion-col class=\"toHide3\" col-6=\"6\" dragula=\"totalPiece\" style=\"padding: 2px\">\n          <canvas id=\"canvas4\" style=\"display: inline-block \" [ngStyle]=\"{\n    'filter': 'grayscale(' + this.secondaryValues.numbers.grayscale + '%) ' +\n    'hue-rotate(' + this.secondaryValues.numbers.hue_rotate + 'deg) ' +\n    'invert(' + this.secondaryValues.numbers.invert + '%) ' +\n    'sepia(' + this.secondaryValues.numbers.sepia + '%) ' +\n    'saturate(' + this.secondaryValues.numbers.saturate + '%) ' +\n    'opacity(' + this.secondaryValues.numbers.opacity + '%) ' +\n    'brightness(' + this.secondaryValues.numbers.brightness + '%) ' +\n    'contrast(' + this.secondaryValues.numbers.contrast + '%) ' +\n    'blur(' + this.secondaryValues.numbers.blur + 'px)'}\" (click)=\"Rotate(4,'toHide3')\">\n          </canvas>\n        </ion-col>\n      </ion-row>\n    </ion-grid>\n\n    <ion-grid *ngIf=\"gameObj.type == 'medium' && gameObj.status == 0\" class=\"ion-justify-content-center\" id=\"container\" style=\"padding: 0px 13% 0\">\n      <ion-row class=\"spaceinrow\" [ngClass]=\"primaryFilter\">\n        <ion-col class=\"{{sequence[0]}}\" col-4=\"4\" dragula=\"totalPiece\" style=\"padding: 2px\">\n          <canvas id=\"canvas1\" style=\"display: inline-block\" [ngStyle]=\"{\n   'filter': 'grayscale(' + this.secondaryValues.numbers.grayscale + '%) ' +\n   'hue-rotate(' + this.secondaryValues.numbers.hue_rotate + 'deg) ' +\n   'invert(' + this.secondaryValues.numbers.invert + '%) ' +\n   'sepia(' + this.secondaryValues.numbers.sepia + '%) ' +\n   'saturate(' + this.secondaryValues.numbers.saturate + '%) ' +\n   'opacity(' + this.secondaryValues.numbers.opacity + '%) ' +\n   'brightness(' + this.secondaryValues.numbers.brightness + '%) ' +\n   'contrast(' + this.secondaryValues.numbers.contrast + '%) ' +\n   'blur(' + this.secondaryValues.numbers.blur + 'px)'\n}\" (click)=\"Rotate(1,sequence[0])\">\n          </canvas>\n        </ion-col>\n\n        <ion-col class=\"{{sequence[1]}}\" col-4=\"4\" dragula=\"totalPiece\" style=\"padding: 2px\">\n          <canvas id=\"canvas2\" style=\"display: inline-block\" [ngStyle]=\"{\n   'filter': 'grayscale(' + this.secondaryValues.numbers.grayscale + '%) ' +\n   'hue-rotate(' + this.secondaryValues.numbers.hue_rotate + 'deg) ' +\n   'invert(' + this.secondaryValues.numbers.invert + '%) ' +\n   'sepia(' + this.secondaryValues.numbers.sepia + '%) ' +\n   'saturate(' + this.secondaryValues.numbers.saturate + '%) ' +\n   'opacity(' + this.secondaryValues.numbers.opacity + '%) ' +\n   'brightness(' + this.secondaryValues.numbers.brightness + '%) ' +\n   'contrast(' + this.secondaryValues.numbers.contrast + '%) ' +\n   'blur(' + this.secondaryValues.numbers.blur + 'px)'\n}\" (click)=\"Rotate(2,sequence[1])\">\n          </canvas>\n        </ion-col>\n\n        <ion-col class=\"{{sequence[2]}}\" col-4=\"4\" dragula=\"totalPiece\" style=\"padding: 2px\">\n          <canvas id=\"canvas3\" style=\"display: inline-block\" [ngStyle]=\"{\n 'filter': 'grayscale(' + this.secondaryValues.numbers.grayscale + '%) ' +\n 'hue-rotate(' + this.secondaryValues.numbers.hue_rotate + 'deg) ' +\n 'invert(' + this.secondaryValues.numbers.invert + '%) ' +\n 'sepia(' + this.secondaryValues.numbers.sepia + '%) ' +\n 'saturate(' + this.secondaryValues.numbers.saturate + '%) ' +\n 'opacity(' + this.secondaryValues.numbers.opacity + '%) ' +\n 'brightness(' + this.secondaryValues.numbers.brightness + '%) ' +\n 'contrast(' + this.secondaryValues.numbers.contrast + '%) ' +\n 'blur(' + this.secondaryValues.numbers.blur + 'px)'\n}\" (click)=\"Rotate(3,sequence[2])\">\n          </canvas>\n        </ion-col>\n      </ion-row>\n\n      <ion-row class=\"spaceinrow\" [ngClass]=\"primaryFilter\">\n\n        <ion-col class=\"{{sequence[3]}}\" col-4=\"4\" dragula=\"totalPiece\" style=\"padding: 2px\">\n          <canvas id=\"canvas4\" style=\"display: inline-block\" [ngStyle]=\"{\n 'filter': 'grayscale(' + this.secondaryValues.numbers.grayscale + '%) ' +\n 'hue-rotate(' + this.secondaryValues.numbers.hue_rotate + 'deg) ' +\n 'invert(' + this.secondaryValues.numbers.invert + '%) ' +\n 'sepia(' + this.secondaryValues.numbers.sepia + '%) ' +\n 'saturate(' + this.secondaryValues.numbers.saturate + '%) ' +\n 'opacity(' + this.secondaryValues.numbers.opacity + '%) ' +\n 'brightness(' + this.secondaryValues.numbers.brightness + '%) ' +\n 'contrast(' + this.secondaryValues.numbers.contrast + '%) ' +\n 'blur(' + this.secondaryValues.numbers.blur + 'px)'\n}\" (click)=\"Rotate(4,sequence[3])\">\n          </canvas>\n        </ion-col>\n\n        <ion-col class=\"{{sequence[4]}}\" col-4=\"4\" dragula=\"totalPiece\" style=\"padding: 2px\">\n          <canvas id=\"canvas5\" style=\"display: inline-block\" [ngStyle]=\"{\n   'filter': 'grayscale(' + this.secondaryValues.numbers.grayscale + '%) ' +\n   'hue-rotate(' + this.secondaryValues.numbers.hue_rotate + 'deg) ' +\n   'invert(' + this.secondaryValues.numbers.invert + '%) ' +\n   'sepia(' + this.secondaryValues.numbers.sepia + '%) ' +\n   'saturate(' + this.secondaryValues.numbers.saturate + '%) ' +\n   'opacity(' + this.secondaryValues.numbers.opacity + '%) ' +\n   'brightness(' + this.secondaryValues.numbers.brightness + '%) ' +\n   'contrast(' + this.secondaryValues.numbers.contrast + '%) ' +\n   'blur(' + this.secondaryValues.numbers.blur + 'px)'}\" (click)=\"Rotate(5,sequence[4])\">\n          </canvas>\n        </ion-col>\n\n        <ion-col class=\"{{sequence[5]}}\" col-4=\"4\" dragula=\"totalPiece\" style=\"padding: 2px\">\n          <canvas id=\"canvas6\" style=\"display: inline-block\" [ngStyle]=\"{\n   'filter': 'grayscale(' + this.secondaryValues.numbers.grayscale + '%) ' +\n   'hue-rotate(' + this.secondaryValues.numbers.hue_rotate + 'deg) ' +\n   'invert(' + this.secondaryValues.numbers.invert + '%) ' +\n   'sepia(' + this.secondaryValues.numbers.sepia + '%) ' +\n   'saturate(' + this.secondaryValues.numbers.saturate + '%) ' +\n   'opacity(' + this.secondaryValues.numbers.opacity + '%) ' +\n   'brightness(' + this.secondaryValues.numbers.brightness + '%) ' +\n   'contrast(' + this.secondaryValues.numbers.contrast + '%) ' +\n   'blur(' + this.secondaryValues.numbers.blur + 'px)'}\" (click)=\"Rotate(6,sequence[5])\">\n          </canvas>\n        </ion-col>\n\n      </ion-row>\n\n      <ion-row class=\"spaceinrow\" [ngClass]=\"primaryFilter\">\n        <ion-col class=\"{{sequence[6]}}\" col-4=\"4\" dragula=\"totalPiece\" style=\"padding: 2px\">\n          <canvas id=\"canvas7\" style=\"display: inline-block\" [ngStyle]=\"{\n   'filter': 'grayscale(' + this.secondaryValues.numbers.grayscale + '%) ' +\n   'hue-rotate(' + this.secondaryValues.numbers.hue_rotate + 'deg) ' +\n   'invert(' + this.secondaryValues.numbers.invert + '%) ' +\n   'sepia(' + this.secondaryValues.numbers.sepia + '%) ' +\n   'saturate(' + this.secondaryValues.numbers.saturate + '%) ' +\n   'opacity(' + this.secondaryValues.numbers.opacity + '%) ' +\n   'brightness(' + this.secondaryValues.numbers.brightness + '%) ' +\n   'contrast(' + this.secondaryValues.numbers.contrast + '%) ' +\n   'blur(' + this.secondaryValues.numbers.blur + 'px)'\n}\" (click)=\"Rotate(7,sequence[6])\">\n          </canvas>\n        </ion-col>\n\n        <ion-col class=\"{{sequence[7]}}\" col-4=\"4\" dragula=\"totalPiece\" style=\"padding: 2px\">\n          <canvas id=\"canvas8\" style=\"display: inline-block\" [ngStyle]=\"{\n   'filter': 'grayscale(' + this.secondaryValues.numbers.grayscale + '%) ' +\n   'hue-rotate(' + this.secondaryValues.numbers.hue_rotate + 'deg) ' +\n   'invert(' + this.secondaryValues.numbers.invert + '%) ' +\n   'sepia(' + this.secondaryValues.numbers.sepia + '%) ' +\n   'saturate(' + this.secondaryValues.numbers.saturate + '%) ' +\n   'opacity(' + this.secondaryValues.numbers.opacity + '%) ' +\n   'brightness(' + this.secondaryValues.numbers.brightness + '%) ' +\n   'contrast(' + this.secondaryValues.numbers.contrast + '%) ' +\n   'blur(' + this.secondaryValues.numbers.blur + 'px)'}\" (click)=\"Rotate(8,sequence[7])\">\n          </canvas>\n        </ion-col>\n\n        <ion-col class=\"{{sequence[8]}}\" col-4=\"4\" dragula=\"totalPiece\" style=\"padding: 2px\">\n          <canvas id=\"canvas9\" style=\"display: inline-block\" [ngStyle]=\"{\n   'filter': 'grayscale(' + this.secondaryValues.numbers.grayscale + '%) ' +\n   'hue-rotate(' + this.secondaryValues.numbers.hue_rotate + 'deg) ' +\n   'invert(' + this.secondaryValues.numbers.invert + '%) ' +\n   'sepia(' + this.secondaryValues.numbers.sepia + '%) ' +\n   'saturate(' + this.secondaryValues.numbers.saturate + '%) ' +\n   'opacity(' + this.secondaryValues.numbers.opacity + '%) ' +\n   'brightness(' + this.secondaryValues.numbers.brightness + '%) ' +\n   'contrast(' + this.secondaryValues.numbers.contrast + '%) ' +\n   'blur(' + this.secondaryValues.numbers.blur + 'px)'}\" (click)=\"Rotate(9,sequence[8])\">\n          </canvas>\n        </ion-col>\n      </ion-row>\n    </ion-grid>\n\n\n\n\n\n\n    <div *ngIf=\"gameObj\" class=\"input-number\">\n      <input type=\"text\" readonly minlength=\"1\" *ngFor=\"let control of lettersArr.controls;index as i\" [formControl]=\"lettersArr.controls[i]\" id=\"puzzle-word-{{i}}\" />\n    </div>\n\n\n    <div id=\"hold\"></div>\n\n    <div class=\"iconsdiv\">\n      <div class=\"in-left\">\n        <ul>\n          <li (click)=\"onremovalPrimaryFilter()\">\n            <img id=\"removePrimary\" class=\"useItem\" src=\"assets/icon/primary.png\" />\n            <h6>{{primayFilterRemovalList.length ? primayFilterRemovalList.length : 0 }}</h6>\n          </li>\n\n          <li (click)=\"onremovalSecondaryFilter()\">\n            <img id=\"removeSecondary\" class=\"useItem\" src=\"assets/icon/secondary.png\" />\n            <h6>{{secondaryFilterRemovalList.length ? secondaryFilterRemovalList.length : 0}}</h6>\n          </li>\n\n          <li (click)=\"onApplyingAddTurn()\">\n            <img id=\"addTurn\" class=\"useItem\" src=\"assets/icon/addturn.png\" />\n            <h6>{{addTurn.length ? addTurn.length : '0'}}</h6>\n          </li>\n          <li (click)=\"onApplyingReveal()\">\n            <img id=\"reveal\" class=\"useItem\" src=\"assets/icon/reveal.png\" />\n            <h6>{{revealList.length ? revealList.length : '0'}}</h6>\n          </li>\n        </ul>\n      </div>\n\n      <div class=\"in-right\">\n        <!-- <img id=\"reveal\" class=\"useItem\" src=\"assets/icon/reveal.png\" /> -->\n        <p>Remaining: {{countWord ? countWord : '0'}}</p>\n      </div>\n\n    </div>\n\n\n  </div>\n  <div class=\"buttons-wrapper\">\n    <div id=\"buttons\"></div>\n  </div>\n\n\n  <!-- <div id=\"page-container\">\n    <div class=\"app-history-back\">\n      <h3>Your Turn</h3>\n    </div>\n    <img *ngIf=\"cameraImage && (gameObj.type=='easy' )\" id=\"originalImage\" src=\"{{cameraImage}}\" (load)=\"Crop()\" />\n\n      <div id=\"hold\"></div>\n\n      <div class=\"iconsdiv\">\n        <div class=\"in-left\">\n          <ul>\n            <li>\n              <img id=\"removePrimary\" class=\"useItem\" src=\"assets/icon/primary.png\" />\n              <h6>{{removePrimaryItem}}</h6>\n            </li>\n            <li>\n\n              <img id=\"removeSecondary\" class=\"useItem\" src=\"assets/icon/secondary.png\" />\n              <h6>{{removeSecondaryItem}}</h6>\n            </li>\n\n            <li>\n              <img id=\"addTurn\" class=\"useItem\" src=\"assets/icon/addturn.png\" />\n              <h6>{{addTurnItem ? addTurnItem : '0'}}</h6>\n            </li>\n            <li>\n              <img id=\"reveal\" class=\"useItem\" src=\"assets/icon/reveal.png\" />\n              <h6>{{revealItem ? revealItem : '0'}}</h6>\n            </li>\n          </ul>\n        </div>\n        <div class=\"in-right\">\n          <p id=\"mylives\"></p>\n        </div>\n      </div>\n\n      <div class=\"buttons-wrapper\">\n        <div id=\"buttons\"></div>\n      </div>\n    </div>\n\n\n  </div> -->\n</ion-content>\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n<!-- <link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/cssgram/0.1.10/cssgram.min.css\" />\n\n<ion-content>\n\n  <div id=\"containertop\" style=\"width: 100%\">\n\n    <div class=\"top-buttons-head\">\n      <div class=\"in-left\">\n        <ion-icon [routerLink]=\"['/main']\" name=\"arrow-back-outline\"></ion-icon>\n      </div>\n      <div class=\"in-right\" *ngIf=\"!gameObj\">\n        <button (click)=\"sendGame()\" ion-button>sendGame</button>\n\n      </div>\n    </div>\n  </div>\n  \n\n  <img id=\"originalImage\" [src]=\"cameraImage\" (load)=\"onCrop()\" />\n\n\n  <div class=\"canvas-grid\">\n\n    <div class=\"space-between\">\n      <div class=\"toHide\" dragula=\"totalPiece\">\n        <canvas  (click)=\"onRotate(1,'toHide')\" id=\"canvas1\">\n        </canvas>\n      </div>\n\n      <div class=\"toHide1\" dragula=\"totalPiece\">\n        <canvas  (click)=\"onRotate(2,'toHide1')\" id=\"canvas2\">\n        </canvas>\n      </div>\n    </div>\n\n    <div class=\"space-between\">\n      <div class=\"toHide2\" dragula=\"totalPiece\">\n        <canvas  (click)=\"onRotate(3,'toHide2')\" id=\"canvas3\">\n        </canvas>\n      </div>\n      <div class=\"toHide3\" dragula=\"totalPiece\">\n        <canvas  (click)=\"onRotate(4,'toHide3')\" id=\"canvas4\">\n        </canvas>\n      </div>\n    </div>\n\n  </div>\n\n  <div *ngIf=\"gameObj\" class=\"input-number\">\n    <input type=\"text\" (keyup)=\"nextInputFocus(i,$event)\" minlength=\"1\"\n      *ngFor=\"let control of lettersArr.controls;index as i\" [formControl]=\"lettersArr.controls[i]\"\n      id=\"puzzle-word-{{i}}\" />\n  </div>\n\n  <div *ngIf=\"gameObj\">\n    <div>\n      Remaining : {{puzzleWordCount}}\n    </div>\n  </div>\n</ion-content> -->\n");
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("<link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/cssgram/0.1.10/cssgram.min.css\" />\n\n<ion-content class=\"mt-0\" no-bounce has-bouncing=\"false\" forceOverscroll=\"false\">\n\n  <div id=\"containertop\" style=\"width: 100%\">\n\n    <div class=\"top-buttons-head\" style=\"padding-top: 20px; padding-bottom: 20px;\">\n      <div class=\"in-left\" [replaceUrl]=\"true\" [routerLink]=\"['/main']\">\n        <img src=\"assets/icon/back-icon.svg\" />\n      </div>\n     \n      <!-- <div class=\"in-right\">\n        <ion-button class=\"cus-btn\" *ngIf=\"gameObj.type=='easy' \" (click)=\"presentLoading()\" ion-button>Next\n        </ion-button>\n      </div> -->\n    </div>\n  </div>\n  <div id=\"page-container\">\n\n    <!-- <img style=\"height: 300px; width: 300px;\" src=\"{{cameraImage}}\"  /> -->\n    <img id=\"originalImage\" *ngIf=\"cameraImage && gameObj.type =='easy'\" src=\"{{cameraImage}}\" (load)=\"Crop()\" />\n\n    <img id=\"originalImage\" *ngIf=\"cameraImage && gameObj.type == 'medium'\" src=\"{{cameraImage}}\" (load)=\"Crop1()\" />\n\n    <ion-grid *ngIf=\"gameObj.type == 'easy' && gameObj.status == 0\" class=\"ion-justify-content-center\" id=\"container\" style=\"padding: 2px 5vh 0\">\n      <ion-row class=\"spaceinrow\" [ngClass]=\"primaryFilter\">\n        <ion-col class=\"toHide\" col-6=\"6\" dragula=\"totalPiece\" style=\"padding: 2px\">\n          <canvas id=\"canvas1\" style=\"display: inline-block \" [ngStyle]=\"{\n    'filter': 'grayscale(' + this.secondaryValues.numbers.grayscale + '%) ' +\n    'hue-rotate(' + this.secondaryValues.numbers.hue_rotate + 'deg) ' +\n    'invert(' + this.secondaryValues.numbers.invert + '%) ' +\n    'sepia(' + this.secondaryValues.numbers.sepia + '%) ' +\n    'saturate(' + this.secondaryValues.numbers.saturate + '%) ' +\n    'opacity(' + this.secondaryValues.numbers.opacity + '%) ' +\n    'brightness(' + this.secondaryValues.numbers.brightness + '%) ' +\n    'contrast(' + this.secondaryValues.numbers.contrast + '%) ' +\n    'blur(' + this.secondaryValues.numbers.blur + 'px)'\n    }\" (click)=\"Rotate(1,'toHide')\">\n          </canvas>\n        </ion-col>\n        <ion-col class=\"toHide1\" col-6=\"6\" dragula=\"totalPiece\" style=\"padding: 2px\">\n          <canvas id=\"canvas2\" style=\"display: inline-block \" [ngStyle]=\"{\n    'filter': 'grayscale(' + this.secondaryValues.numbers.grayscale + '%) ' +\n    'hue-rotate(' + this.secondaryValues.numbers.hue_rotate + 'deg) ' +\n    'invert(' + this.secondaryValues.numbers.invert + '%) ' +\n    'sepia(' + this.secondaryValues.numbers.sepia + '%) ' +\n    'saturate(' + this.secondaryValues.numbers.saturate + '%) ' +\n    'opacity(' + this.secondaryValues.numbers.opacity + '%) ' +\n    'brightness(' + this.secondaryValues.numbers.brightness + '%) ' +\n    'contrast(' + this.secondaryValues.numbers.contrast + '%) ' +\n    'blur(' + this.secondaryValues.numbers.blur + 'px)'\n    }\" (click)=\"Rotate(2,'toHide1')\">\n          </canvas>\n        </ion-col>\n      </ion-row>\n      <ion-row class=\"spaceinrow\" [ngClass]=\"primaryFilter\">\n        <ion-col class=\"toHide2\" col-6=\"6\" dragula=\"totalPiece\" style=\"padding: 2px\">\n          <canvas id=\"canvas3\" style=\"display: inline-block  \" [ngStyle]=\"{\n    'filter': 'grayscale(' + this.secondaryValues.numbers.grayscale + '%) ' +\n    'hue-rotate(' + this.secondaryValues.numbers.hue_rotate + 'deg) ' +\n    'invert(' + this.secondaryValues.numbers.invert + '%) ' +\n    'sepia(' + this.secondaryValues.numbers.sepia + '%) ' +\n    'saturate(' + this.secondaryValues.numbers.saturate + '%) ' +\n    'opacity(' + this.secondaryValues.numbers.opacity + '%) ' +\n    'brightness(' + this.secondaryValues.numbers.brightness + '%) ' +\n    'contrast(' + this.secondaryValues.numbers.contrast + '%) ' +\n    'blur(' + this.secondaryValues.numbers.blur + 'px)'\n    }\" (click)=\"Rotate(3,'toHide2')\">\n          </canvas>\n        </ion-col>\n        <ion-col class=\"toHide3\" col-6=\"6\" dragula=\"totalPiece\" style=\"padding: 2px\">\n          <canvas id=\"canvas4\" style=\"display: inline-block \" [ngStyle]=\"{\n    'filter': 'grayscale(' + this.secondaryValues.numbers.grayscale + '%) ' +\n    'hue-rotate(' + this.secondaryValues.numbers.hue_rotate + 'deg) ' +\n    'invert(' + this.secondaryValues.numbers.invert + '%) ' +\n    'sepia(' + this.secondaryValues.numbers.sepia + '%) ' +\n    'saturate(' + this.secondaryValues.numbers.saturate + '%) ' +\n    'opacity(' + this.secondaryValues.numbers.opacity + '%) ' +\n    'brightness(' + this.secondaryValues.numbers.brightness + '%) ' +\n    'contrast(' + this.secondaryValues.numbers.contrast + '%) ' +\n    'blur(' + this.secondaryValues.numbers.blur + 'px)'}\" (click)=\"Rotate(4,'toHide3')\">\n          </canvas>\n        </ion-col>\n      </ion-row>\n    </ion-grid>\n\n    <ion-grid *ngIf=\"gameObj.type == 'medium' && gameObj.status == 0\" class=\"ion-justify-content-center\" id=\"container\" style=\"padding: 0px 5vh 0; height: 340px; overflow: hidden;\">\n      <ion-row class=\"spaceinrow\" [ngClass]=\"primaryFilter\" >\n        <ion-col class=\"{{sequence[0]}}\" col-4=\"4\" dragula=\"totalPiece\" style=\"padding: 2px;\">\n          <canvas id=\"canvas1\" width=\"100\" height=\"100\" style=\"display: inline-block\" [ngStyle]=\"{\n   'filter': 'grayscale(' + this.secondaryValues.numbers.grayscale + '%) ' +\n   'hue-rotate(' + this.secondaryValues.numbers.hue_rotate + 'deg) ' +\n   'invert(' + this.secondaryValues.numbers.invert + '%) ' +\n   'sepia(' + this.secondaryValues.numbers.sepia + '%) ' +\n   'saturate(' + this.secondaryValues.numbers.saturate + '%) ' +\n   'opacity(' + this.secondaryValues.numbers.opacity + '%) ' +\n   'brightness(' + this.secondaryValues.numbers.brightness + '%) ' +\n   'contrast(' + this.secondaryValues.numbers.contrast + '%) ' +\n   'blur(' + this.secondaryValues.numbers.blur + 'px)'\n}\" (click)=\"Rotate(1,sequence[0])\">\n          </canvas>\n        </ion-col>\n\n        <ion-col class=\"{{sequence[1]}}\" col-4=\"4\" dragula=\"totalPiece\" style=\"padding: 2px;\">\n          <canvas id=\"canvas2\" width=\"100\" height=\"100\" style=\"display: inline-block\" [ngStyle]=\"{\n   'filter': 'grayscale(' + this.secondaryValues.numbers.grayscale + '%) ' +\n   'hue-rotate(' + this.secondaryValues.numbers.hue_rotate + 'deg) ' +\n   'invert(' + this.secondaryValues.numbers.invert + '%) ' +\n   'sepia(' + this.secondaryValues.numbers.sepia + '%) ' +\n   'saturate(' + this.secondaryValues.numbers.saturate + '%) ' +\n   'opacity(' + this.secondaryValues.numbers.opacity + '%) ' +\n   'brightness(' + this.secondaryValues.numbers.brightness + '%) ' +\n   'contrast(' + this.secondaryValues.numbers.contrast + '%) ' +\n   'blur(' + this.secondaryValues.numbers.blur + 'px)'\n}\" (click)=\"Rotate(2,sequence[1])\">\n          </canvas>\n        </ion-col>\n\n        <ion-col class=\"{{sequence[2]}}\" col-4=\"4\" dragula=\"totalPiece\" style=\"padding: 2px;\">\n          <canvas id=\"canvas3\" width=\"100\" height=\"100\" style=\"display: inline-block\" [ngStyle]=\"{\n 'filter': 'grayscale(' + this.secondaryValues.numbers.grayscale + '%) ' +\n 'hue-rotate(' + this.secondaryValues.numbers.hue_rotate + 'deg) ' +\n 'invert(' + this.secondaryValues.numbers.invert + '%) ' +\n 'sepia(' + this.secondaryValues.numbers.sepia + '%) ' +\n 'saturate(' + this.secondaryValues.numbers.saturate + '%) ' +\n 'opacity(' + this.secondaryValues.numbers.opacity + '%) ' +\n 'brightness(' + this.secondaryValues.numbers.brightness + '%) ' +\n 'contrast(' + this.secondaryValues.numbers.contrast + '%) ' +\n 'blur(' + this.secondaryValues.numbers.blur + 'px)'\n}\" (click)=\"Rotate(3,sequence[2])\">\n          </canvas>\n        </ion-col>\n      </ion-row>\n\n      <ion-row class=\"spaceinrow\" [ngClass]=\"primaryFilter\">\n\n        <ion-col class=\"{{sequence[3]}}\" col-4=\"4\" dragula=\"totalPiece\" style=\"padding: 2px\">\n          <canvas id=\"canvas4\" width=\"100\" height=\"100\" style=\"display: inline-block\" [ngStyle]=\"{\n 'filter': 'grayscale(' + this.secondaryValues.numbers.grayscale + '%) ' +\n 'hue-rotate(' + this.secondaryValues.numbers.hue_rotate + 'deg) ' +\n 'invert(' + this.secondaryValues.numbers.invert + '%) ' +\n 'sepia(' + this.secondaryValues.numbers.sepia + '%) ' +\n 'saturate(' + this.secondaryValues.numbers.saturate + '%) ' +\n 'opacity(' + this.secondaryValues.numbers.opacity + '%) ' +\n 'brightness(' + this.secondaryValues.numbers.brightness + '%) ' +\n 'contrast(' + this.secondaryValues.numbers.contrast + '%) ' +\n 'blur(' + this.secondaryValues.numbers.blur + 'px)'\n}\" (click)=\"Rotate(4,sequence[3])\">\n          </canvas>\n        </ion-col>\n\n        <ion-col class=\"{{sequence[4]}}\" col-4=\"4\" dragula=\"totalPiece\" style=\"padding: 2px\">\n          <canvas id=\"canvas5\"  width=\"100\" height=\"100\" style=\"display: inline-block\" [ngStyle]=\"{\n   'filter': 'grayscale(' + this.secondaryValues.numbers.grayscale + '%) ' +\n   'hue-rotate(' + this.secondaryValues.numbers.hue_rotate + 'deg) ' +\n   'invert(' + this.secondaryValues.numbers.invert + '%) ' +\n   'sepia(' + this.secondaryValues.numbers.sepia + '%) ' +\n   'saturate(' + this.secondaryValues.numbers.saturate + '%) ' +\n   'opacity(' + this.secondaryValues.numbers.opacity + '%) ' +\n   'brightness(' + this.secondaryValues.numbers.brightness + '%) ' +\n   'contrast(' + this.secondaryValues.numbers.contrast + '%) ' +\n   'blur(' + this.secondaryValues.numbers.blur + 'px)'}\" (click)=\"Rotate(5,sequence[4])\">\n          </canvas>\n        </ion-col>\n\n        <ion-col class=\"{{sequence[5]}}\" col-4=\"4\" dragula=\"totalPiece\" style=\"padding: 2px\">\n          <canvas id=\"canvas6\"  width=\"100\" height=\"100\" style=\"display: inline-block\" [ngStyle]=\"{\n   'filter': 'grayscale(' + this.secondaryValues.numbers.grayscale + '%) ' +\n   'hue-rotate(' + this.secondaryValues.numbers.hue_rotate + 'deg) ' +\n   'invert(' + this.secondaryValues.numbers.invert + '%) ' +\n   'sepia(' + this.secondaryValues.numbers.sepia + '%) ' +\n   'saturate(' + this.secondaryValues.numbers.saturate + '%) ' +\n   'opacity(' + this.secondaryValues.numbers.opacity + '%) ' +\n   'brightness(' + this.secondaryValues.numbers.brightness + '%) ' +\n   'contrast(' + this.secondaryValues.numbers.contrast + '%) ' +\n   'blur(' + this.secondaryValues.numbers.blur + 'px)'}\" (click)=\"Rotate(6,sequence[5])\">\n          </canvas>\n        </ion-col>\n\n      </ion-row>\n\n      <ion-row class=\"spaceinrow\" [ngClass]=\"primaryFilter\">\n        <ion-col class=\"{{sequence[6]}}\" col-4=\"4\" dragula=\"totalPiece\" style=\"padding: 2px\">\n          <canvas id=\"canvas7\" width=\"100\" height=\"100\" style=\"display: inline-block\" [ngStyle]=\"{\n   'filter': 'grayscale(' + this.secondaryValues.numbers.grayscale + '%) ' +\n   'hue-rotate(' + this.secondaryValues.numbers.hue_rotate + 'deg) ' +\n   'invert(' + this.secondaryValues.numbers.invert + '%) ' +\n   'sepia(' + this.secondaryValues.numbers.sepia + '%) ' +\n   'saturate(' + this.secondaryValues.numbers.saturate + '%) ' +\n   'opacity(' + this.secondaryValues.numbers.opacity + '%) ' +\n   'brightness(' + this.secondaryValues.numbers.brightness + '%) ' +\n   'contrast(' + this.secondaryValues.numbers.contrast + '%) ' +\n   'blur(' + this.secondaryValues.numbers.blur + 'px)'\n}\" (click)=\"Rotate(7,sequence[6])\">\n          </canvas>\n        </ion-col>\n\n        <ion-col class=\"{{sequence[7]}}\" col-4=\"4\" dragula=\"totalPiece\" style=\"padding: 2px\">\n          <canvas id=\"canvas8\" width=\"100\" height=\"100\" style=\"display: inline-block\" [ngStyle]=\"{\n   'filter': 'grayscale(' + this.secondaryValues.numbers.grayscale + '%) ' +\n   'hue-rotate(' + this.secondaryValues.numbers.hue_rotate + 'deg) ' +\n   'invert(' + this.secondaryValues.numbers.invert + '%) ' +\n   'sepia(' + this.secondaryValues.numbers.sepia + '%) ' +\n   'saturate(' + this.secondaryValues.numbers.saturate + '%) ' +\n   'opacity(' + this.secondaryValues.numbers.opacity + '%) ' +\n   'brightness(' + this.secondaryValues.numbers.brightness + '%) ' +\n   'contrast(' + this.secondaryValues.numbers.contrast + '%) ' +\n   'blur(' + this.secondaryValues.numbers.blur + 'px)'}\" (click)=\"Rotate(8,sequence[7])\">\n          </canvas>\n        </ion-col>\n\n        <ion-col class=\"{{sequence[8]}}\" col-4=\"4\" dragula=\"totalPiece\" style=\"padding: 2px\">\n          <canvas id=\"canvas9\" width=\"100\" height=\"100\" style=\"display: inline-block\" [ngStyle]=\"{\n   'filter': 'grayscale(' + this.secondaryValues.numbers.grayscale + '%) ' +\n   'hue-rotate(' + this.secondaryValues.numbers.hue_rotate + 'deg) ' +\n   'invert(' + this.secondaryValues.numbers.invert + '%) ' +\n   'sepia(' + this.secondaryValues.numbers.sepia + '%) ' +\n   'saturate(' + this.secondaryValues.numbers.saturate + '%) ' +\n   'opacity(' + this.secondaryValues.numbers.opacity + '%) ' +\n   'brightness(' + this.secondaryValues.numbers.brightness + '%) ' +\n   'contrast(' + this.secondaryValues.numbers.contrast + '%) ' +\n   'blur(' + this.secondaryValues.numbers.blur + 'px)'}\" (click)=\"Rotate(9,sequence[8])\">\n          </canvas>\n        </ion-col>\n      </ion-row>\n    </ion-grid>\n\n\n\n\n\n\n    <div *ngIf=\"gameObj\" class=\"input-number\">\n      <input type=\"text\" readonly minlength=\"1\" *ngFor=\"let control of lettersArr.controls;index as i\" [formControl]=\"lettersArr.controls[i]\" id=\"puzzle-word-{{i}}\" />\n    </div>\n\n\n    <div id=\"hold\"></div>\n\n    <div class=\"iconsdiv\">\n      <div class=\"in-left\">\n        <ul>\n          <li (click)=\"onremovalPrimaryFilter()\">\n            <img id=\"removePrimary\" class=\"useItem\" src=\"assets/icon/primary.png\" />\n            <h6>{{primayFilterRemovalList.length ? primayFilterRemovalList.length : 0 }}</h6>\n          </li>\n\n          <li (click)=\"onremovalSecondaryFilter()\">\n            <img id=\"removeSecondary\" class=\"useItem\" src=\"assets/icon/secondary.png\" />\n            <h6>{{secondaryFilterRemovalList.length ? secondaryFilterRemovalList.length : 0}}</h6>\n          </li>\n\n          <li (click)=\"onApplyingAddTurn()\">\n            <img id=\"addTurn\" class=\"useItem\" src=\"assets/icon/addturn.png\" />\n            <h6>{{addTurn.length ? addTurn.length : '0'}}</h6>\n          </li>\n          <li (click)=\"onApplyingReveal()\">\n            <img id=\"reveal\" class=\"useItem\" src=\"assets/icon/reveal.png\" />\n            <h6>{{revealList.length ? revealList.length : '0'}}</h6>\n          </li>\n        </ul>\n      </div>\n\n      <div class=\"in-right\">\n        <!-- <img id=\"reveal\" class=\"useItem\" src=\"assets/icon/reveal.png\" /> -->\n        <p>Remaining: {{countWord ? countWord : '0'}}</p>\n      </div>\n\n    </div>\n\n\n  </div>\n  <div class=\"buttons-wrapper\">\n    <div id=\"buttons\"></div>\n  </div>\n\n\n  <!-- <div id=\"page-container\">\n    <div class=\"app-history-back\">\n      <h3>Your Turn</h3>\n    </div>\n    <img *ngIf=\"cameraImage && (gameObj.type=='easy' )\" id=\"originalImage\" src=\"{{cameraImage}}\" (load)=\"Crop()\" />\n\n      <div id=\"hold\"></div>\n\n      <div class=\"iconsdiv\">\n        <div class=\"in-left\">\n          <ul>\n            <li>\n              <img id=\"removePrimary\" class=\"useItem\" src=\"assets/icon/primary.png\" />\n              <h6>{{removePrimaryItem}}</h6>\n            </li>\n            <li>\n\n              <img id=\"removeSecondary\" class=\"useItem\" src=\"assets/icon/secondary.png\" />\n              <h6>{{removeSecondaryItem}}</h6>\n            </li>\n\n            <li>\n              <img id=\"addTurn\" class=\"useItem\" src=\"assets/icon/addturn.png\" />\n              <h6>{{addTurnItem ? addTurnItem : '0'}}</h6>\n            </li>\n            <li>\n              <img id=\"reveal\" class=\"useItem\" src=\"assets/icon/reveal.png\" />\n              <h6>{{revealItem ? revealItem : '0'}}</h6>\n            </li>\n          </ul>\n        </div>\n        <div class=\"in-right\">\n          <p id=\"mylives\"></p>\n        </div>\n      </div>\n\n      <div class=\"buttons-wrapper\">\n        <div id=\"buttons\"></div>\n      </div>\n    </div>\n\n\n  </div> -->\n</ion-content>\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n<!-- <link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/cssgram/0.1.10/cssgram.min.css\" />\n\n<ion-content>\n\n  <div id=\"containertop\" style=\"width: 100%\">\n\n    <div class=\"top-buttons-head\">\n      <div class=\"in-left\">\n        <ion-icon [routerLink]=\"['/main']\" name=\"arrow-back-outline\"></ion-icon>\n      </div>\n      <div class=\"in-right\" *ngIf=\"!gameObj\">\n        <button (click)=\"sendGame()\" ion-button>sendGame</button>\n\n      </div>\n    </div>\n  </div>\n  \n\n  <img id=\"originalImage\" [src]=\"cameraImage\" (load)=\"onCrop()\" />\n\n\n  <div class=\"canvas-grid\">\n\n    <div class=\"space-between\">\n      <div class=\"toHide\" dragula=\"totalPiece\">\n        <canvas  (click)=\"onRotate(1,'toHide')\" id=\"canvas1\">\n        </canvas>\n      </div>\n\n      <div class=\"toHide1\" dragula=\"totalPiece\">\n        <canvas  (click)=\"onRotate(2,'toHide1')\" id=\"canvas2\">\n        </canvas>\n      </div>\n    </div>\n\n    <div class=\"space-between\">\n      <div class=\"toHide2\" dragula=\"totalPiece\">\n        <canvas  (click)=\"onRotate(3,'toHide2')\" id=\"canvas3\">\n        </canvas>\n      </div>\n      <div class=\"toHide3\" dragula=\"totalPiece\">\n        <canvas  (click)=\"onRotate(4,'toHide3')\" id=\"canvas4\">\n        </canvas>\n      </div>\n    </div>\n\n  </div>\n\n  <div *ngIf=\"gameObj\" class=\"input-number\">\n    <input type=\"text\" (keyup)=\"nextInputFocus(i,$event)\" minlength=\"1\"\n      *ngFor=\"let control of lettersArr.controls;index as i\" [formControl]=\"lettersArr.controls[i]\"\n      id=\"puzzle-word-{{i}}\" />\n  </div>\n\n  <div *ngIf=\"gameObj\">\n    <div>\n      Remaining : {{puzzleWordCount}}\n    </div>\n  </div>\n</ion-content> -->\n");
 
 /***/ })
 

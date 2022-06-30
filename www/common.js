@@ -590,9 +590,13 @@ let UserService = class UserService {
         return this.userSource.value;
     }
     updateUser(user) {
-        this.restService.putRequestToken('users/update', user).subscribe((res) => {
+        this.restService
+            .putRequestToken('users/update', user)
+            .subscribe((res) => {
             if (res.message) {
-                this.restService.getRequest('users/detail').subscribe((res) => {
+                this.restService
+                    .getRequest('users/detail')
+                    .subscribe((res) => {
                     localStorage.setItem('user', JSON.stringify(res));
                     console.log('Detail response');
                     this.userSource.next(localStorage.getItem('user'));
@@ -604,7 +608,7 @@ let UserService = class UserService {
         return new Promise((resolve, reject) => {
             this.restService.postRequest('users/login', obj).subscribe((res) => {
                 resolve(res);
-            }, error => {
+            }, (error) => {
                 resolve(error);
             });
         });
@@ -615,7 +619,7 @@ UserService.ctorParameters = () => [
 ];
 UserService = (0,tslib__WEBPACK_IMPORTED_MODULE_2__.__decorate)([
     (0,_angular_core__WEBPACK_IMPORTED_MODULE_3__.Injectable)({
-        providedIn: 'root'
+        providedIn: 'root',
     })
 ], UserService);
 

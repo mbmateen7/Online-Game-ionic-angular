@@ -84,7 +84,7 @@
       </ion-row>
     </ion-grid>
 
-    <ion-grid *ngIf="gameObj.type == 'medium' && gameObj.status == 0" class="ion-justify-content-center" id="container" style="padding: 0px 5vh 0; height: 300px; overflow: hidden;">
+    <ion-grid *ngIf="gameObj.type == 'medium' && gameObj.status == 0" class="ion-justify-content-center" id="container" style="padding: 0px 5vh 0; height: 340px; overflow: hidden;">
       <ion-row class="spaceinrow" [ngClass]="primaryFilter" >
         <ion-col class="{{sequence[0]}}" col-4="4" dragula="totalPiece" style="padding: 2px;">
           <canvas id="canvas1" width="100" height="100" style="display: inline-block" [ngStyle]="{

@@ -181,15 +181,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "AppComponent": () => (/* binding */ AppComponent)
 /* harmony export */ });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! tslib */ 64762);
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! tslib */ 64762);
 /* harmony import */ var _raw_loader_app_component_html__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !raw-loader!./app.component.html */ 91106);
 /* harmony import */ var _app_component_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./app.component.scss */ 43069);
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/core */ 37716);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @angular/core */ 37716);
 /* harmony import */ var _capacitor_push_notifications__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @capacitor/push-notifications */ 98748);
 /* harmony import */ var _service_rest_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./service/rest.service */ 90421);
-/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ionic/angular */ 80476);
-/* harmony import */ var _service_audio_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./service/audio.service */ 87494);
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/router */ 39895);
+/* harmony import */ var _capacitor_status_bar__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @capacitor/status-bar */ 64909);
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @ionic/angular */ 80476);
+/* harmony import */ var _service_audio_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./service/audio.service */ 87494);
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/router */ 39895);
 
 
 
@@ -199,32 +200,41 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+const setStatusBarStyleDark = () => (0,tslib__WEBPACK_IMPORTED_MODULE_6__.__awaiter)(void 0, void 0, void 0, function* () {
+    yield _capacitor_status_bar__WEBPACK_IMPORTED_MODULE_4__.StatusBar.setStyle({ style: _capacitor_status_bar__WEBPACK_IMPORTED_MODULE_4__.Style.Dark });
+});
 let AppComponent = class AppComponent {
     constructor(restService, platform, audio, router) {
         this.restService = restService;
         this.platform = platform;
         this.audio = audio;
         this.router = router;
-        this.audio.playSound();
-        this.platform.pause.subscribe(() => (0,tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(this, void 0, void 0, function* () {
+        setStatusBarStyleDark().then().catch();
+        let playAudio = JSON.parse(localStorage.getItem('playAudio'));
+        playAudio ? this.audio.playSound() : null;
+        this.platform.pause.subscribe(() => (0,tslib__WEBPACK_IMPORTED_MODULE_6__.__awaiter)(this, void 0, void 0, function* () {
             console.log('Change', 'Pause event detected');
             this.audio.stopSound();
         }));
-        this.platform.resume.subscribe(() => (0,tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(this, void 0, void 0, function* () {
-            // alert('Resume event detected');
-            this.audio.playSound();
+        this.platform.resume.subscribe(() => (0,tslib__WEBPACK_IMPORTED_MODULE_6__.__awaiter)(this, void 0, void 0, function* () {
+            console.log('Resume event detected');
+            let playAudio = JSON.parse(localStorage.getItem('playAudio'));
+            playAudio ? this.audio.playSound() : null;
         }));
         this.platform.ready().then(() => {
             if (this.platform.is('iphone')) {
-                document.getElementById('main-app-ion').style.marginTop = '30px';
+                document.getElementById('main-app-ion').style.marginTop =
+                    '30px';
             }
         });
         _capacitor_push_notifications__WEBPACK_IMPORTED_MODULE_2__.PushNotifications.addListener('registration', (token) => {
-            console.log('Token => ', token.value);
-            this.restService.postRequestToken('users/set-device-token', { deviceToken: token }).subscribe(res => {
-                console.log('Token --->', res);
-            }, error => {
-                console.log('TOken UPdate Error', error);
+            this.restService
+                .postRequestToken('users/set-device-token', {
+                deviceToken: token,
+            })
+                .subscribe((res) => { }, (error) => {
+                console.log('Token UPdate Error', error);
             });
         });
         // Some issue with our setup and push will not work
@@ -235,12 +245,12 @@ let AppComponent = class AppComponent {
 };
 AppComponent.ctorParameters = () => [
     { type: _service_rest_service__WEBPACK_IMPORTED_MODULE_3__.RestService },
-    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_6__.Platform },
-    { type: _service_audio_service__WEBPACK_IMPORTED_MODULE_4__.AudioService },
-    { type: _angular_router__WEBPACK_IMPORTED_MODULE_7__.Router }
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_7__.Platform },
+    { type: _service_audio_service__WEBPACK_IMPORTED_MODULE_5__.AudioService },
+    { type: _angular_router__WEBPACK_IMPORTED_MODULE_8__.Router }
 ];
-AppComponent = (0,tslib__WEBPACK_IMPORTED_MODULE_5__.__decorate)([
-    (0,_angular_core__WEBPACK_IMPORTED_MODULE_8__.Component)({
+AppComponent = (0,tslib__WEBPACK_IMPORTED_MODULE_6__.__decorate)([
+    (0,_angular_core__WEBPACK_IMPORTED_MODULE_9__.Component)({
         selector: 'app-root',
         template: _raw_loader_app_component_html__WEBPACK_IMPORTED_MODULE_0__.default,
         styles: [_app_component_scss__WEBPACK_IMPORTED_MODULE_1__.default]
@@ -442,30 +452,35 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "AuthGuardService": () => (/* binding */ AuthGuardService)
 /* harmony export */ });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! tslib */ 64762);
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ 37716);
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! tslib */ 64762);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ 37716);
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/router */ 39895);
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @ionic/angular */ 80476);
+
 
 
 
 let AuthGuardService = class AuthGuardService {
-    constructor(router) {
+    constructor(router, navCtrl) {
         this.router = router;
+        this.navCtrl = navCtrl;
     }
     canActivate() {
         if (localStorage.getItem('token')) {
             return true;
         }
         else {
+            this.navCtrl.setDirection('root');
             this.router.navigate(['home']);
         }
     }
 };
 AuthGuardService.ctorParameters = () => [
-    { type: _angular_router__WEBPACK_IMPORTED_MODULE_0__.Router }
+    { type: _angular_router__WEBPACK_IMPORTED_MODULE_0__.Router },
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_1__.NavController }
 ];
-AuthGuardService = (0,tslib__WEBPACK_IMPORTED_MODULE_1__.__decorate)([
-    (0,_angular_core__WEBPACK_IMPORTED_MODULE_2__.Injectable)({
+AuthGuardService = (0,tslib__WEBPACK_IMPORTED_MODULE_2__.__decorate)([
+    (0,_angular_core__WEBPACK_IMPORTED_MODULE_3__.Injectable)({
         providedIn: 'root',
     })
 ], AuthGuardService);
@@ -485,31 +500,35 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "HomeGuardServiceService": () => (/* binding */ HomeGuardServiceService)
 /* harmony export */ });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! tslib */ 64762);
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ 37716);
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! tslib */ 64762);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ 37716);
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/router */ 39895);
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @ionic/angular */ 80476);
+
 
 
 
 let HomeGuardServiceService = class HomeGuardServiceService {
-    constructor(router) {
+    constructor(router, navCtrl) {
         this.router = router;
+        this.navCtrl = navCtrl;
     }
     canActivate() {
-        console.log('---->', localStorage.getItem('token'));
         if (!localStorage.getItem('token')) {
             return true;
         }
         else {
+            this.navCtrl.setDirection('root');
             this.router.navigate(['/main']);
         }
     }
 };
 HomeGuardServiceService.ctorParameters = () => [
-    { type: _angular_router__WEBPACK_IMPORTED_MODULE_0__.Router }
+    { type: _angular_router__WEBPACK_IMPORTED_MODULE_0__.Router },
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_1__.NavController }
 ];
-HomeGuardServiceService = (0,tslib__WEBPACK_IMPORTED_MODULE_1__.__decorate)([
-    (0,_angular_core__WEBPACK_IMPORTED_MODULE_2__.Injectable)({
+HomeGuardServiceService = (0,tslib__WEBPACK_IMPORTED_MODULE_2__.__decorate)([
+    (0,_angular_core__WEBPACK_IMPORTED_MODULE_3__.Injectable)({
         providedIn: 'root',
     })
 ], HomeGuardServiceService);
@@ -1159,7 +1178,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("<ion-app id=\"main-app-ion\">\n    <app-loader></app-loader>\n    <ion-router-outlet></ion-router-outlet>\n</ion-app>\n");
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("<ion-app id=\"main-app-ion\" scrollY=\"false\" no-bounce has-bouncing=\"false\" forceOverscroll=\"false\">\n    <app-loader></app-loader>\n    <ion-router-outlet></ion-router-outlet>\n</ion-app>\n");
 
 /***/ }),
 
