@@ -92,11 +92,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "SendGamePage": () => (/* binding */ SendGamePage)
 /* harmony export */ });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! tslib */ 64762);
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! tslib */ 64762);
 /* harmony import */ var _raw_loader_send_game_page_html__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !raw-loader!./send-game.page.html */ 33740);
 /* harmony import */ var _send_game_page_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./send-game.page.scss */ 77317);
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/core */ 37716);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/core */ 37716);
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ 39895);
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ionic/angular */ 80476);
 /* harmony import */ var src_app_service_rest_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/service/rest.service */ 90421);
 /* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! sweetalert2 */ 88259);
 /* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_3__);
@@ -107,11 +108,13 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 let SendGamePage = class SendGamePage {
-    constructor(route, restService, router) {
+    constructor(route, restService, router, navCtrl) {
         this.route = route;
         this.restService = restService;
         this.router = router;
+        this.navCtrl = navCtrl;
         this.gameObj = null;
         this.hintWord = null;
     }
@@ -159,6 +162,7 @@ let SendGamePage = class SendGamePage {
             allowOutsideClick: true,
             // backdrop: true,
         }).then(res => {
+            this.navCtrl.setDirection('root');
             this.router.navigate(['/main/game', { gameSent: true }]);
         });
     }
@@ -169,10 +173,11 @@ let SendGamePage = class SendGamePage {
 SendGamePage.ctorParameters = () => [
     { type: _angular_router__WEBPACK_IMPORTED_MODULE_4__.ActivatedRoute },
     { type: src_app_service_rest_service__WEBPACK_IMPORTED_MODULE_2__.RestService },
-    { type: _angular_router__WEBPACK_IMPORTED_MODULE_4__.Router }
+    { type: _angular_router__WEBPACK_IMPORTED_MODULE_4__.Router },
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__.NavController }
 ];
-SendGamePage = (0,tslib__WEBPACK_IMPORTED_MODULE_5__.__decorate)([
-    (0,_angular_core__WEBPACK_IMPORTED_MODULE_6__.Component)({
+SendGamePage = (0,tslib__WEBPACK_IMPORTED_MODULE_6__.__decorate)([
+    (0,_angular_core__WEBPACK_IMPORTED_MODULE_7__.Component)({
         selector: 'app-send-game',
         template: _raw_loader_send_game_page_html__WEBPACK_IMPORTED_MODULE_0__.default,
         styles: [_send_game_page_scss__WEBPACK_IMPORTED_MODULE_1__.default]
@@ -209,7 +214,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("<link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/cssgram/0.1.10/cssgram.min.css\" />\n\n<ion-content class=\"mt-0\" no-bounce has-bouncing=\"false\" forceOverscroll=\"false\">\n\n  <div id=\"containertop\" style=\"width: 100%\">\n\n    <div class=\"top-buttons-head\">\n      <div class=\"in-left\" [replaceUrl]=\"true\" [routerLink]=\"['/filter']\">\n        <img src=\"assets/icon/back-icon.svg\" />\n      </div>\n      <!-- <div class=\"in-right\">\n        <ion-button class=\"cus-btn\" ion-button (click)=\"onSendGame()\">SendGame\n        </ion-button>\n      </div> -->\n    </div>\n  </div>\n  <div id=\"page-container\">\n    <img width=\"360\" height=\"360\" id=\"originalImage\" *ngIf=\"puzzleImage\" src=\"{{puzzleImage}}\" />\n  </div>\n  <!-- <div>\n    <div>\n      <ion-item>\n        <ion-label>Please Enter text:</ion-label>\n        <ion-input type=\"text\" (keyup.enter)='sendGameGoBtn($event)' [(ngModel)]=\"hintWord\" maxlength=\"4\" minlength=\"1\"\n          #hword=\"ngModel\"></ion-input>\n      </ion-item>\n      <ion-item *ngIf=\"hword.errors?.minlength\">\n        <ion-label class=\"alert alert-danger\">Max Length is 4</ion-label>\n      </ion-item>\n    </div>\n  </div> -->\n  <!-- <div class=\"buttons-wrapper\">\n    <div id=\"buttons\"></div>\n  </div> -->\n\n\n\n</ion-content>");
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("<link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/cssgram/0.1.10/cssgram.min.css\" />\n\n<ion-content class=\"mt-0\" no-bounce has-bouncing=\"false\" forceOverscroll=\"false\">\n\n  <div id=\"containertop\" style=\"width: 100%\">\n\n    <div class=\"top-buttons-head\">\n      <div class=\"in-left\" [replaceUrl]=\"true\" [routerLink]=\"['/filter']\">\n        <img src=\"assets/icon/back-icon.svg\" />\n      </div>\n      <!-- <div class=\"in-right\">\n        <ion-button class=\"cus-btn\" ion-button (click)=\"onSendGame()\">SendGame\n        </ion-button>\n      </div> -->\n    </div>\n  </div>\n  <div id=\"page-container\">\n    <img width=\"360\" height=\"360\" id=\"originalImageSG\" *ngIf=\"puzzleImage\" src=\"{{puzzleImage}}\" />\n  </div>\n  <!-- <div>\n    <div>\n      <ion-item>\n        <ion-label>Please Enter text:</ion-label>\n        <ion-input type=\"text\" (keyup.enter)='sendGameGoBtn($event)' [(ngModel)]=\"hintWord\" maxlength=\"4\" minlength=\"1\"\n          #hword=\"ngModel\"></ion-input>\n      </ion-item>\n      <ion-item *ngIf=\"hword.errors?.minlength\">\n        <ion-label class=\"alert alert-danger\">Max Length is 4</ion-label>\n      </ion-item>\n    </div>\n  </div> -->\n  <!-- <div class=\"buttons-wrapper\">\n    <div id=\"buttons\"></div>\n  </div> -->\n\n\n\n</ion-content>");
 
 /***/ })
 
