@@ -124,7 +124,7 @@ let SendGamePage = class SendGamePage {
     }
     ionViewWillEnter() {
         sweetalert2__WEBPACK_IMPORTED_MODULE_3___default().fire({
-            title: '<h5>Please enter a hint:</h5>',
+            title: '<h5>Please enter your puzzle word (4 Characters)</h5>',
             input: 'text',
             inputValidator: (value) => {
                 if (!value) {
@@ -134,7 +134,7 @@ let SendGamePage = class SendGamePage {
                     return 'Spaces are not allowed';
                 }
                 if (value.length > 4) {
-                    return 'You write Only 4 Letters';
+                    return 'Maximum 4 Characters Allowed';
                 }
             },
             confirmButtonText: 'SEND GAME',

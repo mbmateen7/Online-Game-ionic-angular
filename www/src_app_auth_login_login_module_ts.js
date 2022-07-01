@@ -1,5 +1,42 @@
 (self["webpackChunkpic_playce"] = self["webpackChunkpic_playce"] || []).push([["src_app_auth_login_login_module_ts"],{
 
+/***/ 85130:
+/*!***********************************************************************!*\
+  !*** ./node_modules/@capacitor-community/fcm/dist/esm/definitions.js ***!
+  \***********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+
+//# sourceMappingURL=definitions.js.map
+
+/***/ }),
+
+/***/ 46654:
+/*!*****************************************************************!*\
+  !*** ./node_modules/@capacitor-community/fcm/dist/esm/index.js ***!
+  \*****************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "FCM": () => (/* binding */ FCM)
+/* harmony export */ });
+/* harmony import */ var _capacitor_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @capacitor/core */ 68384);
+/* harmony import */ var _definitions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./definitions */ 85130);
+
+const FCM = (0,_capacitor_core__WEBPACK_IMPORTED_MODULE_0__.registerPlugin)("FCM", {
+    web: () => __webpack_require__.e(/*! import() */ "node_modules_capacitor-community_fcm_dist_esm_web_js").then(__webpack_require__.bind(__webpack_require__, /*! ./web */ 33429)).then((m) => new m.FCMWeb()),
+});
+// export * from './web'; // @todo
+
+
+//# sourceMappingURL=index.js.map
+
+/***/ }),
+
 /***/ 14272:
 /*!****************************************************!*\
   !*** ./src/app/auth/login/login-routing.module.ts ***!
@@ -99,23 +136,25 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "LoginPage": () => (/* binding */ LoginPage)
 /* harmony export */ });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! tslib */ 64762);
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! tslib */ 64762);
 /* harmony import */ var _raw_loader_login_page_html__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !raw-loader!./login.page.html */ 48182);
 /* harmony import */ var _login_page_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./login.page.scss */ 11894);
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @angular/core */ 37716);
-/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @angular/forms */ 3679);
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @angular/router */ 39895);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @angular/core */ 37716);
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @angular/forms */ 3679);
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @angular/router */ 39895);
 /* harmony import */ var src_app_service_rest_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/service/rest.service */ 90421);
-/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @ionic/angular */ 80476);
-/* harmony import */ var _capacitor_push_notifications__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @capacitor/push-notifications */ 98748);
-/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! sweetalert2 */ 88259);
-/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var src_app_service_user_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/service/user.service */ 84981);
-/* harmony import */ var src_app_dialog_dialog_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/dialog/dialog.component */ 95029);
-/* harmony import */ var _ionic_native_google_plus_ngx__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @ionic-native/google-plus/ngx */ 19342);
-/* harmony import */ var _awesome_cordova_plugins_sign_in_with_apple_ngx__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @awesome-cordova-plugins/sign-in-with-apple/ngx */ 20765);
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @angular/common/http */ 91841);
-/* harmony import */ var _awesome_cordova_plugins_facebook_ngx__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @awesome-cordova-plugins/facebook/ngx */ 5901);
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @ionic/angular */ 80476);
+/* harmony import */ var _capacitor_community_fcm__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @capacitor-community/fcm */ 46654);
+/* harmony import */ var _capacitor_push_notifications__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @capacitor/push-notifications */ 98748);
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! sweetalert2 */ 88259);
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var src_app_service_user_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/service/user.service */ 84981);
+/* harmony import */ var src_app_dialog_dialog_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/dialog/dialog.component */ 95029);
+/* harmony import */ var _ionic_native_google_plus_ngx__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @ionic-native/google-plus/ngx */ 19342);
+/* harmony import */ var _awesome_cordova_plugins_sign_in_with_apple_ngx__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @awesome-cordova-plugins/sign-in-with-apple/ngx */ 20765);
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @angular/common/http */ 91841);
+/* harmony import */ var _awesome_cordova_plugins_facebook_ngx__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @awesome-cordova-plugins/facebook/ngx */ 5901);
+
 
 
 
@@ -166,12 +205,12 @@ let LoginPage = class LoginPage {
             email: [
                 '',
                 [
-                    _angular_forms__WEBPACK_IMPORTED_MODULE_10__.Validators.required,
-                    _angular_forms__WEBPACK_IMPORTED_MODULE_10__.Validators.email,
-                    _angular_forms__WEBPACK_IMPORTED_MODULE_10__.Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'),
+                    _angular_forms__WEBPACK_IMPORTED_MODULE_11__.Validators.required,
+                    _angular_forms__WEBPACK_IMPORTED_MODULE_11__.Validators.email,
+                    _angular_forms__WEBPACK_IMPORTED_MODULE_11__.Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'),
                 ],
             ],
-            password: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_10__.Validators.required, _angular_forms__WEBPACK_IMPORTED_MODULE_10__.Validators.minLength(6)]],
+            password: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_11__.Validators.required, _angular_forms__WEBPACK_IMPORTED_MODULE_11__.Validators.minLength(6)]],
         });
     }
     fblogin() {
@@ -185,7 +224,7 @@ let LoginPage = class LoginPage {
         this.forgetPassword = false;
     }
     submitLoginForm() {
-        return (0,tslib__WEBPACK_IMPORTED_MODULE_11__.__awaiter)(this, void 0, void 0, function* () {
+        return (0,tslib__WEBPACK_IMPORTED_MODULE_12__.__awaiter)(this, void 0, void 0, function* () {
             this.showSignUpLoader = true;
             const res = yield this.userService.onUserLogin(this.profileForm.value);
             this.showSignUpLoader = false;
@@ -199,7 +238,7 @@ let LoginPage = class LoginPage {
                 this.router.navigate(['/main']);
             }
             if (res['error']) {
-                sweetalert2__WEBPACK_IMPORTED_MODULE_4___default().fire({
+                sweetalert2__WEBPACK_IMPORTED_MODULE_5___default().fire({
                     title: '<div><img src="assets/icon/lost.png" style="width: 20vw; height:20vw;"><br><h5>Error!</h5></div>',
                     text: 'User name or Password is wrong',
                     confirmButtonText: 'OK',
@@ -223,7 +262,7 @@ let LoginPage = class LoginPage {
         }
     }
     presentLoading() {
-        return (0,tslib__WEBPACK_IMPORTED_MODULE_11__.__awaiter)(this, void 0, void 0, function* () {
+        return (0,tslib__WEBPACK_IMPORTED_MODULE_12__.__awaiter)(this, void 0, void 0, function* () {
             const loading = yield this.loadingController.create({
                 cssClass: 'my-custom-class',
                 message: 'Please wait...',
@@ -233,7 +272,7 @@ let LoginPage = class LoginPage {
         });
     }
     presentAlert() {
-        return (0,tslib__WEBPACK_IMPORTED_MODULE_11__.__awaiter)(this, void 0, void 0, function* () {
+        return (0,tslib__WEBPACK_IMPORTED_MODULE_12__.__awaiter)(this, void 0, void 0, function* () {
             const alert = yield this.alertController.create({
                 cssClass: 'my-custom-class',
                 header: 'Alert',
@@ -260,15 +299,19 @@ let LoginPage = class LoginPage {
     }
     setDeviceToken() {
         console.log("SET DEVICE TOKEN");
-        _capacitor_push_notifications__WEBPACK_IMPORTED_MODULE_3__.PushNotifications.requestPermissions().then((result) => {
+        _capacitor_push_notifications__WEBPACK_IMPORTED_MODULE_4__.PushNotifications.requestPermissions().then((result) => {
             console.log(result.receive);
             if (result.receive === 'granted') {
-                _capacitor_push_notifications__WEBPACK_IMPORTED_MODULE_3__.PushNotifications.register();
+                _capacitor_push_notifications__WEBPACK_IMPORTED_MODULE_4__.PushNotifications.register();
+                _capacitor_community_fcm__WEBPACK_IMPORTED_MODULE_3__.FCM.getToken().then((result) => {
+                    console.log(result.token);
+                    // this.remoteToken = result.token;
+                }).catch((err) => console.log('i am Error', err));
             }
             else {
             }
         });
-        _capacitor_push_notifications__WEBPACK_IMPORTED_MODULE_3__.PushNotifications.addListener('registration', (token) => {
+        _capacitor_push_notifications__WEBPACK_IMPORTED_MODULE_4__.PushNotifications.addListener('registration', (token) => {
             console.log("token : ", token);
             this.restService
                 .postRequestToken('users/set-device-token', {
@@ -303,8 +346,8 @@ let LoginPage = class LoginPage {
         this.signInWithApple
             .signin({
             requestedScopes: [
-                _awesome_cordova_plugins_sign_in_with_apple_ngx__WEBPACK_IMPORTED_MODULE_8__.ASAuthorizationAppleIDRequest.ASAuthorizationScopeFullName,
-                _awesome_cordova_plugins_sign_in_with_apple_ngx__WEBPACK_IMPORTED_MODULE_8__.ASAuthorizationAppleIDRequest.ASAuthorizationScopeEmail,
+                _awesome_cordova_plugins_sign_in_with_apple_ngx__WEBPACK_IMPORTED_MODULE_9__.ASAuthorizationAppleIDRequest.ASAuthorizationScopeFullName,
+                _awesome_cordova_plugins_sign_in_with_apple_ngx__WEBPACK_IMPORTED_MODULE_9__.ASAuthorizationAppleIDRequest.ASAuthorizationScopeEmail,
             ],
         })
             .then((res) => {
@@ -339,7 +382,7 @@ let LoginPage = class LoginPage {
         }, (err) => {
             this.showSignUpLoader = false;
             console.log('This is error', err.error);
-            sweetalert2__WEBPACK_IMPORTED_MODULE_4___default().fire({
+            sweetalert2__WEBPACK_IMPORTED_MODULE_5___default().fire({
                 title: '<div><h5>Error!</h5></div>',
                 html: err.error,
                 confirmButtonText: 'Ok',
@@ -349,24 +392,24 @@ let LoginPage = class LoginPage {
     }
 };
 LoginPage.ctorParameters = () => [
-    { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_12__.HttpClient },
-    { type: _angular_forms__WEBPACK_IMPORTED_MODULE_10__.FormBuilder },
+    { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_13__.HttpClient },
+    { type: _angular_forms__WEBPACK_IMPORTED_MODULE_11__.FormBuilder },
     { type: src_app_service_rest_service__WEBPACK_IMPORTED_MODULE_2__.RestService },
-    { type: _angular_router__WEBPACK_IMPORTED_MODULE_13__.Router },
-    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_14__.LoadingController },
-    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_14__.AlertController },
-    { type: src_app_service_user_service__WEBPACK_IMPORTED_MODULE_5__.UserService },
-    { type: _ionic_native_google_plus_ngx__WEBPACK_IMPORTED_MODULE_7__.GooglePlus },
-    { type: _awesome_cordova_plugins_facebook_ngx__WEBPACK_IMPORTED_MODULE_9__.Facebook },
-    { type: _awesome_cordova_plugins_sign_in_with_apple_ngx__WEBPACK_IMPORTED_MODULE_8__.SignInWithApple },
-    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_14__.Platform },
-    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_14__.NavController }
+    { type: _angular_router__WEBPACK_IMPORTED_MODULE_14__.Router },
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_15__.LoadingController },
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_15__.AlertController },
+    { type: src_app_service_user_service__WEBPACK_IMPORTED_MODULE_6__.UserService },
+    { type: _ionic_native_google_plus_ngx__WEBPACK_IMPORTED_MODULE_8__.GooglePlus },
+    { type: _awesome_cordova_plugins_facebook_ngx__WEBPACK_IMPORTED_MODULE_10__.Facebook },
+    { type: _awesome_cordova_plugins_sign_in_with_apple_ngx__WEBPACK_IMPORTED_MODULE_9__.SignInWithApple },
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_15__.Platform },
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_15__.NavController }
 ];
 LoginPage.propDecorators = {
-    child: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_15__.ViewChild, args: [src_app_dialog_dialog_component__WEBPACK_IMPORTED_MODULE_6__.DialogComponent,] }]
+    child: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_16__.ViewChild, args: [src_app_dialog_dialog_component__WEBPACK_IMPORTED_MODULE_7__.DialogComponent,] }]
 };
-LoginPage = (0,tslib__WEBPACK_IMPORTED_MODULE_11__.__decorate)([
-    (0,_angular_core__WEBPACK_IMPORTED_MODULE_15__.Component)({
+LoginPage = (0,tslib__WEBPACK_IMPORTED_MODULE_12__.__decorate)([
+    (0,_angular_core__WEBPACK_IMPORTED_MODULE_16__.Component)({
         selector: 'app-login',
         template: _raw_loader_login_page_html__WEBPACK_IMPORTED_MODULE_0__.default,
         styles: [_login_page_scss__WEBPACK_IMPORTED_MODULE_1__.default]
@@ -403,7 +446,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("<ion-content>\n    <ion-grid>\n        <ion-row class=\"blueBg\">\n            <ion-col>\n                <div class=\"text-center mb-50\">\n                    <img class=\"mt-50 mb-10\" width=\"277\" height=\"78\" src=\"assets/logo.png\" alt=\"\" />\n                </div>\n            </ion-col>\n        </ion-row>\n\n        <ion-grid class=\"cus-card\">\n            <form [formGroup]=\"profileForm\">\n                <ion-row>\n                    <ion-col class=\"pl-20\">\n                        <div>\n                            <ion-icon [routerLink]=\"['/home']\" size=\"large\" name=\"close-outline\"></ion-icon>\n                        </div>\n                    </ion-col>\n                </ion-row>\n                <ion-row class=\"mt-5\">\n                    <ion-col>\n                        <ion-item>\n                            <ion-label position=\"floating\">\n                                <ion-icon name=\"mail\" slot=\"start\"></ion-icon>\n                                Email\n                            </ion-label>\n                            <ion-input type=\"email\" (input)=\"removeString($event)\" formControlName=\"email\"></ion-input>\n                        </ion-item>\n                        <p class=\"ml-20 danger\" *ngIf=\"profileForm.touched && errorControl.email.errors?.required\">\n                            Email is required\n                        </p>\n                        <p class=\"ml-20 danger\" *ngIf=\"profileForm.touched && errorControl.email.status === 'INVALID' \">\n                            Email is incorrect\n                        </p>\n                    </ion-col>\n                </ion-row>\n\n                <ion-row>\n                    <ion-col>\n                        <ion-item>\n                            <ion-label position=\"floating\">\n                                <ion-icon name=\"lock-closed\"></ion-icon>\n                                Password\n                            </ion-label>\n                            <ion-input [type]=passwordType formControlName=\"password\"></ion-input>\n                            <ion-icon *ngIf=\"isSeen\" (click)=\"passwordSeenStatus()\" class=\"eye\" name=\"eye-outline\" slot=\"end\">\n                            </ion-icon>\n                            <ion-icon *ngIf=\"!isSeen\" (click)=\"passwordSeenStatus()\" class=\"eye\" name=\"eye-off-outline\" slot=\"end\">\n                            </ion-icon>\n\n                        </ion-item>\n                    </ion-col>\n                </ion-row>\n            </form>\n\n        </ion-grid>\n\n        <ion-row class=\"mt-30  margin-top\">\n            <ion-col class=\"text-center\">\n                <div *ngIf=\"showSignUpLoader\" class=\"loader1\"></div>\n                <ion-chip *ngIf=\"!showSignUpLoader\" [ngClass]=\"profileForm.valid ? 'cus-chip' : 'cus-chip-dis'\">\n                    <ion-label class=\"text-center cus-label\" (click)=\"submitLoginForm()\">\n                        LOG IN\n                    </ion-label>\n                </ion-chip>\n            </ion-col>\n        </ion-row>\n        <div class=\"ion-text-center\">\n\n            <div class=\"form-group form-check text-center ion-text-center\">\n                <a [routerLink]=\"['/reset']\">Forgot Password?</a>\n            </div>\n\n        </div>\n\n        <ion-row>\n            <ion-col>\n                <div class=\"separator\">\n                    <div class=\"line\"></div>\n                    <p>OR</p>\n                    <div class=\"line\"></div>\n                </div>\n            </ion-col>\n        </ion-row>\n\n        <ion-row>\n            <ion-col class=\"text-center\">\n                <ion-chip class=\"cus-chip-social\" (click)=\"googleSignIn()\">\n                    <ion-label class=\"text-center cus-label-social social-chip-space\">\n                        <ion-icon name=\"logo-google\"></ion-icon>\n                        CONTINUE WITH GOOGLE\n                    </ion-label>\n                </ion-chip>\n            </ion-col>\n            <ion-col class=\"text-center\" *ngIf=\"isApple\">\n                <ion-chip class=\"cus-chip-social\" (click)=\"AppleSignIn()\">\n                    <ion-label class=\"text-center cus-label-social social-chip-space\">\n                        <ion-icon name=\"logo-apple\"></ion-icon>\n                        CONTINUE WITH Apple\n                    </ion-label>\n                </ion-chip>\n            </ion-col>\n            <ion-col class=\"text-center\">\n                <div style=\"width: 100%; height: 200px;\"></div>\n             </ion-col>\n        </ion-row>\n\n        <!-- <ion-row>\n      <ion-col class=\"text-center\">\n        <ion-chip class=\"cus-chip-social\">\n          <ion-label class=\"text-center cus-label-social social-chip-space\">\n            <ion-icon src=\"assets/fb-logo.svg\"></ion-icon>\n            CONTINUE WITH FACEBOOK\n          </ion-label>\n        </ion-chip>\n      </ion-col>\n    </ion-row>\n\n    <ion-row>\n      <ion-col class=\"text-center\">\n        <ion-chip class=\"cus-chip-social\">\n          <ion-label class=\"text-center cus-label-social social-chip-space\">\n            <ion-icon name=\"logo-apple\"></ion-icon>\n            CONTINUE WITH APPLE\n          </ion-label>\n        </ion-chip>\n      </ion-col>\n    </ion-row> -->\n    </ion-grid>\n</ion-content>\n");
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("<ion-content>\n    <ion-grid>\n        <ion-row class=\"blueBg\">\n            <ion-col>\n                <div class=\"text-center mb-50\">\n                    <img class=\"mt-50 mb-10\" width=\"277\" height=\"78\" src=\"assets/logo.png\" alt=\"\" />\n                </div>\n            </ion-col>\n        </ion-row>\n\n        <ion-grid class=\"cus-card\">\n            <form [formGroup]=\"profileForm\">\n                <ion-row>\n                    <ion-col class=\"pl-20\">\n                        <div>\n                            <ion-icon [routerLink]=\"['/home']\" size=\"large\" name=\"close-outline\"></ion-icon>\n                        </div>\n                    </ion-col>\n                </ion-row>\n                <ion-row class=\"mt-5\">\n                    <ion-col>\n                        <ion-item>\n                            <ion-label position=\"floating\">\n                                <ion-icon name=\"mail\" slot=\"start\"></ion-icon>\n                                Email\n                            </ion-label>\n                            <ion-input type=\"email\" (input)=\"removeString($event)\" formControlName=\"email\"></ion-input>\n                        </ion-item>\n                        <p class=\"ml-20 danger\" *ngIf=\"profileForm.touched && errorControl.email.errors?.required\">\n                            Email is required\n                        </p>\n                        <p class=\"ml-20 danger\" *ngIf=\"profileForm.touched && errorControl.email.status === 'INVALID' \">\n                            Email is incorrect\n                        </p>\n                    </ion-col>\n                </ion-row>\n\n                <ion-row>\n                    <ion-col>\n                        <ion-item>\n                            <ion-label position=\"floating\">\n                                <ion-icon name=\"lock-closed\"></ion-icon>\n                                Password\n                            </ion-label>\n                            <ion-input [type]=passwordType formControlName=\"password\"></ion-input>\n                            <ion-icon *ngIf=\"isSeen\" (click)=\"passwordSeenStatus()\" class=\"eye\" name=\"eye-outline\" slot=\"end\">\n                            </ion-icon>\n                            <ion-icon *ngIf=\"!isSeen\" (click)=\"passwordSeenStatus()\" class=\"eye\" name=\"eye-off-outline\" slot=\"end\">\n                            </ion-icon>\n\n                        </ion-item>\n                    </ion-col>\n                </ion-row>\n            </form>\n\n        </ion-grid>\n\n        <ion-row class=\"mt-30  margin-top\">\n            <ion-col class=\"text-center\">\n                <div *ngIf=\"showSignUpLoader\" class=\"loader1\"></div>\n                <ion-chip *ngIf=\"!showSignUpLoader\" [ngClass]=\"profileForm.valid ? 'cus-chip' : 'cus-chip-dis'\">\n                    <ion-label class=\"text-center cus-label\" (click)=\"submitLoginForm()\">\n                        LOG IN\n                    </ion-label>\n                </ion-chip>\n            </ion-col>\n        </ion-row>\n        <div class=\"ion-text-center\">\n\n            <div class=\"form-group form-check text-center ion-text-center\">\n                <a [routerLink]=\"['/reset']\">Forgot Password?</a>\n            </div>\n\n        </div>\n\n        <ion-row>\n            <ion-col>\n                <div class=\"separator\">\n                    <div class=\"line\"></div>\n                    <p>OR</p>\n                    <div class=\"line\"></div>\n                </div>\n            </ion-col>\n        </ion-row>\n\n        <ion-row>\n            <ion-col class=\"text-center\">\n                <ion-chip class=\"cus-chip-social\" (click)=\"googleSignIn()\">\n                    <ion-label class=\"text-center cus-label-social social-chip-space\">\n                        <ion-icon name=\"logo-google\"></ion-icon>\n                        CONTINUE WITH GOOGLE\n                    </ion-label>\n                </ion-chip>\n            </ion-col>\n            <ion-col class=\"text-center\" *ngIf=\"isApple\">\n                <ion-chip class=\"cus-chip-social\" (click)=\"AppleSignIn()\">\n                    <ion-label class=\"text-center cus-label-social social-chip-space\">\n                        <ion-icon name=\"logo-apple\"></ion-icon>\n                        CONTINUE WITH Apple\n                    </ion-label>\n                </ion-chip>\n            </ion-col>\n        </ion-row>\n\n        <!-- <ion-row>\n      <ion-col class=\"text-center\">\n        <ion-chip class=\"cus-chip-social\">\n          <ion-label class=\"text-center cus-label-social social-chip-space\">\n            <ion-icon src=\"assets/fb-logo.svg\"></ion-icon>\n            CONTINUE WITH FACEBOOK\n          </ion-label>\n        </ion-chip>\n      </ion-col>\n    </ion-row>\n\n    <ion-row>\n      <ion-col class=\"text-center\">\n        <ion-chip class=\"cus-chip-social\">\n          <ion-label class=\"text-center cus-label-social social-chip-space\">\n            <ion-icon name=\"logo-apple\"></ion-icon>\n            CONTINUE WITH APPLE\n          </ion-label>\n        </ion-chip>\n      </ion-col>\n    </ion-row> -->\n    <ion-row>\n        <ion-col class=\"text-center\">\n            <div style=\"width: 100%; height: 100px;\"></div>\n         </ion-col>\n    </ion-row>\n    </ion-grid>\n</ion-content>\n");
 
 /***/ })
 

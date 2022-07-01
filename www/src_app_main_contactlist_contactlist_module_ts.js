@@ -136,12 +136,12 @@ let ContactlistPage = class ContactlistPage {
         this.showFilterPageLoader = false;
     }
     ngOnInit() {
-        this.user = JSON.parse(localStorage.getItem('user'));
-        const friendId = this.activatedRoute.snapshot.paramMap.get('friend_id');
-        if (friendId) {
-            this.cameraOrGallery(friendId);
-        }
-        this.getFriendList();
+        // this.user = JSON.parse(localStorage.getItem('user'));
+        // const friendId = this.activatedRoute.snapshot.paramMap.get('friend_id');
+        // if (friendId) {
+        //     this.cameraOrGallery(friendId);
+        // }
+        // this.getFriendList();
     }
     ionViewDidEnter() {
         console.log(this.activatedRoute.snapshot.paramMap.get('friend_id'));
