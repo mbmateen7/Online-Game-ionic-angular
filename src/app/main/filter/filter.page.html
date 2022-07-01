@@ -1,7 +1,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cssgram/0.1.10/cssgram.min.css" />
 
 <ion-content class="mt-0" *ngIf="!sendGameLoader" scrollY="false">
-  <div style="height: 78vh;">
+  <div>
     <div id="containertop" style="width: 100%">
 
       <div class="top-buttons-head">
@@ -242,33 +242,52 @@
         </ion-col>
       </ion-row>
     </ion-grid>
+
+
+    <div no-border class="main-footer" *ngIf="!showWordSection || !sendGameLoader">
+      <ul *ngIf="buttons == 'default'">
+        <li (click)="segmentChanged('primary')">
+          <a [ngClass]="selection == 'primary'?'selectedSegment':'notSelected'">PRIMARY</a>
+        </li>
+        <li (click)="segmentChanged('secondary')">
+          <a [ngClass]="selection == 'secondary'?'selectedSegment':'notSelected'">SECONDARY</a>
+        </li>
+      </ul>
+      <ul *ngIf="buttons == 'secondary'">
+        <li><a (click)="revertButtons('cancel')">CANCEL</a></li>
+        <li><a (click)="revertButtons()">DONE</a></li>
+      </ul>
+    </div>
   
-    <ion-slides loop="false" [options]="{slidesPerView: 3}" pager="false"
+    <ion-slides loop="false" [options]="{slidesPerView: 4}" pager="false"
       *ngIf="selection == 'primary'  && !showWordSection">
       <ion-slide *ngFor="let filter of filterList" style="display: flex; flex-direction: column;">
-        <p>{{filter.name}}
-          <!-- <ion-icon name="lock-closed-outline"></ion-icon> -->
-          <ion-icon name="lock-closed-outline" *ngIf="!checkOwnedFilter(filter)" style="margin-left: 2px"></ion-icon>
-        </p>
-        <div [ngClass]="filter.name">
+        <div [ngClass]="filter.name" style="margin-top: 5px;">
           <img *ngIf="cameraImageThumbnail" src="{{cameraImageThumbnail}}" (click)="changePrimary(filter)"
-            style="width: 25vw" />
+            style="width: 18vw" />
         </div>
+        <p style="word-break:break-all; margin: 0;">{{filter.name}}
+          <!-- <ion-icon name="lock-closed-outline"></ion-icon> -->
+        </p>
+        <p><ion-icon name="lock-closed-outline" *ngIf="!checkOwnedFilter(filter)" style="margin-left: 2px"></ion-icon></p>
       </ion-slide>
     </ion-slides>
   
-    <ion-slides loop="false" [options]="{slidesPerView: 3}"
+    <ion-slides loop="false" [options]="{slidesPerView: 4}"
       *ngIf="selection == 'secondary' && buttons == 'default' && !showWordSection">
       <ion-slide *ngFor="let filter of secondaryFilterList; let indexElement=index;"
         style="display: flex; flex-direction: column;">
-        {{filter.name}}
-        <ion-icon name="lock-closed-outline" *ngIf="!checkOwnedFilter(filter) && checkOwnedFilter.length"
-          style="margin-left: 2px">
-        </ion-icon>
-        <div [ngStyle]="{'filter': this.secondaryFilterValues[indexElement]}">
+        
+        <div [ngStyle]="{'filter': this.secondaryFilterValues[indexElement]}" style="margin-top: 5px;">
           <img *ngIf="cameraImageThumbnail" src="{{cameraImageThumbnail}}" (click)="changeButtons(filter)"
-            style="width: 25vw" />
+            style="width: 18vw" />
         </div>
+        <p style="word-break:break-all; margin: 0;">{{filter.name}}
+          <!-- <ion-icon name="lock-closed-outline"></ion-icon> -->
+        </p>
+        <p><ion-icon name="lock-closed-outline" *ngIf="!checkOwnedFilter(filter) && checkOwnedFilter.length"
+          style="margin-left: 2px">
+        </ion-icon></p>
       </ion-slide>
     </ion-slides>
   
@@ -289,21 +308,6 @@
     </div>
   </div>
   
-
-  <div no-border class="main-footer" style="height: 50px; margin-bottom: 0; width: 100%;" *ngIf="!showWordSection || !sendGameLoader">
-    <ul *ngIf="buttons == 'default'">
-      <li (click)="segmentChanged('primary')">
-        <a [ngClass]="selection == 'primary'?'selectedSegment':'notSelected'">PRIMARY</a>
-      </li>
-      <li (click)="segmentChanged('secondary')">
-        <a [ngClass]="selection == 'secondary'?'selectedSegment':'notSelected'">SECONDARY</a>
-      </li>
-    </ul>
-    <ul *ngIf="buttons == 'secondary'">
-      <li><a (click)="revertButtons('cancel')">CANCEL</a></li>
-      <li><a (click)="revertButtons()">DONE</a></li>
-    </ul>
-  </div>
 </ion-content>
 
 <div *ngIf="sendGameLoader" class="loaderContainer">

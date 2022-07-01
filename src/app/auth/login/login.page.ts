@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { RestService } from 'src/app/service/rest.service';
 import { LoadingController, NavController, Platform } from '@ionic/angular';
 import { AlertController } from '@ionic/angular';
+import { FCM } from "@capacitor-community/fcm";
 import { PushNotifications } from '@capacitor/push-notifications';
 import Swal from 'sweetalert2';
 import { UserService } from 'src/app/service/user.service';
@@ -174,6 +175,11 @@ export class LoginPage implements OnInit {
             
             if (result.receive === 'granted') {
                 PushNotifications.register();
+                FCM.getToken().then((result) => {
+                    console.log(result.token);
+                    
+                    // this.remoteToken = result.token;
+                  }).catch((err) => console.log('i am Error' , err));
             } else {
             }
         });

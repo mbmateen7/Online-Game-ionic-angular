@@ -1147,7 +1147,7 @@ let PlayGamePage = class PlayGamePage {
         else {
             sweetalert2__WEBPACK_IMPORTED_MODULE_4___default().fire({
                 title: '<div><img src="assets/icon/notice.png" style="width: 20vw; height:20vw;"><br><h5>Oh no!</h5></div>',
-                text: 'You dont have extra AddTurn. Do you want to go to store and buy from there?',
+                text: 'You don\'t have extra AddTurn. Do you want to go to store and buy from there?',
                 confirmButtonText: 'Yes',
                 confirmButtonColor: '#99C43C',
                 showCancelButton: true,
@@ -1189,7 +1189,7 @@ let PlayGamePage = class PlayGamePage {
         else {
             sweetalert2__WEBPACK_IMPORTED_MODULE_4___default().fire({
                 title: '<div><img src="assets/icon/notice.png" style="width: 20vw; height:20vw;"><br><h5>Oh no!</h5></div>',
-                text: 'You dont have extra reveal. Do you want to go to store and buy from there?',
+                text: 'You don\'t have extra reveal. Do you want to go to store and buy from there?',
                 confirmButtonText: 'Yes',
                 confirmButtonColor: '#99C43C',
                 showCancelButton: true,

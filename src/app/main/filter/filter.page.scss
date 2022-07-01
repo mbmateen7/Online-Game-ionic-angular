@@ -79,15 +79,6 @@ page-filters {
     }
   }
 
-  .selectedSegment {
-    font-weight: bold;
-    color: white;
-  }
-
-  .notSelected {
-    color: white;
-    opacity: 0.5;
-  }
 }
 
 
@@ -117,10 +108,14 @@ page-filters {
 }
 
 .main-footer {
-  background: #000 !important;
+  height: 50px;
+  width: 100%;
+  display: flex;
+  background: #8396d5 !important;
 
   ul {
     display: flex;
+    width: 100%;
     align-items: center;
     justify-content: space-evenly;
     padding: 0;
@@ -136,6 +131,16 @@ page-filters {
       }
     }
   }
+}
+.selectedSegment {
+  font-weight: bold;
+  color: white;
+  // text-decoration: underline !important;
+}
+
+.notSelected {
+  color: white;
+  opacity: 0.5;
 }
 
 .top-buttons-head {
