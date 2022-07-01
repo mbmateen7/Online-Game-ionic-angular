@@ -45,6 +45,8 @@ export class StorePage implements OnInit{
       let inDateCount = ClaimDate.dateCount;
       this.lastLogin = new Date(this.user.last_login);  
       let LoginClaimDate =  (this.lastLogin).getDate();
+      let claimDateSum = LoginClaimDate - savedClaimDate;
+      
 
       console.log("1->"+LoginClaimDate, "2->"+savedClaimDate);
       if (LoginClaimDate == savedClaimDate)
@@ -52,7 +54,7 @@ export class StorePage implements OnInit{
         this.buttonDisabled = true;
       }
 
-      if (inDateCount == 5 ) {
+      if (inDateCount == 5 || claimDateSum > 1 ) {
         for (let index = 1; index <= inDateCount; index++) {
           const element = document.getElementById('claim-image-'+index).style.opacity='1';
         }
@@ -275,6 +277,9 @@ export class StorePage implements OnInit{
                                   allowOutsideClick: true,
                               });
                                 this.buttonDisabled = true;
+                                for (let index = 1; index <= 5; index++) {
+                                  const element = document.getElementById('claim-image-'+index).style.opacity='0.5';
+                                                              }
                                   break;
                             
                             }
@@ -298,12 +303,12 @@ export class StorePage implements OnInit{
                               confirmButtonColor: '#99C43C',
                               allowOutsideClick: true,
                           });
-                          this.ngOnInit();
     
                             // for (let index = 1; index <= inDateCount; index++) {
                             //   const element = document.getElementById('claim-image-'+index).style.opacity='0.5';
                             //                               }
                           }
+                          this.ngOnInit();
                         }
         
       }
