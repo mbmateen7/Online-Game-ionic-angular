@@ -253,6 +253,7 @@ export class StorePage implements OnInit {
 
     onLastGameEvent() {
         this.onPlayGame(this.lastGame);
+
     }
 
     onPlayGame(game) {
@@ -275,5 +276,6 @@ export class StorePage implements OnInit {
 
     backToGame() {
         this.navCtrl.navigateBack(['filter']);
+        
     }
 }
