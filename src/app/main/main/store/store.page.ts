@@ -1,9 +1,10 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { endAt } from 'firebase/firestore';
 import { UserService } from 'src/app/service/user.service';
 import { FilterPage } from './filter/filter.page';
 import Swal from 'sweetalert2';
+import { LoadingController, NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-store',
@@ -26,8 +27,10 @@ export class StorePage implements OnInit{
   filterData;
   @ViewChild(FilterPage) child;
   userData;
+  lastGameCheck = false;
+  lastGame;
 
-  constructor(private route: ActivatedRoute, private userService: UserService) {
+  constructor(private route: ActivatedRoute, private userService: UserService, private loading: LoadingController, private navCtrl: NavController, private router: Router) {
     this.userService.userSourceValue
     this.userService.userData.subscribe(res => {
       console.log(res);
@@ -74,6 +77,11 @@ export class StorePage implements OnInit{
   }
 
   ionViewWillEnter() {
+    let lastGame = localStorage.getItem('lastGame');
+    if (lastGame) {
+        this.lastGame = JSON.parse(lastGame);
+        this.lastGameCheck = true;
+    }
     this.filterData = JSON.parse(this.route.snapshot.queryParamMap.get('filterData'));
     console.log('FilterData', this.filterData)
     this.filterPage = this.filterData.id ? true : false
@@ -296,6 +304,7 @@ export class StorePage implements OnInit{
                                                           }
                             this.updateUser(10);
                             this.buttonDisabled = true;
+
                             Swal.fire({
                               title: '<div><img src="assets/icon/greencheck.png" style="width: 20vw; height:20vw;"><br><h5>Claimed!</h5></div>',
                               text: 'Daily Puzzle Pieces Rewarded!',
@@ -318,4 +327,34 @@ export class StorePage implements OnInit{
             this.user.puzzle_pieces += num;
               this.userService.updateUser(this.user);
           }
+
+
+    onLastGameEvent() {
+        this.onPlayGame(this.lastGame);
+
+    }
+
+    onPlayGame(game) {
+        this.doLoading().then(() => {
+            localStorage.setItem('lastGame', JSON.stringify(game));
+            this.router.navigate(
+                ['play-game', { game: JSON.stringify(game) }],
+                { replaceUrl: true }
+            );
+            this.loader.dismiss();
+        });
+    }
+    loader;
+    async doLoading() {
+        this.loader = await this.loading.create({
+            message: 'Loading...',
+        });
+        this.loader.present();
+    }
+
+    backToGame() {
+        this.navCtrl.navigateBack(['filter']);
+        
+    }
+
 }
