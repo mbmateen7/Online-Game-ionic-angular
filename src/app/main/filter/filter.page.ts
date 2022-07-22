@@ -1060,7 +1060,7 @@ export class FilterPage implements OnInit {
         } else {
             this.spinnerDialog.hide();
             Swal.fire({
-                text: 'You Want to purchase?',
+                text: 'Would you like to purchase this filter?',
                 confirmButtonText: 'Yes',
                 confirmButtonColor: '#99C43C',
                 allowOutsideClick: true,

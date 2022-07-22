@@ -529,7 +529,7 @@ export class PlayGamePage implements OnInit {
                 }
             } else {
                 Swal.fire({
-                    title: '<div><img src="assets/icon/notice.png" style="width: 20vw; height:20vw;"><br><h5>Oh no!</h5></div>',
+                    title: '<div><img src="assets/icon/notice.png" style="width: 20vw; height:20vw;"><br><h5>OH NO!</h5></div>',
                     text: 'You dont have extra turn. Do you want to go to store and buy from there?',
                     confirmButtonText: 'Yes',
                     confirmButtonColor: '#99C43C',
@@ -543,7 +543,7 @@ export class PlayGamePage implements OnInit {
                     }
                     if (!result.isConfirmed) {
                         Swal.fire({
-                            title: '<div><img src="assets/icon/lost.png" style="width: 20vw; height:20vw;"><br><h5>You lost!</h5></div>',
+                            title: '<div><img src="assets/icon/lost.png" style="width: 20vw; height:20vw;"><br><h5>YOU LOST!</h5></div>',
                             html:
                                 'The correct answer was: ' +
                                 THIS.gameObj.word +

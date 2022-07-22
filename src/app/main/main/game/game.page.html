@@ -116,7 +116,7 @@
                     <div class="card-header givereward">Give Rewards</div>
                     <div class="card-body">
                         <div class="body-header">
-                            <button *ngIf="claimList[0]?.give_reward?.length" (click)="giveRewardToAll()" class="cus-btn">Claim All</button>
+                            <button *ngIf="claimList[0]?.give_reward?.length" (click)="giveRewardToAll()" class="cus-btn">Give All</button>
                         </div>
                         <div *ngIf="claimList === null || claimList.length === 0" class="no-record">
                             NO REWARDS AVAILABLE

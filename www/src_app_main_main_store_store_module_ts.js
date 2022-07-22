@@ -466,14 +466,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "StorePage": () => (/* binding */ StorePage)
 /* harmony export */ });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! tslib */ 64762);
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! tslib */ 64762);
 /* harmony import */ var _raw_loader_store_page_html__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !raw-loader!./store.page.html */ 24791);
 /* harmony import */ var _store_page_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./store.page.scss */ 43505);
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/core */ 37716);
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/router */ 39895);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/core */ 37716);
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/router */ 39895);
 /* harmony import */ var src_app_service_user_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/service/user.service */ 84981);
 /* harmony import */ var _filter_filter_page__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./filter/filter.page */ 2500);
-/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ionic/angular */ 80476);
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! sweetalert2 */ 88259);
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @ionic/angular */ 80476);
+
 
 
 
@@ -483,12 +486,12 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let StorePage = class StorePage {
-    constructor(route, userService, router, loading, navCtrl) {
+    constructor(route, userService, loading, navCtrl, router) {
         this.route = route;
         this.userService = userService;
-        this.router = router;
         this.loading = loading;
         this.navCtrl = navCtrl;
+        this.router = router;
         this.dateCounter = 1;
         this.isFilterOpened = true;
         this.isItemOpened = false;
@@ -496,7 +499,8 @@ let StorePage = class StorePage {
         this.filterPage = false;
         this.lastGameCheck = false;
         this.userService.userSourceValue;
-        this.userService.userData.subscribe((res) => {
+        this.userService.userData.subscribe(res => {
+            console.log(res);
             this.user = JSON.parse(res);
         });
     }
@@ -505,13 +509,24 @@ let StorePage = class StorePage {
         this.user = JSON.parse(localStorage.getItem('user'));
         this.lastClaimDate = localStorage.getItem('LastLoginClaim');
         let ClaimDate = JSON.parse(this.lastClaimDate);
-        if (!ClaimDate) {
-            ClaimDate = new Date();
-        }
         let savedClaimDate = new Date(ClaimDate.date).getDate();
         let inDateCount = ClaimDate.dateCount;
-        for (let index = 1; index <= inDateCount; index++) {
-            const element = (document.getElementById('claim-image-' + index).style.opacity = '0.5');
+        this.lastLogin = new Date(this.user.last_login);
+        let LoginClaimDate = (this.lastLogin).getDate();
+        let claimDateSum = LoginClaimDate - savedClaimDate;
+        console.log("1->" + LoginClaimDate, "2->" + savedClaimDate);
+        if (LoginClaimDate == savedClaimDate) {
+            this.buttonDisabled = true;
+        }
+        if (inDateCount == 5 || claimDateSum > 1) {
+            for (let index = 1; index <= inDateCount; index++) {
+                const element = document.getElementById('claim-image-' + index).style.opacity = '1';
+            }
+        }
+        else {
+            for (let index = 1; index <= inDateCount; index++) {
+                const element = document.getElementById('claim-image-' + index).style.opacity = '0.5';
+            }
         }
         // this.lastClaimDate = localStorage.getItem('LastLoginClaim');
         //  let ClaimDate = JSON.parse(this.lastClaimDate);
@@ -527,6 +542,7 @@ let StorePage = class StorePage {
             this.lastGameCheck = true;
         }
         this.filterData = JSON.parse(this.route.snapshot.queryParamMap.get('filterData'));
+        console.log('FilterData', this.filterData);
         this.filterPage = this.filterData.id ? true : false;
     }
     changeTab(x) {
@@ -548,6 +564,7 @@ let StorePage = class StorePage {
     }
     receiveMessage($event) {
         // this.message = $event
+        console.log('Eventt', $event);
         this.isFilterOpened = false;
         this.isItemOpened = false;
         this.isBundleOpened = true;
@@ -555,6 +572,7 @@ let StorePage = class StorePage {
     claimDailyReward() {
         this.lastLogin = new Date(this.user.last_login);
         this.lastClaimDate = localStorage.getItem('LastLoginClaim');
+        console.log("First Claimdate Full:" + this.lastClaimDate);
         //  let ClaimDate = JSON.parse(this.lastClaimDate);
         //   let inDateCount = ClaimDate.dateCount;
         //   console.log(inDateCount);
@@ -563,37 +581,52 @@ let StorePage = class StorePage {
         //   }
         //   this.updateUser();
         if (!this.lastClaimDate || this.lastClaimDate === 'null') {
+            console.log("if");
             this.dateCounter = 1;
-            localStorage.setItem('LastLoginClaim', JSON.stringify({
-                date: this.lastLogin,
-                dateCount: this.dateCounter,
-                userId: this.user.id,
-            }));
+            localStorage.setItem('LastLoginClaim', JSON.stringify({ date: this.lastLogin, dateCount: this.dateCounter, userId: this.user.id }));
             this.lastClaimDate = localStorage.getItem('LastLoginClaim');
             let ClaimDate = JSON.parse(this.lastClaimDate);
-            let savedClaimDate = this.lastLogin.getDate();
-            let lastSavedClaimDate = new Date(ClaimDate.date).getDate();
+            let savedClaimDate = (this.lastLogin).getDate();
+            let lastSavedClaimDate = (new Date(ClaimDate.date).getDate());
+            let inDateCount = ClaimDate.dateCount;
             if (lastSavedClaimDate == savedClaimDate) {
+                console.log("i got 10 points in if");
                 this.updateUser(10);
+                this.buttonDisabled = true;
+                sweetalert2__WEBPACK_IMPORTED_MODULE_4___default().fire({
+                    title: '<div><img src="assets/icon/greencheck.png" style="width: 20vw; height:20vw;"><br><h5>Claimed!</h5></div>',
+                    text: 'Daily Puzzle Pieces Rewarded!',
+                    confirmButtonText: 'Cool',
+                    confirmButtonColor: '#99C43C',
+                    allowOutsideClick: true,
+                });
+                for (let index = 1; index <= inDateCount; index++) {
+                    const element = document.getElementById('claim-image-' + index).style.opacity = '0.5';
+                }
             }
         }
         else {
+            console.log("else");
             let ClaimDate = JSON.parse(this.lastClaimDate);
             let signInUser = this.user.id;
             let localsignedUser = ClaimDate.userId;
             if (signInUser != localsignedUser) {
                 this.dateCounter = 1;
-                localStorage.setItem('LastLoginClaim', JSON.stringify({
-                    date: this.lastLogin,
-                    dateCount: this.dateCounter,
-                    userId: this.user.id,
-                }));
+                localStorage.setItem('LastLoginClaim', JSON.stringify({ date: this.lastLogin, dateCount: this.dateCounter, userId: this.user.id }));
                 this.lastClaimDate = localStorage.getItem('LastLoginClaim');
                 let ClaimDate = JSON.parse(this.lastClaimDate);
-                let savedClaimDate = this.lastLogin.getDate();
-                let lastSavedClaimDate = new Date(ClaimDate.date).getDate();
+                let savedClaimDate = (this.lastLogin).getDate();
+                let lastSavedClaimDate = (new Date(ClaimDate.date).getDate());
                 if (lastSavedClaimDate == savedClaimDate) {
+                    console.log("i got 10 points in if");
                     this.updateUser(10);
+                    sweetalert2__WEBPACK_IMPORTED_MODULE_4___default().fire({
+                        title: '<div><img src="assets/icon/greencheck.png" style="width: 20vw; height:20vw;"><br><h5>Claimed!</h5></div>',
+                        text: 'Daily Puzzle Pieces Rewarded!',
+                        confirmButtonText: 'Cool',
+                        confirmButtonColor: '#99C43C',
+                        allowOutsideClick: true,
+                    });
                 }
             }
             else {
@@ -601,64 +634,110 @@ let StorePage = class StorePage {
                 let ClaimDate = JSON.parse(this.lastClaimDate);
                 let savedClaimDate = new Date(ClaimDate.date).getDate();
                 let inDateCount = ClaimDate.dateCount;
-                console.log('inDateCount:' + inDateCount);
-                console.log('else last user login :' + this.lastLogin.getDate());
-                console.log('localstorage last user login' + savedClaimDate);
-                let claimDateSum = this.lastLogin.getDate() - savedClaimDate;
-                console.log('sum of different date' + claimDateSum);
+                console.log("inDateCount:" + inDateCount);
+                console.log("else last user login :" + (this.lastLogin).getDate());
+                console.log("localstorage last user login" + savedClaimDate);
+                let claimDateSum = ((this.lastLogin).getDate()) - savedClaimDate;
+                console.log("sum of different date" + claimDateSum);
                 if (claimDateSum <= 1 && inDateCount <= 4) {
                     let inDateCount = ClaimDate.dateCount;
-                    console.log('inDateCount:' + inDateCount);
+                    console.log("inDateCount:" + inDateCount);
                     this.dateCounter = inDateCount;
                     this.dateCounter++;
-                    localStorage.setItem('LastLoginClaim', JSON.stringify({
-                        date: this.lastLogin,
-                        dateCount: this.dateCounter,
-                        userId: this.user.id,
-                    }));
-                    console.log('counter in else if' + this.dateCounter);
+                    localStorage.setItem('LastLoginClaim', JSON.stringify({ date: this.lastLogin, dateCount: this.dateCounter, userId: this.user.id }));
+                    console.log("counter in else if" + this.dateCounter);
                     for (let index = 1; index <= inDateCount + 1; index++) {
-                        const element = (document.getElementById('claim-image-' + index).style.opacity = '0.5');
+                        const element = document.getElementById('claim-image-' + index).style.opacity = '0.5';
                     }
                     switch (this.dateCounter) {
                         case 1:
                             this.updateUser(10);
+                            sweetalert2__WEBPACK_IMPORTED_MODULE_4___default().fire({
+                                title: '<div><img src="assets/icon/greencheck.png" style="width: 20vw; height:20vw;"><br><h5>Claimed!</h5></div>',
+                                text: 'Daily Puzzle Pieces Rewarded!',
+                                confirmButtonText: 'Cool',
+                                confirmButtonColor: '#99C43C',
+                                allowOutsideClick: true,
+                            });
                             this.buttonDisabled = true;
                             break;
                         case 2:
                             this.updateUser(20);
+                            sweetalert2__WEBPACK_IMPORTED_MODULE_4___default().fire({
+                                title: '<div><img src="assets/icon/greencheck.png" style="width: 20vw; height:20vw;"><br><h5>Claimed!</h5></div>',
+                                text: 'Daily Puzzle Pieces Rewarded!',
+                                confirmButtonText: 'Cool',
+                                confirmButtonColor: '#99C43C',
+                                allowOutsideClick: true,
+                            });
                             this.buttonDisabled = true;
                             break;
                         case 3:
                             this.updateUser(30);
+                            sweetalert2__WEBPACK_IMPORTED_MODULE_4___default().fire({
+                                title: '<div><img src="assets/icon/greencheck.png" style="width: 20vw; height:20vw;"><br><h5>Claimed!</h5></div>',
+                                text: 'Daily Puzzle Pieces Rewarded!',
+                                confirmButtonText: 'Cool',
+                                confirmButtonColor: '#99C43C',
+                                allowOutsideClick: true,
+                            });
                             this.buttonDisabled = true;
+                            sweetalert2__WEBPACK_IMPORTED_MODULE_4___default().fire({
+                                title: '<div><img src="assets/icon/greencheck.png" style="width: 20vw; height:20vw;"><br><h5>Claimed!</h5></div>',
+                                text: 'Daily Puzzle Pieces Rewarded!',
+                                confirmButtonText: 'Cool',
+                                confirmButtonColor: '#99C43C',
+                                allowOutsideClick: true,
+                            });
                             break;
                         case 4:
                             this.updateUser(40);
+                            sweetalert2__WEBPACK_IMPORTED_MODULE_4___default().fire({
+                                title: '<div><img src="assets/icon/greencheck.png" style="width: 20vw; height:20vw;"><br><h5>Claimed!</h5></div>',
+                                text: 'Daily Puzzle Pieces Rewarded!',
+                                confirmButtonText: 'Cool',
+                                confirmButtonColor: '#99C43C',
+                                allowOutsideClick: true,
+                            });
                             this.buttonDisabled = true;
                             break;
                         case 5:
                             this.updateUser(50);
+                            sweetalert2__WEBPACK_IMPORTED_MODULE_4___default().fire({
+                                title: '<div><img src="assets/icon/greencheck.png" style="width: 20vw; height:20vw;"><br><h5>Claimed!</h5></div>',
+                                text: 'Daily Puzzle Pieces Rewarded!',
+                                confirmButtonText: 'Cool',
+                                confirmButtonColor: '#99C43C',
+                                allowOutsideClick: true,
+                            });
                             this.buttonDisabled = true;
+                            for (let index = 1; index <= 5; index++) {
+                                const element = document.getElementById('claim-image-' + index).style.opacity = '0.5';
+                            }
                             break;
                     }
                 }
                 else {
-                    console.log('start from begining');
+                    console.log("start from begining");
                     this.dateCounter = 1;
-                    localStorage.setItem('LastLoginClaim', JSON.stringify({
-                        date: this.lastLogin,
-                        dateCount: this.dateCounter,
-                        userId: this.user.id,
-                    }));
+                    localStorage.setItem('LastLoginClaim', JSON.stringify({ date: this.lastLogin, dateCount: this.dateCounter, userId: this.user.id }));
                     for (let index = 1; index <= 5; index++) {
-                        const element = (document.getElementById('claim-image-' + index).style.opacity = '1');
+                        const element = document.getElementById('claim-image-' + index).style.opacity = '0.5';
                     }
                     this.updateUser(10);
+                    this.buttonDisabled = true;
+                    sweetalert2__WEBPACK_IMPORTED_MODULE_4___default().fire({
+                        title: '<div><img src="assets/icon/greencheck.png" style="width: 20vw; height:20vw;"><br><h5>Claimed!</h5></div>',
+                        text: 'Daily Puzzle Pieces Rewarded!',
+                        confirmButtonText: 'Cool',
+                        confirmButtonColor: '#99C43C',
+                        allowOutsideClick: true,
+                    });
                     // for (let index = 1; index <= inDateCount; index++) {
                     //   const element = document.getElementById('claim-image-'+index).style.opacity='0.5';
                     //                               }
                 }
+                this.ngOnInit();
             }
         }
     }
@@ -677,7 +756,7 @@ let StorePage = class StorePage {
         });
     }
     doLoading() {
-        return (0,tslib__WEBPACK_IMPORTED_MODULE_4__.__awaiter)(this, void 0, void 0, function* () {
+        return (0,tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(this, void 0, void 0, function* () {
             this.loader = yield this.loading.create({
                 message: 'Loading...',
             });
@@ -689,17 +768,17 @@ let StorePage = class StorePage {
     }
 };
 StorePage.ctorParameters = () => [
-    { type: _angular_router__WEBPACK_IMPORTED_MODULE_5__.ActivatedRoute },
+    { type: _angular_router__WEBPACK_IMPORTED_MODULE_6__.ActivatedRoute },
     { type: src_app_service_user_service__WEBPACK_IMPORTED_MODULE_2__.UserService },
-    { type: _angular_router__WEBPACK_IMPORTED_MODULE_5__.Router },
-    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_6__.LoadingController },
-    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_6__.NavController }
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_7__.LoadingController },
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_7__.NavController },
+    { type: _angular_router__WEBPACK_IMPORTED_MODULE_6__.Router }
 ];
 StorePage.propDecorators = {
-    child: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_7__.ViewChild, args: [_filter_filter_page__WEBPACK_IMPORTED_MODULE_3__.FilterPage,] }]
+    child: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_8__.ViewChild, args: [_filter_filter_page__WEBPACK_IMPORTED_MODULE_3__.FilterPage,] }]
 };
-StorePage = (0,tslib__WEBPACK_IMPORTED_MODULE_4__.__decorate)([
-    (0,_angular_core__WEBPACK_IMPORTED_MODULE_7__.Component)({
+StorePage = (0,tslib__WEBPACK_IMPORTED_MODULE_5__.__decorate)([
+    (0,_angular_core__WEBPACK_IMPORTED_MODULE_8__.Component)({
         selector: 'app-store',
         template: _raw_loader_store_page_html__WEBPACK_IMPORTED_MODULE_0__.default,
         styles: [_store_page_scss__WEBPACK_IMPORTED_MODULE_1__.default]
