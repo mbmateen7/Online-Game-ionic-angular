@@ -530,7 +530,7 @@ export class PlayGamePage implements OnInit {
             } else {
                 Swal.fire({
                     title: '<div><img src="assets/icon/notice.png" style="width: 20vw; height:20vw;"><br><h5>OH NO!</h5></div>',
-                    text: 'You dont have extra turn. Do you want to go to store and buy from there?',
+                    text: 'You are out of guesses. Would you like to buy an extra guess?',
                     confirmButtonText: 'Yes',
                     confirmButtonColor: '#99C43C',
                     showCancelButton: true,
@@ -540,6 +540,9 @@ export class PlayGamePage implements OnInit {
                     cancelButtonText: 'No',
                 }).then((result) => {
                     if (result.isConfirmed) {
+                        THIS.router.navigate(['main/store'], {
+                            replaceUrl: true,
+                        });
                     }
                     if (!result.isConfirmed) {
                         Swal.fire({

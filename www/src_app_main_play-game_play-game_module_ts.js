@@ -597,8 +597,8 @@ let PlayGamePage = class PlayGamePage {
             }
             else {
                 sweetalert2__WEBPACK_IMPORTED_MODULE_4___default().fire({
-                    title: '<div><img src="assets/icon/notice.png" style="width: 20vw; height:20vw;"><br><h5>Oh no!</h5></div>',
-                    text: 'You dont have extra turn. Do you want to go to store and buy from there?',
+                    title: '<div><img src="assets/icon/notice.png" style="width: 20vw; height:20vw;"><br><h5>OH NO!</h5></div>',
+                    text: 'You are out of guesses. Would you like to buy an extra guess?',
                     confirmButtonText: 'Yes',
                     confirmButtonColor: '#99C43C',
                     showCancelButton: true,
@@ -608,10 +608,13 @@ let PlayGamePage = class PlayGamePage {
                     cancelButtonText: 'No',
                 }).then((result) => {
                     if (result.isConfirmed) {
+                        THIS.router.navigate(['main/store'], {
+                            replaceUrl: true,
+                        });
                     }
                     if (!result.isConfirmed) {
                         sweetalert2__WEBPACK_IMPORTED_MODULE_4___default().fire({
-                            title: '<div><img src="assets/icon/lost.png" style="width: 20vw; height:20vw;"><br><h5>You lost!</h5></div>',
+                            title: '<div><img src="assets/icon/lost.png" style="width: 20vw; height:20vw;"><br><h5>YOU LOST!</h5></div>',
                             html: 'The correct answer was: ' +
                                 THIS.gameObj.word +
                                 "<br>It's your turn! Would you like to send a game back?",

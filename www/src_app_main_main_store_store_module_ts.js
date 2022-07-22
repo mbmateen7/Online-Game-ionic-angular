@@ -236,7 +236,7 @@ let FilterPage = class FilterPage {
         else {
             sweetalert2__WEBPACK_IMPORTED_MODULE_4___default().fire({
                 title: 'Error',
-                text: 'You Donot have enough puzzle pieces. want to buy?'
+                text: 'You don’t have enough puzzle pieces to purchase this item'
             }).then(res => {
                 if (res.isConfirmed) {
                     this.messageEvent.emit(true);
@@ -330,7 +330,7 @@ let ItemPage = class ItemPage {
         else {
             sweetalert2__WEBPACK_IMPORTED_MODULE_4___default().fire({
                 title: 'Error',
-                text: 'You Do not have enough puzzle pieces. want to buy?',
+                text: 'You don’t have enough puzzle pieces to purchase this item',
             }).then((res) => {
                 if (res.isConfirmed) {
                     this.messageEvent.emit(true);

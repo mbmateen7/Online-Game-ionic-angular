@@ -890,7 +890,7 @@ let FilterPage = class FilterPage {
         else {
             this.spinnerDialog.hide();
             sweetalert2__WEBPACK_IMPORTED_MODULE_5___default().fire({
-                text: 'You Want to purchase?',
+                text: 'Would you like to purchase this filter?',
                 confirmButtonText: 'Yes',
                 confirmButtonColor: '#99C43C',
                 allowOutsideClick: true,
