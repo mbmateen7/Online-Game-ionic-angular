@@ -6,6 +6,8 @@ import { AudioService } from 'src/app/service/audio.service';
 import { RestService } from 'src/app/service/rest.service';
 import { AlertController, NavController } from '@ionic/angular';
 import { AdMob } from '@capacitor-community/admob';
+import { StorageService } from 'src/app/service/storage.service';
+import { UserService } from 'src/app/service/user.service';
 
 @Component({
     selector: 'app-setting',
@@ -23,14 +25,19 @@ export class SettingPage implements OnInit {
         private restService: RestService,
         private audio: AudioService,
         private socialSharing: SocialSharing,
-        private navCtrl: NavController
+        private navCtrl: NavController,
+        private db:StorageService,
+        private _user:UserService
     ) {}
 
     ngOnInit() {
-        this.user = JSON.parse(localStorage.getItem('user'));
+        this.user = this._user.userSourceValue;
     }
     ionViewDidEnter() {
-        this.playAudio = JSON.parse(localStorage.getItem('playAudio'));
+        // this.playAudio = JSON.parse(localStorage.getItem('playAudio'));
+        this.db.getItem('playAudio').then(res => {
+            this.playAudio= res
+        });
         if (!this.playAudio) this.playAudio = false;
         this.getUserData();
     }
@@ -38,9 +45,9 @@ export class SettingPage implements OnInit {
     onLogout() {
         this.logout();
         this.setLastLogin();
-        let lastClaim = localStorage.getItem('LastLoginClaim');
-        localStorage.clear();
-        localStorage.setItem('LastLoginClaim', lastClaim);
+        let lastClaim = this.db.getItem('LastLoginClaim');
+        this.db.remove();
+        this.db.setItem('LastLoginClaim',lastClaim)
         this.router.routeReuseStrategy.shouldReuseRoute = function () {
             return false;
         };
@@ -103,7 +110,7 @@ export class SettingPage implements OnInit {
             });
     }
     changeSound(e) {
-        localStorage.setItem('playAudio', JSON.stringify(e.detail.checked));
+        this.db.setItem('playAudio', JSON.stringify(e.detail.checked));
         if (e.detail.checked) {
             this.audio.stopSound();
             this.audio.playSound();

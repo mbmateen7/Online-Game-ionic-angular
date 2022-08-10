@@ -1,6 +1,7 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController, NavController } from '@ionic/angular';
+import { StorageService } from 'src/app/service/storage.service';
 import { RestService } from 'src/app/service/rest.service';
 import { UserService } from 'src/app/service/user.service';
 import Swal from 'sweetalert2';
@@ -21,6 +22,7 @@ export class FilterPage implements OnInit {
     private userService: UserService,
     private navCtrl: NavController,
     private router: Router,
+    private db: StorageService
 
   ) {
 
@@ -30,7 +32,10 @@ export class FilterPage implements OnInit {
 
 
   ngOnInit() {
-    this.user = JSON.parse(localStorage.getItem('user'));
+    // this.user = JSON.parse(localStorage.getItem('user'));
+    this.db.getItem('user').then(res => {
+      this.user= res
+  });
     // console.log('getFilterData', this.getFilterData)
   }
 
@@ -39,7 +44,7 @@ export class FilterPage implements OnInit {
   getOwnedItemList() {
     this.restService.getRequest('shop/purchase-detail').subscribe((res: any) => {
       this.ownedItemsList = res.message;
-      localStorage.setItem('ownedItemsList', JSON.stringify(this.ownedItemsList))
+      this.db.setItem('ownedItemsList', JSON.stringify(this.ownedItemsList))
 
     });
   }
@@ -68,7 +73,7 @@ export class FilterPage implements OnInit {
         })
         this.user.puzzle_pieces = this.user.puzzle_pieces - 3000;
         this.userService.updateUser(this.user);
-        localStorage.setItem('user', JSON.stringify(this.user))
+        this.db.setItem('user', JSON.stringify(this.user))
         this.navCtrl.navigateBack('filter');
       } else {
         this.navCtrl.navigateForward('main/store/filter/filter-list')

@@ -7,6 +7,8 @@ import { LoadingController, NavController } from '@ionic/angular';
 import { PushNotifications } from '@capacitor/push-notifications';
 
 import { GooglePlus } from '@ionic-native/google-plus/ngx';
+import { UserService } from 'src/app/service/user.service';
+import { StorageService } from 'src/app/service/storage.service';
 @Component({
     selector: 'app-game',
     templateUrl: './game.page.html',
@@ -31,7 +33,9 @@ export class GamePage implements OnInit {
         private navCtrl: NavController,
         private activatedRoute: ActivatedRoute,
         private googlePlus: GooglePlus,
-        private loading: LoadingController
+        private loading: LoadingController,
+        private _user:UserService,
+        private db:StorageService
     ) {
         PushNotifications.requestPermissions().then((result) => {
             if (result.receive === 'granted') {
@@ -64,6 +68,9 @@ export class GamePage implements OnInit {
                 this.getCalimList();
             }
         });
+        this.db.getItem('user').then(res => {
+            this.user= res
+        });
     }
 
     ionViewDidEnter() {
@@ -83,16 +90,14 @@ export class GamePage implements OnInit {
         }
 
         this.showMoveList = false;
-        this.user = JSON.parse(localStorage.getItem('user'));
         this.getLevelList();
         this.showMoveList = false;
     }
 
     ionViewWillEnter() {
-        let lastGame = localStorage.getItem('lastGame');
+        let lastGame = this.db.getItem('lastGame');
 
         if (lastGame) {
-            this.lastGame = JSON.parse(lastGame);
             this.lastGameCheck = true;
         }
         this.getUserDetail();
@@ -103,7 +108,7 @@ export class GamePage implements OnInit {
 
     onPlayGame(game) {
         this.doLoading().then(() => {
-            localStorage.setItem('lastGame', JSON.stringify(game));
+            this.db.setItem('lastGame',(game));
             this.router.navigate(
                 ['play-game', { game: JSON.stringify(game) }],
                 { replaceUrl: true }
@@ -134,7 +139,7 @@ export class GamePage implements OnInit {
                         .subscribe((res: any) => {
                             this.ionViewWillEnter();
                             this.user = res;
-                            localStorage.setItem('user', JSON.stringify(res));
+                            this.db.setItem('user',(res));
                             Swal.fire({
                                 title: '<div><img src="assets/icon/greencheck.png" style="width: 20vw; height:20vw;"><br><h5>Claimed all!</h5></div>',
                                 text: 'Reward is claimed',
@@ -155,8 +160,11 @@ export class GamePage implements OnInit {
                 let baseLvl = null;
                 let upLvl = null;
                 this.levelList = res.message;
-                this.user = localStorage.getItem('user');
-                this.user = JSON.parse(this.user);
+                // this.user = localStorage.getItem('user');
+                // this.user = JSON.parse(this.user);
+                this.db.getItem('user').then(res => {
+                    this.user= res
+                });
 
                 baseLvl = this.levelList.filter(
                     (lvl) => lvl.id == this.user.level_id
@@ -199,7 +207,7 @@ export class GamePage implements OnInit {
     getUserDetail() {
         this.restService.getRequest('users/detail').subscribe((res: any) => {
             this.user = res;
-            localStorage.setItem('user', JSON.stringify(res));
+            this.db.setItem('user',(res));
         });
     }
 
@@ -237,7 +245,7 @@ export class GamePage implements OnInit {
                         .getRequest('users/detail')
                         .subscribe((res: any) => {
                             this.user = res;
-                            localStorage.setItem('user', JSON.stringify(res));
+                            this.db.setItem('user',(res));
                             Swal.fire({
                                 title: '<div><img src="assets/icon/greencheck.png" style="width: 20vw; height:20vw;"><br><h5>Claimed all!</h5></div>',
                                 text: 'Reward is claimed',
@@ -272,7 +280,7 @@ export class GamePage implements OnInit {
                         .getRequest('users/detail')
                         .subscribe((res: any) => {
                             this.user = res;
-                            localStorage.setItem('user', JSON.stringify(res));
+                            this.db.setItem('user',(res));
                             Swal.fire({
                                 title: '<div><img src="assets/icon/greencheck.png" style="width: 20vw; height:20vw;"><br><h5>Claimed all!</h5></div>',
                                 text: 'Reward is claimed',

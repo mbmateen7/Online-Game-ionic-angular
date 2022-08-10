@@ -6,7 +6,7 @@
             <div class="box img-container">
               <!-- <ion-back-button defaultHref="filter" *ngIf="filterPage" icon="chevron-back-outline"></ion-back-button> -->
               <img src="assets/dummy-user.jpg" alt="" width="55" style="border-radius: 50%; margin-left: 5px" />
-              <span class="pl-10 username-css">{{this.user.user_name}}</span>
+              <span class="pl-10 username-css">{{this.user?.user_name}}</span>
             </div>
           </ion-col>
           <ion-col style="display: flex; align-items: center; justify-content: center;">
@@ -19,7 +19,7 @@
               <img class="ml--10" style="z-index: 1" src="assets/currency-logo.svg" alt="" />
               <div class="currency-bg">
                 <div class="content-center font-700 f-12">
-                  <span>{{user.puzzle_pieces}}</span>
+                  <span>{{user?.puzzle_pieces}}</span>
                 </div>
               </div>
               <div class="plus-bg ml--10">

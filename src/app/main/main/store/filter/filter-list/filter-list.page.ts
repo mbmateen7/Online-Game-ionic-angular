@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
+import { StorageService } from 'src/app/service/storage.service';
 import { RestService } from 'src/app/service/rest.service';
 import { UserService } from 'src/app/service/user.service';
 import Swal from 'sweetalert2';
@@ -15,7 +16,7 @@ export class FilterListPage implements OnInit {
   ownedItemsList;
   sortedFilterList = [];
   user;
-  constructor(private restService: RestService, private userService: UserService, private navCtrl: NavController) { }
+  constructor(private db:StorageService,private restService: RestService, private userService: UserService, private navCtrl: NavController) { }
 
   ngOnInit() {
   }
@@ -32,9 +33,18 @@ export class FilterListPage implements OnInit {
   }
 
   ionViewDidEnter() {
-    this.user = JSON.parse(localStorage.getItem('user'));
-    this.filterList = JSON.parse(localStorage.getItem('filterList'));
-    this.ownedItemsList = JSON.parse(localStorage.getItem('ownedItemsList'))
+    // this.user = JSON.parse(localStorage.getItem('user'));
+    this.db.getItem('user').then(res => {
+      this.user= res
+  });
+    // this.filterList = JSON.parse(localStorage.getItem('filterList'));
+    this.db.getItem('filterList').then(res => {
+      this.filterList= res
+  });
+    // this.ownedItemsList = JSON.parse(localStorage.getItem('ownedItemsList'))
+    this.db.getItem('ownedItemsList').then(res => {
+      this.ownedItemsList= res
+  });
     let ownedFilterIds = [];
     for (let i = 0; i < this.ownedItemsList.length; i++) {
       if (this.ownedItemsList[i].filter_id) {

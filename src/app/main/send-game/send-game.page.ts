@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NavController } from '@ionic/angular';
+import { StorageService } from 'src/app/service/storage.service';
 import { RestService } from 'src/app/service/rest.service';
 import Swal from 'sweetalert2';
 @Component({
@@ -13,10 +14,13 @@ export class SendGamePage implements OnInit {
   puzzleImage;
   gameObj = null;
   hintWord = null;
-  constructor(private route: ActivatedRoute, private restService: RestService, private router: Router, private navCtrl: NavController) { }
+  constructor(private db:StorageService,private route: ActivatedRoute, private restService: RestService, private router: Router, private navCtrl: NavController) { }
 
   ngOnInit() {
-    this.puzzleImage = localStorage.getItem('puzzleImage');
+    // this.puzzleImage = localStorage.getItem('puzzleImage');
+    this.db.getItem('puzzleImage').then(res => {
+      this.puzzleImage= res
+  });
     this.gameObj = JSON.parse(this.route.snapshot.paramMap.get('gameObj'));
   }
 
@@ -49,9 +53,9 @@ export class SendGamePage implements OnInit {
 
   onSendGame() {
     this.restService.postRequestToken('games/send-game', this.gameObj).subscribe(res => {
-      localStorage.setItem('puzzleImage', null);
-      localStorage.setItem('base64String1', null)
-      localStorage.setItem('base64String2', null)
+      this.db.setItem('puzzleImage', null);
+      this.db.setItem('base64String1', null)
+      this.db.setItem('base64String2', null)
     })
 
     Swal.fire({

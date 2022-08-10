@@ -5,6 +5,7 @@ import { RestService } from 'src/app/service/rest.service';
 import { CameraSource } from '@capacitor/camera';
 import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import { StorageService } from 'src/app/service/storage.service';
 @Component({
     selector: 'app-freind',
     templateUrl: './freind.page.html',
@@ -24,13 +25,17 @@ export class FreindPage implements OnInit {
         private alertController: AlertController,
         private loadingController: LoadingController,
         private router: Router,
-        private activatedRoute: ActivatedRoute
+        private activatedRoute: ActivatedRoute,
+        private db: StorageService
     ) {}
 
     ngOnInit() {
         // console.log('Add Friend', this.activatedRoute.snapshot.paramMap.get('addFriend'));
 
-        this.user = JSON.parse(localStorage.getItem('user'));
+        // this.user = JSON.parse(localStorage.getItem('user'));
+        this.db.getItem('user').then(res => {
+            this.user= res
+        });
 
         if (this.activatedRoute.snapshot.paramMap.get('addFriend')) {
             this.getFriendList();
@@ -46,8 +51,12 @@ export class FreindPage implements OnInit {
                     }
                 }
             });
-        let user = localStorage.getItem('user');
-        user = JSON.parse(user);
+        // let user = localStorage.getItem('user');
+        // user = JSON.parse(user);
+
+        this.db.getItem('user').then(res => {
+            this.user= res
+        });
         this.getFriendList();
     }
 
@@ -108,11 +117,11 @@ export class FreindPage implements OnInit {
         if (res.base64String) {
             // this.loadingController.dismiss();
             var firstHalfLength = res.base64String.length / 2;
-            localStorage.setItem(
+            this.db.setItem(
                 'base64String1',
                 res.base64String.substr(0, firstHalfLength)
             );
-            localStorage.setItem(
+            this.db.setItem(
                 'base64String2',
                 res.base64String.substr(firstHalfLength)
             );
@@ -184,13 +193,16 @@ export class FreindPage implements OnInit {
     }
 
     getFriendList() {
-        let user = localStorage.getItem('user');
-        user = JSON.parse(user);
+        // let user = localStorage.getItem('user');
+        this.db.getItem('user').then(res => {
+            this.user= res
+        });
+        // this.user = JSON.parse(this.user);
         this.restService
             .getRequest('contacts/listing')
             .subscribe((res: any) => {
                 this.friendList = res.filter((f) => {
-                    return f.id != user['id'];
+                    return f.id != this.user['id'];
                 });
             });
     }

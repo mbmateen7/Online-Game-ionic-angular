@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { RestService } from 'src/app/service/rest.service';
 import { LoadingController, NavController, Platform } from '@ionic/angular';
 import { AlertController } from '@ionic/angular';
-import { FCM } from "@capacitor-community/fcm";
+import { FCM } from '@capacitor-community/fcm';
 import { PushNotifications } from '@capacitor/push-notifications';
 import Swal from 'sweetalert2';
 import { UserService } from 'src/app/service/user.service';
@@ -21,6 +21,7 @@ import {
     Facebook,
     FacebookLoginResponse,
 } from '@awesome-cordova-plugins/facebook/ngx';
+import { StorageService } from 'src/app/service/storage.service';
 
 // import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook/ngx';
 // import { Facebook, FacebookLoginResponse } from '@awesome-cordova-plugins/facebook/ngx';
@@ -51,7 +52,8 @@ export class LoginPage implements OnInit {
         private fbb: Facebook,
         private signInWithApple: SignInWithApple,
         public platform: Platform,
-        private navCtrl: NavController
+        private navCtrl: NavController,
+        private db: StorageService
     ) {
         this.platform.ready().then(() => {
             if (this.platform.is('ios')) {
@@ -95,9 +97,14 @@ export class LoginPage implements OnInit {
         const res = await this.userService.onUserLogin(this.profileForm.value);
         this.showSignUpLoader = false;
         if (res['token']) {
-            localStorage.setItem('token', res['token']);
-            localStorage.setItem('user', JSON.stringify(res['data'][0]));
+            console.log('1');
+
+            this.db.setItem('user', res['data'][0]);
+            this.db.setItem('token', res['token']);
+            this.userService.updateUser(res['data'][0]);
+            this.db.tokenSource.next(res['token']);
             this.setDeviceToken();
+            console.log('4');
             this.setLastLogin();
             this.showSignUpLoader = false;
             this.navCtrl.setDirection('root');
@@ -160,33 +167,31 @@ export class LoginPage implements OnInit {
         };
         this.restService
             .postRequestToken('users/set-last-login', obj)
-            .subscribe((res: any) => {
-                if (res.status) {
-                    console.log('Last login is set successfully');
-                }
-            });
+            .subscribe((res) => {});
     }
 
     setDeviceToken() {
-        console.log("SET DEVICE TOKEN");
-        
+        console.log('SET DEVICE TOKEN');
+
         PushNotifications.requestPermissions().then((result) => {
             console.log(result.receive);
-            
+
             if (result.receive === 'granted') {
                 PushNotifications.register();
-                FCM.getToken().then((result) => {
-                    console.log(result.token);
-                    
-                    // this.remoteToken = result.token;
-                  }).catch((err) => console.log('i am Error' , err));
+                FCM.getToken()
+                    .then((result) => {
+                        console.log(result.token);
+
+                        // this.remoteToken = result.token;
+                    })
+                    .catch((err) => console.log('i am Error', err));
             } else {
             }
         });
 
         PushNotifications.addListener('registration', (token) => {
-            console.log("token : ", token);
-            
+            console.log('token : ', token);
+
             this.restService
                 .postRequestToken('users/set-device-token', {
                     deviceToken: token,
@@ -252,8 +257,8 @@ export class LoginPage implements OnInit {
         this.restService.postRequest('users/register', data).subscribe(
             (res: any) => {
                 if (res.token) {
-                    localStorage.setItem('token', res.token);
-                    localStorage.setItem('user', JSON.stringify(res.data));
+                    this.db.setItem('token', res.token);
+                    this.db.setItem('user', (res.data));
                     this.setDeviceToken();
                     this.showSignUpLoader = false;
                     console.log('Logged In');

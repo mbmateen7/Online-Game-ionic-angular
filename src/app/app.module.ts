@@ -22,6 +22,8 @@ import { SocialSharing } from '@awesome-cordova-plugins/social-sharing/ngx';
 import { Facebook, FacebookLoginResponse } from '@awesome-cordova-plugins/facebook/ngx';
 import { InterceptorService } from './service/interceptor.service';
 import { LoaderComponent } from './components/loader/loader.component';
+import { StorageService } from './service/storage.service';
+import { NativeStorage } from '@awesome-cordova-plugins/native-storage/ngx';
 
 @NgModule({
     declarations: [AppComponent, DialogComponent, LoaderComponent],
@@ -33,9 +35,11 @@ import { LoaderComponent } from './components/loader/loader.component';
         HttpClientModule,
         IonicModule.forRoot(),
         AppRoutingModule,
-        ReactiveFormsModule,
+        ReactiveFormsModule
     ],
     providers: [
+        StorageService,
+        NativeStorage,
         {
             provide: HTTP_INTERCEPTORS,
             useClass: InterceptorService,

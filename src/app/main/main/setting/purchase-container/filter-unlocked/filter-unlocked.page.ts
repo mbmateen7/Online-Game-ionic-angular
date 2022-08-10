@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { StorageService } from 'src/app/service/storage.service';
 
 @Component({
   selector: 'app-filter-unlocked',
@@ -10,11 +11,17 @@ export class FilterUnlockedPage implements OnInit {
   filterList: [];
   ownedList;
   extractedArr = [];
-  constructor() { }
+  constructor(private db : StorageService) { }
 
   ngOnInit() {
-    this.filterList = JSON.parse(localStorage.getItem('filterList'))
-    this.ownedList = JSON.parse(localStorage.getItem('ownedItemsList'))
+    // this.filterList = JSON.parse(localStorage.getItem('filterList'))
+    this.db.getItem('filterList').then(res => {
+      this.filterList= res
+  });
+    // this.ownedList = JSON.parse(localStorage.getItem('ownedItemsList'))
+    this.db.getItem('ownedItemsList').then(res => {
+      this.ownedList= res
+  });
     for (let i = 0; i < this.ownedList.length; i++) {
       this.getOwnedFilterList(this.ownedList[i].filter_id)
 

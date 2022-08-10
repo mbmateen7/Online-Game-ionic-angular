@@ -10,6 +10,7 @@ import {
     AdMobBannerSize,
 } from '@capacitor-community/admob';
 import { LoadingController } from '@ionic/angular';
+import { StorageService } from 'src/app/service/storage.service';
 @Component({
     selector: 'app-main',
     templateUrl: './main.page.html',
@@ -22,7 +23,8 @@ export class MainPage implements OnInit {
     activeTab = 'game';
     constructor(
         private restService: RestService,
-        private loading: LoadingController
+        private loading: LoadingController,
+        private db: StorageService
     ) {}
 
     ngOnInit() {
@@ -43,11 +45,11 @@ export class MainPage implements OnInit {
                             this.secondaryFilterList.push(res.message[i]);
                         }
                     }
-                    localStorage.setItem(
+                    this.db.setItem(
                         'filterList',
                         JSON.stringify(this.filterList)
                     );
-                    localStorage.setItem(
+                    this.db.setItem(
                         'secondaryList',
                         JSON.stringify(this.secondaryFilterList)
                     );
@@ -57,7 +59,7 @@ export class MainPage implements OnInit {
                     .subscribe((res: any) => {
                         console.log('purchase detail reponse');
                         this.ownedItemsList = res.message;
-                        localStorage.setItem(
+                        this.db.setItem(
                             'ownedItemsList',
                             JSON.stringify(this.ownedItemsList)
                         );

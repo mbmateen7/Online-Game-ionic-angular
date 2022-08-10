@@ -5,6 +5,7 @@ import { UserService } from 'src/app/service/user.service';
 import { FilterPage } from './filter/filter.page';
 import Swal from 'sweetalert2';
 import { LoadingController, NavController } from '@ionic/angular';
+import { StorageService } from 'src/app/service/storage.service';
 
 @Component({
   selector: 'app-store',
@@ -30,25 +31,36 @@ export class StorePage implements OnInit{
   lastGameCheck = false;
   lastGame;
 
-  constructor(private route: ActivatedRoute, private userService: UserService, private loading: LoadingController, private navCtrl: NavController, private router: Router) {
-    this.userService.userSourceValue
-    this.userService.userData.subscribe(res => {
+  constructor(private db: StorageService ,private route: ActivatedRoute, private userService: UserService, private loading: LoadingController, private navCtrl: NavController, private router: Router) {
+    this.userService.userSourceValue;
+    this.userService.userData?.subscribe(res => {
       console.log(res);
-      this.user = JSON.parse(res);
+      this.user = res;
     })
   }
 
   ngOnInit() {
     this.buttonDisabled = false;
-    this.user = JSON.parse(localStorage.getItem('user'));
-    this.lastClaimDate = localStorage.getItem('LastLoginClaim');
-    let ClaimDate = JSON.parse(this.lastClaimDate);
+    // this.user = JSON.parse(localStorage.getItem('user'));
+    this.db.getItem('user').then(res => {
+      this.user= res
+  });
+  
+    // this.lastClaimDate = localStorage.getItem('LastLoginClaim');
+    this.db.getItem('LastLoginClaim').then(res => {
+      this.lastClaimDate= JSON.parse(res)
+  });
+  
+    let ClaimDate = this.lastClaimDate;
+    console.log('claim date ='+ ClaimDate);
 
-      let savedClaimDate = new Date(ClaimDate.date).getDate();  
-      let inDateCount = ClaimDate.dateCount;
-      this.lastLogin = new Date(this.user.last_login);  
+      let savedClaimDate = new Date(ClaimDate?.date).getDate();  
+      let inDateCount = ClaimDate?.dateCount;
+      this.lastLogin = new Date(this.user?.last_login);  
       let LoginClaimDate =  (this.lastLogin).getDate();
       let claimDateSum = LoginClaimDate - savedClaimDate;
+      
+      
       
 
       console.log("1->"+LoginClaimDate, "2->"+savedClaimDate);
@@ -77,14 +89,18 @@ export class StorePage implements OnInit{
   }
 
   ionViewWillEnter() {
-    let lastGame = localStorage.getItem('lastGame');
+    // let lastGame = localStorage.getItem('lastGame');
+    let lastGame;
+    this.db.getItem('lastGame').then(res => {
+      lastGame= res
+  });
     if (lastGame) {
-        this.lastGame = JSON.parse(lastGame);
+        // this.lastGame = JSON.parse(lastGame);
         this.lastGameCheck = true;
     }
     this.filterData = JSON.parse(this.route.snapshot.queryParamMap.get('filterData'));
     console.log('FilterData', this.filterData)
-    this.filterPage = this.filterData.id ? true : false
+    this.filterPage = this.filterData?.id ? true : false
   }
   changeTab(x) {
     if (x === 'f') {
@@ -116,7 +132,11 @@ export class StorePage implements OnInit{
 
     this.lastLogin = new Date(this.user.last_login);
 
-     this.lastClaimDate = localStorage.getItem('LastLoginClaim');
+    //  this.lastClaimDate = localStorage.getItem('LastLoginClaim');
+    this.db.getItem('LastLoginClaim').then(res => {
+      this.lastClaimDate = JSON.parse(res);
+  });
+    
      console.log("First Claimdate Full:"+this.lastClaimDate);
     //  let ClaimDate = JSON.parse(this.lastClaimDate);
 
@@ -134,9 +154,12 @@ export class StorePage implements OnInit{
     {
             console.log("if");
             this.dateCounter = 1;
-            localStorage.setItem('LastLoginClaim',JSON.stringify({date:this.lastLogin,dateCount:this.dateCounter, userId:this.user.id}));
-            this.lastClaimDate = localStorage.getItem('LastLoginClaim');
-            let ClaimDate = JSON.parse(this.lastClaimDate);
+            this.db.setItem('LastLoginClaim',JSON.stringify({date:this.lastLogin,dateCount:this.dateCounter, userId:this.user.id}));
+            // this.lastClaimDate = localStorage.getItem('LastLoginClaim');
+            this.db.getItem('LastLoginClaim').then(res => {
+              this.lastClaimDate = JSON.parse(res);
+          });
+            let ClaimDate = this.lastClaimDate;
             let savedClaimDate =  (this.lastLogin).getDate();
             let lastSavedClaimDate = (new Date(ClaimDate.date).getDate());
             let inDateCount = ClaimDate.dateCount;
@@ -164,15 +187,18 @@ export class StorePage implements OnInit{
     else 
     {
               console.log("else");
-              let ClaimDate = JSON.parse(this.lastClaimDate);
+              let ClaimDate = this.lastClaimDate;
               let signInUser = this.user.id;
               let localsignedUser = ClaimDate.userId;
                 if (signInUser != localsignedUser)
                 {
                   this.dateCounter = 1;
-                  localStorage.setItem('LastLoginClaim',JSON.stringify({date:this.lastLogin,dateCount:this.dateCounter, userId:this.user.id}));
-                  this.lastClaimDate = localStorage.getItem('LastLoginClaim');
-                  let ClaimDate = JSON.parse(this.lastClaimDate);
+                  this.db.setItem('LastLoginClaim',JSON.stringify({date:this.lastLogin,dateCount:this.dateCounter, userId:this.user.id}));
+                  // this.lastClaimDate = localStorage.getItem('LastLoginClaim');
+                  this.db.getItem('LastLoginClaim').then(res => {
+                    this.lastClaimDate = JSON.parse(res);
+                });
+                  let ClaimDate =this.lastClaimDate;
                   let savedClaimDate =  (this.lastLogin).getDate();
                   let lastSavedClaimDate = (new Date(ClaimDate.date).getDate());
                   
@@ -195,8 +221,11 @@ export class StorePage implements OnInit{
                 else {
               
               
-                      this.lastClaimDate = localStorage.getItem('LastLoginClaim');
-                      let ClaimDate = JSON.parse(this.lastClaimDate);
+                      // this.lastClaimDate = localStorage.getItem('LastLoginClaim');
+                      this.db.getItem('LastLoginClaim').then(res => {
+                        this.lastClaimDate = JSON.parse(res);
+                    });
+                      let ClaimDate = this.lastClaimDate;
 
                         let savedClaimDate = new Date(ClaimDate.date).getDate();  
                         let inDateCount = ClaimDate.dateCount;
@@ -215,7 +244,7 @@ export class StorePage implements OnInit{
                             console.log("inDateCount:"+ inDateCount)
                             this.dateCounter = inDateCount;
                           this.dateCounter ++;
-                          localStorage.setItem('LastLoginClaim',JSON.stringify({date:this.lastLogin,dateCount:this.dateCounter, userId:this.user.id}));
+                          this.db.setItem('LastLoginClaim',JSON.stringify({date:this.lastLogin,dateCount:this.dateCounter, userId:this.user.id}));
                             
                             console.log("counter in else if"+this.dateCounter);
                                for (let index = 1; index <= inDateCount+1; index++) {
@@ -297,7 +326,7 @@ export class StorePage implements OnInit{
                             console.log("start from begining");
                             this.dateCounter = 1;
 
-                            localStorage.setItem('LastLoginClaim',JSON.stringify({date:this.lastLogin,dateCount:this.dateCounter, userId:this.user.id}));
+                            this.db.setItem('LastLoginClaim',JSON.stringify({date:this.lastLogin,dateCount:this.dateCounter, userId:this.user.id}));
 
                             for (let index = 1; index <= 5; index++) {
                               const element = document.getElementById('claim-image-'+index).style.opacity='0.5';
@@ -336,7 +365,7 @@ export class StorePage implements OnInit{
 
     onPlayGame(game) {
         this.doLoading().then(() => {
-            localStorage.setItem('lastGame', JSON.stringify(game));
+            this.db.setItem('lastGame', JSON.stringify(game));
             this.router.navigate(
                 ['play-game', { game: JSON.stringify(game) }],
                 { replaceUrl: true }

@@ -6,6 +6,7 @@ import {
     Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
+import { StorageService } from 'src/app/service/storage.service';
 import { RestService } from 'src/app/service/rest.service';
 import Swal from 'sweetalert2';
 
@@ -20,10 +21,13 @@ export class UpdateProfilePage implements OnInit {
     showSignUpLoader = false;
     user;
 
-    constructor(private restService: RestService, private router: Router) {}
+    constructor(private restService: RestService, private router: Router, private db:StorageService) {}
 
     ngOnInit() {
-        this.user = JSON.parse(localStorage.getItem('user'));
+        // this.user = JSON.parse(localStorage.getItem('user'));
+        this.db.getItem('user').then(res => {
+            this.user= res
+        });
 
         this.pfCheckBox = false;
         this.profileForm = new FormGroup({
@@ -39,7 +43,7 @@ export class UpdateProfilePage implements OnInit {
         this.profileForm.patchValue({
             // user_name: this.user.user_name,
             // email: this.user.email,
-            phone_number: this.user.phone_number,
+            phone_number: this.user?.phone_number,
         });
     }
 

@@ -19,6 +19,7 @@ import { Validators } from '@angular/forms';
 import { SpinnerDialog } from '@ionic-native/spinner-dialog/ngx';
 import Swal from 'sweetalert2';
 import { UserService } from 'src/app/service/user.service';
+import { StorageService } from 'src/app/service/storage.service';
 
 @Component({
     selector: 'app-filter',
@@ -169,6 +170,8 @@ export class FilterPage implements OnInit {
     user;
     sendGameLoader = false;
     hideImage = false;
+    str1;
+    str2;
 
     constructor(
         private restService: RestService,
@@ -180,7 +183,8 @@ export class FilterPage implements OnInit {
         private dragulaService: DragulaService,
         public loadingController: LoadingController,
         private spinnerDialog: SpinnerDialog,
-        private userService: UserService
+        private userService: UserService,
+        private db: StorageService
     ) {}
 
     ionViewDidEnter() {
@@ -225,37 +229,70 @@ export class FilterPage implements OnInit {
             });
 
         this.userService.userData.subscribe((res) => {
-            this.ownedItemsList = JSON.parse(
-                localStorage.getItem('ownedItemsList')
-            );
-        });
+            this.user = res
+            // this.ownedItemsList = JSON.parse(
+            //     localStorage.getItem('ownedItemsList')
+            // );
+            
 
-        this.user = JSON.parse(localStorage.getItem('user'));
-        let str1 = localStorage.getItem('base64String1');
-        let str2 = localStorage.getItem('base64String2');
-        this.cameraImage = str1.concat(str2);
-        this.cameraImage = 'data:image/jpeg;base64,' + this.cameraImage;
+        });
+        // this.user = JSON.parse(localStorage.getItem('user'));
+        this.db.getItem('user').then(res => {
+            this.user= res
+        });
+        // let str1 = localStorage.getItem('base64String1');
+        // let str2 = localStorage.getItem('base64String2');
+        this.db.getItem('base64String1').then(res => {
+             this.str1  = res
+             this.db.getItem('base64String2').then(res => {
+                  this.str2  = res
+                  this.cameraImage = this.str1.concat(this.str2);
+                  this.cameraImage = 'data:image/jpeg;base64,' + this.cameraImage;
+                  
+                  this.compressImage(this.cameraImage, 100, 100).then((compressed) => {
+                      this.cameraImageThumbnail = compressed;
+                  });
+                  
+             });
+        });
         this.userId = this.route.snapshot.paramMap.get('userId');
         this.gameType = this.route.snapshot.paramMap.get('gameType');
         if (this.gameType) {
-            localStorage.setItem('GameType', this.gameType);
+            this.db.setItem('GameType', this.gameType);
         }
         if (!this.gameType) {
-            this.gameType = localStorage.getItem('GameType');
+            // this.gameType = localStorage.getItem('GameType');
+            this.db.getItem('GameType').then(res => {
+                this.gameType  = res
+           });
         }
-        this.compressImage(this.cameraImage, 100, 100).then((compressed) => {
-            this.cameraImageThumbnail = compressed;
-        });
+
+        this.db.getItem('ownedItemsList').then(res => {
+            console.log('ownedItemsList',res);
+            this.ownedItemsList  = JSON.parse(res)
+       });
         this.filterList = [];
         this.secondaryFilterList = [];
 
-        this.filterList = JSON.parse(localStorage.getItem('filterList'));
-        this.secondaryFilterList = JSON.parse(
-            localStorage.getItem('secondaryList')
-        );
-        this.ownedItemsList = JSON.parse(
-            localStorage.getItem('ownedItemsList')
-        );
+        // this.filterList = JSON.parse(localStorage.getItem('filterList'));
+        
+        this.db.getItem('filterList').then(res => {
+            console.log('FilterList',res);
+            
+            this.filterList  = JSON.parse(res)
+       });
+        // this.secondaryFilterList = JSON.parse(
+        //     localStorage.getItem('secondaryList')
+        // );
+        this.db.getItem('secondaryList').then(res => {
+            console.log('secondaryList',res);
+            this.secondaryFilterList  = JSON.parse(res)
+       });
+
+        // this.ownedItemsList = JSON.parse(
+        //     localStorage.getItem('ownedItemsList')
+        // );
+        
     }
 
     ionViewWillEnter() {
@@ -383,7 +420,7 @@ export class FilterPage implements OnInit {
         );
 
         var finalSource = finalCanvas.toDataURL('image/jpeg');
-        localStorage.setItem('puzzleImage', finalSource);
+        this.db.setItem('puzzleImage', finalSource);
 
         const gameObj = {
             friend_id: this.userId,
@@ -530,7 +567,7 @@ export class FilterPage implements OnInit {
         );
 
         var finalSource = finalCanvas.toDataURL('image/jpeg');
-        localStorage.setItem('puzzleImage', finalSource);
+        this.db.setItem('puzzleImage', finalSource);
 
         const gameObj = {
             friend_id: this.userId,

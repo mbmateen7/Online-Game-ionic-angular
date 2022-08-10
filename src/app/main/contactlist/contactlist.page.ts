@@ -12,6 +12,7 @@ import { LoadingController } from '@ionic/angular';
 import { SpinnerDialog } from '@ionic-native/spinner-dialog/ngx';
 
 import Swal from 'sweetalert2';
+import { StorageService } from 'src/app/service/storage.service';
 @Component({
     selector: 'app-contactlist',
     templateUrl: './contactlist.page.html',
@@ -33,7 +34,8 @@ export class ContactlistPage implements OnInit {
         public activatedRoute: ActivatedRoute,
         private restService: RestService,
         public loadingController: LoadingController,
-        private spinnerDialog: SpinnerDialog
+        private spinnerDialog: SpinnerDialog,
+        private db:StorageService
     ) {}
 
     ngOnInit() {
@@ -51,7 +53,11 @@ export class ContactlistPage implements OnInit {
     ionViewDidEnter() {
         console.log(this.activatedRoute.snapshot.paramMap.get('friend_id'));
 
-        this.user = JSON.parse(localStorage.getItem('user'));
+        // this.user = JSON.parse(this.db.getItem('user'));
+        
+        this.db.getItem('user').then(res => {
+            this.user= res
+        });
 
         const friendId = this.activatedRoute.snapshot.paramMap.get('friend_id');
 
@@ -139,16 +145,16 @@ export class ContactlistPage implements OnInit {
         this.showFilterPageLoader = true;
         const res = await this.photoService.addNewToGallery(src);
         if (res.base64String) {
-            localStorage.setItem('base64String1', '');
-            localStorage.setItem('base64String2', '');
-            localStorage.setItem('puzzleImage', '');
+            this.db.setItem('base64String1', '');
+            this.db.setItem('base64String2', '');
+            this.db.setItem('puzzleImage', '');
             this.showFilterPageLoader = true;
             var firstHalfLength = res.base64String.length / 2;
-            localStorage.setItem(
+            this.db.setItem(
                 'base64String1',
                 res.base64String.substr(0, firstHalfLength)
             );
-            localStorage.setItem(
+            this.db.setItem(
                 'base64String2',
                 res.base64String.substr(firstHalfLength)
             );

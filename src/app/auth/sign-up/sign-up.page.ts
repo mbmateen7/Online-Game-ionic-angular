@@ -17,6 +17,7 @@ import {
     SignInWithApple,
 } from '@awesome-cordova-plugins/sign-in-with-apple/ngx';
 import { Platform, NavController } from '@ionic/angular';
+import { StorageService } from 'src/app/service/storage.service';
 @Component({
     selector: 'app-sign-up',
     templateUrl: './sign-up.page.html',
@@ -36,7 +37,8 @@ export class SignUpPage implements OnInit {
         private googlePlus: GooglePlus,
         private signInWithApple: SignInWithApple,
         public platform: Platform,
-        private navCtrl: NavController
+        private navCtrl: NavController,
+        private db: StorageService
     ) {
         this.platform.ready().then(() => {
             if (this.platform.is('ios')) {
@@ -112,8 +114,8 @@ export class SignUpPage implements OnInit {
         this.restService.postRequest('users/register', data).subscribe(
             (res: any) => {
                 if (res.token) {
-                    localStorage.setItem('token', res.token);
-                    localStorage.setItem('user', JSON.stringify(res.data));
+                    this.db.setItem('token', res.token);
+                    this.db.setItem('user',(res.data));
                     this.setDeviceToken();
                     this.showSignUpLoader = false;
                     this.navCtrl.setDirection('root');
@@ -163,8 +165,8 @@ export class SignUpPage implements OnInit {
                         if (res.token) {
                             // console.log('This is res tipu', res.data.user_name.maxLength);
 
-                            localStorage.setItem('token', res.token);
-                            localStorage.setItem(
+                            this.db.setItem('token', res.token);
+                            this.db.setItem(
                                 'user',
                                 JSON.stringify(res.data)
                             );

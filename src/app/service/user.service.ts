@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { StorageService } from './storage.service';
 import { RestService } from './rest.service';
 
 @Injectable({
@@ -8,13 +9,18 @@ import { RestService } from './rest.service';
 export class UserService {
     userSource: BehaviorSubject<any>;
     userData: Observable<any>;
-    constructor(private restService: RestService) {
-        this.userSource = new BehaviorSubject(localStorage.getItem('user'));
-        this.userData = this.userSource.asObservable();
+    constructor(
+        private restService: RestService,
+        private db: StorageService
+    ) {
+        this.db.getItem('user').then((res) => {
+            this.userSource = new BehaviorSubject(res);
+            this.userData = this.userSource.asObservable();
+        });
     }
 
-    get userSourceValue() {
-        return this.userSource.value;
+    get userSourceValue() {        
+        return this.userSource?.value || false;
     }
 
     updateUser(user) {
@@ -25,10 +31,10 @@ export class UserService {
                     this.restService
                         .getRequest('users/detail')
                         .subscribe((res: any) => {
-                            localStorage.setItem('user', JSON.stringify(res));
+                            this.db.setItem('user', res);
                             console.log('Detail response');
 
-                            this.userSource.next(localStorage.getItem('user'));
+                            this.userSource.next(res);
                         });
                 }
             });

@@ -26,7 +26,7 @@ const routes: Routes = [
   {
     path: 'main',
     loadChildren: () => import('./main/main/main.module').then(m => m.MainPageModule),
-    canActivate: [AuthGuardService]
+    // canActivate: [AuthGuardService]
   },
   {
     path: 'contactlist',

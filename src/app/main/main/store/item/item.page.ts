@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { StorageService } from 'src/app/service/storage.service';
 import { RestService } from 'src/app/service/rest.service';
 import { UserService } from 'src/app/service/user.service';
 import Swal from 'sweetalert2';
@@ -16,11 +17,15 @@ export class ItemPage implements OnInit {
     shopList = [];
     constructor(
         private restService: RestService,
-        private userService: UserService
+        private userService: UserService,
+        private db:StorageService
     ) {}
 
     ngOnInit() {
-        this.user = JSON.parse(localStorage.getItem('user'));
+        // this.user = JSON.parse(localStorage.getItem('user'));
+        this.db.getItem('user').then(res => {
+            this.user= res
+        });
         this.restService
             .getRequest('shop/get-bundle-list')
             .subscribe((res: any) => {
@@ -44,7 +49,7 @@ export class ItemPage implements OnInit {
                 });
             this.user.puzzle_pieces = this.user.puzzle_pieces - shop.price;
             this.userService.updateUser(this.user);
-            localStorage.setItem('user', JSON.stringify(this.user));
+            this.db.setItem('user', JSON.stringify(this.user));
         } else {
             Swal.fire({
                 title: 'Error',
@@ -62,7 +67,7 @@ export class ItemPage implements OnInit {
             .getRequest('shop/purchase-detail')
             .subscribe((res: any) => {
                 this.ownedItemsList = res.message;
-                localStorage.setItem(
+                this.db.setItem(
                     'ownedItemsList',
                     JSON.stringify(this.ownedItemsList)
                 );

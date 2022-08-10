@@ -14,6 +14,7 @@ import Swal from 'sweetalert2';
 
 import { Validators } from '@angular/forms';
 import { SpinnerDialog } from '@ionic-native/spinner-dialog/ngx';
+import { StorageService } from 'src/app/service/storage.service';
 
 @Component({
     selector: 'app-play-game',
@@ -257,6 +258,7 @@ export class PlayGamePage implements OnInit {
         private route: ActivatedRoute,
         private dragulaService: DragulaService,
         private restService: RestService,
+        private db:StorageService,
         public loadingController: LoadingController,
         private router: Router,
         private fb: FormBuilder,
@@ -1275,8 +1277,8 @@ export class PlayGamePage implements OnInit {
         this.restService.getRequest('users/detail').subscribe((res: any) => {
             if (res.token) {
                 // this.user = res.data[0];
-                localStorage.setItem('token', res.token);
-                localStorage.setItem('user', JSON.stringify(res.data[0]));
+                this.db.setItem('token', res.token);
+                this.db.setItem('user', JSON.stringify(res.data[0]));
             }
         });
     }
